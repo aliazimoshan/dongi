@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:testingriverpod/state/auth/providers/is_logged_in_provider.dart';
+import 'package:testingriverpod/views/onboard/onboarding_screen.dart';
 
 import 'firebase_options.dart';
 import 'state/providers/is_loading_provider.dart';
@@ -58,7 +59,7 @@ class App extends ConsumerWidget {
           if (isLoggedIn) {
             return const MainView();
           } else {
-            return const LoginView();
+            return const OnboardingScreen();
           }
         },
       ),
