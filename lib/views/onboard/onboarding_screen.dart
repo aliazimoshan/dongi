@@ -107,7 +107,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                         ),
                       ),
-                      _currentPage + 1 == contents.length
+                      i + 1 == contents.length
                           ? Row(
                               children: [
                                 Expanded(
