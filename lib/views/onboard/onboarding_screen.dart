@@ -1,6 +1,5 @@
+import 'package:dongi/views/constants/font_config.dart';
 import 'package:flutter/material.dart';
-import 'package:dongi/views/components/button/bordered_button.dart';
-import 'package:dongi/views/components/button/normal_button.dart';
 import 'package:dongi/views/constants/onboarding_contents.dart';
 import 'package:dongi/views/constants/size_config.dart';
 import 'package:dongi/views/onboard/onboarding_widget.dart';
@@ -25,9 +24,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-    double width = SizeConfig.screenW!;
-
     return Scaffold(
       backgroundColor: colors[_currentPage],
       body: PageView.builder(
@@ -45,7 +41,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     padding: const EdgeInsets.all(40.0),
                     child: Image.asset(
                       contents[index].image,
-                      height: SizeConfig.blockV! * 35,
                     ),
                   ),
                 ),
@@ -60,24 +55,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     children: [
                       Text(
                         contents[index].title,
-                        style: TextStyle(
-                          fontFamily: "Mulish",
-                          fontWeight: FontWeight.w600,
-                          fontSize: (width <= 550) ? 30 : 35,
-                          color: Colors.black,
-                        ),
+                        style: FontConfig.h1(),
                       ),
                       Text(
                         contents[index].desc,
-                        style: TextStyle(
-                          fontFamily: "Mulish",
-                          fontWeight: FontWeight.w300,
-                          fontSize: (width <= 550) ? 17 : 25,
-                          color: Colors.black,
-                        ),
+                        style: FontConfig.p(),
                       ),
                       animatedDots(index, _currentPage),
-                      actionButtons(index, _controller)
+                      actionButtons(context, index, _controller)
                     ],
                   ),
                 ),

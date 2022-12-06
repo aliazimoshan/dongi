@@ -8,7 +8,6 @@ class ButtonModel extends StatelessWidget {
   final Color? backgroundColor;
   final Color? borderColor;
   final Color? textColor;
-  final double _width = SizeConfig.screenW!;
 
   ButtonModel({
     super.key,
@@ -21,6 +20,7 @@ class ButtonModel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = SizeConfig.width(context)!;
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
@@ -30,7 +30,7 @@ class ButtonModel extends StatelessWidget {
           side: BorderSide(color: borderColor ?? Colors.black),
         ),
         elevation: 0,
-        padding: (_width <= 550)
+        padding: (width <= 550)
             ? const EdgeInsets.symmetric(
                 horizontal: 30,
                 vertical: 20,
@@ -40,7 +40,7 @@ class ButtonModel extends StatelessWidget {
                 vertical: 25,
               ),
         textStyle: TextStyle(
-          fontSize: (_width <= 550) ? 13 : 17,
+          fontSize: (width <= 550) ? 13 : 17,
         ),
       ),
       child: Text(
