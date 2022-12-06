@@ -1,3 +1,4 @@
+import 'package:dongi/views/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:dongi/views/components/button/bordered_button.dart';
 import 'package:dongi/views/components/button/normal_button.dart';
@@ -29,14 +30,21 @@ class OnboardingWidget {
     );
   }
 
-  actionButtons(int index, PageController controller) {
+  actionButtons(BuildContext context, int index, PageController controller) {
     return index + 1 == contents.length
         ? Row(
             children: [
               Expanded(
                 child: NormalButton(
                   title: "START",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginView(),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
