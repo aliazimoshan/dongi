@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:testingriverpod/views/components/button/bordered_button.dart';
-import 'package:testingriverpod/views/components/button/normal_button.dart';
-import 'package:testingriverpod/views/constants/onboarding_contents.dart';
-import 'package:testingriverpod/views/constants/size_config.dart';
+import 'package:dongi/views/components/button/bordered_button.dart';
+import 'package:dongi/views/components/button/normal_button.dart';
+import 'package:dongi/views/constants/onboarding_contents.dart';
+import 'package:dongi/views/constants/size_config.dart';
+import 'package:dongi/views/onboard/onboarding_widget.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -11,15 +12,10 @@ class OnboardingScreen extends StatefulWidget {
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  late PageController _controller;
+class _OnboardingScreenState extends State<OnboardingScreen>
+    with OnboardingWidget {
+  final PageController _controller = PageController();
   int _currentPage = 0;
-
-  @override
-  void initState() {
-    _controller = PageController();
-    super.initState();
-  }
 
   List colors = const [
     Color(0xffDAD3C8),
@@ -27,29 +23,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Color(0xffDCF6E6),
   ];
 
-  AnimatedContainer _buildDots({
-    int? index,
-  }) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(50),
-        ),
-        color: _currentPage == index ? Colors.black : Colors.grey.shade300,
-      ),
-      margin: const EdgeInsets.only(right: 5),
-      height: 10,
-      curve: Curves.easeIn,
-      width: _currentPage == index ? 20 : 10,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     double width = SizeConfig.screenW!;
-    double height = SizeConfig.screenH!;
 
     return Scaffold(
       backgroundColor: colors[_currentPage],
@@ -58,7 +35,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         controller: _controller,
         onPageChanged: (value) => setState(() => _currentPage = value),
         itemCount: contents.length,
-        itemBuilder: (context, i) {
+        itemBuilder: (context, index) {
           return Column(
             children: [
               Expanded(
@@ -67,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(40.0),
                     child: Image.asset(
-                      contents[i].image,
+                      contents[index].image,
                       height: SizeConfig.blockV! * 35,
                     ),
                   ),
@@ -82,7 +59,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        contents[i].title,
+                        contents[index].title,
                         style: TextStyle(
                           fontFamily: "Mulish",
                           fontWeight: FontWeight.w600,
@@ -91,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                       Text(
-                        contents[i].desc,
+                        contents[index].desc,
                         style: TextStyle(
                           fontFamily: "Mulish",
                           fontWeight: FontWeight.w300,
@@ -99,60 +76,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           color: Colors.black,
                         ),
                       ),
-                      Row(
-                        children: List.generate(
-                          contents.length,
-                          (int index) => _buildDots(
-                            index: index,
-                          ),
-                        ),
-                      ),
-                      i + 1 == contents.length
-                          ? Row(
-                              children: [
-                                Expanded(
-                                  child: NormalButton(
-                                    title: "START",
-                                    onPressed: () {},
-                                  ),
-                                ),
-                              ],
-                            )
-                          : Row(
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: BorderedButton(
-                                    title: "SKIP",
-                                    onPressed: () {
-                                      _controller.animateToPage(
-                                        2,
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeIn,
-                                      );
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: NormalButton(
-                                    title: "NEXT",
-                                    onPressed: () {
-                                      _controller.nextPage(
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeIn,
-                                      );
-                                    },
-                                    backgroundColor: null,
-                                  ),
-                                ),
-                              ],
-                            )
+                      animatedDots(index, _currentPage),
+                      actionButtons(index, _controller)
                     ],
                   ),
                 ),
