@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/constants/firebase_collection_name.dart';
-import 'package:testingriverpod/state/constants/firebase_field_name.dart';
-import 'package:testingriverpod/state/image_upload/extensions/get_collection_name_from_file_type.dart';
-import 'package:testingriverpod/state/image_upload/typedefs/is_loading.dart';
-import 'package:testingriverpod/state/posts/models/post.dart';
-import 'package:testingriverpod/state/posts/typedefs/post_id.dart';
+import 'package:dongi/state/constants/firebase_collection_name.dart';
+import 'package:dongi/state/constants/firebase_field_name.dart';
+import 'package:dongi/state/image_upload/extensions/get_collection_name_from_file_type.dart';
+import 'package:dongi/state/image_upload/typedefs/is_loading.dart';
+import 'package:dongi/state/posts/models/post.dart';
+import 'package:dongi/state/posts/typedefs/post_id.dart';
 
 class DeletePostStateNotifier extends StateNotifier<IsLoading> {
   DeletePostStateNotifier() : super(false);

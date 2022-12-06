@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/likes/providers/post_likes_count_provider.dart';
-import 'package:testingriverpod/state/posts/typedefs/post_id.dart';
-import 'package:testingriverpod/views/components/animations/small_error_animation_view.dart';
-import 'package:testingriverpod/views/components/constants/strings.dart';
+import 'package:dongi/state/likes/providers/post_likes_count_provider.dart';
+import 'package:dongi/state/posts/typedefs/post_id.dart';
+import 'package:dongi/views/components/animations/small_error_animation_view.dart';
+import 'package:dongi/views/components/constants/strings.dart';
 
 class LikesCountView extends ConsumerWidget {
   final PostId postId;

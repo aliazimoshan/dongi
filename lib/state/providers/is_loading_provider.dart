@@ -1,9 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:testingriverpod/state/auth/providers/auth_state_provider.dart';
-import 'package:testingriverpod/state/comments/providers/delete_comment_provider.dart';
-import 'package:testingriverpod/state/comments/providers/send_comment_provider.dart';
-import 'package:testingriverpod/state/image_upload/providers/image_uploader_provider.dart';
-import 'package:testingriverpod/state/posts/providers/delete_post_provider.dart';
+import 'package:dongi/state/auth/providers/auth_state_provider.dart';
+import 'package:dongi/state/comments/providers/delete_comment_provider.dart';
+import 'package:dongi/state/comments/providers/send_comment_provider.dart';
+import 'package:dongi/state/image_upload/providers/image_uploader_provider.dart';
+import 'package:dongi/state/posts/providers/delete_post_provider.dart';
 
 part 'is_loading_provider.g.dart';
 

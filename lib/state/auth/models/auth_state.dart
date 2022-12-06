@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:testingriverpod/state/auth/models/auth_result.dart';
-import 'package:testingriverpod/state/posts/typedefs/user_id.dart';
+import 'package:dongi/state/auth/models/auth_result.dart';
+import 'package:dongi/state/posts/typedefs/user_id.dart';
 
 @immutable
 class AuthState {

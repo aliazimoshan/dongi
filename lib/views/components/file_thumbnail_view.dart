@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/image_upload/models/thumbnail_request.dart';
-import 'package:testingriverpod/state/image_upload/providers/thumbnail_provider.dart';
-import 'package:testingriverpod/views/components/animations/loading_animation_view.dart';
-import 'package:testingriverpod/views/components/animations/small_error_animation_view.dart';
+import 'package:dongi/state/image_upload/models/thumbnail_request.dart';
+import 'package:dongi/state/image_upload/providers/thumbnail_provider.dart';
+import 'package:dongi/views/components/animations/loading_animation_view.dart';
+import 'package:dongi/views/components/animations/small_error_animation_view.dart';
 
 class FileThumbnailView extends ConsumerWidget {
   final ThumbnailRequest thumbnailRequest;

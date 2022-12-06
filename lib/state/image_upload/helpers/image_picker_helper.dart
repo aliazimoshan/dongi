@@ -2,7 +2,7 @@ import 'dart:io' show File;
 
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:image_picker/image_picker.dart';
-import 'package:testingriverpod/state/image_upload/extensions/to_file.dart';
+import 'package:dongi/state/image_upload/extensions/to_file.dart';
 
 @immutable
 class ImagePickerHelper {

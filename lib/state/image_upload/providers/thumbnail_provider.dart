@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:testingriverpod/state/image_upload/exceptions/could_not_build_thumbnail_exception.dart';
-import 'package:testingriverpod/state/image_upload/extensions/get_image_aspect_ratio.dart';
-import 'package:testingriverpod/state/image_upload/models/file_type.dart';
-import 'package:testingriverpod/state/image_upload/models/image_with_aspect_ratio.dart';
-import 'package:testingriverpod/state/image_upload/models/thumbnail_request.dart';
+import 'package:dongi/state/image_upload/exceptions/could_not_build_thumbnail_exception.dart';
+import 'package:dongi/state/image_upload/extensions/get_image_aspect_ratio.dart';
+import 'package:dongi/state/image_upload/models/file_type.dart';
+import 'package:dongi/state/image_upload/models/image_with_aspect_ratio.dart';
+import 'package:dongi/state/image_upload/models/thumbnail_request.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 part 'thumbnail_provider.g.dart';

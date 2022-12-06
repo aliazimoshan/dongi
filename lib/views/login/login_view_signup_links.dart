@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:testingriverpod/views/components/rich_text/base_text.dart';
-import 'package:testingriverpod/views/components/rich_text/rich_text_widget.dart';
-import 'package:testingriverpod/views/constants/strings.dart';
+import 'package:dongi/views/components/rich_text/base_text.dart';
+import 'package:dongi/views/components/rich_text/rich_text_widget.dart';
+import 'package:dongi/views/constants/strings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginViewSignupLinks extends StatelessWidget {

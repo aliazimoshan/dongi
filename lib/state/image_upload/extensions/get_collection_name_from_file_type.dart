@@ -1,4 +1,4 @@
-import 'package:testingriverpod/state/image_upload/models/file_type.dart';
+import 'package:dongi/state/image_upload/models/file_type.dart';
 
 extension CollectionName on FileType {
   String get collectionName {

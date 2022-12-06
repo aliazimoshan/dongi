@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:testingriverpod/enums/date_sorting.dart';
-import 'package:testingriverpod/state/posts/typedefs/post_id.dart';
+import 'package:dongi/enums/date_sorting.dart';
+import 'package:dongi/state/posts/typedefs/post_id.dart';
 
 @immutable
 class RequestForPostAndComments {

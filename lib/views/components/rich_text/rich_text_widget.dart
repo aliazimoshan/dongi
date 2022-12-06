@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:testingriverpod/views/components/rich_text/base_text.dart';
-import 'package:testingriverpod/views/components/rich_text/link_text.dart';
+import 'package:dongi/views/components/rich_text/base_text.dart';
+import 'package:dongi/views/components/rich_text/link_text.dart';
 
 class RichTextWidget extends StatelessWidget {
   final TextStyle? styleForAll;

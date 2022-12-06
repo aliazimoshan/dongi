@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:testingriverpod/views/components/constants/strings.dart';
-import 'package:testingriverpod/views/components/dialogs/alert_dialog_model.dart';
+import 'package:dongi/views/components/constants/strings.dart';
+import 'package:dongi/views/components/dialogs/alert_dialog_model.dart';
 
 @immutable
 class DeleteDialog extends AlertDialogModel<bool> {

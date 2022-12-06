@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/comments/models/comment_payload.dart';
-import 'package:testingriverpod/state/constants/firebase_collection_name.dart';
-import 'package:testingriverpod/state/image_upload/typedefs/is_loading.dart';
-import 'package:testingriverpod/state/posts/typedefs/post_id.dart';
-import 'package:testingriverpod/state/posts/typedefs/user_id.dart';
+import 'package:dongi/state/comments/models/comment_payload.dart';
+import 'package:dongi/state/constants/firebase_collection_name.dart';
+import 'package:dongi/state/image_upload/typedefs/is_loading.dart';
+import 'package:dongi/state/posts/typedefs/post_id.dart';
+import 'package:dongi/state/posts/typedefs/user_id.dart';
 
 class SendCommentNotifier extends StateNotifier<IsLoading> {
   SendCommentNotifier() : super(false);

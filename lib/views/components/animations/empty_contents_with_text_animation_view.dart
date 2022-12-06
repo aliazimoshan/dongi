@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testingriverpod/views/components/animations/empty_contents_animation_view.dart';
+import 'package:dongi/views/components/animations/empty_contents_animation_view.dart';
 
 class EmptyContentsWithTextAnimationView extends StatelessWidget {
   final String text;

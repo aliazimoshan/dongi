@@ -1,6 +1,6 @@
-import 'package:testingriverpod/enums/date_sorting.dart';
-import 'package:testingriverpod/state/comments/models/comment.dart';
-import 'package:testingriverpod/state/comments/models/post_comments_request.dart';
+import 'package:dongi/enums/date_sorting.dart';
+import 'package:dongi/state/comments/models/comment.dart';
+import 'package:dongi/state/comments/models/post_comments_request.dart';
 
 extension Sorting on Iterable<Comment> {
   Iterable<Comment> applySortingFrom(RequestForPostAndComments request) {

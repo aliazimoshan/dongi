@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/auth/providers/user_id_provider.dart';
-import 'package:testingriverpod/state/image_upload/models/file_type.dart';
-import 'package:testingriverpod/state/image_upload/models/thumbnail_request.dart';
-import 'package:testingriverpod/state/image_upload/providers/image_uploader_provider.dart';
-import 'package:testingriverpod/state/post_settings/models/post_setting.dart';
-import 'package:testingriverpod/state/post_settings/providers/post_settings_provider.dart';
-import 'package:testingriverpod/views/components/file_thumbnail_view.dart';
-import 'package:testingriverpod/views/constants/strings.dart';
+import 'package:dongi/state/auth/providers/user_id_provider.dart';
+import 'package:dongi/state/image_upload/models/file_type.dart';
+import 'package:dongi/state/image_upload/models/thumbnail_request.dart';
+import 'package:dongi/state/image_upload/providers/image_uploader_provider.dart';
+import 'package:dongi/state/post_settings/models/post_setting.dart';
+import 'package:dongi/state/post_settings/providers/post_settings_provider.dart';
+import 'package:dongi/views/components/file_thumbnail_view.dart';
+import 'package:dongi/views/constants/strings.dart';
 
 class CreateNewPostView extends StatefulHookConsumerWidget {
   final File fileToPost;

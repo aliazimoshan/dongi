@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:testingriverpod/state/constants/firebase_collection_name.dart';
-import 'package:testingriverpod/state/constants/firebase_field_name.dart';
-import 'package:testingriverpod/state/posts/typedefs/user_id.dart';
-import 'package:testingriverpod/state/user_info/models/user_info_payload.dart';
+import 'package:dongi/state/constants/firebase_collection_name.dart';
+import 'package:dongi/state/constants/firebase_field_name.dart';
+import 'package:dongi/state/posts/typedefs/user_id.dart';
+import 'package:dongi/state/user_info/models/user_info_payload.dart';
 
 @immutable
 class UserInfoStorage {

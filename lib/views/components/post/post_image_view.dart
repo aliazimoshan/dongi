@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testingriverpod/state/posts/models/post.dart';
+import 'package:dongi/state/posts/models/post.dart';
 
 class PostImageView extends StatelessWidget {
   final Post post;

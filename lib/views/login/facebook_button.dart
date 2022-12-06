@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:testingriverpod/views/constants/app_colors.dart';
-import 'package:testingriverpod/views/constants/strings.dart';
+import 'package:dongi/views/constants/app_colors.dart';
+import 'package:dongi/views/constants/strings.dart';
 
 class FacebookButton extends StatelessWidget {
   const FacebookButton({

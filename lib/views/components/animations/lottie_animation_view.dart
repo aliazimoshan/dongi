@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:testingriverpod/views/components/animations/models/lottie_animation.dart';
+import 'package:dongi/views/components/animations/models/lottie_animation.dart';
 
 class LottieAnimationView extends StatelessWidget {
   final LottieAnimation animation;

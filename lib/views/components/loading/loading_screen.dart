@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:testingriverpod/views/components/constants/strings.dart';
-import 'package:testingriverpod/views/components/loading/loading_screen_controller.dart';
+import 'package:dongi/views/components/constants/strings.dart';
+import 'package:dongi/views/components/loading/loading_screen_controller.dart';
 
 class LoadingScreen {
   LoadingScreen._sharedInstance();

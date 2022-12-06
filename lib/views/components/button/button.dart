@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testingriverpod/views/constants/size_config.dart';
+import 'package:dongi/views/constants/size_config.dart';
 
 @immutable
 class ButtonModel extends StatelessWidget {

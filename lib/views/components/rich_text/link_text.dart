@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart' show immutable, VoidCallback;
-import 'package:testingriverpod/views/components/rich_text/base_text.dart';
+import 'package:dongi/views/components/rich_text/base_text.dart';
 
 @immutable
 class LinkText extends BaseText {

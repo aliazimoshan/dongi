@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:testingriverpod/state/constants/firebase_collection_name.dart';
-import 'package:testingriverpod/state/constants/firebase_field_name.dart';
-import 'package:testingriverpod/state/likes/models/like.dart';
-import 'package:testingriverpod/state/likes/models/like_dislike_request.dart';
+import 'package:dongi/state/constants/firebase_collection_name.dart';
+import 'package:dongi/state/constants/firebase_field_name.dart';
+import 'package:dongi/state/likes/models/like.dart';
+import 'package:dongi/state/likes/models/like_dislike_request.dart';
 
 part 'like_dislike_post_provider.g.dart';
 

@@ -3,17 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/auth/providers/user_id_provider.dart';
-import 'package:testingriverpod/state/comments/models/post_comments_request.dart';
-import 'package:testingriverpod/state/comments/providers/post_comments_provider.dart';
-import 'package:testingriverpod/state/comments/providers/send_comment_provider.dart';
-import 'package:testingriverpod/state/posts/typedefs/post_id.dart';
-import 'package:testingriverpod/views/components/animations/empty_contents_with_text_animation_view.dart';
-import 'package:testingriverpod/views/components/animations/error_animation_view.dart';
-import 'package:testingriverpod/views/components/animations/loading_animation_view.dart';
-import 'package:testingriverpod/views/components/comment/comment_tile.dart';
-import 'package:testingriverpod/views/constants/strings.dart';
-import 'package:testingriverpod/views/extensions/dismiss_keyboard.dart';
+import 'package:dongi/state/auth/providers/user_id_provider.dart';
+import 'package:dongi/state/comments/models/post_comments_request.dart';
+import 'package:dongi/state/comments/providers/post_comments_provider.dart';
+import 'package:dongi/state/comments/providers/send_comment_provider.dart';
+import 'package:dongi/state/posts/typedefs/post_id.dart';
+import 'package:dongi/views/components/animations/empty_contents_with_text_animation_view.dart';
+import 'package:dongi/views/components/animations/error_animation_view.dart';
+import 'package:dongi/views/components/animations/loading_animation_view.dart';
+import 'package:dongi/views/components/comment/comment_tile.dart';
+import 'package:dongi/views/constants/strings.dart';
+import 'package:dongi/views/extensions/dismiss_keyboard.dart';
 
 class PostCommentsView extends HookConsumerWidget {
   final PostId postId;

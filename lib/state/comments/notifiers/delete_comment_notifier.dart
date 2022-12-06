@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/comments/typedefs/comment_id.dart';
-import 'package:testingriverpod/state/constants/firebase_collection_name.dart';
-import 'package:testingriverpod/state/image_upload/typedefs/is_loading.dart';
+import 'package:dongi/state/comments/typedefs/comment_id.dart';
+import 'package:dongi/state/constants/firebase_collection_name.dart';
+import 'package:dongi/state/image_upload/typedefs/is_loading.dart';
 
 class DeleteCommentStateNotifier extends StateNotifier<IsLoading> {
   DeleteCommentStateNotifier() : super(false);

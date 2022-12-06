@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:testingriverpod/state/posts/models/post.dart';
-import 'package:testingriverpod/views/components/post/post_thumbnail_view.dart';
-import 'package:testingriverpod/views/post_details/post_details_view.dart';
+import 'package:dongi/state/posts/models/post.dart';
+import 'package:dongi/views/components/post/post_thumbnail_view.dart';
+import 'package:dongi/views/post_details/post_details_view.dart';
 
 class PostsGridView extends StatelessWidget {
   final Iterable<Post> posts;

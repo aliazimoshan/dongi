@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/auth/providers/user_id_provider.dart';
-import 'package:testingriverpod/state/comments/models/comment.dart';
-import 'package:testingriverpod/state/comments/providers/delete_comment_provider.dart';
-import 'package:testingriverpod/state/user_info/providers/user_info_model_provider.dart';
-import 'package:testingriverpod/views/components/animations/small_error_animation_view.dart';
-import 'package:testingriverpod/views/components/constants/strings.dart';
-import 'package:testingriverpod/views/components/dialogs/alert_dialog_model.dart';
-import 'package:testingriverpod/views/components/dialogs/delete_dialog.dart';
+import 'package:dongi/state/auth/providers/user_id_provider.dart';
+import 'package:dongi/state/comments/models/comment.dart';
+import 'package:dongi/state/comments/providers/delete_comment_provider.dart';
+import 'package:dongi/state/user_info/providers/user_info_model_provider.dart';
+import 'package:dongi/views/components/animations/small_error_animation_view.dart';
+import 'package:dongi/views/components/constants/strings.dart';
+import 'package:dongi/views/components/dialogs/alert_dialog_model.dart';
+import 'package:dongi/views/components/dialogs/delete_dialog.dart';
 
 class CommentTile extends ConsumerWidget {
   final Comment comment;

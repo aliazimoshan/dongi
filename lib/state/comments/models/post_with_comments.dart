@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:testingriverpod/state/comments/models/comment.dart';
-import 'package:testingriverpod/state/posts/models/post.dart';
+import 'package:dongi/state/comments/models/comment.dart';
+import 'package:dongi/state/posts/models/post.dart';
 
 @immutable
 class PostWithComments {

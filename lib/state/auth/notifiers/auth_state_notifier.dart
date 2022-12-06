@@ -1,9 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/auth/backend/authenticator.dart';
-import 'package:testingriverpod/state/auth/models/auth_result.dart';
-import 'package:testingriverpod/state/auth/models/auth_state.dart';
-import 'package:testingriverpod/state/posts/typedefs/user_id.dart';
-import 'package:testingriverpod/state/user_info/backend/user_info_storage.dart';
+import 'package:dongi/state/auth/backend/authenticator.dart';
+import 'package:dongi/state/auth/models/auth_result.dart';
+import 'package:dongi/state/auth/models/auth_state.dart';
+import 'package:dongi/state/posts/typedefs/user_id.dart';
+import 'package:dongi/state/user_info/backend/user_info_storage.dart';
 
 class AuthStateNotifier extends StateNotifier<AuthState> {
   final _authenticator = const Authenticator();

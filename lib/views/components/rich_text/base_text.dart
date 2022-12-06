@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show immutable, VoidCallback;
 import 'package:flutter/material.dart' show TextStyle, Colors, TextDecoration;
-import 'package:testingriverpod/views/components/rich_text/link_text.dart';
+import 'package:dongi/views/components/rich_text/link_text.dart';
 
 @immutable
 class BaseText {

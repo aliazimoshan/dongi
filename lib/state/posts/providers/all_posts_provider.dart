@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/constants/firebase_collection_name.dart';
-import 'package:testingriverpod/state/constants/firebase_field_name.dart';
-import 'package:testingriverpod/state/posts/models/post.dart';
+import 'package:dongi/state/constants/firebase_collection_name.dart';
+import 'package:dongi/state/constants/firebase_field_name.dart';
+import 'package:dongi/state/posts/models/post.dart';
 
 final allPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
   (ref) {

@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/auth/providers/user_id_provider.dart';
-import 'package:testingriverpod/state/constants/firebase_collection_name.dart';
-import 'package:testingriverpod/state/constants/firebase_field_name.dart';
-import 'package:testingriverpod/state/posts/typedefs/post_id.dart';
+import 'package:dongi/state/auth/providers/user_id_provider.dart';
+import 'package:dongi/state/constants/firebase_collection_name.dart';
+import 'package:dongi/state/constants/firebase_field_name.dart';
+import 'package:dongi/state/posts/typedefs/post_id.dart';
 
 final hasLikedPostProvider = StreamProvider.family.autoDispose<bool, PostId>(
   (

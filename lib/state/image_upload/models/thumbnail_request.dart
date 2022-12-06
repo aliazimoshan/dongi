@@ -1,7 +1,7 @@
 import 'dart:io' show File;
 
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:testingriverpod/state/image_upload/models/file_type.dart';
+import 'package:dongi/state/image_upload/models/file_type.dart';
 
 @immutable
 class ThumbnailRequest {

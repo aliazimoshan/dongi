@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/posts/models/post.dart';
-import 'package:testingriverpod/state/user_info/providers/user_info_model_provider.dart';
-import 'package:testingriverpod/views/components/animations/small_error_animation_view.dart';
-import 'package:testingriverpod/views/components/rich_two_parts_text.dart';
+import 'package:dongi/state/posts/models/post.dart';
+import 'package:dongi/state/user_info/providers/user_info_model_provider.dart';
+import 'package:dongi/views/components/animations/small_error_animation_view.dart';
+import 'package:dongi/views/components/rich_two_parts_text.dart';
 
 class PostDisplayNameAndMessageView extends ConsumerWidget {
   final Post post;

@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:testingriverpod/state/auth/models/auth_result.dart';
-import 'package:testingriverpod/state/auth/providers/auth_state_provider.dart';
+import 'package:dongi/state/auth/models/auth_result.dart';
+import 'package:dongi/state/auth/providers/auth_state_provider.dart';
 
 part 'is_logged_in_provider.g.dart';
 

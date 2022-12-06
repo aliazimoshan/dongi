@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testingriverpod/views/components/button/button.dart';
+import 'package:dongi/views/components/button/button.dart';
 
 @immutable
 class NormalButton extends ButtonModel {

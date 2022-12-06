@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter/material.dart' show Colors;
-import 'package:testingriverpod/extensions/string/as_html_color_to_color.dart';
+import 'package:dongi/extensions/string/as_html_color_to_color.dart';
 
 @immutable
 class AppColors {

@@ -1,4 +1,4 @@
-import 'package:testingriverpod/state/post_settings/constants/constants.dart';
+import 'package:dongi/state/post_settings/constants/constants.dart';
 
 enum PostSetting {
   allowLikes(

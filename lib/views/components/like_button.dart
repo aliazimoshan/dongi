@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/auth/providers/user_id_provider.dart';
-import 'package:testingriverpod/state/likes/models/like_dislike_request.dart';
-import 'package:testingriverpod/state/likes/providers/has_liked_post_provider.dart';
-import 'package:testingriverpod/state/likes/providers/like_dislike_post_provider.dart';
-import 'package:testingriverpod/state/posts/typedefs/post_id.dart';
+import 'package:dongi/state/auth/providers/user_id_provider.dart';
+import 'package:dongi/state/likes/models/like_dislike_request.dart';
+import 'package:dongi/state/likes/providers/has_liked_post_provider.dart';
+import 'package:dongi/state/likes/providers/like_dislike_post_provider.dart';
+import 'package:dongi/state/posts/typedefs/post_id.dart';
 
 class LikeButton extends ConsumerWidget {
   final PostId postId;

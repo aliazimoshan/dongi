@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/auth/providers/auth_state_provider.dart';
-import 'package:testingriverpod/views/constants/app_colors.dart';
-import 'package:testingriverpod/views/constants/strings.dart';
-import 'package:testingriverpod/views/login/divider_with_margins.dart';
-import 'package:testingriverpod/views/login/facebook_button.dart';
-import 'package:testingriverpod/views/login/google_button.dart';
-import 'package:testingriverpod/views/login/login_view_signup_links.dart';
+import 'package:dongi/state/auth/providers/auth_state_provider.dart';
+import 'package:dongi/views/constants/app_colors.dart';
+import 'package:dongi/views/constants/strings.dart';
+import 'package:dongi/views/login/divider_with_margins.dart';
+import 'package:dongi/views/login/facebook_button.dart';
+import 'package:dongi/views/login/google_button.dart';
+import 'package:dongi/views/login/login_view_signup_links.dart';
 
 class LoginView extends ConsumerWidget {
   const LoginView({Key? key}) : super(key: key);

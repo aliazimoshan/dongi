@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:testingriverpod/state/auth/providers/is_logged_in_provider.dart';
-import 'package:testingriverpod/views/onboard/onboarding_screen.dart';
+import 'package:dongi/state/auth/providers/is_logged_in_provider.dart';
+import 'package:dongi/views/onboard/onboarding_screen.dart';
 
 import 'firebase_options.dart';
 import 'state/providers/is_loading_provider.dart';
