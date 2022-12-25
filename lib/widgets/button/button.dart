@@ -30,6 +30,7 @@ class ButtonModel extends StatelessWidget {
             side: BorderSide(color: borderColor ?? Colors.black),
           ),
           elevation: 0,
+          padding: EdgeInsets.zero,
           //padding: const EdgeInsets.symmetric(
           //  horizontal: 15,
           //  vertical: 15,

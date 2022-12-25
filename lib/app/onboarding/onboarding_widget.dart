@@ -50,7 +50,8 @@ class OnboardingWidget {
           )
         : Row(
             children: [
-              Expanded(
+              SizedBox(
+                width: 50,
                 child: BorderedButton(
                   title: "SKIP",
                   onPressed: () {
@@ -62,7 +63,7 @@ class OnboardingWidget {
                   },
                 ),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 10),
               Expanded(
                 flex: 3,
                 child: NormalButton(
