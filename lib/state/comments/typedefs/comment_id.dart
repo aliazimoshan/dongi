@@ -1,1 +1,0 @@
-typedef CommentId = String;

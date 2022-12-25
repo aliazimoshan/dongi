@@ -1,4 +1,0 @@
-enum DateSorting {
-  newestOnTop,
-  oldestOnTop,
-}
