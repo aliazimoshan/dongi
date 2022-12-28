@@ -1,4 +1,5 @@
 import 'package:dongi/app/onboarding/onboarding_page.dart';
+import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,7 +19,10 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.indigo),
+      theme: ThemeData(
+        primarySwatch: ColorConfig.primarySwatch,
+        scaffoldBackgroundColor: ColorConfig.background,
+      ),
       debugShowCheckedModeBanner: false,
       home: OnboardingPage(),
     );
