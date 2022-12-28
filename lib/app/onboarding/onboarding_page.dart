@@ -1,9 +1,9 @@
-import 'package:dongi/app/onboarding/onboarding_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/font_config.dart';
-import '../../constants/onboarding_contents.dart';
+import '../../constants/content/onboarding_contents.dart';
+import 'onboarding_view_model.dart';
 import 'onboarding_widget.dart';
 
 class OnboardingPage extends ConsumerWidget with OnboardingWidget {
@@ -55,6 +55,7 @@ class OnboardingPage extends ConsumerWidget with OnboardingWidget {
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         onboardingContents[index].title,
@@ -62,7 +63,7 @@ class OnboardingPage extends ConsumerWidget with OnboardingWidget {
                       ),
                       Text(
                         onboardingContents[index].desc,
-                        style: FontConfig.p(),
+                        style: FontConfig.p1(),
                       ),
                       animatedDots(index, currentPage),
                       actionButtons(context, index, _controller)
