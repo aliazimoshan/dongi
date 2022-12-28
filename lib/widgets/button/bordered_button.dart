@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'button.dart';
 
 @immutable
-class BorderedButton extends ButtonModel {
+class BorderedButton extends ButtonWidget {
   const BorderedButton({
     super.key,
     required String title,

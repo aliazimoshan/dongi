@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import '../../constants/font_config.dart';
 
 @immutable
-class ButtonModel extends StatelessWidget {
+class ButtonWidget extends StatelessWidget {
   final String title;
   final Function()? onPressed;
   final Color? backgroundColor;
   final Color? borderColor;
   final Color? textColor;
 
-  const ButtonModel({
+  const ButtonWidget({
     super.key,
     required this.title,
     required this.onPressed,
@@ -39,11 +40,7 @@ class ButtonModel extends StatelessWidget {
         ),
         child: Text(
           title,
-          style: TextStyle(
-            fontWeight: FontWeight.w400,
-            color: textColor ?? Colors.white,
-            fontSize: 14,
-          ),
+          style: FontConfig.p1(color: textColor),
         ),
       ),
     );
