@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../constants/onboarding_contents.dart';
+import '../../constants/content/onboarding_contents.dart';
 import '../../widgets/button/bordered_button.dart';
 import '../../widgets/button/normal_button.dart';
 
@@ -35,6 +35,7 @@ class OnboardingWidget {
             children: [
               Expanded(
                 child: NormalButton(
+                  textColor: Colors.white,
                   title: "START",
                   onPressed: () {
                     Navigator.push(
@@ -68,6 +69,7 @@ class OnboardingWidget {
                 flex: 3,
                 child: NormalButton(
                   title: "NEXT",
+                  textColor: Colors.white,
                   onPressed: () {
                     controller.nextPage(
                       duration: const Duration(milliseconds: 200),
