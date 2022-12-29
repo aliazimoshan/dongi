@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ColorConfig {
-  static Color background = const Color(0xffE6E6E6);
+  ///
+  /// * ----- dongi color palette
+  static Color background = const Color(0xffF2F2F2);
+  static Color pureWhite = const Color(0xffFFFFFF);
+  static Color baseGrey = const Color(0xffE6E6E6);
+
+  /// * ----- primary swatch
   static MaterialColor primarySwatch = const MaterialColor(
     0xFF000000,
     <int, Color>{
