@@ -1,7 +1,6 @@
+import 'package:dongi/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import '../../constants/content/onboarding_contents.dart';
-import '../../widgets/button/bordered_button.dart';
-import '../../widgets/button/normal_button.dart';
 
 class OnboardingWidget {
   animatedDots(int index, int currentPage) {
@@ -30,12 +29,11 @@ class OnboardingWidget {
   }
 
   actionButtons(BuildContext context, int index, PageController controller) {
-    return index + 1 == onboardingContents.length
-        ? Row(
-            children: [
+    return Row(
+      children: index + 1 == onboardingContents.length
+          ? [
               Expanded(
-                child: NormalButton(
-                  textColor: Colors.white,
+                child: ButtonWidget(
                   title: "START",
                   onPressed: () {
                     Navigator.push(
@@ -47,13 +45,11 @@ class OnboardingWidget {
                   },
                 ),
               ),
-            ],
-          )
-        : Row(
-            children: [
+            ]
+          : [
               SizedBox(
                 width: 50,
-                child: BorderedButton(
+                child: ButtonWidget.outline(
                   title: "SKIP",
                   onPressed: () {
                     controller.animateToPage(
@@ -67,7 +63,7 @@ class OnboardingWidget {
               const SizedBox(width: 10),
               Expanded(
                 flex: 3,
-                child: NormalButton(
+                child: ButtonWidget(
                   title: "NEXT",
                   textColor: Colors.white,
                   onPressed: () {
@@ -80,6 +76,6 @@ class OnboardingWidget {
                 ),
               ),
             ],
-          );
+    );
   }
 }
