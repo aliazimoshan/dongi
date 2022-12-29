@@ -7,6 +7,14 @@ class FontConfig {
         fontSize: 34,
         color: Colors.black,
       );
+
+  static TextStyle h5() => const TextStyle(
+        fontFamily: "Mulish",
+        fontWeight: FontWeight.w200,
+        fontSize: 25,
+        color: Colors.black,
+      );
+
   static TextStyle h6() => const TextStyle(
         fontFamily: "Mulish",
         fontWeight: FontWeight.w200,
