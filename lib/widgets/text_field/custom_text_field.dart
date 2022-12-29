@@ -25,7 +25,9 @@ class CustomTextField extends Container {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,
-            hintStyle: FontConfig.button(),
+            hintStyle: FontConfig.body2().copyWith(
+              color: ColorConfig.primarySwatch.withOpacity(0.5),
+            ),
           ),
         ),
       );
