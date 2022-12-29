@@ -48,7 +48,7 @@ Widget child({String? title, Color? textColor}) {
     child: Center(
       child: Text(
         title ?? "",
-        style: FontConfig.button(),
+        style: FontConfig.button().copyWith(color: textColor),
       ),
     ),
   );
