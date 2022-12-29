@@ -25,7 +25,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.background,
       ),
       debugShowCheckedModeBanner: false,
-      home: RegisterPage(),
+      home: OnboardingPage(),
     );
   }
 }

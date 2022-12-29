@@ -1,44 +1,50 @@
 import 'package:flutter/material.dart';
 
 class FontConfig {
-  static TextStyle h1() => const TextStyle(
+  static TextStyle h4({Color? color}) => const TextStyle(
         fontFamily: "Mulish",
-        fontWeight: FontWeight.w700,
-        fontSize: 24,
+        fontWeight: FontWeight.w200,
+        fontSize: 34,
         color: Colors.black,
       );
-
-  static TextStyle h2() => const TextStyle(
+  static TextStyle h6({Color? color}) => const TextStyle(
         fontFamily: "Mulish",
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w200,
         fontSize: 20,
         color: Colors.black,
       );
 
-  static TextStyle h3() => const TextStyle(
+  static TextStyle body1({Color? color}) => TextStyle(
         fontFamily: "Mulish",
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w200,
         fontSize: 16,
-        color: Colors.black,
+        color: color ?? Colors.black,
       );
 
-  static TextStyle p1({Color? color}) => TextStyle(
+  static TextStyle body2({Color? color}) => TextStyle(
         fontFamily: "Mulish",
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w200,
         fontSize: 14,
         color: color ?? Colors.black,
       );
 
-  static TextStyle p2() => const TextStyle(
+  static TextStyle button({Color? color}) => TextStyle(
         fontFamily: "Mulish",
         fontWeight: FontWeight.w300,
-        fontSize: 16,
+        fontSize: 14,
+        color: color ?? Colors.black,
+      );
+
+  static TextStyle caption() => const TextStyle(
+        fontFamily: "Mulish",
+        fontWeight: FontWeight.w100,
+        fontSize: 12,
         color: Colors.black,
       );
 
-  static TextStyle p3() => const TextStyle(
+  static TextStyle overline() => const TextStyle(
         fontFamily: "Mulish",
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w100,
         fontSize: 10,
         color: Colors.black,
       );

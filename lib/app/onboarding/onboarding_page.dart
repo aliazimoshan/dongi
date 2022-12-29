@@ -59,11 +59,11 @@ class OnboardingPage extends ConsumerWidget with OnboardingWidget {
                     children: [
                       Text(
                         onboardingContents[index].title,
-                        style: FontConfig.h1(),
+                        style: FontConfig.h4(),
                       ),
                       Text(
                         onboardingContents[index].desc,
-                        style: FontConfig.p1(),
+                        style: FontConfig.h6(),
                       ),
                       animatedDots(index, currentPage),
                       actionButtons(context, index, _controller)

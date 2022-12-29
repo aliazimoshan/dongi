@@ -40,7 +40,7 @@ class ButtonWidget extends StatelessWidget {
         ),
         child: Text(
           title,
-          style: FontConfig.p1(color: textColor),
+          style: FontConfig.h6(color: textColor),
         ),
       ),
     );
