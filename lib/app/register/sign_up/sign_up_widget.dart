@@ -1,11 +1,11 @@
-import 'package:dongi/constants/content/sign_up_contents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../constants/color_config.dart';
-import '../../constants/font_config.dart';
-import '../../widgets/button/button.dart';
-import '../../widgets/text_field/custom_text_field.dart';
+import '../../../constants/color_config.dart';
+import '../../../constants/content/register/sign_up_contents.dart';
+import '../../../constants/font_config.dart';
+import '../../../widgets/button/button.dart';
+import '../../../widgets/text_field/custom_text_field.dart';
 
 class SignUpWidget {
   /// * ----- title
@@ -57,14 +57,14 @@ class SignUpWidget {
           children: [
             Text(
               SignUpContent.changeAction,
-              style: FontConfig.h6(),
+              style: FontConfig.body1(),
             ),
             const SizedBox(width: 10),
             InkWell(
               onTap: () {},
               child: Text(
                 'Sign In',
-                style: FontConfig.h6().copyWith(
+                style: FontConfig.body1().copyWith(
                   fontWeight: FontWeight.w800,
                   decoration: TextDecoration.underline,
                 ),
