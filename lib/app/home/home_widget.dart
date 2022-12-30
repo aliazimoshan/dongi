@@ -5,7 +5,7 @@ import '../../widgets/card/card.dart';
 class HomeWidget {
   Widget expenseSummery() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: Row(
         children: [
           Expanded(child: _totalExpenseCard()),
