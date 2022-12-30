@@ -33,7 +33,7 @@ Widget appBarChild() {
           ),
         ),
         Container(
-          height: 15,
+          height: 16,
           decoration: BoxDecoration(
             color: ColorConfig.background,
             borderRadius: const BorderRadius.only(
