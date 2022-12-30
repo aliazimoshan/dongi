@@ -5,12 +5,15 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.17.6 <3.0.0"
+
+# * ----- dependencies
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
   hooks_riverpod: ^2.0.2
   appwrite: ^8.1.0
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -21,13 +24,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  # * ----- assets
   assets:
     - assets/animations/
-    #- assets/animations/loading.json
-    #- assets/animations/data_not_found.json
-    #- assets/animations/error.json
-    #- assets/animations/small_error.json
     - assets/images/
+    - assets/svg/
 
   fonts:
     - family: Mulish
