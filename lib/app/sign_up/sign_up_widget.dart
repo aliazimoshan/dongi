@@ -57,14 +57,14 @@ class SignUpWidget {
           children: [
             Text(
               SignUpContent.changeAction,
-              style: FontConfig.h6(),
+              style: FontConfig.body1(),
             ),
             const SizedBox(width: 10),
             InkWell(
               onTap: () {},
               child: Text(
                 'Sign In',
-                style: FontConfig.h6().copyWith(
+                style: FontConfig.body1().copyWith(
                   fontWeight: FontWeight.w800,
                   decoration: TextDecoration.underline,
                 ),
