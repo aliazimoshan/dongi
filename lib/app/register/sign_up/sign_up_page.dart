@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../constants/color_config.dart';
+import '../../../constants/color_config.dart';
 import 'sign_up_widget.dart';
 
 class SignUpPage extends ConsumerWidget with SignUpWidget {
