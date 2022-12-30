@@ -35,7 +35,7 @@ class HomeWidget {
           children: [
             Text(
               "Total Expense",
-              style: FontConfig.overline(),
+              style: FontConfig.body1(),
             ),
             Text(
               "\$140.00",
@@ -58,7 +58,7 @@ class HomeWidget {
               children: [
                 Text(
                   "Income",
-                  style: FontConfig.overline(),
+                  style: FontConfig.body1(),
                 ),
                 Text(
                   "\$140.00",
@@ -83,7 +83,7 @@ class HomeWidget {
               children: [
                 Text(
                   "Outcome",
-                  style: FontConfig.overline(),
+                  style: FontConfig.body1(),
                 ),
                 Text(
                   "\$140.00",
