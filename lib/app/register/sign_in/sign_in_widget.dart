@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../constants/color_config.dart';
-import '../../constants/content/sign_in_contents.dart';
-import '../../constants/font_config.dart';
-import '../../widgets/button/button.dart';
-import '../../widgets/text_field/custom_text_field.dart';
+import '../../../constants/color_config.dart';
+import '../../../constants/content/register/sign_in_contents.dart';
+import '../../../constants/font_config.dart';
+import '../../../widgets/button/button.dart';
+import '../../../widgets/text_field/custom_text_field.dart';
 
 class SignInWidget {
   /// * ----- title

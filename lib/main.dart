@@ -1,8 +1,8 @@
-import 'package:dongi/app/forget_password/forget_password_page.dart';
-import 'package:dongi/app/sign_in/sign_in_page.dart';
-import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import './constants/color_config.dart';
+import 'app/register/new_password/new_password_page.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +25,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.background,
       ),
       debugShowCheckedModeBanner: false,
-      home: const ForgetPasswordPage(),
+      home: const NewPasswordPage(),
     );
   }
 }

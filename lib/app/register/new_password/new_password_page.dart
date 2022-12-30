@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../constants/color_config.dart';
-import './sign_in_widget.dart';
+import '../../../constants/color_config.dart';
+import './new_password_widget.dart';
 
-class SignInPage extends ConsumerWidget with SignInWidget {
-  const SignInPage({super.key});
+class NewPasswordPage extends ConsumerWidget with NewPasswordWidget {
+  const NewPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -13,9 +13,7 @@ class SignInPage extends ConsumerWidget with SignInWidget {
       backgroundColor: ColorConfig.background,
       body: Column(
         children: [
-          Expanded(
-            child: Container(),
-          ),
+          Expanded(child: Container()),
           Container(
             padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
             decoration: BoxDecoration(
@@ -31,7 +29,6 @@ class SignInPage extends ConsumerWidget with SignInWidget {
                 title(),
                 form(),
                 actionButton(),
-                changeActionButton(),
               ],
             ),
           ),

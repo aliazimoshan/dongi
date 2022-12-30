@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/content/forget_password_contents.dart';
-import '../../constants/font_config.dart';
-import '../../widgets/text_field/custom_text_field.dart';
+import '../../../constants/content/register/forget_password_contents.dart';
+import '../../../constants/font_config.dart';
+import '../../../widgets/button/button.dart';
+import '../../../widgets/text_field/custom_text_field.dart';
+
 
 class ForgetPasswordWidget {
   /// * ----- title
@@ -25,5 +27,11 @@ class ForgetPasswordWidget {
   form() => Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: CustomTextField(hintText: 'phone number'),
+      );
+
+  /// * ----- action buttons
+  actionButton() => Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: ButtonWidget(title: 'Next', onPressed: () {}),
       );
 }
