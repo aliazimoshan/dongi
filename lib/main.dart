@@ -1,3 +1,6 @@
+import 'package:dongi/app/onboarding/onboarding_page.dart';
+import 'package:dongi/app/register/forget_password/forget_password_page.dart';
+import 'package:dongi/app/register/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,7 +28,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.background,
       ),
       debugShowCheckedModeBanner: false,
-      home: const NewPasswordPage(),
+      home: ForgetPasswordPage(),
     );
   }
 }
