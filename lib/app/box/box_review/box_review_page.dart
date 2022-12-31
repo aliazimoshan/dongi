@@ -37,7 +37,9 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
                 children: [
                   Row(
                     children: [
-                      FriendsWidget(),
+                      FriendsWidget(
+                        onTap: () {},
+                      ),
                     ],
                   ),
                 ],

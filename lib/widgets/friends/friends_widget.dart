@@ -5,14 +5,20 @@ import '../card/circle.dart';
 
 class FriendsWidget extends Column {
   final Widget? child;
-  FriendsWidget({this.child, super.key});
+  final Function onTap;
+  FriendsWidget({this.child, required this.onTap, super.key});
 
   @override
   List<Widget> get children => [
-        Circle(
-          width: 84,
-          height: 84,
-          child: child,
+        InkWell(
+          onTap: () {
+            onTap();
+          },
+          child: Circle(
+            width: 84,
+            height: 84,
+            child: child,
+          ),
         ),
         const SizedBox(height: 5),
         Text(
