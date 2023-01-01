@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/font_config.dart';
-import '../card/circle.dart';
+import 'circle.dart';
 
 class FriendsWidget extends Column {
   final Widget? child;

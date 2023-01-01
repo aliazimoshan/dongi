@@ -1,5 +1,5 @@
-import 'package:dongi/widgets/card/circle.dart';
 import 'package:dongi/widgets/friends/friends_widget.dart';
+import 'package:dongi/widgets/list_tile/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,9 +25,9 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
           Expanded(
             flex: 3,
             child: Container(
-              padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
               decoration: BoxDecoration(
-                color: ColorConfig.pureWhite,
+                color: ColorConfig.background,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(15),
                   topRight: Radius.circular(15),
@@ -35,10 +35,14 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
               ),
               child: ListView(
                 children: [
-                  Row(
+                  Column(
                     children: [
                       FriendsWidget(
                         onTap: () {},
+                      ),
+                      CustomListTile(
+                        title: 'data',
+                        price: '0',
                       ),
                     ],
                   ),
