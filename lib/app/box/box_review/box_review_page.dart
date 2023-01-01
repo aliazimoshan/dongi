@@ -1,3 +1,4 @@
+import 'package:dongi/constants/font_config.dart';
 import 'package:dongi/widgets/friends/friends_widget.dart';
 import 'package:dongi/widgets/list_tile/custom_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
           Expanded(
             flex: 3,
             child: Container(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              padding: const EdgeInsets.only(top: 16),
               decoration: BoxDecoration(
                 color: ColorConfig.background,
                 borderRadius: const BorderRadius.only(
@@ -37,13 +38,8 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
                 children: [
                   Column(
                     children: [
-                      FriendsWidget(
-                        onTap: () {},
-                      ),
-                      CustomListTile(
-                        title: 'data',
-                        price: '0',
-                      ),
+                      friendsList(),
+                      expensesList(),
                     ],
                   ),
                 ],
