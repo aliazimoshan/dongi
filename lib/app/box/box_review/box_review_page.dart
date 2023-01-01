@@ -1,10 +1,8 @@
-import 'package:dongi/constants/font_config.dart';
-import 'package:dongi/widgets/friends/friends_widget.dart';
-import 'package:dongi/widgets/list_tile/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
+import '../../../widgets/button/custom_floating_action_button.dart';
 import './box_review_widget.dart';
 
 class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
@@ -21,12 +19,15 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Container(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+              alignment: Alignment.bottomLeft,
+              child: totalExpense(),
+            ),
           ),
           Expanded(
             flex: 3,
             child: Container(
-              padding: const EdgeInsets.only(top: 16),
               decoration: BoxDecoration(
                 color: ColorConfig.background,
                 borderRadius: const BorderRadius.only(
@@ -39,6 +40,7 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
                   Column(
                     children: [
                       friendsList(),
+                      categoriesList(),
                       expensesList(),
                     ],
                   ),
@@ -48,6 +50,7 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
           ),
         ],
       ),
+      floatingActionButton: CustomFloatingActionButton(onTap: () {}),
     );
   }
 }
