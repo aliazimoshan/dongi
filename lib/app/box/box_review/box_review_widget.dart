@@ -45,7 +45,7 @@ class BoxReviewWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 0, 10),
+            padding: const EdgeInsets.fromLTRB(16, 16, 0, 10),
             child: Text(
               'Friends',
               style: FontConfig.body1(),
