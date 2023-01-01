@@ -40,10 +40,7 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
                   Column(
                     children: [
                       friendsList(),
-                      CategoryWidget(
-                        name: 'category name',
-                        balance: '210,000',
-                      ),
+                      categoriesList(),
                       expensesList(),
                     ],
                   ),
