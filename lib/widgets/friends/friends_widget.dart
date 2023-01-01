@@ -4,9 +4,15 @@ import '../../constants/font_config.dart';
 import 'circle.dart';
 
 class FriendsWidget extends Column {
-  final Widget? child;
   final Function onTap;
-  FriendsWidget({this.child, required this.onTap, super.key});
+  final Widget? child;
+  final String title;
+  FriendsWidget({
+    required this.onTap,
+    this.child,
+    required this.title, 
+    super.key,
+  });
 
   @override
   List<Widget> get children => [
@@ -22,7 +28,7 @@ class FriendsWidget extends Column {
         ),
         const SizedBox(height: 5),
         Text(
-          'data',
+          title,
           style: FontConfig.body2(),
         ),
       ];
