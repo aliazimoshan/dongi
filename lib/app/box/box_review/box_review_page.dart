@@ -1,4 +1,5 @@
 import 'package:dongi/constants/font_config.dart';
+import 'package:dongi/widgets/category/category_widget.dart';
 import 'package:dongi/widgets/friends/friends_widget.dart';
 import 'package:dongi/widgets/list_tile/custom_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,10 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
                   Column(
                     children: [
                       friendsList(),
+                      CategoryWidget(
+                        name: 'category name',
+                        balance: '210,000',
+                      ),
                       expensesList(),
                     ],
                   ),
