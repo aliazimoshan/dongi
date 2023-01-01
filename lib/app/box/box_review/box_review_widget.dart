@@ -7,6 +7,39 @@ import '../../../widgets/friends/friends_widget.dart';
 import '../../../widgets/list_tile/custom_list_tile.dart';
 
 class BoxReviewWidget {
+  /// * ----- total expense
+  totalExpense() => SizedBox(
+        height: 50,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: ColorConfig.baseGrey,
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'total expense',
+                  style:
+                      FontConfig.body2().copyWith(color: ColorConfig.pureWhite),
+                ),
+                Text(
+                  '\$7,540.00',
+                  style: FontConfig.h5().copyWith(color: ColorConfig.pureWhite),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+
   /// * ----- friends list
   friendsList() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,

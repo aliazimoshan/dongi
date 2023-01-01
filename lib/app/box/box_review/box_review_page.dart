@@ -22,7 +22,11 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Container(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+              alignment: Alignment.bottomLeft,
+              child: totalExpense(),
+            ),
           ),
           Expanded(
             flex: 3,
