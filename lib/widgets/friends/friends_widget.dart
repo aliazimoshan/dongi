@@ -10,7 +10,7 @@ class FriendsWidget extends Column {
   FriendsWidget({
     required this.onTap,
     this.child,
-    required this.title, 
+    required this.title,
     super.key,
   });
 
@@ -26,10 +26,15 @@ class FriendsWidget extends Column {
             child: child,
           ),
         ),
-        const SizedBox(height: 5),
-        Text(
-          title,
-          style: FontConfig.body2(),
-        ),
+        if (title != '' || title.isNotEmpty)
+          Column(
+            children: [
+              const SizedBox(height: 5),
+              Text(
+                title,
+                style: FontConfig.body2(),
+              ),
+            ],
+          ),
       ];
 }
