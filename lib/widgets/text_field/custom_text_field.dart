@@ -1,13 +1,15 @@
-import 'package:dongi/constants/color_config.dart';
-import 'package:dongi/constants/font_config.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/color_config.dart';
+import '../../constants/font_config.dart';
 
 class CustomTextField extends Container {
   final String hintText;
   CustomTextField({
     super.height = 50,
-    super.key,
+    super.alignment = Alignment.centerLeft,
     required this.hintText,
+    super.key,
   });
 
   @override
@@ -20,14 +22,12 @@ class CustomTextField extends Container {
       );
 
   @override
-  Widget? get child => Center(
-        child: TextField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: hintText,
-            hintStyle: FontConfig.body2().copyWith(
-              color: ColorConfig.primarySwatch.withOpacity(0.5),
-            ),
+  Widget? get child => TextField(
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: hintText,
+          hintStyle: FontConfig.body2().copyWith(
+            color: ColorConfig.primarySwatch.withOpacity(0.5),
           ),
         ),
       );

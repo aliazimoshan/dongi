@@ -1,3 +1,4 @@
+import 'package:dongi/app/box/create_box/create_box_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.background,
       ),
       debugShowCheckedModeBanner: false,
-      home: BoxReviewPage(),
+      home: CreateBoxPage(),
     );
   }
 }
