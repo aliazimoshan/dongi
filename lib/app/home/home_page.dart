@@ -13,6 +13,12 @@ class HomePage extends ConsumerWidget with HomeWidget {
       body: Column(
         children: [
           expenseSummery(),
+          const SizedBox(height: 20),
+          recentGroup(),
+          const SizedBox(height: 20),
+          Expanded(flex: 2, child: Container()),
+          const SizedBox(height: 20),
+          Expanded(flex: 1, child: Container()),
         ],
       ),
     );
