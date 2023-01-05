@@ -10,12 +10,16 @@ class HomePage extends ConsumerWidget with HomeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBarWidget(),
-      body: Column(
+      body: ListView(
         children: [
+          const SizedBox(height: 16),
           expenseSummery(),
           const SizedBox(height: 20),
           recentGroup(),
           const SizedBox(height: 20),
+          weeklyAnalytic(context),
+          const SizedBox(height: 20),
+          recentTransaction(),
         ],
       ),
     );

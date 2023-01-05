@@ -1,3 +1,5 @@
+import 'package:dongi/constants/size_config.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
 import '../../constants/font_config.dart';
 import '../../widgets/card/card.dart';
@@ -268,4 +270,183 @@ class HomeWidget {
       ),
     );
   }
+
+  weeklyAnalytic(context) {
+    final List<ChartData> chartData = <ChartData>[
+      ChartData(x: "SAT", y: 5),
+      ChartData(x: "SUN", y: 2),
+      ChartData(x: "MON", y: 8),
+      ChartData(x: "TUE", y: 4),
+      ChartData(x: "WEN", y: 7),
+      ChartData(x: "THU", y: 5),
+      ChartData(x: "FRI", y: 10),
+    ];
+
+    chartWidget() {
+      return SizedBox(
+        height: SizeConfig.width(context) / 3,
+        child: SfCartesianChart(
+          margin: EdgeInsets.only(),
+          plotAreaBorderWidth: 0,
+          primaryYAxis: CategoryAxis(
+            //isVisible: false,
+            //labelStyle: const TextStyle(color: Colors.white),
+            axisLine: const AxisLine(width: 0),
+            //labelPosition: ChartDataLabelPosition.inside,
+            majorTickLines: const MajorTickLines(width: 0),
+            majorGridLines: const MajorGridLines(width: 1, dashArray: [10]),
+            opposedPosition: true,
+            maximum: 10,
+            interval: 5,
+            edgeLabelPlacement: EdgeLabelPlacement.hide,
+            axisLabelFormatter: (axisLabelRenderArgs) => ChartAxisLabel(
+              "\$${axisLabelRenderArgs.text}00",
+              FontConfig.overline(),
+            ),
+            //isVisible: false,
+          ),
+          primaryXAxis: CategoryAxis(
+            //labelStyle: const TextStyle(color: Colors.white),
+            axisLine: const AxisLine(width: 0),
+            //labelPosition: ChartDataLabelPosition.inside,
+            majorTickLines: const MajorTickLines(width: 0),
+            majorGridLines: const MajorGridLines(width: 0),
+          ),
+          series: <ChartSeries<ChartData, String>>[
+            ColumnSeries<ChartData, String>(
+              animationDuration: 1000,
+              dataSource: chartData,
+              xValueMapper: (ChartData data, _) => data.x,
+              yValueMapper: (ChartData data, _) => data.y,
+              name: 'Unit Sold',
+              borderRadius: BorderRadius.circular(50),
+              spacing: 0.5,
+              color: Colors.grey.shade400,
+            ),
+          ],
+          tooltipBehavior: TooltipBehavior(
+            enable: true,
+            canShowMarker: false,
+            format: 'point.x : point.y\$',
+            header: '',
+          ),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+      child: CardWidget(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Analytics",
+              style: FontConfig.h6(),
+            ),
+            chartWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  recentTransaction() {
+    return Column(
+      children: [
+        _recentTransactionsTitle(),
+        _recentTransactionsCardList(),
+      ],
+    );
+  }
+
+  _recentTransactionsTitle() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(26, 0, 10, 10),
+      child: Row(
+        children: [
+          Text(
+            "Recent Transactions",
+            style: FontConfig.h6(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _recentTransactionsCardList() {
+    return SizedBox(
+      height: 100,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          const SizedBox(width: 16),
+          _recentTransactionsCard(),
+          _recentTransactionsCard(),
+          _recentTransactionsCard(),
+        ],
+      ),
+    );
+  }
+
+  _recentTransactionsCard() {
+    boxCount() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Boxes",
+            style: FontConfig.overline().copyWith(
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Text(
+            "5",
+            style: FontConfig.body2(),
+          ),
+        ],
+      );
+    }
+
+    return CardWidget(
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //group name widget
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Trip",
+                  style: FontConfig.overline().copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade400,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ],
+            ),
+            //box count
+            boxCount(),
+            //member row
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ChartData {
+  ChartData({this.x, this.y});
+  final String? x;
+  final double? y;
 }
