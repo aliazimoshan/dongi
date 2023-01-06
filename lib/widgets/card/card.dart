@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CardWidget extends Card {
-  const CardWidget({super.key, super.child});
+  const CardWidget({
+    super.key,
+    super.child,
+    super.margin = EdgeInsets.zero,
+  });
 
   @override
   double? get elevation => 0;
