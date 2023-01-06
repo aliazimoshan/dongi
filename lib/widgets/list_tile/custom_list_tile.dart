@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
 
@@ -30,11 +29,14 @@ class CustomListTile extends Container {
         children: [
           /// * ----- icon
           if (icon != null)
-            Column(
-              children: [
-                icon ?? const SizedBox(),
-                const SizedBox(width: 10),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Column(
+                children: [
+                  icon ?? const SizedBox(),
+                  const SizedBox(width: 10),
+                ],
+              ),
             ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
