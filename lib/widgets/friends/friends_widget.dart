@@ -1,40 +1,26 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/font_config.dart';
-import 'circle.dart';
-
-class FriendsWidget extends Column {
-  final Function onTap;
-  final Widget? child;
-  final String title;
-  FriendsWidget({
-    required this.onTap,
-    this.child,
-    required this.title,
+class FriendWidget extends Container {
+  final Color? backgroundColor;
+  FriendWidget({
     super.key,
+    this.backgroundColor,
   });
 
   @override
-  List<Widget> get children => [
-        InkWell(
-          onTap: () {
-            onTap();
-          },
-          child: Circle(
-            width: 84,
-            height: 84,
-            child: child,
+  Decoration? get decoration => BoxDecoration(
+        shape: BoxShape.circle,
+        color: backgroundColor ?? Colors.black,
+      );
+
+  FriendWidget.add({
+    super.key,
+    this.backgroundColor = Colors.black,
+  }) : super(
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 40,
           ),
-        ),
-        if (title != '' || title.isNotEmpty)
-          Column(
-            children: [
-              const SizedBox(height: 5),
-              Text(
-                title,
-                style: FontConfig.body2(),
-              ),
-            ],
-          ),
-      ];
+        );
 }

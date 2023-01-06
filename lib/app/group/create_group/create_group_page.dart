@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
-import 'create_box_widget.dart';
+import 'create_group_widget.dart';
 
-class CreateBoxPage extends ConsumerWidget with CreateBoxWidget {
-  const CreateBoxPage({super.key});
+class CreateGroupPage extends ConsumerWidget with CreateGroupWidget {
+  const CreateGroupPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: ColorConfig.background,
-      appBar: AppBarWidget(title: "Create Box"),
+      appBar: AppBarWidget(title: "Create Group"),
       body: Column(
         children: [
-          boxInfoCard(context),
-          selectFriendsCard(context),
+          groupInfoCard(context),
+          addFriendsCard(context),
           const Spacer(),
           createButton(),
         ],

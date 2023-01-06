@@ -57,14 +57,7 @@ class BoxReviewWidget {
               scrollDirection: Axis.horizontal,
               children: [
                 const SizedBox(width: 16),
-                FriendsWidget(
-                  onTap: () {},
-                  title: 'Add New',
-                  child: Icon(
-                    Icons.add,
-                    color: ColorConfig.pureWhite,
-                  ),
-                ),
+                FriendWidget(),
                 const SizedBox(width: 10),
                 ListView.builder(
                   shrinkWrap: true,
@@ -73,10 +66,7 @@ class BoxReviewWidget {
                   itemCount: 5,
                   itemBuilder: (ctx, i) => Row(
                     children: [
-                      FriendsWidget(
-                        onTap: () {},
-                        title: 'name',
-                      ),
+                      FriendWidget(),
                       const SizedBox(width: 10),
                     ],
                   ),
