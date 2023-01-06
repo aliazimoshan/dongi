@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import '../../constants/color_config.dart';
 
 class AppBarWidget extends PreferredSize {
-  AppBarWidget({super.key})
-      : super(
+  final String? title;
+  AppBarWidget({
+    super.key,
+    this.title,
+  }) : super(
           preferredSize: const Size.fromHeight(70),
-          child: appBarChild(),
+          child: appBarChild(title),
         );
 }
 
-Widget appBarChild() {
+Widget appBarChild(String? title) {
   return Container(
     color: ColorConfig.primarySwatch,
     child: Column(
@@ -18,7 +21,7 @@ Widget appBarChild() {
           child: AppBar(
             elevation: 0,
             centerTitle: false,
-            title: const Text("Dongi"),
+            title: Text(title ?? "Dongi"),
             actions: [
               IconButton(
                 icon: Container(
