@@ -31,6 +31,7 @@ class HomeWidget {
     return AspectRatio(
       aspectRatio: 1,
       child: CardWidget(
+        margin: const EdgeInsets.only(right: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,6 +53,7 @@ class HomeWidget {
   _incomeCard() {
     return Expanded(
       child: CardWidget(
+        margin: const EdgeInsets.only(bottom: 5),
         child: Row(
           children: [
             Column(
@@ -77,6 +79,7 @@ class HomeWidget {
   _outcomeCard() {
     return Expanded(
       child: CardWidget(
+        margin: const EdgeInsets.only(top: 5),
         child: Row(
           children: [
             Column(
@@ -110,7 +113,7 @@ class HomeWidget {
 
   _groupTitle() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(26, 0, 10, 10),
+      padding: const EdgeInsets.fromLTRB(26, 0, 0, 10),
       child: Row(
         children: [
           Text(
@@ -217,6 +220,7 @@ class HomeWidget {
     }
 
     return CardWidget(
+      margin: const EdgeInsets.only(right: 10),
       child: AspectRatio(
         aspectRatio: 1,
         child: Column(
@@ -283,10 +287,9 @@ class HomeWidget {
     ];
 
     chartWidget() {
-      return SizedBox(
-        height: SizeConfig.width(context) / 3,
+      return Expanded(
         child: SfCartesianChart(
-          margin: EdgeInsets.only(),
+          margin: const EdgeInsets.only(left: 32),
           plotAreaBorderWidth: 0,
           primaryYAxis: CategoryAxis(
             //isVisible: false,
@@ -327,35 +330,38 @@ class HomeWidget {
           tooltipBehavior: TooltipBehavior(
             enable: true,
             canShowMarker: false,
-            format: 'point.x : point.y\$',
+            format: 'point.x',
             header: '',
           ),
         ),
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-      child: CardWidget(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Analytics",
-              style: FontConfig.h6(),
-            ),
-            chartWidget(),
-          ],
+    return SizedBox(
+      height: SizeConfig.width(context) / 2.5,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        child: CardWidget(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Analytics",
+                style: FontConfig.h6(),
+              ),
+              chartWidget(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  recentTransaction() {
+  recentTransaction(context) {
     return Column(
       children: [
         _recentTransactionsTitle(),
-        _recentTransactionsCardList(),
+        _recentTransactionsCardList(context),
       ],
     );
   }
@@ -374,43 +380,49 @@ class HomeWidget {
     );
   }
 
-  _recentTransactionsCardList() {
+  _recentTransactionsCardList(context) {
     return SizedBox(
-      height: 100,
+      height: 85,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
           const SizedBox(width: 16),
-          _recentTransactionsCard(),
-          _recentTransactionsCard(),
-          _recentTransactionsCard(),
+          _recentTransactionsCard(context),
+          _recentTransactionsCard(context),
+          _recentTransactionsCard(context),
+          _recentTransactionsCard(context),
+          _recentTransactionsCard(context),
+          _recentTransactionsCard(context),
+          const SizedBox(width: 16),
         ],
       ),
     );
   }
 
-  _recentTransactionsCard() {
-    boxCount() {
+  _recentTransactionsCard(context) {
+    oweCost() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Boxes",
+            "You owe",
             style: FontConfig.overline().copyWith(
               fontWeight: FontWeight.w400,
             ),
           ),
           Text(
-            "5",
+            "\$5",
             style: FontConfig.body2(),
           ),
         ],
       );
     }
 
-    return CardWidget(
-      child: AspectRatio(
-        aspectRatio: 1,
+    return SizedBox(
+      width: 105,
+      //color: Colors.red,
+      child: CardWidget(
+        margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -436,8 +448,7 @@ class HomeWidget {
               ],
             ),
             //box count
-            boxCount(),
-            //member row
+            oweCost(),
           ],
         ),
       ),
