@@ -81,11 +81,8 @@ class CreateBoxWidget {
                 mainAxisSpacing: 10,
                 // childAspectRatio: ,
               ),
-              itemBuilder: (ctx, i) => FriendsWidget(
-                onTap: () {},
-                
-                title: '',
-              ),
+              itemBuilder: (ctx, i) =>
+                  FriendWidget(backgroundColor: Colors.grey.shade400),
             ),
           ],
         ),

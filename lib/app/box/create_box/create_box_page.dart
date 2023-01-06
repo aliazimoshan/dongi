@@ -1,3 +1,4 @@
+import 'package:dongi/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -10,29 +11,14 @@ class CreateBoxPage extends ConsumerWidget with CreateBoxWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: ColorConfig.primarySwatch,
-      appBar: AppBar(),
+      backgroundColor: ColorConfig.background,
+      appBar: AppBarWidget(title: "Create Box"),
       body: Column(
         children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: ColorConfig.background,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-              ),
-              child: Column(
-                children: [
-                  boxInfoCard(context),
-                  selectFriendsCard(context),
-                  const Spacer(),
-                  createButton(),
-                ],
-              ),
-            ),
-          ),
+          boxInfoCard(context),
+          selectFriendsCard(context),
+          const Spacer(),
+          createButton(),
         ],
       ),
     );
