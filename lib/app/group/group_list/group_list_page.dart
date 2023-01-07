@@ -3,10 +3,10 @@ import 'package:dongi/widgets/button/custom_floating_action_button.dart';
 import 'package:dongi/widgets/list_tile/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'group_widget.dart';
+import 'group_list_widget.dart';
 
-class GroupPage extends ConsumerWidget with GroupWidget {
-  GroupPage({super.key});
+class GroupListPage extends ConsumerWidget with GroupListWidget {
+  GroupListPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

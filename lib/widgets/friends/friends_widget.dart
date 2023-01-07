@@ -5,6 +5,8 @@ class FriendWidget extends Container {
   FriendWidget({
     super.key,
     this.backgroundColor,
+    super.width = 64,
+    super.height = 64,
   });
 
   @override
