@@ -5,11 +5,13 @@ import '../../constants/font_config.dart';
 
 class CustomTextField extends Container {
   final String hintText;
+  final int? maxLines;
   CustomTextField({
     super.height = 50,
     super.alignment = Alignment.centerLeft,
     required this.hintText,
     super.key,
+    this.maxLines,
   });
 
   @override
@@ -23,6 +25,7 @@ class CustomTextField extends Container {
 
   @override
   Widget? get child => TextField(
+        maxLines: maxLines ?? 1,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hintText,

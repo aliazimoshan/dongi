@@ -1,8 +1,7 @@
+import 'package:dongi/widgets/card/box_card.dart';
 import 'package:flutter/material.dart';
-
 import '../../../constants/font_config.dart';
 import '../../../widgets/card/card.dart';
-import '../../../widgets/category/category_widget.dart';
 import '../../../widgets/friends/friends_widget.dart';
 import '../../../widgets/list_tile/custom_list_tile.dart';
 
@@ -109,12 +108,12 @@ class GroupReviewWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 0, 10),
             child: Text(
-              'Categories',
+              'Boxes',
               style: FontConfig.body1(),
             ),
           ),
           SizedBox(
-            height: 110,
+            height: 150,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
@@ -124,17 +123,8 @@ class GroupReviewWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
-                  itemBuilder: (ctx, i) => Row(
-                    children: [
-                      CategoryWidget(
-                        name: 'category name',
-                        balance: '210,000',
-                      ),
-                      const SizedBox(width: 10),
-                    ],
-                  ),
+                  itemBuilder: (context, i) => const BoxCardWidget(),
                 ),
-                const SizedBox(width: 6),
               ],
             ),
           ),
