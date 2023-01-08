@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CardWidget extends Card {
+  final EdgeInsets? padding;
   const CardWidget({
     super.key,
     super.child,
     super.margin = EdgeInsets.zero,
+    this.padding,
   });
 
   @override
@@ -17,7 +19,7 @@ class CardWidget extends Card {
 
   @override
   Widget? get child => Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: padding ?? const EdgeInsets.all(10.0),
         child: super.child,
       );
 }
