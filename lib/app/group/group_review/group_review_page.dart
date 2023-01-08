@@ -57,7 +57,6 @@ class GroupReviewPage extends ConsumerWidget with GroupReviewWidget {
           ),
         ],
       ),
-      floatingActionButton: CustomFloatingActionButton(onTap: () {}),
     );
   }
 }
