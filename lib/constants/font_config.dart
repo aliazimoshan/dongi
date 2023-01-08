@@ -38,7 +38,7 @@ class FontConfig {
 
   static TextStyle button() => const TextStyle(
         fontFamily: "Mulish",
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.bold,
         fontSize: 14,
         color: Colors.white,
       );
