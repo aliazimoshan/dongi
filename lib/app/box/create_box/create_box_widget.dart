@@ -10,49 +10,79 @@ import '../../../widgets/text_field/custom_text_field.dart';
 
 class CreateBoxWidget {
   /// * ----- box info card
-  boxInfoCard(BuildContext ctx) => Container(
-        margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
-        padding: const EdgeInsets.all(15),
-        width: SizeConfig.width(ctx),
-        decoration: BoxDecoration(
-          color: ColorConfig.pureWhite,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                _addPhotoButton(),
-                const SizedBox(width: 10),
-                Expanded(child: CustomTextField(hintText: 'Box Name')),
-              ],
+  boxInfoCard(BuildContext ctx) {
+    /// * ----- select option button
+    selectOptionButton({
+      required Function onTap,
+      required String icon,
+      required String title,
+    }) =>
+        Expanded(
+          child: InkWell(
+            onTap: () {
+              onTap();
+            },
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: ColorConfig.baseGrey,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(icon),
+                  const SizedBox(width: 10),
+                  Text(title),
+                ],
+              ),
             ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                _selectOptionButton(
-                  onTap: () {},
-                  icon: 'assets/svg/category_icon.svg',
-                  title: 'category',
-                ),
-                const SizedBox(width: 10),
-                _selectOptionButton(
-                  onTap: () {},
-                  icon: 'assets/svg/currency_icon.svg',
-                  title: 'currency',
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            CustomTextField(
-              height: 75,
-              alignment: Alignment.topLeft,
-              hintText: 'Description',
-            ),
-          ],
-        ),
-      );
+          ),
+        );
+
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+      padding: const EdgeInsets.all(15),
+      width: SizeConfig.width(ctx),
+      decoration: BoxDecoration(
+        color: ColorConfig.pureWhite,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              _addPhotoButton(),
+              const SizedBox(width: 10),
+              Expanded(child: TextFieldWidget(hintText: 'Box Name')),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              selectOptionButton(
+                onTap: () {},
+                icon: 'assets/svg/category_icon.svg',
+                title: 'category',
+              ),
+              const SizedBox(width: 10),
+              selectOptionButton(
+                onTap: () {},
+                icon: 'assets/svg/currency_icon.svg',
+                title: 'currency',
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          const TextFieldWidget(
+            maxLines: 2,
+            hintText: 'Description',
+          ),
+        ],
+      ),
+    );
+  }
 
   /// * ----- select friends card
   selectFriendsCard(BuildContext ctx) => Container(
@@ -94,35 +124,6 @@ class CreateBoxWidget {
         child: ButtonWidget(
           onPressed: () {},
           title: 'create',
-        ),
-      );
-
-  /// * ----- select option button
-  _selectOptionButton({
-    required Function onTap,
-    required String icon,
-    required String title,
-  }) =>
-      Expanded(
-        child: InkWell(
-          onTap: () {
-            onTap();
-          },
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: ColorConfig.baseGrey,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(icon),
-                const SizedBox(width: 10),
-                Text(title),
-              ],
-            ),
-          ),
         ),
       );
 

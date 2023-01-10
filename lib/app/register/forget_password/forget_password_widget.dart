@@ -5,7 +5,6 @@ import '../../../constants/font_config.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/text_field/custom_text_field.dart';
 
-
 class ForgetPasswordWidget {
   /// * ----- title
   title() => Column(
@@ -26,7 +25,7 @@ class ForgetPasswordWidget {
   /// * ----- form
   form() => Padding(
         padding: const EdgeInsets.only(bottom: 20),
-        child: CustomTextField(hintText: 'phone number'),
+        child: TextFieldWidget(hintText: 'phone number'),
       );
 
   /// * ----- action buttons

@@ -10,7 +10,7 @@ class CreateExpenseWidget {
   amountRow() {
     return Row(
       children: [
-        Expanded(child: CustomTextField(hintText: "hintText")),
+        Expanded(child: TextFieldWidget(hintText: "hintText")),
         const SizedBox(width: 10),
         const GreyCardWidget(
             width: 50,
@@ -106,10 +106,10 @@ class CreateExpenseWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Expanded(
-              child: CustomTextField(
+          const Expanded(
+              child: TextFieldWidget(
             hintText: "Description",
-            height: 75,
+            // height: 75,
             maxLines: 3,
           )),
         ],

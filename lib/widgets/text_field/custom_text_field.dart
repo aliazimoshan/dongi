@@ -3,35 +3,65 @@ import 'package:flutter/material.dart';
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
 
-class CustomTextField extends Container {
+class TextFieldWidget extends TextField {
   final String hintText;
-  final int? maxLines;
-  CustomTextField({
-    super.height = 50,
-    super.alignment = Alignment.centerLeft,
+  const TextFieldWidget({
     required this.hintText,
     super.key,
-    this.maxLines,
+    super.maxLines,
   });
 
   @override
-  EdgeInsetsGeometry? get padding => const EdgeInsets.symmetric(horizontal: 15);
-
-  @override
-  Decoration? get decoration => BoxDecoration(
-        color: ColorConfig.baseGrey,
-        borderRadius: BorderRadius.circular(10),
-      );
-
-  @override
-  Widget? get child => TextField(
-        maxLines: maxLines ?? 1,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hintText,
-          hintStyle: FontConfig.body2().copyWith(
-            color: ColorConfig.primarySwatch.withOpacity(0.5),
-          ),
+  InputDecoration? get decoration => InputDecoration(
+        filled: true,
+        fillColor: ColorConfig.baseGrey,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide.none,
+        ),
+        hintText: hintText,
+        hintStyle: FontConfig.body2().copyWith(
+          color: ColorConfig.primarySwatch.withOpacity(0.5),
         ),
       );
+
+  //  maxLines: maxLines ?? 1,
+  //     decoration: InputDecoration(
+  //       filled: true,
+  //       fillColor: ColorConfig.baseGrey,
+  //       border: OutlineInputBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //         borderSide: BorderSide.none,
+  //       ),
+  //       hintText: hintText,
+  //       hintStyle: FontConfig.body2().copyWith(
+  //         color: ColorConfig.primarySwatch.withOpacity(0.5),
+  //       ),
+  //     ),
+
+  // @override
+  // EdgeInsetsGeometry? get padding => const EdgeInsets.symmetric(horizontal: 15);
+
+  // @override
+  // Decoration? get decoration => BoxDecoration(
+  //       color: ColorConfig.baseGrey,
+  //       borderRadius: BorderRadius.circular(10),
+  //     );
+
+  // @override
+  // Widget? get child => TextField(
+  //       maxLines: maxLines ?? 1,
+  //       decoration: InputDecoration(
+  //         filled: true,
+  //         fillColor: ColorConfig.baseGrey,
+  //         border: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(10.0),
+  //           borderSide: BorderSide.none,
+  //         ),
+  //         hintText: hintText,
+  //         hintStyle: FontConfig.body2().copyWith(
+  //           color: ColorConfig.primarySwatch.withOpacity(0.5),
+  //         ),
+  //       ),
+  //     );
 }

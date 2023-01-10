@@ -25,7 +25,7 @@ class CreateExpensePage extends ConsumerWidget with CreateExpenseWidget {
                       children: [
                         amountRow(),
                         const SizedBox(height: 10),
-                        CustomTextField(hintText: "Title"),
+                        TextFieldWidget(hintText: "Title"),
                         const SizedBox(height: 10),
                         Row(
                           children: [

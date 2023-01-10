@@ -27,11 +27,11 @@ class SignUpWidget {
   /// * ----- form
   form() => Column(
         children: [
-          CustomTextField(hintText: 'name'),
+          TextFieldWidget(hintText: 'name'),
           const SizedBox(height: 10),
-          CustomTextField(hintText: 'phone number'),
+          TextFieldWidget(hintText: 'phone number'),
           const SizedBox(height: 10),
-          CustomTextField(hintText: 'password'),
+          TextFieldWidget(hintText: 'password'),
           const SizedBox(height: 20)
         ],
       );
