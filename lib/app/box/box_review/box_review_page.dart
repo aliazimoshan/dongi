@@ -17,36 +17,16 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
       ),
       body: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-              alignment: Alignment.bottomLeft,
-              child: totalExpense(),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              decoration: BoxDecoration(
-                color: ColorConfig.background,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-              ),
-              child: ListView(
-                children: [
-                  Column(
-                    children: [
-                      friendsList(),
-                      categoriesList(),
-                      expensesList(),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+          /// * Box review header
+          totalExpense(),
+
+          /// * Box review body
+          boxReviewBody(
+            children: [
+              friendsList(),
+              categoriesList(),
+              expensesList(),
+            ],
           ),
         ],
       ),
