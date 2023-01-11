@@ -1,3 +1,4 @@
+import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 
 class FriendWidget extends Container {
@@ -17,11 +18,13 @@ class FriendWidget extends Container {
 
   FriendWidget.add({
     super.key,
-    this.backgroundColor = Colors.black,
+    super.width = 64,
+    super.height = 64,
+    this.backgroundColor = Colors.grey,
   }) : super(
           child: const Icon(
             Icons.add,
-            color: Colors.white,
+            color: Colors.black,
             size: 40,
           ),
         );
