@@ -1,6 +1,5 @@
 import 'package:dongi/widgets/appbar/appbar.dart';
-import 'package:dongi/widgets/button/custom_floating_action_button.dart';
-import 'package:dongi/widgets/list_tile/custom_list_tile.dart';
+import 'package:dongi/widgets/floating_action_button/floating_action_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'group_list_widget.dart';
@@ -12,7 +11,7 @@ class GroupListPage extends ConsumerWidget with GroupListWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBarWidget(title: "Groups"),
-      floatingActionButton: CustomFloatingActionButton(onTap: () {}),
+      floatingActionButton: const FloatingActionButtonWidget(),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         child: ListView(
