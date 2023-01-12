@@ -1,8 +1,7 @@
-import 'package:dongi/widgets/card/card.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
+import 'card.dart';
 
 class BoxCardWidget extends CardWidget {
   const BoxCardWidget({super.key});

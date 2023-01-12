@@ -24,11 +24,11 @@ class NewPasswordWidget {
 
   /// * ----- form
   form() => Column(
-        children: [
+        children: const [
           TextFieldWidget(hintText: 'new password'),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           TextFieldWidget(hintText: 'repeat new password'),
-          const SizedBox(height: 20)
+          SizedBox(height: 20)
         ],
       );
 

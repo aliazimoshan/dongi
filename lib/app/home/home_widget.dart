@@ -1,7 +1,7 @@
-import 'package:dongi/constants/size_config.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
 import '../../constants/font_config.dart';
+import '../../constants/size_config.dart';
 import '../../widgets/card/card.dart';
 
 class HomeWidget {

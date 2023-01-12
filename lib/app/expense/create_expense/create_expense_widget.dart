@@ -1,23 +1,24 @@
-import 'package:dongi/constants/color_config.dart';
-import 'package:dongi/constants/font_config.dart';
-import 'package:dongi/widgets/card/card.dart';
-import 'package:dongi/widgets/card/grey_card.dart';
 import 'package:flutter/material.dart';
+import '../../../constants/color_config.dart';
+import '../../../constants/font_config.dart';
 import '../../../widgets/button/button.dart';
+import '../../../widgets/card/card.dart';
+import '../../../widgets/card/grey_card.dart';
 import '../../../widgets/text_field/custom_text_field.dart';
 
 class CreateExpenseWidget {
   amountRow() {
     return Row(
-      children: [
+      children: const [
         Expanded(child: TextFieldWidget(hintText: "hintText")),
-        const SizedBox(width: 10),
-        const GreyCardWidget(
-            width: 50,
-            height: 50,
-            child: Center(
-              child: Text("USD"),
-            )),
+        SizedBox(width: 10),
+        GreyCardWidget(
+          width: 50,
+          height: 50,
+          child: Center(
+            child: Text("USD"),
+          ),
+        ),
       ],
     );
   }

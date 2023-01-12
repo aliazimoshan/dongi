@@ -1,8 +1,7 @@
-import 'package:dongi/widgets/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../../../constants/color_config.dart';
+import '../../../widgets/appbar/appbar.dart';
 import 'create_box_widget.dart';
 
 class CreateBoxPage extends ConsumerWidget with CreateBoxWidget {

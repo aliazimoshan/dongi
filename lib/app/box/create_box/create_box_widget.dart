@@ -55,7 +55,7 @@ class CreateBoxWidget {
             children: [
               _addPhotoButton(),
               const SizedBox(width: 10),
-              Expanded(child: TextFieldWidget(hintText: 'Box Name')),
+              const Expanded(child: TextFieldWidget(hintText: 'Box Name')),
             ],
           ),
           const SizedBox(height: 10),

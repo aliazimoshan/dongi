@@ -1,7 +1,6 @@
-import 'package:dongi/widgets/card/card.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/color_config.dart';
+import 'card.dart';
 
 class GreyCardWidget extends CardWidget {
   final double? width;

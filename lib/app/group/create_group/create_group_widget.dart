@@ -26,7 +26,7 @@ class CreateGroupWidget {
             children: [
               _addPhotoButton(),
               const SizedBox(width: 10),
-              Expanded(
+              const Expanded(
                 child: TextFieldWidget(hintText: 'Group Name'),
               ),
             ],
@@ -48,7 +48,7 @@ class CreateGroupWidget {
             ],
           ),
           const SizedBox(height: 10),
-          TextFieldWidget(
+          const TextFieldWidget(
             // height: 75,
             // alignment: Alignment.topLeft,
             hintText: 'Description',

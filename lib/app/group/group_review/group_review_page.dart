@@ -1,9 +1,7 @@
-import 'package:dongi/constants/font_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../../../constants/color_config.dart';
-import '../../../widgets/floating_action_button/floating_action_button_widget.dart';
+import '../../../constants/font_config.dart';
 import 'group_review_widget.dart';
 
 class GroupReviewPage extends ConsumerWidget with GroupReviewWidget {

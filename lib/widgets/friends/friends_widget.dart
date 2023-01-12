@@ -1,4 +1,3 @@
-import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 
 class FriendWidget extends Container {
