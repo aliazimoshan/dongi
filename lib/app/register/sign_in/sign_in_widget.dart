@@ -28,9 +28,9 @@ class SignInWidget {
   form() => Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          TextFieldWidget(hintText: 'phone number'),
+          const TextFieldWidget(hintText: 'phone number'),
           const SizedBox(height: 10),
-          TextFieldWidget(hintText: 'password'),
+          const TextFieldWidget(hintText: 'password'),
           const SizedBox(height: 10),
           _forgetPassword(),
           const SizedBox(height: 20)

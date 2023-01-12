@@ -23,8 +23,8 @@ class ForgetPasswordWidget {
       );
 
   /// * ----- form
-  form() => Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+  form() => const Padding(
+        padding: EdgeInsets.only(bottom: 20),
         child: TextFieldWidget(hintText: 'phone number'),
       );
 

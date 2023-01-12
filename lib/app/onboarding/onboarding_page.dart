@@ -11,7 +11,7 @@ class OnboardingPage extends ConsumerWidget with OnboardingWidget {
 
   OnboardingPage({super.key});
 
-  List colors = const [
+  final List colors = const [
     Color(0xffDAD3C8),
     Color(0xffFFE5DE),
     Color(0xffDCF6E6),

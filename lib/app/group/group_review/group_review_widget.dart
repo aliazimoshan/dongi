@@ -1,6 +1,6 @@
-import 'package:dongi/widgets/card/box_card.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/font_config.dart';
+import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/friends/friends_widget.dart';
 import '../../../widgets/list_tile/custom_list_tile.dart';

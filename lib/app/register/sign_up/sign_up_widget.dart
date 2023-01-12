@@ -26,13 +26,13 @@ class SignUpWidget {
 
   /// * ----- form
   form() => Column(
-        children: [
+        children: const [
           TextFieldWidget(hintText: 'name'),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           TextFieldWidget(hintText: 'phone number'),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
           TextFieldWidget(hintText: 'password'),
-          const SizedBox(height: 20)
+          SizedBox(height: 20)
         ],
       );
 

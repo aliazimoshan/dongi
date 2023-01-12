@@ -1,6 +1,6 @@
-import 'package:dongi/widgets/button/button.dart';
 import 'package:flutter/material.dart';
 import '../../constants/content/onboarding_contents.dart';
+import '../../widgets/button/button.dart';
 
 class OnboardingWidget {
   animatedDots(int index, int currentPage) {
