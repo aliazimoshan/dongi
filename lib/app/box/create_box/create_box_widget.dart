@@ -5,8 +5,8 @@ import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
 import '../../../constants/size_config.dart';
 import '../../../widgets/button/button.dart';
-import '../../../widgets/friends/friends_widget.dart';
-import '../../../widgets/text_field/custom_text_field.dart';
+import '../../../widgets/friends/friend.dart';
+import '../../../widgets/text_field/text_field.dart';
 
 class CreateBoxWidget {
   /// * ----- box info card
