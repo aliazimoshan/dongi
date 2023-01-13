@@ -1,3 +1,4 @@
+import 'package:dongi/constants/color_config.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
 import '../../constants/font_config.dart';
@@ -234,7 +235,7 @@ class HomeWidget {
                   width: 32,
                   height: 32,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade400,
+                    color: ColorConfig.darkGrey,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(10),
                     ),
@@ -324,7 +325,7 @@ class HomeWidget {
               name: 'Unit Sold',
               borderRadius: BorderRadius.circular(50),
               spacing: 0.5,
-              color: Colors.grey.shade400,
+              color: ColorConfig.darkGrey,
             ),
           ],
           tooltipBehavior: TooltipBehavior(
@@ -442,7 +443,7 @@ class HomeWidget {
                   width: 20,
                   height: 20,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade400,
+                    color: ColorConfig.darkGrey,
                     shape: BoxShape.circle,
                   ),
                 ),

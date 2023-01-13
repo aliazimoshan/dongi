@@ -25,9 +25,9 @@ Widget appBarChild(String? title) {
             actions: [
               IconButton(
                 icon: Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.grey,
+                    color: ColorConfig.darkGrey,
                   ),
                 ),
                 onPressed: () {},

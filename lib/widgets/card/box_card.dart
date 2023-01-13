@@ -24,7 +24,7 @@ class BoxCardWidget extends CardWidget {
                     width: 32,
                     height: 32,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade400,
+                      color: ColorConfig.darkGrey,
                       shape: BoxShape.circle,
                     ),
                   ),

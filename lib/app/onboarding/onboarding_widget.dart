@@ -1,3 +1,4 @@
+import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 import '../../constants/content/onboarding_contents.dart';
 import '../../widgets/button/button.dart';
@@ -11,12 +12,14 @@ class OnboardingWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(50),
           ),
-          color: currentPage == index ? Colors.black : Colors.grey.shade300,
+          color: currentPage == index ? Colors.black : ColorConfig.darkGrey,
         ),
         margin: const EdgeInsets.only(right: 5),
         height: 10,
         curve: Curves.easeIn,
-        width: currentPage == index ? 20 : 10,
+        width:
+            //currentPage == index ? 20 :
+            10,
       );
     }
 
