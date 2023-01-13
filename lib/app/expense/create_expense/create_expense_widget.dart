@@ -4,7 +4,7 @@ import '../../../constants/font_config.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/card/grey_card.dart';
-import '../../../widgets/text_field/custom_text_field.dart';
+import '../../../widgets/text_field/text_field.dart';
 
 class CreateExpenseWidget {
   amountRow() {
