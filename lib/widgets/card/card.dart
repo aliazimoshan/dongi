@@ -14,12 +14,12 @@ class CardWidget extends Card {
 
   @override
   ShapeBorder? get shape => RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
       );
 
   @override
   Widget? get child => Padding(
-        padding: padding ?? const EdgeInsets.all(10.0),
+        padding: padding ?? const EdgeInsets.all(15.0),
         child: super.child,
       );
 }
