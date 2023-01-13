@@ -419,7 +419,7 @@ class HomeWidget {
     }
 
     return SizedBox(
-      width: 110,
+      width: 112,
       //color: Colors.red,
       child: CardWidget(
         padding: const EdgeInsets.all(10),
