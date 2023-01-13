@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
-import '../../../widgets/category/category_widget.dart';
+import '../../../widgets/card/category_card.dart';
 import '../../../widgets/friends/friend.dart';
 
 class BoxReviewWidget {
@@ -104,14 +104,6 @@ class BoxReviewWidget {
             scrollDirection: Axis.horizontal,
             children: [
               const SizedBox(width: 16),
-              Column(
-                children: [
-                  FriendWidget.add(),
-                  const SizedBox(height: 5),
-                  Text("Add New", style: FontConfig.overline()),
-                ],
-              ),
-              const SizedBox(width: 10),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -152,12 +144,12 @@ class BoxReviewWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (context, i) => Row(
-                  children: [
-                    CategoryWidget(
+                  children: const [
+                    CategoryCardWidget(
                       name: 'category name',
                       balance: '210,000',
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
                   ],
                 ),
               ),
