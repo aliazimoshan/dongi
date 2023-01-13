@@ -146,7 +146,7 @@ class GroupReviewWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 5,
-              itemBuilder: (ctx, i) => Column(
+              itemBuilder: (context, i) => Column(
                 children: const [
                   ListTileWidget(
                     titleString: 'data',
