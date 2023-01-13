@@ -180,8 +180,10 @@ class BoxReviewWidget {
             itemBuilder: (context, i) => Column(
               children: const [
                 ListTileCard(
-                  titleString: 'data',
+                  titleString: 'expense title',
                   trailing: Text("\$53"),
+                  //subtitleString: "subtitle",
+                  //headerString: "header",
                 ),
                 SizedBox(height: 10),
               ],
