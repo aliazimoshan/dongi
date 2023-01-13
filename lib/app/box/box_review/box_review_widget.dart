@@ -129,70 +129,74 @@ class BoxReviewWidget {
   }
 
   /// * ----- friends list
-  categoriesList() => Column(
+  categoriesList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 0, 10),
+          child: Text(
+            'Categories',
+            style: FontConfig.body1(),
+          ),
+        ),
+        SizedBox(
+          height: 110,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              const SizedBox(width: 16),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (context, i) => Row(
+                  children: [
+                    CategoryWidget(
+                      name: 'category name',
+                      balance: '210,000',
+                    ),
+                    const SizedBox(width: 10),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 6),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// * ----- expenses list
+  expensesList() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 25, 16, 25),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 0, 10),
-            child: Text(
-              'Categories',
-              style: FontConfig.body1(),
-            ),
+          Text(
+            'Expenses',
+            style: FontConfig.body1(),
           ),
-          SizedBox(
-            height: 110,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                const SizedBox(width: 16),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (ctx, i) => Row(
-                    children: [
-                      CategoryWidget(
-                        name: 'category name',
-                        balance: '210,000',
-                      ),
-                      const SizedBox(width: 10),
-                    ],
-                  ),
+          const SizedBox(height: 10),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 5,
+            itemBuilder: (context, i) => Column(
+              children: const [
+                ListTileCard(
+                  titleString: 'data',
+                  trailing: Text("\$53"),
                 ),
-                const SizedBox(width: 6),
+                SizedBox(height: 10),
               ],
             ),
           ),
         ],
-      );
-
-  /// * ----- expenses list
-  expensesList() => Padding(
-        padding: const EdgeInsets.fromLTRB(16, 25, 16, 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Expenses',
-              style: FontConfig.body1(),
-            ),
-            const SizedBox(height: 10),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (ctx, i) => Column(
-                children: const [
-                  ListTileCard(
-                    titleString: 'data',
-                    trailing: Text("\$53"),
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
+      ),
+    );
+  }
 }
