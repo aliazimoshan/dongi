@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
 import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
@@ -6,6 +7,47 @@ import '../../../widgets/friends/friend.dart';
 import '../../../widgets/list_tile/list_tile.dart';
 
 class GroupReviewWidget {
+  ///* group name
+  groupName(String groupName) {
+    return Expanded(
+      flex: 1,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        alignment: Alignment.bottomLeft,
+        child: Row(
+          children: [
+            Text(
+              "Group Name",
+              style: FontConfig.h5().copyWith(color: Colors.white),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  groupReviewBody({required List<Widget> children}) {
+    return Expanded(
+      flex: 3,
+      child: Container(
+        decoration: BoxDecoration(
+          color: ColorConfig.background,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        child: ListView(
+          children: [
+            Column(
+              children: children,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   // * group info
   groupInfo() {
     groupInfoCard(String title, String subtitle, IconData icon) {
