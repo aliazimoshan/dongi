@@ -1,10 +1,10 @@
+import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
 import '../../../widgets/category/category_widget.dart';
-import '../../../widgets/friends/friends_widget.dart';
-import '../../../widgets/list_tile/custom_list_tile.dart';
+import '../../../widgets/friends/friend.dart';
 
 class BoxReviewWidget {
   /// * ----- total expense
@@ -183,12 +183,12 @@ class BoxReviewWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 5,
               itemBuilder: (ctx, i) => Column(
-                children: [
-                  CustomListTile(
-                    title: 'data',
-                    price: '0',
+                children: const [
+                  ListTileCard(
+                    titleString: 'data',
+                    trailing: Text("\$53"),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                 ],
               ),
             ),
