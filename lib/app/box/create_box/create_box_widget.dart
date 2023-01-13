@@ -111,8 +111,9 @@ class CreateBoxWidget {
                 mainAxisSpacing: 10,
                 // childAspectRatio: ,
               ),
-              itemBuilder: (context, i) =>
-                  FriendWidget(backgroundColor: Colors.grey.shade400),
+              itemBuilder: (context, i) => FriendWidget(
+                backgroundColor: ColorConfig.darkGrey,
+              ),
             ),
           ],
         ),

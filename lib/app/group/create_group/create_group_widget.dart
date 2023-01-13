@@ -89,7 +89,7 @@ class CreateGroupWidget {
             itemBuilder: (context, i) {
               return i != 5
                   ? FriendWidget(
-                      backgroundColor: Colors.grey.shade400,
+                      backgroundColor: ColorConfig.darkGrey,
                     )
                   : FriendWidget.add();
             },
