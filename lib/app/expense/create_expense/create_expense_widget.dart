@@ -29,7 +29,7 @@ class CreateExpenseWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.category_outlined, color: Colors.grey.shade700),
+            Icon(Icons.category_outlined, color: ColorConfig.primarySwatch),
             const SizedBox(width: 3),
             const Text("Category"),
           ],
@@ -46,7 +46,7 @@ class CreateExpenseWidget {
           children: [
             Icon(
               Icons.date_range,
-              color: Colors.grey.shade700,
+              color: ColorConfig.primarySwatch,
             ),
             const SizedBox(width: 3),
             const Text("20 Nov, 2020"),
@@ -103,7 +103,7 @@ class CreateExpenseWidget {
             height: 75,
             child: Icon(
               Icons.description_outlined,
-              color: Colors.grey.shade700,
+              color: ColorConfig.primarySwatch,
             ),
           ),
           const SizedBox(width: 10),

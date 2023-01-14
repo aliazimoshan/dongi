@@ -1,5 +1,3 @@
-import 'package:dongi/app/box/box_review/box_review_page.dart';
-import 'package:dongi/app/friends/friend_review_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import './constants/color_config.dart';
@@ -26,7 +24,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.background,
       ),
       debugShowCheckedModeBanner: false,
-      home: FriendReviewPage(),
+      home: OnboardingPage(),
     );
   }
 }
