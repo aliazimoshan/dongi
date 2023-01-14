@@ -5,12 +5,12 @@ import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
 import '../../../constants/size_config.dart';
 import '../../../widgets/button/button.dart';
-import '../../../widgets/friends/friends_widget.dart';
-import '../../../widgets/text_field/custom_text_field.dart';
+import '../../../widgets/friends/friend.dart';
+import '../../../widgets/text_field/text_field.dart';
 
 class CreateBoxWidget {
   /// * ----- box info card
-  boxInfoCard(BuildContext ctx) {
+  boxInfoCard(BuildContext context) {
     /// * ----- select option button
     selectOptionButton({
       required Function onTap,
@@ -43,7 +43,7 @@ class CreateBoxWidget {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
       padding: const EdgeInsets.all(15),
-      width: SizeConfig.width(ctx),
+      width: SizeConfig.width(context),
       decoration: BoxDecoration(
         color: ColorConfig.pureWhite,
         borderRadius: BorderRadius.circular(15),
@@ -85,10 +85,10 @@ class CreateBoxWidget {
   }
 
   /// * ----- select friends card
-  selectFriendsCard(BuildContext ctx) => Container(
+  selectFriendsCard(BuildContext context) => Container(
         margin: const EdgeInsets.fromLTRB(16, 25, 16, 0),
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-        width: SizeConfig.width(ctx),
+        width: SizeConfig.width(context),
         decoration: BoxDecoration(
           color: ColorConfig.pureWhite,
           borderRadius: BorderRadius.circular(15),
@@ -111,7 +111,7 @@ class CreateBoxWidget {
                 mainAxisSpacing: 10,
                 // childAspectRatio: ,
               ),
-              itemBuilder: (ctx, i) =>
+              itemBuilder: (context, i) =>
                   FriendWidget(backgroundColor: Colors.grey.shade400),
             ),
           ],

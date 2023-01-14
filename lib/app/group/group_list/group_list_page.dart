@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../widgets/appbar/appbar.dart';
-import '../../../widgets/floating_action_button/floating_action_button_widget.dart';
+import '../../../widgets/floating_action_button/floating_action_button.dart';
 import 'group_list_widget.dart';
 
 class GroupListPage extends ConsumerWidget with GroupListWidget {

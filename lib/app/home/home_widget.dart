@@ -419,10 +419,11 @@ class HomeWidget {
     }
 
     return SizedBox(
-      width: 105,
+      width: 112,
       //color: Colors.red,
       child: CardWidget(
-        margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.only(right: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,

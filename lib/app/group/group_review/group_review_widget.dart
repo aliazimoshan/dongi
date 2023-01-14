@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../constants/font_config.dart';
 import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
-import '../../../widgets/friends/friends_widget.dart';
-import '../../../widgets/list_tile/custom_list_tile.dart';
+import '../../../widgets/friends/friend.dart';
+import '../../../widgets/list_tile/list_tile.dart';
 
 class GroupReviewWidget {
   // * group info
@@ -146,13 +146,13 @@ class GroupReviewWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 5,
-              itemBuilder: (ctx, i) => Column(
-                children: [
-                  CustomListTile(
-                    title: 'data',
-                    price: '0',
+              itemBuilder: (context, i) => Column(
+                children: const [
+                  ListTileWidget(
+                    titleString: 'data',
+                    trailing: Text("\$53"),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                 ],
               ),
             ),
