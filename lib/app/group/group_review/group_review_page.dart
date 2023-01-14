@@ -23,7 +23,7 @@ class GroupReviewPage extends ConsumerWidget with GroupReviewWidget {
               groupInfo(),
               friendsList(),
               categoriesList(),
-              expensesList(),
+              //expensesList(),
             ],
           ),
         ],
