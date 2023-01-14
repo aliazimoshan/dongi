@@ -17,25 +17,29 @@ class CreateBoxWidget {
       required String icon,
       required String title,
     }) =>
-        Expanded(
-          child: InkWell(
-            onTap: () {
-              onTap();
-            },
-            child: Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: ColorConfig.baseGrey,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(icon),
-                  const SizedBox(width: 10),
-                  Text(title),
-                ],
-              ),
+        InkWell(
+          onTap: () {
+            onTap();
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            height: 50,
+            decoration: BoxDecoration(
+              color: ColorConfig.baseGrey,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                SvgPicture.asset(icon),
+                const SizedBox(width: 10),
+                Text(title),
+                const Spacer(),
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: ColorConfig.primarySwatch,
+                  size: 20,
+                )
+              ],
             ),
           ),
         );
@@ -59,20 +63,10 @@ class CreateBoxWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Row(
-            children: [
-              selectOptionButton(
-                onTap: () {},
-                icon: 'assets/svg/category_icon.svg',
-                title: 'category',
-              ),
-              const SizedBox(width: 10),
-              selectOptionButton(
-                onTap: () {},
-                icon: 'assets/svg/currency_icon.svg',
-                title: 'currency',
-              ),
-            ],
+          selectOptionButton(
+            onTap: () {},
+            icon: 'assets/svg/currency_icon.svg',
+            title: 'currency',
           ),
           const SizedBox(height: 10),
           const TextFieldWidget(
@@ -86,7 +80,7 @@ class CreateBoxWidget {
 
   /// * ----- select friends card
   selectFriendsCard(BuildContext context) => Container(
-        margin: const EdgeInsets.fromLTRB(16, 25, 16, 0),
+        margin: const EdgeInsets.fromLTRB(16, 10, 16, 0),
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
         width: SizeConfig.width(context),
         decoration: BoxDecoration(

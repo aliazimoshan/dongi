@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import './constants/color_config.dart';
-import 'app/onboarding/onboarding_page.dart';
+import './app/onboarding/onboarding_page.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
