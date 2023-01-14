@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/color_config.dart';
-import '../../constants/font_config.dart';
-import '../../constants/size_config.dart';
-import '../../widgets/list_tile/list_tile_card.dart';
+import '../../../constants/color_config.dart';
+import '../../../constants/font_config.dart';
+import '../../../constants/size_config.dart';
+import '../../../widgets/list_tile/list_tile_card.dart';
 
 class FriendReviewWidget {
   /// * ----- total expense
