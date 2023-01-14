@@ -36,7 +36,7 @@ class BoxCardWidget extends CardWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 15),
+              const Spacer(),
               Text("Total bill", style: FontConfig.overline()),
               Text(
                 '\$140.0',
@@ -44,7 +44,7 @@ class BoxCardWidget extends CardWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 10),
+              const Spacer(),
               Text("Split to", style: FontConfig.overline()),
               Text(
                 '2',
@@ -52,6 +52,7 @@ class BoxCardWidget extends CardWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
+              const Spacer(),
             ],
           ),
         ),
