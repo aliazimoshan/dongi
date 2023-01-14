@@ -2,7 +2,6 @@ import 'package:dongi/constants/color_config.dart';
 import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
 
-import '../../../widgets/list_tile/list_tile.dart';
 
 class GroupListWidget {
   groupCard(String title, String subtitle) {

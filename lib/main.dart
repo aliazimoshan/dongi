@@ -1,10 +1,8 @@
-import 'package:dongi/app/box/box_review/box_review_page.dart';
-import 'package:dongi/app/expense/create_expense/create_expense_page.dart';
-import 'package:dongi/app/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import './constants/color_config.dart';
-import 'app/onboarding/onboarding_page.dart';
+import './app/onboarding/onboarding_page.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
