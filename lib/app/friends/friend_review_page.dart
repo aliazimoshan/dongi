@@ -1,9 +1,9 @@
-import 'package:dongi/constants/color_config.dart';
-import 'package:dongi/constants/font_config.dart';
-import 'package:dongi/widgets/appbar/sliver_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../constants/color_config.dart';
+import '../../constants/font_config.dart';
+import '../../widgets/appbar/sliver_appbar.dart';
 import './friend_review_widget.dart';
 
 class FriendReviewPage extends HookConsumerWidget with FriendReviewWidget {
@@ -19,13 +19,16 @@ class FriendReviewPage extends HookConsumerWidget with FriendReviewWidget {
         ),
       ),
       body: SliverAppBarWidget(
-        appbarTitle: Text('data'),
-        child: Center(
-          child: Container(
-            height: 100,
-            width: 100,
-            color: Colors.green,
-          ),
+        /// * ----- total expense
+        appbarTitle: totalExpense(context),
+        child: ListView(
+          children: [
+            /// * ----- review
+            review(),
+
+            /// * ----- expense list
+            expensesList(),
+          ],
         ),
       ),
     );

@@ -1,5 +1,130 @@
+import 'package:dongi/widgets/list_tile/list_tile_card.dart';
+import 'package:flutter/material.dart';
+
+import '../../constants/color_config.dart';
+import '../../constants/font_config.dart';
+import '../../constants/size_config.dart';
+
 class FriendReviewWidget {
-  // totalExpense(){
-  //   retur  n
-  // }
+  /// * ----- total expense
+  totalExpense(BuildContext context) {
+    return SizedBox(
+      width: SizeConfig.width(context),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            'total expense',
+            style: FontConfig.caption().copyWith(color: ColorConfig.pureWhite),
+          ),
+          Text(
+            '\$7,540.00',
+            style: FontConfig.h5().copyWith(
+              color: ColorConfig.pureWhite,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+
+  /// * ----- review section
+  review() {
+    /// * review card
+    reviewCard() {
+      return Expanded(
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: ColorConfig.pureWhite,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 32,
+                width: 32,
+                decoration: BoxDecoration(
+                  color: ColorConfig.primarySwatch,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              const SizedBox(height: 15),
+              Text(
+                'data',
+                style: FontConfig.overline().copyWith(
+                  color: ColorConfig.primarySwatch.withOpacity(0.5),
+                ),
+              ),
+              Text(
+                'data',
+                style: FontConfig.body2(),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    /// * ----- review widget
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+      child: Row(
+        children: [
+          reviewCard(),
+          const SizedBox(width: 10),
+          reviewCard(),
+        ],
+      ),
+    );
+  }
+
+  /// * ----- expense list
+  expensesList() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: Text(
+              'Expenses',
+              style: FontConfig.body1(),
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 20,
+            itemBuilder: (context, i) => Column(
+              children: [
+                ListTileCard(
+                  leading: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: ColorConfig.primarySwatch,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  trailing: Text(
+                    '\$53',
+                    style: FontConfig.body2(),
+                  ),
+                  headerString: 'you owe',
+                  titleString: 'friend name',
+                ),
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
