@@ -118,7 +118,7 @@ class GroupReviewWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 0, 10),
+          padding: const EdgeInsets.fromLTRB(26, 16, 0, 10),
           child: Text(
             'Friends',
             style: FontConfig.body1(),
@@ -148,57 +148,57 @@ class GroupReviewWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 0, 10),
+            padding: const EdgeInsets.fromLTRB(26, 0, 0, 10),
             child: Text(
               'Boxes',
               style: FontConfig.body1(),
             ),
           ),
-          SizedBox(
-            height: 150,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                const SizedBox(width: 16),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (context, i) => const BoxCardWidget(),
-                ),
-              ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1.3,
+              ),
+              //scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (context, i) => const BoxCardWidget(),
             ),
           ),
         ],
       );
 
   /// * ----- expenses list
-  expensesList() => Padding(
-        padding: const EdgeInsets.fromLTRB(16, 25, 16, 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Expenses',
-              style: FontConfig.body1(),
-            ),
-            const SizedBox(height: 10),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (context, i) => Column(
-                children: const [
-                  ListTileWidget(
-                    titleString: 'data',
-                    trailing: Text("\$53"),
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
+  //expensesList() => Padding(
+  //      padding: const EdgeInsets.fromLTRB(16, 25, 16, 25),
+  //      child: Column(
+  //        crossAxisAlignment: CrossAxisAlignment.start,
+  //        children: [
+  //          Text(
+  //            'Expenses',
+  //            style: FontConfig.body1(),
+  //          ),
+  //          const SizedBox(height: 10),
+  //          ListView.builder(
+  //            shrinkWrap: true,
+  //            physics: const NeverScrollableScrollPhysics(),
+  //            itemCount: 5,
+  //            itemBuilder: (context, i) => Column(
+  //              children: const [
+  //                ListTileWidget(
+  //                  titleString: 'data',
+  //                  trailing: Text("\$53"),
+  //                ),
+  //                SizedBox(height: 10),
+  //              ],
+  //            ),
+  //          ),
+  //        ],
+  //      ),
+  //    );
 }
