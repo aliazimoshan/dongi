@@ -9,6 +9,7 @@ class ListTileWidget extends ListTile {
     super.key,
     super.trailing,
     super.leading,
+    super.onTap,
     required this.titleString,
     this.subtitleString,
     this.headerString,
