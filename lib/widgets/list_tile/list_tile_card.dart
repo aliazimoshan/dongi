@@ -9,13 +9,16 @@ class ListTileCard extends CardWidget {
   final String? headerString;
   final Widget? trailing;
   final Widget? leading;
+  final void Function()? onTap;
   const ListTileCard({
     super.key,
+    super.borderColor,
     required this.titleString,
     this.subtitleString,
     this.headerString,
     this.trailing,
     this.leading,
+    this.onTap,
   });
 
   @override
@@ -26,11 +29,13 @@ class ListTileCard extends CardWidget {
           headerString: headerString,
           trailing: trailing,
           leading: leading,
+          onTap: onTap,
         )
       : ListTileWidget(
           titleString: titleString,
           trailing: trailing,
           headerString: headerString,
           leading: leading,
+          onTap: onTap,
         );
 }
