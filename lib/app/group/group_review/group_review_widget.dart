@@ -4,7 +4,6 @@ import '../../../constants/font_config.dart';
 import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/friends/friend.dart';
-import '../../../widgets/list_tile/list_tile.dart';
 
 class GroupReviewWidget {
   ///* group name
