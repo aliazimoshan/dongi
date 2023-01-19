@@ -43,6 +43,13 @@ class SplitWidget {
               onTap: () => ref
                   .read(friendsSelectorProvider.notifier)
                   .select(friends[index]),
+              trailing: CheckboxWidget(
+                borderColor: ColorConfig.primarySwatch,
+                value: provider.contains(friends[index]),
+                onChanged: (val) => ref
+                    .read(friendsSelectorProvider.notifier)
+                    .select(friends[index]),
+              ),
             ),
           );
         },
