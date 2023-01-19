@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CheckboxWidget extends Checkbox {
+  final Color? borderColor;
   const CheckboxWidget({
     super.key,
     required super.value,
     required super.onChanged,
+    this.borderColor,
   });
 
   @override
@@ -14,6 +16,6 @@ class CheckboxWidget extends Checkbox {
 
   @override
   BorderSide? get side => MaterialStateBorderSide.resolveWith(
-        (states) => const BorderSide(width: 1.0, color: Colors.white),
+        (states) => BorderSide(width: 1.0, color: borderColor ?? Colors.white),
       );
 }
