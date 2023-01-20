@@ -36,9 +36,6 @@ class SplitWidget {
             padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
             child: ListTileCard(
               leading: cardIcon(),
-              borderColor: provider.contains(friends[index])
-                  ? ColorConfig.primarySwatch
-                  : Colors.transparent,
               titleString: friends[index],
               onTap: () => ref
                   .read(friendsSelectorProvider.notifier)
