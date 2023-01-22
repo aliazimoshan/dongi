@@ -1,4 +1,3 @@
-import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 
 class CardWidget extends Card {
@@ -12,9 +11,6 @@ class CardWidget extends Card {
     this.padding,
     this.borderColor,
   });
-
-  @override
-  Color? get color => ColorConfig.grey;
 
   @override
   double? get elevation => 0;
