@@ -37,3 +37,14 @@ flutter:
       fonts:
         - asset: assets/fonts/Mulish-Light.ttf
         - asset: assets/fonts/Mulish-SemiBold.ttf
+
+    - family: Comfortaa
+      fonts:
+        - asset: assets/fonts/Comfortaa-Light.ttf
+        - asset: assets/fonts/Comfortaa-Regular.ttf
+        - asset: assets/fonts/Comfortaa-Medium.ttf
+        - asset: assets/fonts/Comfortaa-SemiBold.ttf
+        - asset: assets/fonts/Comfortaa-Bold.ttf
+          weight: 700
+        
+        
