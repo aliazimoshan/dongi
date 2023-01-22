@@ -17,12 +17,12 @@ class SignInPage extends ConsumerWidget with SignInWidget {
             child: Container(),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+            padding: const EdgeInsets.fromLTRB(50, 30, 50, 50),
             decoration: BoxDecoration(
-              color: ColorConfig.pureWhite,
+              color: ColorConfig.white,
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
               ),
             ),
             child: Column(
