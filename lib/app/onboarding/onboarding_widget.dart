@@ -1,9 +1,26 @@
 import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 import '../../constants/content/onboarding_contents.dart';
+import '../../constants/font_config.dart';
 import '../../widgets/button/button.dart';
 
 class OnboardingWidget {
+  title(int index) {
+    return Column(
+      children: [
+        Text(
+          onboardingContents[index].title,
+          style: FontConfig.h4(),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          onboardingContents[index].desc,
+          style: FontConfig.h6(),
+        ),
+      ],
+    );
+  }
+
   animatedDots(int index, int currentPage) {
     AnimatedContainer dot(int index, int currentPage) {
       return AnimatedContainer(
@@ -12,7 +29,9 @@ class OnboardingWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(50),
           ),
-          color: currentPage == index ? Colors.black : ColorConfig.darkGrey,
+          color: currentPage == index
+              ? ColorConfig.primarySwatch
+              : ColorConfig.primarySwatch25,
         ),
         margin: const EdgeInsets.only(right: 5),
         height: 10,
@@ -38,6 +57,7 @@ class OnboardingWidget {
               Expanded(
                 child: ButtonWidget(
                   title: "START",
+                  textColor: ColorConfig.secondary,
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -68,7 +88,7 @@ class OnboardingWidget {
                 flex: 3,
                 child: ButtonWidget(
                   title: "NEXT",
-                  textColor: Colors.white,
+                  textColor: ColorConfig.secondary,
                   onPressed: () {
                     controller.nextPage(
                       duration: const Duration(milliseconds: 200),

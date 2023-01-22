@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants/color_config.dart';
 import '../../../constants/content/register/new_password_contents.dart';
 import '../../../constants/font_config.dart';
 import '../../../widgets/button/button.dart';
@@ -33,8 +34,9 @@ class NewPasswordWidget {
       );
 
   /// * ----- action buttons
-  actionButton() => Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: ButtonWidget(title: 'Save', onPressed: () {}),
+  actionButton() => ButtonWidget(
+        onPressed: () {},
+        title: 'Save',
+        textColor: ColorConfig.secondary,
       );
 }

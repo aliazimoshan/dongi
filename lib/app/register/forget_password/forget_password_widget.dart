@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants/color_config.dart';
 import '../../../constants/content/register/forget_password_contents.dart';
 import '../../../constants/font_config.dart';
 import '../../../widgets/button/button.dart';
@@ -29,8 +30,9 @@ class ForgetPasswordWidget {
       );
 
   /// * ----- action buttons
-  actionButton() => Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: ButtonWidget(title: 'Next', onPressed: () {}),
+  actionButton() => ButtonWidget(
+        onPressed: () {},
+        title: 'Next',
+        textColor: ColorConfig.secondary,
       );
 }

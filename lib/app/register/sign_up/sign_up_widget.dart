@@ -41,7 +41,13 @@ class SignUpWidget {
         padding: const EdgeInsets.only(bottom: 20),
         child: Row(
           children: [
-            Expanded(child: ButtonWidget(title: 'Sign Up', onPressed: () {})),
+            Expanded(
+              child: ButtonWidget(
+                onPressed: () {},
+                title: 'Sign Up',
+                textColor: ColorConfig.secondary,
+              ),
+            ),
             const SizedBox(width: 10),
             _googleButton(),
           ],
@@ -49,29 +55,26 @@ class SignUpWidget {
       );
 
   /// * ----- changeActionButton
-  changeActionButton() => Padding(
-        padding: const EdgeInsets.only(bottom: 50),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              SignUpContent.changeAction,
-              style: FontConfig.body1(),
-            ),
-            const SizedBox(width: 10),
-            InkWell(
-              onTap: () {},
-              child: Text(
-                'Sign In',
-                style: FontConfig.body1().copyWith(
-                  fontWeight: FontWeight.w800,
-                  decoration: TextDecoration.underline,
-                ),
+  changeActionButton() => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            SignUpContent.changeAction,
+            style: FontConfig.body1(),
+          ),
+          const SizedBox(width: 10),
+          InkWell(
+            onTap: () {},
+            child: Text(
+              'Sign In',
+              style: FontConfig.body1().copyWith(
+                fontWeight: FontWeight.w800,
+                decoration: TextDecoration.underline,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       );
 
   /// * ----- google button
@@ -86,7 +89,10 @@ class SignUpWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(
-          child: SvgPicture.asset('assets/svg/google_icon.svg'),
+          child: SvgPicture.asset(
+            'assets/svg/google_icon.svg',
+            color: ColorConfig.secondary,
+          ),
         ),
       ),
     );

@@ -14,14 +14,14 @@ class TextFieldWidget extends TextField {
   @override
   InputDecoration? get decoration => InputDecoration(
         filled: true,
-        fillColor: ColorConfig.baseGrey,
+        fillColor: ColorConfig.grey,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
         ),
         hintText: hintText,
         hintStyle: FontConfig.body2().copyWith(
-          color: ColorConfig.primarySwatch.withOpacity(0.5),
+          color: ColorConfig.midnight.withOpacity(0.5),
         ),
       );
 

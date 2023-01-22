@@ -1,3 +1,4 @@
+import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -45,26 +46,19 @@ class OnboardingPage extends ConsumerWidget with OnboardingWidget {
               Expanded(
                 flex: 2,
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
+                  padding: const EdgeInsets.fromLTRB(50, 30, 50, 30),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
                     ),
-                    color: Colors.white,
+                    color: ColorConfig.white,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        onboardingContents[index].title,
-                        style: FontConfig.h4(),
-                      ),
-                      Text(
-                        onboardingContents[index].desc,
-                        style: FontConfig.h6(),
-                      ),
+                      title(index),
                       animatedDots(index, currentPage),
                       actionButtons(context, index, _controller)
                     ],

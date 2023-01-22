@@ -1,3 +1,4 @@
+import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 import '../../constants/font_config.dart';
 
@@ -18,18 +19,13 @@ class ButtonWidget extends ElevatedButton {
 
   @override
   ButtonStyle? get style => ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor ?? Colors.black,
+        backgroundColor: backgroundColor ?? ColorConfig.primarySwatch,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-          side: BorderSide(color: borderColor ?? Colors.black),
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(color: borderColor ?? ColorConfig.primarySwatch),
         ),
         elevation: 0,
         padding: EdgeInsets.zero,
-        //padding: const EdgeInsets.symmetric(
-        //  horizontal: 15,
-        //  vertical: 15,
-        //),
-        //textStyle: const TextStyle(fontSize: 15),
       );
 
   ButtonWidget.outline({
