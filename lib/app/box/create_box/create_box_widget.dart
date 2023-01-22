@@ -16,40 +16,44 @@ class CreateBoxWidget {
       required Function onTap,
       required String icon,
       required String title,
-    }) =>
-        InkWell(
-          onTap: () {
-            onTap();
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            height: 50,
-            decoration: BoxDecoration(
-              color: ColorConfig.baseGrey,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              children: [
-                SvgPicture.asset(icon),
-                const SizedBox(width: 10),
-                Text(title),
-                const Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: ColorConfig.primarySwatch,
-                  size: 20,
-                )
-              ],
-            ),
+    }) {
+      return InkWell(
+        onTap: () {
+          onTap();
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          height: 50,
+          decoration: BoxDecoration(
+            color: ColorConfig.white,
+            borderRadius: BorderRadius.circular(10),
           ),
-        );
+          child: Row(
+            children: [
+              SvgPicture.asset(icon),
+              const SizedBox(width: 10),
+              Text(
+                title,
+                style: FontConfig.body2(),
+              ),
+              const Spacer(),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: ColorConfig.primarySwatch,
+                size: 20,
+              )
+            ],
+          ),
+        ),
+      );
+    }
 
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
       padding: const EdgeInsets.all(15),
       width: SizeConfig.width(context),
       decoration: BoxDecoration(
-        color: ColorConfig.pureWhite,
+        color: ColorConfig.grey,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
@@ -59,7 +63,12 @@ class CreateBoxWidget {
             children: [
               _addPhotoButton(),
               const SizedBox(width: 10),
-              const Expanded(child: TextFieldWidget(hintText: 'Box Name')),
+              Expanded(
+                child: TextFieldWidget(
+                  hintText: 'Box Name',
+                  fillColor: ColorConfig.white,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -69,9 +78,10 @@ class CreateBoxWidget {
             title: 'currency',
           ),
           const SizedBox(height: 10),
-          const TextFieldWidget(
+          TextFieldWidget(
             maxLines: 2,
             hintText: 'Description',
+            fillColor: ColorConfig.white,
           ),
         ],
       ),
@@ -79,14 +89,8 @@ class CreateBoxWidget {
   }
 
   /// * ----- select friends card
-  selectFriendsCard(BuildContext context) => Container(
-        margin: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-        padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-        width: SizeConfig.width(context),
-        decoration: BoxDecoration(
-          color: ColorConfig.pureWhite,
-          borderRadius: BorderRadius.circular(15),
-        ),
+  selectFriendsCard(BuildContext context) => Padding(
+        padding: const EdgeInsets.fromLTRB(16, 30, 16, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -95,18 +99,32 @@ class CreateBoxWidget {
               style: FontConfig.body1(),
             ),
             const SizedBox(height: 10),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 12,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                // childAspectRatio: ,
+            Container(
+              padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+              width: SizeConfig.width(context),
+              decoration: BoxDecoration(
+                color: ColorConfig.grey,
+                borderRadius: BorderRadius.circular(15),
               ),
-              itemBuilder: (context, i) => FriendWidget(
-                backgroundColor: ColorConfig.darkGrey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 12,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      // childAspectRatio: ,
+                    ),
+                    itemBuilder: (context, i) => FriendWidget(
+                      backgroundColor: ColorConfig.white,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -119,6 +137,7 @@ class CreateBoxWidget {
         child: ButtonWidget(
           onPressed: () {},
           title: 'create',
+          textColor: ColorConfig.secondary,
         ),
       );
 
@@ -130,7 +149,7 @@ class CreateBoxWidget {
         width: 50,
         height: 50,
         decoration: BoxDecoration(
-          color: ColorConfig.baseGrey,
+          color: ColorConfig.white,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(

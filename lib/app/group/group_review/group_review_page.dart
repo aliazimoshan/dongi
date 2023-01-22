@@ -11,7 +11,6 @@ class GroupReviewPage extends ConsumerWidget with GroupReviewWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: ColorConfig.primarySwatch,
-      appBar: AppBar(),
       body: Column(
         children: [
           /// * group name // header

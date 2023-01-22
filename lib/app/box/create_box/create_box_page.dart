@@ -10,7 +10,7 @@ class CreateBoxPage extends ConsumerWidget with CreateBoxWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: ColorConfig.background,
+      backgroundColor: ColorConfig.white,
       appBar: AppBarWidget(title: "Create Box"),
       body: Column(
         children: [
