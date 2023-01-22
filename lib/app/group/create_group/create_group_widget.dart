@@ -114,6 +114,7 @@ class CreateGroupWidget {
       child: ButtonWidget(
         onPressed: () {},
         title: 'create',
+        textColor: ColorConfig.secondary,
       ),
     );
   }
