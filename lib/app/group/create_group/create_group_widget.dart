@@ -16,7 +16,7 @@ class CreateGroupWidget {
       padding: const EdgeInsets.all(15),
       width: SizeConfig.width(context),
       decoration: BoxDecoration(
-        color: ColorConfig.white,
+        color: ColorConfig.grey,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
@@ -26,8 +26,11 @@ class CreateGroupWidget {
             children: [
               _addPhotoButton(),
               const SizedBox(width: 10),
-              const Expanded(
-                child: TextFieldWidget(hintText: 'Group Name'),
+              Expanded(
+                child: TextFieldWidget(
+                  hintText: 'Group Name',
+                  fillColor: ColorConfig.white,
+                ),
               ),
             ],
           ),
@@ -48,10 +51,9 @@ class CreateGroupWidget {
             ],
           ),
           const SizedBox(height: 10),
-          const TextFieldWidget(
-            // height: 75,
-            // alignment: Alignment.topLeft,
+          TextFieldWidget(
             hintText: 'Description',
+            fillColor: ColorConfig.white,
           ),
         ],
       ),
@@ -60,14 +62,8 @@ class CreateGroupWidget {
 
   /// * ----- select friends card
   addFriendsCard(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 25, 16, 0),
-      padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-      width: SizeConfig.width(context),
-      decoration: BoxDecoration(
-        color: ColorConfig.pureWhite,
-        borderRadius: BorderRadius.circular(15),
-      ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 30, 16, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -76,23 +72,35 @@ class CreateGroupWidget {
             style: FontConfig.body1(),
           ),
           const SizedBox(height: 10),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 6,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              // childAspectRatio: ,
+          Container(
+            padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+            width: SizeConfig.width(context),
+            decoration: BoxDecoration(
+              color: ColorConfig.grey,
+              borderRadius: BorderRadius.circular(15),
             ),
-            itemBuilder: (context, i) {
-              return i != 5
-                  ? FriendWidget(
-                      backgroundColor: ColorConfig.darkGrey,
-                    )
-                  : FriendWidget.add();
-            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 6,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, i) {
+                    return i != 5
+                        ? FriendWidget(
+                            backgroundColor: ColorConfig.white,
+                          )
+                        : FriendWidget.add();
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -11,7 +11,7 @@ class CreateGroupPage extends ConsumerWidget with CreateGroupWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: ColorConfig.background,
+      backgroundColor: ColorConfig.white,
       appBar: AppBarWidget(title: "Create Group"),
       body: Column(
         children: [
