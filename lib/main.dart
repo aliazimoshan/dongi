@@ -1,3 +1,4 @@
+import 'package:dongi/app/group/create_group/create_group_page.dart';
 import 'package:dongi/app/group/group_list/group_list_page.dart';
 import 'package:dongi/app/home/home_page.dart';
 import 'package:dongi/app/register/forget_password/forget_password_page.dart';
@@ -31,7 +32,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: GroupListPage(),
+      home: CreateGroupPage(),
     );
   }
 }

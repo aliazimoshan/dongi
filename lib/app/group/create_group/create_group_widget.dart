@@ -16,7 +16,7 @@ class CreateGroupWidget {
       padding: const EdgeInsets.all(15),
       width: SizeConfig.width(context),
       decoration: BoxDecoration(
-        color: ColorConfig.pureWhite,
+        color: ColorConfig.white,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
@@ -124,7 +124,7 @@ class CreateGroupWidget {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: ColorConfig.baseGrey,
+            color: ColorConfig.white,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
@@ -148,7 +148,7 @@ class CreateGroupWidget {
         width: 50,
         height: 50,
         decoration: BoxDecoration(
-          color: ColorConfig.baseGrey,
+          color: ColorConfig.white,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(

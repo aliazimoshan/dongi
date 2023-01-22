@@ -5,8 +5,10 @@ import '../../constants/font_config.dart';
 
 class TextFieldWidget extends TextField {
   final String hintText;
+  final Color? fillColor;
   const TextFieldWidget({
     required this.hintText,
+    this.fillColor,
     super.key,
     super.maxLines,
   });
@@ -14,7 +16,7 @@ class TextFieldWidget extends TextField {
   @override
   InputDecoration? get decoration => InputDecoration(
         filled: true,
-        fillColor: ColorConfig.grey,
+        fillColor: fillColor ?? ColorConfig.grey,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
