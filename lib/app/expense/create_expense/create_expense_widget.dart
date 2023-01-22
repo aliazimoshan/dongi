@@ -9,10 +9,15 @@ import '../../../widgets/text_field/text_field.dart';
 class CreateExpenseWidget {
   amountRow() {
     return Row(
-      children: const [
-        Expanded(child: TextFieldWidget(hintText: "hintText")),
-        SizedBox(width: 10),
-        GreyCardWidget(
+      children: [
+        Expanded(
+          child: TextFieldWidget(
+            hintText: "hintText",
+            fillColor: ColorConfig.white,
+          ),
+        ),
+        const SizedBox(width: 10),
+        const GreyCardWidget(
           width: 50,
           height: 50,
           child: Center(
@@ -30,7 +35,7 @@ class CreateExpenseWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.category_outlined, color: ColorConfig.primarySwatch),
-            const SizedBox(width: 3),
+            const SizedBox(width: 5),
             const Text("Category"),
           ],
         ),
@@ -48,7 +53,7 @@ class CreateExpenseWidget {
               Icons.date_range,
               color: ColorConfig.primarySwatch,
             ),
-            const SizedBox(width: 3),
+            const SizedBox(width: 5),
             const Text("20 Nov, 2020"),
           ],
         ),
@@ -107,12 +112,13 @@ class CreateExpenseWidget {
             ),
           ),
           const SizedBox(width: 10),
-          const Expanded(
-              child: TextFieldWidget(
-            hintText: "Description",
-            // height: 75,
-            maxLines: 3,
-          )),
+          Expanded(
+            child: TextFieldWidget(
+              hintText: "Description",
+              maxLines: 3,
+              fillColor: ColorConfig.white,
+            ),
+          ),
         ],
       ),
     );
@@ -122,7 +128,11 @@ class CreateExpenseWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-        child: ButtonWidget(onPressed: () {}, title: "Create"),
+        child: ButtonWidget(
+          onPressed: () {},
+          title: "Create",
+          textColor: ColorConfig.secondary,
+        ),
       ),
     );
   }

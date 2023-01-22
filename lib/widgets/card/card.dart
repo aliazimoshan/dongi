@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class CardWidget extends Card {
   final EdgeInsets? padding;
   final Color? borderColor;
+  final Color? backColor;
   const CardWidget({
     super.key,
     super.child,
@@ -11,10 +12,11 @@ class CardWidget extends Card {
     super.color,
     this.padding,
     this.borderColor,
+    this.backColor,
   });
 
   @override
-  Color? get color => ColorConfig.grey;
+  Color? get color => backColor ?? ColorConfig.grey;
 
   @override
   double? get elevation => 0;

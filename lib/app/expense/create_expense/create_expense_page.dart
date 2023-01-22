@@ -1,3 +1,4 @@
+import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../widgets/appbar/appbar.dart';
@@ -20,12 +21,15 @@ class CreateExpensePage extends ConsumerWidget with CreateExpenseWidget {
               child: ListView(
                 children: [
                   CardWidget(
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         amountRow(),
                         const SizedBox(height: 10),
-                        const TextFieldWidget(hintText: "Title"),
+                        TextFieldWidget(
+                          hintText: "Title",
+                          fillColor: ColorConfig.white,
+                        ),
                         const SizedBox(height: 10),
                         Row(
                           children: [
@@ -39,7 +43,7 @@ class CreateExpensePage extends ConsumerWidget with CreateExpenseWidget {
                   ),
                   const SizedBox(height: 20),
                   CardWidget(
-                    padding: const EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         madeByButton(),
