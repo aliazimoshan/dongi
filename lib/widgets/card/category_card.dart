@@ -44,11 +44,10 @@ class CategoryCardWidget extends CardWidget {
                 name,
                 style: FontConfig.overline(),
               ),
+              const SizedBox(height: 5),
               Text(
                 '\$$balance',
-                style: FontConfig.body2().copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+                style: FontConfig.body2(),
               ),
             ],
           ),

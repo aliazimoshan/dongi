@@ -1,3 +1,4 @@
+import 'package:dongi/app/box/box_review/box_review_page.dart';
 import 'package:dongi/app/box/create_box/create_box_page.dart';
 import 'package:dongi/app/group/create_group/create_group_page.dart';
 import 'package:dongi/app/group/group_list/group_list_page.dart';
@@ -34,7 +35,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: const CreateBoxPage(),
+      home: const BoxReviewPage(),
     );
   }
 }

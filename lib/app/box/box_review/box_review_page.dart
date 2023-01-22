@@ -12,9 +12,6 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: ColorConfig.primarySwatch,
-      appBar: AppBar(
-        title: const Text('data'),
-      ),
       body: Column(
         children: [
           /// * Box review header

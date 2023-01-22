@@ -49,7 +49,7 @@ class CreateBoxWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       padding: const EdgeInsets.all(15),
       width: SizeConfig.width(context),
       decoration: BoxDecoration(
