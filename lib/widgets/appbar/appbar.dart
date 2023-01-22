@@ -38,10 +38,10 @@ Widget appBarChild(String? title) {
         Container(
           height: 16,
           decoration: BoxDecoration(
-            color: ColorConfig.background,
+            color: ColorConfig.white,
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
             ),
           ),
         )

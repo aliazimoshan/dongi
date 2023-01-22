@@ -39,11 +39,15 @@ class HomeWidget {
           children: [
             Text(
               "Total Expense",
-              style: FontConfig.body1(),
+              style: FontConfig.overline().copyWith(
+                color: ColorConfig.primarySwatch50,
+              ),
             ),
             Text(
               "\$140.00",
-              style: FontConfig.overline(),
+              style: FontConfig.body1().copyWith(
+                color: ColorConfig.secondary,
+              ),
             ),
           ],
         ),
@@ -63,11 +67,15 @@ class HomeWidget {
               children: [
                 Text(
                   "Income",
-                  style: FontConfig.body1(),
+                  style: FontConfig.overline().copyWith(
+                    color: ColorConfig.primarySwatch50,
+                  ),
                 ),
                 Text(
                   "\$140.00",
-                  style: FontConfig.overline(),
+                  style: FontConfig.body1().copyWith(
+                    color: ColorConfig.secondary,
+                  ),
                 ),
               ],
             ),
@@ -89,11 +97,15 @@ class HomeWidget {
               children: [
                 Text(
                   "Outcome",
-                  style: FontConfig.body1(),
+                  style: FontConfig.overline().copyWith(
+                    color: ColorConfig.primarySwatch50,
+                  ),
                 ),
                 Text(
                   "\$140.00",
-                  style: FontConfig.overline(),
+                  style: FontConfig.body1().copyWith(
+                    color: ColorConfig.secondary,
+                  ),
                 ),
               ],
             ),
@@ -114,7 +126,7 @@ class HomeWidget {
 
   _groupTitle() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(26, 0, 0, 10),
+      padding: const EdgeInsets.fromLTRB(16, 0, 0, 10),
       child: Row(
         children: [
           Text(
@@ -128,7 +140,7 @@ class HomeWidget {
 
   _groupCardLists() {
     return SizedBox(
-      height: 150,
+      height: 172,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
@@ -150,9 +162,10 @@ class HomeWidget {
           Text(
             "Boxes",
             style: FontConfig.overline().copyWith(
-              fontWeight: FontWeight.w400,
+              color: ColorConfig.midnight.withOpacity(0.5),
             ),
           ),
+          const SizedBox(height: 5),
           Text(
             "5",
             style: FontConfig.body2(),
@@ -164,15 +177,15 @@ class HomeWidget {
     memberRow() {
       circleBox(Color color, {IconData? icon}) {
         return Container(
-          width: 24,
-          height: 24,
+          width: 32,
+          height: 32,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: color,
           ),
           child: Icon(
             icon,
-            color: Colors.white,
+            color: ColorConfig.primarySwatch,
             size: 12,
           ),
         );
@@ -184,7 +197,7 @@ class HomeWidget {
           Text(
             "members",
             style: FontConfig.overline().copyWith(
-              fontWeight: FontWeight.w400,
+              color: ColorConfig.midnight.withOpacity(0.5),
             ),
           ),
           const SizedBox(height: 5),
@@ -194,26 +207,30 @@ class HomeWidget {
                 child: Stack(
                   children: [
                     Positioned(
-                      left: 40,
+                      left: 100,
                       child: circleBox(Colors.grey.shade900),
                     ),
                     Positioned(
-                      left: 30,
+                      left: 80,
                       child: circleBox(Colors.grey.shade800),
                     ),
                     Positioned(
-                      left: 20,
+                      left: 60,
                       child: circleBox(Colors.grey.shade700),
                     ),
                     Positioned(
-                      left: 10,
+                      left: 40,
+                      child: circleBox(Colors.grey.shade400),
+                    ),
+                    Positioned(
+                      left: 20,
                       child: circleBox(Colors.grey.shade600),
                     ),
                     circleBox(Colors.grey.shade500),
                   ],
                 ),
               ),
-              circleBox(Colors.black, icon: Icons.share)
+              circleBox(ColorConfig.white, icon: Icons.share)
             ],
           )
         ],
@@ -222,36 +239,36 @@ class HomeWidget {
 
     return CardWidget(
       margin: const EdgeInsets.only(right: 10),
-      child: AspectRatio(
-        aspectRatio: 1,
+      child: SizedBox(
+        width: 250,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //group name widget
+            ///* group name widget
             Row(
               children: [
                 Container(
-                  width: 32,
-                  height: 32,
+                  width: 40,
+                  height: 40,
                   decoration: BoxDecoration(
-                    color: ColorConfig.darkGrey,
+                    color: ColorConfig.primarySwatch,
                     borderRadius: const BorderRadius.all(
-                      Radius.circular(10),
+                      Radius.circular(5),
                     ),
                   ),
                 ),
                 const SizedBox(width: 5),
                 Text(
                   "Group Name",
-                  style: FontConfig.overline().copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: FontConfig.body2(),
                 )
               ],
             ),
+            const SizedBox(height: 15),
             //box count
             boxCount(),
+            const SizedBox(height: 15),
             //member row
             memberRow(),
           ],
@@ -265,13 +282,13 @@ class HomeWidget {
       width: 48,
       height: 48,
       margin: const EdgeInsets.fromLTRB(10, 0, 16, 0),
-      decoration: const BoxDecoration(
-        color: Colors.black,
+      decoration: BoxDecoration(
+        color: ColorConfig.primarySwatch,
         shape: BoxShape.circle,
       ),
-      child: const Icon(
-        Icons.arrow_forward,
-        color: Colors.white,
+      child: Icon(
+        Icons.arrow_forward_rounded,
+        color: ColorConfig.secondary,
       ),
     );
   }
@@ -325,7 +342,7 @@ class HomeWidget {
               name: 'Unit Sold',
               borderRadius: BorderRadius.circular(50),
               spacing: 0.5,
-              color: ColorConfig.darkGrey,
+              color: ColorConfig.primarySwatch25,
             ),
           ],
           tooltipBehavior: TooltipBehavior(
@@ -338,23 +355,27 @@ class HomeWidget {
       );
     }
 
-    return SizedBox(
-      height: SizeConfig.width(context) / 2.5,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-        child: CardWidget(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Analytics",
-                style: FontConfig.h6(),
-              ),
-              chartWidget(),
-            ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            "Analytics",
+            style: FontConfig.h6(),
           ),
         ),
-      ),
+        const SizedBox(height: 10),
+        SizedBox(
+          height: SizeConfig.width(context) / 2.5,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            child: CardWidget(
+              child: chartWidget(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -369,12 +390,20 @@ class HomeWidget {
 
   _recentTransactionsTitle() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(26, 0, 10, 10),
+      padding: const EdgeInsets.fromLTRB(16, 0, 10, 10),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             "Recent Transactions",
             style: FontConfig.h6(),
+          ),
+          const Spacer(),
+          Text(
+            "Show more",
+            style: FontConfig.overline().copyWith(
+              color: ColorConfig.midnight.withOpacity(0.5),
+            ),
           ),
         ],
       ),
@@ -408,19 +437,20 @@ class HomeWidget {
           Text(
             "You owe",
             style: FontConfig.overline().copyWith(
-              fontWeight: FontWeight.w400,
+              color: ColorConfig.midnight.withOpacity(0.5),
             ),
           ),
+          const SizedBox(height: 5),
           Text(
             "\$5",
-            style: FontConfig.body2(),
+            style: FontConfig.caption(),
           ),
         ],
       );
     }
 
     return SizedBox(
-      width: 112,
+      width: 150,
       //color: Colors.red,
       child: CardWidget(
         padding: const EdgeInsets.all(10),
@@ -433,17 +463,12 @@ class HomeWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Trip",
-                  style: FontConfig.overline().copyWith(
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+                Text("Trip", style: FontConfig.body2()),
                 Container(
-                  width: 20,
-                  height: 20,
+                  width: 32,
+                  height: 32,
                   decoration: BoxDecoration(
-                    color: ColorConfig.darkGrey,
+                    color: ColorConfig.primarySwatch,
                     shape: BoxShape.circle,
                   ),
                 ),

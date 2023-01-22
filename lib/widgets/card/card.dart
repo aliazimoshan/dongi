@@ -1,3 +1,4 @@
+import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 
 class CardWidget extends Card {
@@ -13,17 +14,20 @@ class CardWidget extends Card {
   });
 
   @override
+  Color? get color => ColorConfig.grey;
+
+  @override
   double? get elevation => 0;
 
   @override
   ShapeBorder? get shape => RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(10),
         side: BorderSide(color: borderColor ?? Colors.transparent, width: 1),
       );
 
   @override
   Widget? get child => Padding(
-        padding: padding ?? const EdgeInsets.all(15.0),
+        padding: padding ?? const EdgeInsets.all(10),
         child: super.child,
       );
 }
