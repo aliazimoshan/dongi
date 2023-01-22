@@ -14,6 +14,7 @@ class StatisticPage extends ConsumerWidget with StatisticWidget {
     return Scaffold(
       backgroundColor: ColorConfig.primarySwatch,
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           'Friend',
           style: FontConfig.h6().copyWith(color: ColorConfig.pureWhite),

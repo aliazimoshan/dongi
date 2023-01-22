@@ -1,8 +1,7 @@
-import 'package:dongi/constants/color_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../constants/font_config.dart';
+import '../../constants/color_config.dart';
 import '../../constants/content/onboarding_contents.dart';
 import 'onboarding_view_model.dart';
 import 'onboarding_widget.dart';

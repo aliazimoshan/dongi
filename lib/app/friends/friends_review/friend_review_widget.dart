@@ -7,19 +7,21 @@ import '../../../widgets/list_tile/list_tile_card.dart';
 
 class FriendReviewWidget {
   /// * ----- total expense
-  totalExpense(BuildContext context) {
+  friendName(BuildContext context) {
     return SizedBox(
       width: SizeConfig.width(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          // Text(
+          //   'total expense',
+          //   style: FontConfig.caption().copyWith(color: ColorConfig.pureWhite),
+          // ),
+          // const SizedBox(height: 5),
           Text(
-            'total expense',
-            style: FontConfig.caption().copyWith(color: ColorConfig.pureWhite),
-          ),
-          Text(
-            '\$7,540.00',
+            'Friend Name',
+            // '\$7,540.00',
             style: FontConfig.h5().copyWith(
               color: ColorConfig.pureWhite,
               fontWeight: FontWeight.bold,
@@ -39,7 +41,7 @@ class FriendReviewWidget {
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: ColorConfig.pureWhite,
+            color: ColorConfig.grey,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -57,7 +59,7 @@ class FriendReviewWidget {
               Text(
                 'data',
                 style: FontConfig.overline().copyWith(
-                  color: ColorConfig.primarySwatch.withOpacity(0.5),
+                  color: ColorConfig.midnight.withOpacity(0.5),
                 ),
               ),
               Text(
@@ -75,6 +77,8 @@ class FriendReviewWidget {
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
       child: Row(
         children: [
+          reviewCard(),
+          const SizedBox(width: 10),
           reviewCard(),
           const SizedBox(width: 10),
           reviewCard(),

@@ -11,7 +11,7 @@ class FriendsListPage extends ConsumerWidget with FriendsListWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: ColorConfig.background,
+      backgroundColor: ColorConfig.white,
       appBar: AppBarWidget(title: 'Friends List'),
       body: friendsList(),
     );

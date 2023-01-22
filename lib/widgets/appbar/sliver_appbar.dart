@@ -44,7 +44,7 @@ Widget sliverAppBarBody({
 }) {
   return Container(
     decoration: BoxDecoration(
-      color: ColorConfig.background,
+      color: ColorConfig.white,
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(16),
         topRight: Radius.circular(16),

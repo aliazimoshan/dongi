@@ -1,18 +1,8 @@
-import 'package:dongi/app/box/box_review/box_review_page.dart';
-import 'package:dongi/app/box/create_box/create_box_page.dart';
-import 'package:dongi/app/group/create_group/create_group_page.dart';
-import 'package:dongi/app/group/group_list/group_list_page.dart';
-import 'package:dongi/app/group/group_review/group_review_page.dart';
-import 'package:dongi/app/home/home_page.dart';
-import 'package:dongi/app/register/forget_password/forget_password_page.dart';
-import 'package:dongi/app/register/new_password/new_password_page.dart';
-import 'package:dongi/app/register/sign_in/sign_in_page.dart';
-import 'package:dongi/app/register/sign_up/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import './constants/color_config.dart';
-import './app/onboarding/onboarding_page.dart';
+import 'app/onboarding/onboarding_page.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +25,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: const BoxReviewPage(),
+      home: OnboardingPage(),
     );
   }
 }
