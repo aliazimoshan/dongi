@@ -12,6 +12,8 @@ class ColorConfig {
   static Color error = const Color(0xffD94F04);
   static Color grey = const Color(0xffF2F2F2);
   static Color white = const Color(0xffFFFFFF);
+  static Color primarySwatch25 = const Color(0xFFC5CCD2);
+  static Color primarySwatch50 = const Color(0xFF8C9AA6);
 
   /// * ----- primary swatch
   static MaterialColor primarySwatch = const MaterialColor(
