@@ -15,13 +15,13 @@ class BoxReviewWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+            padding: const EdgeInsets.only(bottom: 10),
             alignment: Alignment.bottomLeft,
             child: Row(
               children: [
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 40,
+                  height: 40,
                   decoration: BoxDecoration(
                     color: ColorConfig.baseGrey,
                     borderRadius: BorderRadius.circular(5),

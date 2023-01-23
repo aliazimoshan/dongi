@@ -1,3 +1,5 @@
+import 'package:dongi/app/box/box_review/box_review_page.dart';
+import 'package:dongi/app/box/box_review/box_review_widget.dart';
 import 'package:dongi/app/group/group_review/group_review_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,7 +27,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: GroupReviewPage(),
+      home: BoxReviewPage(),
     );
   }
 }
