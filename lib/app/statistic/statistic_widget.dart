@@ -6,6 +6,40 @@ import '../../widgets/card/category_card.dart';
 import '../../widgets/list_tile/list_tile_card.dart';
 
 class StatisticWidget {
+  filters(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            height: 40,
+            color: Colors.red,
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Container(
+            height: 40,
+            color: Colors.orange,
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Container(
+            height: 40,
+            color: Colors.yellow,
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Container(
+            height: 40,
+            color: Colors.green,
+          ),
+        ),
+      ],
+    );
+  }
+
   /// *----- categories
   categories() {
     return Column(

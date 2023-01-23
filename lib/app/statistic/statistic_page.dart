@@ -16,12 +16,18 @@ class StatisticPage extends ConsumerWidget with StatisticWidget {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'Friend',
+          '',
           style: FontConfig.h6().copyWith(color: ColorConfig.pureWhite),
         ),
       ),
       body: SliverAppBarWidget(
-        appbarTitle: Container(),
+        appbarTitle: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            filters(context),
+            const SizedBox(height: 16),
+          ],
+        ),
         child: ListView(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
