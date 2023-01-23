@@ -1,13 +1,48 @@
+import 'package:dongi/constants/font_config.dart';
 import 'package:flutter/material.dart';
 import '../../constants/color_config.dart';
 
-class FloatingActionButtonWidget extends FloatingActionButton {
-  const FloatingActionButtonWidget({super.key, super.onPressed, super.child});
+class FloatingActionButtonWidget extends Container {
+  FloatingActionButtonWidget({
+    super.height = 48,
+    super.width = 48,
+    super.key,
+  });
 
   @override
-  VoidCallback? get onPressed => super.onPressed ?? () {};
+  Decoration? get decoration => BoxDecoration(
+        color: ColorConfig.primarySwatch,
+        borderRadius: BorderRadius.circular(20),
+      );
 
   @override
-  Widget? get child =>
-      super.child ?? Icon(Icons.add, color: ColorConfig.pureWhite);
+  Widget? get child => ElevatedButton(
+        onPressed: () {
+          // print('yesss');
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 0,
+          padding: EdgeInsets.zero,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 10,
+              height: 10,
+              color: ColorConfig.secondary,
+            ),
+            const SizedBox(height: 2),
+            Text(
+              'data',
+              style:
+                  FontConfig.overline().copyWith(color: ColorConfig.secondary),
+            ),
+          ],
+        ),
+      );
 }
