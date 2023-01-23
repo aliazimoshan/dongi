@@ -11,7 +11,7 @@ class GroupReviewWidget {
     return Expanded(
       flex: 1,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(bottom: 16),
         alignment: Alignment.bottomLeft,
         child: Row(
           children: [

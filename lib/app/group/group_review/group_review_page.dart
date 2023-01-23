@@ -1,3 +1,4 @@
+import 'package:dongi/widgets/appbar/sliver_appbar.dart';
 import 'package:dongi/widgets/floating_action_button/floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,21 +14,18 @@ class GroupReviewPage extends ConsumerWidget with GroupReviewWidget {
     return Scaffold(
       backgroundColor: ColorConfig.primarySwatch,
       appBar: AppBar(elevation: 0),
-      body: Column(
-        children: [
-          /// * group name // header
-          groupName("group name"),
-
-          /// * group body // body
-          groupReviewBody(
-            children: [
-              groupInfo(),
-              friendsList(),
-              categoriesList(),
-              //expensesList(),
-            ],
-          ),
-        ],
+      body: SliverAppBarWidget(
+        appbarTitle: groupName("group name"),
+        child: ListView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            groupInfo(),
+            friendsList(),
+            categoriesList(),
+            //expensesList(),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButtonWidget(),
     );
