@@ -1,9 +1,9 @@
 import 'package:dongi/app/expense/create_expense/create_expense_page.dart';
+import 'package:dongi/app/group/group_review/group_review_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import './constants/color_config.dart';
-import 'app/onboarding/onboarding_page.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.white,
       ),
       debugShowCheckedModeBanner: false,
-      home: CreateExpensePage(),
+      home: GroupReviewPage(),
     );
   }
 }

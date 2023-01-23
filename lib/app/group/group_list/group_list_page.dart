@@ -11,7 +11,7 @@ class GroupListPage extends ConsumerWidget with GroupListWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBarWidget(title: "Groups"),
-      floatingActionButton: const FloatingActionButtonWidget(),
+      floatingActionButton:  FloatingActionButtonWidget(),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
         child: ListView(

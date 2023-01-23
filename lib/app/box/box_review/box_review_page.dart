@@ -27,7 +27,7 @@ class BoxReviewPage extends ConsumerWidget with BoxReviewWidget {
           ),
         ],
       ),
-      floatingActionButton: const FloatingActionButtonWidget(),
+      floatingActionButton:  FloatingActionButtonWidget(),
     );
   }
 }

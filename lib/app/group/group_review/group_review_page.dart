@@ -1,3 +1,4 @@
+import 'package:dongi/widgets/floating_action_button/floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -11,6 +12,7 @@ class GroupReviewPage extends ConsumerWidget with GroupReviewWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: ColorConfig.primarySwatch,
+      appBar: AppBar(elevation: 0),
       body: Column(
         children: [
           /// * group name // header
@@ -27,6 +29,7 @@ class GroupReviewPage extends ConsumerWidget with GroupReviewWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButtonWidget(),
     );
   }
 }
