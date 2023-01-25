@@ -13,6 +13,7 @@ class ListTileCard extends CardWidget {
   const ListTileCard({
     super.key,
     super.borderColor,
+    super.backColor,
     required this.titleString,
     this.subtitleString,
     this.headerString,
