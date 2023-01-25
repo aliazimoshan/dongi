@@ -1,3 +1,4 @@
+import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
@@ -30,7 +31,8 @@ class CreateExpenseWidget {
 
   categoryCard() {
     return Expanded(
-      child: GreyCardWidget(
+      child: CardWidget(
+        backColor: ColorConfig.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -45,7 +47,8 @@ class CreateExpenseWidget {
 
   dateCard() {
     return Expanded(
-      child: GreyCardWidget(
+      child: CardWidget(
+        backColor: ColorConfig.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -78,23 +81,19 @@ class CreateExpenseWidget {
   }
 
   _actionButton(String title, String subtitle, IconData icon) {
-    return GreyCardWidget(
-      child: ListTile(
-        title: Text(title, style: FontConfig.caption()),
-        subtitle: Text(
-          subtitle,
-          style: FontConfig.body2().copyWith(fontWeight: FontWeight.w600),
+    return ListTileCard(
+      backColor: ColorConfig.white,
+      titleString: title,
+      subtitleString: subtitle,
+      leading: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: ColorConfig.pureWhite,
+          borderRadius: BorderRadius.circular(10),
         ),
-        leading: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: ColorConfig.pureWhite,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(icon),
-        ),
-        trailing: const Icon(Icons.arrow_forward_ios),
+        child: Icon(icon),
       ),
+      trailing: const Icon(Icons.arrow_forward_ios),
     );
   }
 
@@ -103,12 +102,15 @@ class CreateExpenseWidget {
       padding: const EdgeInsets.all(15),
       child: Row(
         children: [
-          GreyCardWidget(
-            width: 75,
-            height: 75,
-            child: Icon(
-              Icons.description_outlined,
-              color: ColorConfig.primarySwatch,
+          CardWidget(
+            backColor: ColorConfig.white,
+            child: SizedBox(
+              width: 75,
+              height: 75,
+              child: Icon(
+                Icons.description_outlined,
+                color: ColorConfig.primarySwatch,
+              ),
             ),
           ),
           const SizedBox(width: 10),
