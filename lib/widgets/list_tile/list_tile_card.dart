@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../card/card.dart';
 import 'list_tile.dart';
 
@@ -9,6 +8,7 @@ class ListTileCard extends CardWidget {
   final String? headerString;
   final Widget? trailing;
   final Widget? leading;
+  final VisualDensity? visualDensity;
   final void Function()? onTap;
   const ListTileCard({
     super.key,
@@ -19,6 +19,7 @@ class ListTileCard extends CardWidget {
     this.trailing,
     this.leading,
     this.onTap,
+    this.visualDensity,
   });
 
   @override
@@ -30,6 +31,7 @@ class ListTileCard extends CardWidget {
           trailing: trailing,
           leading: leading,
           onTap: onTap,
+          visualDensity: visualDensity,
         )
       : ListTileWidget(
           titleString: titleString,
@@ -37,5 +39,6 @@ class ListTileCard extends CardWidget {
           headerString: headerString,
           leading: leading,
           onTap: onTap,
+          visualDensity: visualDensity,
         );
 }
