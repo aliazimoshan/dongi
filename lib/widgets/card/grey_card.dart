@@ -9,11 +9,11 @@ class GreyCardWidget extends CardWidget {
 
   @override
   Widget? get child => Container(
-        padding: const EdgeInsets.all(10),
+        //padding: const EdgeInsets.all(10),
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: ColorConfig.white,
+          color: ColorConfig.grey,
           borderRadius: BorderRadius.circular(10),
         ),
         child: super.child,
