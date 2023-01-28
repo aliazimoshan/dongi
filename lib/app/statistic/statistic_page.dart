@@ -7,7 +7,7 @@ import '../../widgets/appbar/sliver_appbar.dart';
 import './statistic_widget.dart';
 
 class StatisticPage extends ConsumerWidget with StatisticWidget {
-  const StatisticPage({super.key});
+  StatisticPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,10 +21,13 @@ class StatisticPage extends ConsumerWidget with StatisticWidget {
         ),
       ),
       body: SliverAppBarWidget(
+        height: 300,
         appbarTitle: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            filters(context),
+            filters(),
+            const SizedBox(height: 10),
+            charts(),
             const SizedBox(height: 16),
           ],
         ),

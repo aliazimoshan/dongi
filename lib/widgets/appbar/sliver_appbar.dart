@@ -5,28 +5,33 @@ import '../../constants/color_config.dart';
 class SliverAppBarWidget extends NestedScrollView {
   final Widget appbarTitle;
   final Widget child;
+  final double? height;
   SliverAppBarWidget({
     required this.appbarTitle,
     required this.child,
+    this.height,
     super.key,
   }) : super(
-          headerSliverBuilder: headerSliverBuilder(appbarTitle: appbarTitle),
+          headerSliverBuilder: headerSliverBuilder(
+            appbarTitle: appbarTitle,
+            height: height,
+          ),
           body: sliverAppBarBody(child: child),
         );
 }
 
 /// * ----- headerSliverBuilder
 NestedScrollViewHeaderSliversBuilder headerSliverBuilder(
-    {required Widget appbarTitle}) {
+    {required Widget appbarTitle, double? height}) {
   return (BuildContext context, bool innerBoxIsScrolled) {
-    return [sliverAppBarTitle(appbarTitle: appbarTitle)];
+    return [sliverAppBarTitle(appbarTitle: appbarTitle, height: height)];
   };
 }
 
 /// * ----- sliver app bar title
-SliverAppBar sliverAppBarTitle({required Widget appbarTitle}) {
+SliverAppBar sliverAppBarTitle({required Widget appbarTitle, double? height}) {
   return SliverAppBar(
-    expandedHeight: 150,
+    expandedHeight: height ?? 150,
     centerTitle: false,
     pinned: false,
     floating: false,

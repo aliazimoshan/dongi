@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
@@ -6,7 +7,12 @@ import '../../widgets/card/category_card.dart';
 import '../../widgets/list_tile/list_tile_card.dart';
 
 class StatisticWidget {
-  filters(BuildContext context) {
+  static SplineType? _spline = SplineType.natural;
+  static TooltipBehavior? _tooltipBehavior =
+      TooltipBehavior(enable: true, header: '', canShowMarker: false);
+
+  /// *----- date filters
+  filters() {
     return Row(
       children: [
         Expanded(
@@ -37,6 +43,59 @@ class StatisticWidget {
           ),
         ),
       ],
+    );
+  }
+
+  /// *----- chart section
+  charts() {
+    final List<ChartData> chartData = <ChartData>[
+      ChartData(title: "SAT", y: 5, x: 1),
+      ChartData(title: "SUN", y: 2, x: 2),
+      ChartData(title: "MON", y: 8, x: 3),
+      ChartData(title: "TUE", y: 4, x: 4),
+      ChartData(title: "WEN", y: 7, x: 5),
+      ChartData(title: "THU", y: 5, x: 6),
+    ];
+
+    ChartAxisLabel _lableFormat(AxisLabelRenderDetails axisLabelRenderArgs) {
+      return ChartAxisLabel(
+        chartData[int.parse(axisLabelRenderArgs.text) - 1].title,
+        FontConfig.overline().copyWith(color: ColorConfig.white),
+      );
+    }
+
+    return Container(
+      // color: Colors.blue,
+
+      height: 150,
+      child: SfCartesianChart(
+        margin: EdgeInsets.zero,
+        plotAreaBorderWidth: 0,
+        primaryYAxis: CategoryAxis(isVisible: false),
+        primaryXAxis: NumericAxis(
+          //labelStyle: const TextStyle(color: Colors.white),
+          axisLine: const AxisLine(width: 0),
+          interval: 1,
+          labelPosition: ChartDataLabelPosition.outside,
+          majorTickLines: const MajorTickLines(width: 0),
+          majorGridLines: const MajorGridLines(width: 1),
+          // labelFormat: _lableFormat('{value}'),
+          axisLabelFormatter: _lableFormat,
+        ),
+        series: <ChartSeries<ChartData, double>>[
+          SplineSeries<ChartData, double>(
+            animationDuration: 1000,
+            dataSource: chartData,
+            xValueMapper: (ChartData data, _) => data.x,
+            yValueMapper: (ChartData data, _) => data.y,
+            name: 'Unit Sold',
+            // borderRadius: BorderRadius.circular(50),
+            // spacing: 0.5,
+            color: ColorConfig.primarySwatch25,
+          ),
+        ],
+        tooltipBehavior: _tooltipBehavior,
+      ),
     );
   }
 
@@ -135,4 +194,40 @@ class StatisticWidget {
       ),
     );
   }
+
+  /// Returns the list of chart series which need to render on the spline chart.
+  // List<SplineSeries<_ChartData, num>> _getSplineTypesSeries() {
+  //   return <SplineSeries<_ChartData, num>>[
+  //     SplineSeries<_ChartData, num>(
+  //       /// To set the spline type here.
+  //       splineType: _spline,
+  //       dataSource: <_ChartData>[
+  //         _ChartData(1, 0.05),
+  //         _ChartData(2, 1),
+  //         _ChartData(3, 0.03),
+  //         _ChartData(4, 2),
+  //         _ChartData(5, -0.5),
+  //         _ChartData(6, 0.5),
+  //       ],
+  //       xValueMapper: (_ChartData sales, _) => sales.x,
+  //       yValueMapper: (_ChartData sales, _) => sales.y,
+  //       width: 2,
+  //     )
+  //   ];
+  // }
+
+}
+
+/// Private class for storing the spline series data points.
+// class _ChartData {
+//   _ChartData(this.x, this.y);
+//   final double x;
+//   final double y;
+// }
+
+class ChartData {
+  ChartData({this.x, this.y, required this.title});
+  final String title;
+  final double? x;
+  final double? y;
 }
