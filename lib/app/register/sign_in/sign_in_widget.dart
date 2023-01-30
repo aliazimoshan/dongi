@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/content/register/sign_in_contents.dart';
 import '../../../constants/font_config.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/text_field/text_field.dart';
+import '../auth_controller/auth_controller.dart';
 
 class SignInWidget {
   /// * ----- title
@@ -38,14 +40,18 @@ class SignInWidget {
       );
 
   /// * ----- action buttons
-  actionButton() => Padding(
+  actionButton(BuildContext context, WidgetRef ref) => Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Row(
           children: [
             Expanded(
               child: ButtonWidget(
-                onPressed: () {},
-                title: 'Sign Ip',
+                onPressed: () =>
+                    ref.read(authControllerProvider.notifier).login(
+                          email: "azimoshan@gmail.com",
+                          password: "123456789",
+                          context: context,
+                        ),
                 textColor: ColorConfig.secondary,
               ),
             ),
