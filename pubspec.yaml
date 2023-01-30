@@ -12,10 +12,11 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   hooks_riverpod: ^2.0.2
-  appwrite: ^8.1.0
   flutter_svg: ^1.1.6
   syncfusion_flutter_charts: ^20.4.41
- 
+  appwrite: ^8.2.0
+  image_picker: ^0.8.6+1
+  fpdart: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -46,5 +47,3 @@ flutter:
         - asset: assets/fonts/Comfortaa-SemiBold.ttf
         - asset: assets/fonts/Comfortaa-Bold.ttf
           weight: 700
-        
-        
