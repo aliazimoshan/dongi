@@ -31,7 +31,7 @@ class SignUpPage extends ConsumerWidget with SignUpWidget {
                 children: [
                   title(),
                   form(),
-                  actionButton(),
+                  actionButton(context, ref),
                   changeActionButton(),
                 ],
               ),

@@ -5,8 +5,8 @@
 import FlutterMacOS
 import Foundation
 
-import device_info_plus_macos
 import flutter_web_auth_2
+import path_provider_foundation
 import package_info_plus_macos
 import path_provider_macos
 import url_launcher_macos
