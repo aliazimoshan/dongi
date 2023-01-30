@@ -1,5 +1,8 @@
+import 'package:dongi/app/register/auth_controller/auth_controller.dart';
+import 'package:dongi/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/content/register/sign_up_contents.dart';
@@ -37,13 +40,18 @@ class SignUpWidget {
       );
 
   /// * ----- action buttons
-  actionButton() => Padding(
+  actionButton(BuildContext context, WidgetRef ref) => Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Row(
           children: [
             Expanded(
               child: ButtonWidget(
-                onPressed: () {},
+                onPressed: () =>
+                    ref.read(authControllerProvider.notifier).signUp(
+                          email: "azimoshan@gmail.com",
+                          password: "123456789",
+                          context: context,
+                        ),
                 title: 'Sign Up',
                 textColor: ColorConfig.secondary,
               ),

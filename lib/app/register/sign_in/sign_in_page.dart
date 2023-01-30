@@ -30,7 +30,7 @@ class SignInPage extends ConsumerWidget with SignInWidget {
               children: [
                 title(),
                 form(),
-                actionButton(),
+                actionButton(context, ref),
                 changeActionButton(),
               ],
             ),
