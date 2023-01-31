@@ -1,112 +1,126 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 @immutable
 class UserModel {
-  final String email;
-  final String name;
-  final List<String> followers;
-  final List<String> following;
-  final String profilePic;
-  final String bannerPic;
   final String uid;
-  final String bio;
-  final bool isTwitterBlue;
+  final String email;
+  final String userName;
+  final String? firstName;
+  final String? lastName;
+  final String? profilePic;
+  final String? phoneNumber;
+  final double? totalExpense;
+  final List<String>? friends;
+  final List<String>? groups;
+  final List<String>? transactions;
+  final List<String>? fToken;
+  final List<String>? token;
+
   const UserModel({
-    required this.email,
-    required this.name,
-    required this.followers,
-    required this.following,
-    required this.profilePic,
-    required this.bannerPic,
     required this.uid,
-    required this.bio,
-    required this.isTwitterBlue,
+    required this.email,
+    required this.userName,
+    this.firstName,
+    this.lastName,
+    this.profilePic,
+    this.phoneNumber,
+    this.totalExpense,
+    this.friends,
+    this.groups,
+    this.transactions,
+    this.fToken,
+    this.token,
   });
 
   UserModel copyWith({
-    String? email,
-    String? name,
-    List<String>? followers,
-    List<String>? following,
-    String? profilePic,
-    String? bannerPic,
     String? uid,
-    String? bio,
-    bool? isTwitterBlue,
+    String? email,
+    String? userName,
+    String? firstName,
+    String? lastName,
+    String? profilePic,
+    String? phoneNumber,
+    double? totalExpense,
+    List<String>? friends,
+    List<String>? groups,
+    List<String>? transactions,
+    List<String>? fToken,
+    List<String>? token,
   }) {
     return UserModel(
-      email: email ?? this.email,
-      name: name ?? this.name,
-      followers: followers ?? this.followers,
-      following: following ?? this.following,
-      profilePic: profilePic ?? this.profilePic,
-      bannerPic: bannerPic ?? this.bannerPic,
       uid: uid ?? this.uid,
-      bio: bio ?? this.bio,
-      isTwitterBlue: isTwitterBlue ?? this.isTwitterBlue,
+      email: email ?? this.email,
+      userName: userName ?? this.userName,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      profilePic: profilePic ?? this.profilePic,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      totalExpense: totalExpense ?? this.totalExpense,
+      friends: friends ?? this.friends,
+      groups: groups ?? this.groups,
+      transactions: transactions ?? this.transactions,
+      fToken: fToken ?? this.fToken,
+      token: token ?? this.token,
     );
   }
 
   Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-
-    result.addAll({'email': email});
-    result.addAll({'name': name});
-    result.addAll({'followers': followers});
-    result.addAll({'following': following});
-    result.addAll({'profilePic': profilePic});
-    result.addAll({'bannerPic': bannerPic});
-    result.addAll({'bio': bio});
-    result.addAll({'isTwitterBlue': isTwitterBlue});
-
-    return result;
+    return <String, dynamic>{
+      'uid': uid,
+      'email': email,
+      'userName': userName,
+      'firstName': firstName,
+      'lastName': lastName,
+      'profilePic': profilePic,
+      'phoneNumber': phoneNumber,
+      'totalExpense': totalExpense,
+      'friends': friends,
+      'groups': groups,
+      'transactions': transactions,
+      'fToken': fToken,
+      'token': token,
+    };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      email: map['email'] ?? '',
-      name: map['name'] ?? '',
-      followers: List<String>.from(map['followers']),
-      following: List<String>.from(map['following']),
-      profilePic: map['profilePic'] ?? '',
-      bannerPic: map['bannerPic'] ?? '',
-      uid: map['\$id'] ?? '',
-      bio: map['bio'] ?? '',
-      isTwitterBlue: map['isTwitterBlue'] ?? false,
+      uid: map['uid'] as String,
+      email: map['email'] as String,
+      userName: map['userName'] as String,
+      firstName: map['firstName'] != null ? map['firstName'] as String : null,
+      lastName: map['lastName'] != null ? map['lastName'] as String : null,
+      profilePic:
+          map['profilePic'] != null ? map['profilePic'] as String : null,
+      phoneNumber:
+          map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
+      totalExpense:
+          map['totalExpense'] != null ? map['totalExpense'] as double : null,
+      friends: map['friends'] != null
+          ? List<String>.from((map['friends'] as List<String>))
+          : [],
+      groups: map['groups'] != null
+          ? List<String>.from((map['groups'] as List<String>))
+          : [],
+      transactions: map['transactions'] != null
+          ? List<String>.from((map['transactions'] as List<String>))
+          : [],
+      fToken: map['fToken'] != null
+          ? List<String>.from((map['fToken'] as List<String>))
+          : [],
+      token: map['token'] != null
+          ? List<String>.from((map['token'] as List<String>))
+          : [],
     );
   }
 
+  String toJson() => json.encode(toMap());
+
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
   @override
   String toString() {
-    return 'UserModel(email: $email, name: $name, followers: $followers, following: $following, profilePic: $profilePic, bannerPic: $bannerPic, uid: $uid, bio: $bio, isTwitterBlue: $isTwitterBlue)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is UserModel &&
-        other.email == email &&
-        other.name == name &&
-        listEquals(other.followers, followers) &&
-        listEquals(other.following, following) &&
-        other.profilePic == profilePic &&
-        other.bannerPic == bannerPic &&
-        other.uid == uid &&
-        other.bio == bio &&
-        other.isTwitterBlue == isTwitterBlue;
-  }
-
-  @override
-  int get hashCode {
-    return email.hashCode ^
-        name.hashCode ^
-        followers.hashCode ^
-        following.hashCode ^
-        profilePic.hashCode ^
-        bannerPic.hashCode ^
-        uid.hashCode ^
-        bio.hashCode ^
-        isTwitterBlue.hashCode;
+    return 'UserModel(uid: $uid, email: $email, userName: $userName, firstName: $firstName, lastName: $lastName, profilePic: $profilePic, phoneNumber: $phoneNumber, totalExpense: $totalExpense, friends: $friends, groups: $groups, transactions: $transactions, fToken: $fToken, token: $token)';
   }
 }

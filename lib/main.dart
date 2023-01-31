@@ -38,7 +38,7 @@ class MyApp extends ConsumerWidget {
           return const SignInPage();
         },
         error: (error, st) => Text(error.toString()),
-        loading: () => const CircularProgressIndicator(),
+        loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );
   }
