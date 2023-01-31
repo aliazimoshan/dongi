@@ -46,6 +46,7 @@ class SignInWidget {
           children: [
             Expanded(
               child: ButtonWidget(
+                title: "Sign in",
                 onPressed: () =>
                     ref.read(authControllerProvider.notifier).login(
                           email: "azimoshan@gmail.com",
