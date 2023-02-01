@@ -1,5 +1,4 @@
 import 'package:dongi/app/register/auth_controller/auth_controller.dart';
-import 'package:dongi/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -40,27 +39,29 @@ class SignUpWidget {
       );
 
   /// * ----- action buttons
-  actionButton(BuildContext context, WidgetRef ref) => Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: Row(
-          children: [
-            Expanded(
-              child: ButtonWidget(
-                onPressed: () =>
-                    ref.read(authControllerProvider.notifier).signUp(
-                          email: "azimoshan@gmail.com",
-                          password: "123456789",
-                          context: context,
-                        ),
-                title: 'Sign Up',
-                textColor: ColorConfig.secondary,
-              ),
+  actionButton(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Row(
+        children: [
+          Expanded(
+            child: ButtonWidget(
+              onPressed: () => ref.read(authControllerProvider.notifier).signUp(
+                    email: "azimoshan@gmail.com",
+                    password: "123456789",
+                    userName: "aliazim",
+                    context: context,
+                  ),
+              title: 'Sign Up',
+              textColor: ColorConfig.secondary,
             ),
-            const SizedBox(width: 10),
-            _googleButton(),
-          ],
-        ),
-      );
+          ),
+          const SizedBox(width: 10),
+          _googleButton(),
+        ],
+      ),
+    );
+  }
 
   /// * ----- changeActionButton
   changeActionButton() => Row(
