@@ -46,9 +46,10 @@ class AuthController extends StateNotifier<bool> {
   Future<model.Account?> currentUser() => _authAPI.currentUserAccount();
 
   void signUp({
-    required String email,
-    required String password,
     required BuildContext context,
+    required String email,
+    required String userName,
+    required String password,
   }) async {
     state = true;
     final res = await _authAPI.signUp(
@@ -60,15 +61,9 @@ class AuthController extends StateNotifier<bool> {
       (l) => showSnackBar(context, l.message),
       (r) async {
         UserModel userModel = UserModel(
-          email: email,
-          name: getNameFromEmail(email),
-          followers: const [],
-          following: const [],
-          profilePic: '',
-          bannerPic: '',
           uid: r.$id,
-          bio: '',
-          isTwitterBlue: false,
+          email: email,
+          userName: userName,
         );
         final res2 = await _userAPI.saveUserData(userModel);
         res2.fold(

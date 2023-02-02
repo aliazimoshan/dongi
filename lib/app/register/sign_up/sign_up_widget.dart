@@ -10,50 +10,82 @@ import '../../../widgets/button/button.dart';
 import '../../../widgets/text_field/text_field.dart';
 
 class SignUpWidget {
-  /// * ----- title
-  title() => Column(
+  /// * ----- body
+  signupBody({required List<Widget> children}) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(50, 30, 50, 50),
+      decoration: BoxDecoration(
+        color: ColorConfig.white,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            SignUpContent.title,
-            style: FontConfig.h5(),
-          ),
-          Text(
-            SignUpContent.subTitle,
-            style: FontConfig.body2(),
-          ),
-          const SizedBox(height: 20),
-        ],
-      );
+        children: children,
+      ),
+    );
+  }
+
+  /// * ----- title
+  title() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          SignUpContent.title,
+          style: FontConfig.h5(),
+        ),
+        Text(
+          SignUpContent.subTitle,
+          style: FontConfig.body2(),
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
 
   /// * ----- form
-  form() => Column(
-        children: const [
-          TextFieldWidget(hintText: 'name'),
-          SizedBox(height: 10),
-          TextFieldWidget(hintText: 'phone number'),
-          SizedBox(height: 10),
-          TextFieldWidget(hintText: 'password'),
-          SizedBox(height: 20)
-        ],
-      );
+  form({
+    required TextEditingController username,
+    required TextEditingController email,
+    required TextEditingController password,
+  }) {
+    return Column(
+      children: [
+        TextFieldWidget(controller: username, hintText: 'username'),
+        const SizedBox(height: 10),
+        TextFieldWidget(controller: email, hintText: 'email'),
+        const SizedBox(height: 10),
+        TextFieldWidget(controller: password, hintText: 'password'),
+        const SizedBox(height: 20)
+      ],
+    );
+  }
 
   /// * ----- action buttons
-  actionButton(BuildContext context, WidgetRef ref) {
+  actionButton({
+    required BuildContext context,
+    required WidgetRef ref,
+    required String username,
+    required String email,
+    required String password,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Row(
         children: [
           Expanded(
             child: ButtonWidget(
-              onPressed: () => ref.read(authControllerProvider.notifier).signUp(
-                    email: "azimoshan@gmail.com",
-                    password: "123456789",
-                    userName: "aliazim",
-                    context: context,
-                  ),
               title: 'Sign Up',
-              textColor: ColorConfig.secondary,
+              onPressed: () => ref.read(authControllerProvider.notifier).signUp(
+                    context: context,
+                    userName: email,
+                    email: email,
+                    password: password,
+                  ),
             ),
           ),
           const SizedBox(width: 10),
