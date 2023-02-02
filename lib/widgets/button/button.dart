@@ -15,7 +15,12 @@ class ButtonWidget extends ElevatedButton {
     this.backgroundColor,
     this.borderColor,
     this.textColor,
-  }) : super(child: child(textColor: textColor, title: title));
+  }) : super(
+          child: child(
+            textColor: textColor ?? ColorConfig.secondary,
+            title: title,
+          ),
+        );
 
   @override
   ButtonStyle? get style => ElevatedButton.styleFrom(
@@ -31,11 +36,16 @@ class ButtonWidget extends ElevatedButton {
   ButtonWidget.outline({
     this.backgroundColor = Colors.white,
     this.borderColor = Colors.black,
-    this.textColor = Colors.black,
+    this.textColor,
     this.title,
     super.key,
     super.onPressed,
-  }) : super(child: child(textColor: textColor, title: title));
+  }) : super(
+          child: child(
+            textColor: textColor ?? ColorConfig.secondary,
+            title: title,
+          ),
+        );
 }
 
 Widget child({String? title, Color? textColor}) {
