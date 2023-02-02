@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
-import '../../../widgets/card/category_card.dart';
 import '../../../widgets/friends/friend.dart';
 
 class ExpenseReviewWidget {
@@ -125,7 +124,7 @@ class ExpenseReviewWidget {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: ListTileCard(
-              visualDensity: VisualDensity(vertical: 3),
+              visualDensity: const VisualDensity(vertical: 3),
               titleString: 'Member name',
               trailing: const Text("\$53"),
               leading: Container(

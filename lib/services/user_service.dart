@@ -39,7 +39,7 @@ class UserAPI implements IUserAPI {
       await _db.createDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.usersCollection,
-        documentId: userModel.uid,
+        documentId: userModel.uid!,
         data: userModel.toMap(),
       );
       return right(null);
@@ -83,7 +83,7 @@ class UserAPI implements IUserAPI {
       await _db.updateDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.usersCollection,
-        documentId: userModel.uid,
+        documentId: userModel.uid!,
         data: userModel.toMap(),
       );
       return right(null);

@@ -7,8 +7,8 @@ import '../../widgets/card/category_card.dart';
 import '../../widgets/list_tile/list_tile_card.dart';
 
 class StatisticWidget {
-  static SplineType? _spline = SplineType.natural;
-  static TooltipBehavior? _tooltipBehavior =
+  //static SplineType? _spline = SplineType.natural;
+  static final TooltipBehavior _tooltipBehavior =
       TooltipBehavior(enable: true, header: '', canShowMarker: false);
 
   /// *----- date filters
@@ -215,7 +215,6 @@ class StatisticWidget {
   //     )
   //   ];
   // }
-
 }
 
 /// Private class for storing the spline series data points.

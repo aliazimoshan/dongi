@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class UserModel {
-  final String uid;
+  final String? uid;
   final String email;
   final String userName;
   final String? firstName;
@@ -18,7 +18,7 @@ class UserModel {
   final List<String>? token;
 
   const UserModel({
-    required this.uid,
+    this.uid,
     required this.email,
     required this.userName,
     this.firstName,
