@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
+import '../../constants/size_config.dart';
 import '../../widgets/appbar/sliver_appbar.dart';
 import './statistic_widget.dart';
 
@@ -21,15 +22,15 @@ class StatisticPage extends ConsumerWidget with StatisticWidget {
         ),
       ),
       body: SliverAppBarWidget(
-        height: 300,
-        appbarTitle: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            filters(),
-            const SizedBox(height: 10),
-            charts(),
-            const SizedBox(height: 16),
-          ],
+        height: SizeConfig.height(context) / 3.2,
+        appbarTitle: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              filters(),
+              charts(),
+            ],
+          ),
         ),
         child: ListView(
           shrinkWrap: true,
