@@ -11,6 +11,7 @@ class TextFieldWidget extends TextField {
     this.fillColor,
     super.key,
     super.maxLines,
+    super.controller,
   });
 
   @override
