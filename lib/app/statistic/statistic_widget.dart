@@ -7,41 +7,38 @@ import '../../widgets/card/category_card.dart';
 import '../../widgets/list_tile/list_tile_card.dart';
 
 class StatisticWidget {
-  static SplineType? _spline = SplineType.natural;
   static TooltipBehavior? _tooltipBehavior =
       TooltipBehavior(enable: true, header: '', canShowMarker: false);
 
   /// *----- date filters
   filters() {
+    Expanded filterCardItem({required String title}) {
+      return Expanded(
+        child: Container(
+          height: 35,
+          decoration: BoxDecoration(
+            color: ColorConfig.white,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Center(
+            child: Text(
+              title,
+              style: FontConfig.button(),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Row(
       children: [
-        Expanded(
-          child: Container(
-            height: 40,
-            color: Colors.red,
-          ),
-        ),
+        filterCardItem(title: 'day'),
         const SizedBox(width: 10),
-        Expanded(
-          child: Container(
-            height: 40,
-            color: Colors.orange,
-          ),
-        ),
+        filterCardItem(title: 'week'),
         const SizedBox(width: 10),
-        Expanded(
-          child: Container(
-            height: 40,
-            color: Colors.yellow,
-          ),
-        ),
+        filterCardItem(title: 'month'),
         const SizedBox(width: 10),
-        Expanded(
-          child: Container(
-            height: 40,
-            color: Colors.green,
-          ),
-        ),
+        filterCardItem(title: 'year'),
       ],
     );
   }
@@ -57,7 +54,7 @@ class StatisticWidget {
       ChartData(title: "THU", y: 5, x: 6),
     ];
 
-    ChartAxisLabel _lableFormat(AxisLabelRenderDetails axisLabelRenderArgs) {
+    ChartAxisLabel lableFormat(AxisLabelRenderDetails axisLabelRenderArgs) {
       return ChartAxisLabel(
         chartData[int.parse(axisLabelRenderArgs.text) - 1].title,
         FontConfig.overline().copyWith(color: ColorConfig.white),
@@ -66,8 +63,8 @@ class StatisticWidget {
 
     return Container(
       // color: Colors.blue,
-
-      height: 150,
+      margin: const EdgeInsets.fromLTRB(16, 10, 16, 16),
+      height: 125,
       child: SfCartesianChart(
         margin: EdgeInsets.zero,
         plotAreaBorderWidth: 0,
@@ -78,9 +75,12 @@ class StatisticWidget {
           interval: 1,
           labelPosition: ChartDataLabelPosition.outside,
           majorTickLines: const MajorTickLines(width: 0),
-          majorGridLines: const MajorGridLines(width: 1),
+          majorGridLines: MajorGridLines(
+            width: 1,
+            color: ColorConfig.white.withOpacity(0.1),
+          ),
           // labelFormat: _lableFormat('{value}'),
-          axisLabelFormatter: _lableFormat,
+          axisLabelFormatter: lableFormat,
         ),
         series: <ChartSeries<ChartData, double>>[
           SplineSeries<ChartData, double>(
