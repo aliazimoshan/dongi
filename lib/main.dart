@@ -35,7 +35,7 @@ class MyApp extends ConsumerWidget {
           if (user != null) {
             return HomePage();
           }
-          return const SignInPage();
+          return SignInPage();
         },
         error: (error, st) => Text(error.toString()),
         loading: () => const Center(child: CircularProgressIndicator()),

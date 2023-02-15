@@ -21,6 +21,9 @@ abstract class IAuthAPI {
     required String email,
     required String password,
   });
+  FutureEitherVoid forgetPassword({
+    required String email,
+  });
   Future<model.Account?> currentUserAccount();
   FutureEitherVoid logout();
 }
@@ -87,6 +90,24 @@ class AuthAPI implements IAuthAPI {
 
   @override
   FutureEitherVoid logout() async {
+    try {
+      await _account.deleteSession(
+        sessionId: 'current',
+      );
+      return right(null);
+    } on AppwriteException catch (e, stackTrace) {
+      return left(
+        Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
+      );
+    } catch (e, stackTrace) {
+      return left(
+        Failure(e.toString(), stackTrace),
+      );
+    }
+  }
+
+  @override
+  FutureEitherVoid forgetPassword({required String email}) async {
     try {
       await _account.deleteSession(
         sessionId: 'current',
