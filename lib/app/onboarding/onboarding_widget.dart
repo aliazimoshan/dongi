@@ -1,5 +1,7 @@
 import 'package:dongi/constants/color_config.dart';
+import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../constants/content/onboarding_contents.dart';
 import '../../constants/font_config.dart';
 import '../../widgets/button/button.dart';
@@ -15,7 +17,9 @@ class OnboardingWidget {
         const SizedBox(height: 10),
         Text(
           onboardingContents[index].desc,
-          style: FontConfig.h6(),
+          style: FontConfig.body2().copyWith(
+            color: ColorConfig.primarySwatch.withOpacity(0.5),
+          ),
         ),
       ],
     );
@@ -58,14 +62,9 @@ class OnboardingWidget {
                 child: ButtonWidget(
                   title: "START",
                   textColor: ColorConfig.secondary,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Container(),
-                      ),
-                    );
-                  },
+                  onPressed: () => context.go(
+                    RouteNameConfig.signin,
+                  ),
                 ),
               ),
             ]
@@ -74,6 +73,7 @@ class OnboardingWidget {
                 width: 50,
                 child: ButtonWidget.outline(
                   title: "SKIP",
+                  textColor: ColorConfig.midnight,
                   onPressed: () {
                     controller.animateToPage(
                       2,

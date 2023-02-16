@@ -1,8 +1,9 @@
 import 'package:appwrite/models.dart' as model;
-import 'package:dongi/app/home/home_page.dart';
 import 'package:dongi/app/register/sign_in/sign_in_page.dart';
+import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/utils.dart';
 import '../../../models/user_model.dart';
 import '../../../services/auth_service.dart';
@@ -95,15 +96,7 @@ class AuthController extends StateNotifier<bool> {
     state = false;
     res.fold(
       (l) => showSnackBar(context, l.message),
-      (r) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
-          (route) => false,
-        );
-      },
+      (r) => context.go(RouteNameConfig.home),
     );
   }
 
@@ -117,15 +110,7 @@ class AuthController extends StateNotifier<bool> {
     final res = await _authAPI.logout();
     res.fold(
       (l) => null,
-      (r) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SignInPage(),
-          ),
-          (route) => false,
-        );
-      },
+      (r) => context.go(RouteNameConfig.signin),
     );
   }
 
