@@ -73,7 +73,7 @@ class AuthController extends StateNotifier<bool> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const SignInPage(),
+                builder: (context) => SignInPage(),
               ),
             );
           },
@@ -96,11 +96,12 @@ class AuthController extends StateNotifier<bool> {
     res.fold(
       (l) => showSnackBar(context, l.message),
       (r) {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => HomePage(),
           ),
+          (route) => false,
         );
       },
     );
@@ -120,7 +121,23 @@ class AuthController extends StateNotifier<bool> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const SignInPage(),
+            builder: (context) => SignInPage(),
+          ),
+          (route) => false,
+        );
+      },
+    );
+  }
+
+  void forgetPassword(BuildContext context) async {
+    final res = await _authAPI.logout();
+    res.fold(
+      (l) => null,
+      (r) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SignInPage(),
           ),
           (route) => false,
         );

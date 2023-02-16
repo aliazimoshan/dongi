@@ -10,57 +10,88 @@ import '../../../widgets/text_field/text_field.dart';
 import '../auth_controller/auth_controller.dart';
 
 class SignInWidget {
-  /// * ----- title
-  title() => Column(
+  /// * body
+  signinBody({required List<Widget> children}) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(50, 30, 50, 50),
+      decoration: BoxDecoration(
+        color: ColorConfig.white,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            SignInContents.title,
-            style: FontConfig.h5(),
-          ),
-          Text(
-            SignInContents.subTitle,
-            style: FontConfig.body2(),
-          ),
-          const SizedBox(height: 20),
-        ],
-      );
+        children: children,
+      ),
+    );
+  }
+
+  /// * ----- title
+  title() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          SignInContents.title,
+          style: FontConfig.h5(),
+        ),
+        Text(
+          SignInContents.subTitle,
+          style: FontConfig.body2(),
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
 
   /// * ----- form
-  form() => Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          const TextFieldWidget(hintText: 'phone number'),
-          const SizedBox(height: 10),
-          const TextFieldWidget(hintText: 'password'),
-          const SizedBox(height: 10),
-          _forgetPassword(),
-          const SizedBox(height: 20)
-        ],
-      );
+  form({
+    required TextEditingController email,
+    required TextEditingController password,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        TextFieldWidget(controller: email, hintText: 'email'),
+        const SizedBox(height: 10),
+        TextFieldWidget(controller: password, hintText: 'password'),
+        const SizedBox(height: 10),
+        _forgetPassword(),
+        const SizedBox(height: 20)
+      ],
+    );
+  }
 
   /// * ----- action buttons
-  actionButton(BuildContext context, WidgetRef ref) => Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: Row(
-          children: [
-            Expanded(
-              child: ButtonWidget(
-                title: "Sign in",
-                onPressed: () =>
-                    ref.read(authControllerProvider.notifier).login(
-                          email: "azimoshan@gmail.com",
-                          password: "123456789",
-                          context: context,
-                        ),
-                textColor: ColorConfig.secondary,
-              ),
+  actionButton({
+    required BuildContext context,
+    required WidgetRef ref,
+    required TextEditingController email,
+    required TextEditingController password,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Row(
+        children: [
+          Expanded(
+            child: ButtonWidget(
+              title: "Sign in",
+              isLoading: ref.watch(authControllerProvider),
+              onPressed: () => ref.read(authControllerProvider.notifier).login(
+                    context: context,
+                    email: email.text,
+                    password: password.text,
+                  ),
             ),
-            const SizedBox(width: 10),
-            _googleButton(),
-          ],
-        ),
-      );
+          ),
+          const SizedBox(width: 10),
+          _googleButton(),
+        ],
+      ),
+    );
+  }
 
   /// * ----- changeActionButton
   changeActionButton() => Row(

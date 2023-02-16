@@ -15,8 +15,8 @@ class SignUpPage extends HookConsumerWidget with SignUpWidget {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(
-            child: Container(),
+          const Expanded(
+            child: SizedBox(),
           ),
           signupBody(
             children: [
@@ -29,9 +29,9 @@ class SignUpPage extends HookConsumerWidget with SignUpWidget {
               actionButton(
                 context: context,
                 ref: ref,
-                username: usernameController.text,
-                email: emailController.text,
-                password: passwordController.text,
+                username: usernameController,
+                email: emailController,
+                password: passwordController,
               ),
               changeActionButton(),
             ],

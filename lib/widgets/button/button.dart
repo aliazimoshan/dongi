@@ -8,6 +8,7 @@ class ButtonWidget extends ElevatedButton {
   final Color? borderColor;
   final Color? textColor;
   final String? title;
+  final bool? isLoading;
   ButtonWidget({
     super.key,
     required super.onPressed,
@@ -15,10 +16,12 @@ class ButtonWidget extends ElevatedButton {
     this.backgroundColor,
     this.borderColor,
     this.textColor,
+    this.isLoading,
   }) : super(
           child: child(
             textColor: textColor ?? ColorConfig.secondary,
             title: title,
+            isLoading: isLoading,
           ),
         );
 
@@ -38,24 +41,32 @@ class ButtonWidget extends ElevatedButton {
     this.borderColor = Colors.black,
     this.textColor,
     this.title,
+    this.isLoading,
     super.key,
     super.onPressed,
   }) : super(
           child: child(
             textColor: textColor ?? ColorConfig.secondary,
             title: title,
+            isLoading: isLoading,
           ),
         );
 }
 
-Widget child({String? title, Color? textColor}) {
+Widget child({
+  String? title,
+  Color? textColor,
+  bool? isLoading,
+}) {
   return SizedBox(
     height: 50,
     child: Center(
-      child: Text(
-        title ?? "",
-        style: FontConfig.button().copyWith(color: textColor),
-      ),
+      child: isLoading ?? false
+          ? CircularProgressIndicator(color: ColorConfig.secondary)
+          : Text(
+              title ?? "",
+              style: FontConfig.button().copyWith(color: textColor),
+            ),
     ),
   );
 }

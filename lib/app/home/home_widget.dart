@@ -305,52 +305,50 @@ class HomeWidget {
     ];
 
     chartWidget() {
-      return Expanded(
-        child: SfCartesianChart(
-          margin: const EdgeInsets.only(left: 32),
-          plotAreaBorderWidth: 0,
-          primaryYAxis: CategoryAxis(
-            //isVisible: false,
-            //labelStyle: const TextStyle(color: Colors.white),
-            axisLine: const AxisLine(width: 0),
-            //labelPosition: ChartDataLabelPosition.inside,
-            majorTickLines: const MajorTickLines(width: 0),
-            majorGridLines: const MajorGridLines(width: 1, dashArray: [10]),
-            opposedPosition: true,
-            maximum: 10,
-            interval: 5,
-            edgeLabelPlacement: EdgeLabelPlacement.hide,
-            axisLabelFormatter: (axisLabelRenderArgs) => ChartAxisLabel(
-              "\$${axisLabelRenderArgs.text}00",
-              FontConfig.overline(),
-            ),
-            //isVisible: false,
+      return SfCartesianChart(
+        margin: const EdgeInsets.only(left: 32),
+        plotAreaBorderWidth: 0,
+        primaryYAxis: CategoryAxis(
+          //isVisible: false,
+          //labelStyle: const TextStyle(color: Colors.white),
+          axisLine: const AxisLine(width: 0),
+          //labelPosition: ChartDataLabelPosition.inside,
+          majorTickLines: const MajorTickLines(width: 0),
+          majorGridLines: const MajorGridLines(width: 1, dashArray: [10]),
+          opposedPosition: true,
+          maximum: 10,
+          interval: 5,
+          edgeLabelPlacement: EdgeLabelPlacement.hide,
+          axisLabelFormatter: (axisLabelRenderArgs) => ChartAxisLabel(
+            "\$${axisLabelRenderArgs.text}00",
+            FontConfig.overline(),
           ),
-          primaryXAxis: CategoryAxis(
-            //labelStyle: const TextStyle(color: Colors.white),
-            axisLine: const AxisLine(width: 0),
-            //labelPosition: ChartDataLabelPosition.inside,
-            majorTickLines: const MajorTickLines(width: 0),
-            majorGridLines: const MajorGridLines(width: 0),
+          //isVisible: false,
+        ),
+        primaryXAxis: CategoryAxis(
+          //labelStyle: const TextStyle(color: Colors.white),
+          axisLine: const AxisLine(width: 0),
+          //labelPosition: ChartDataLabelPosition.inside,
+          majorTickLines: const MajorTickLines(width: 0),
+          majorGridLines: const MajorGridLines(width: 0),
+        ),
+        series: <ChartSeries<ChartData, String>>[
+          ColumnSeries<ChartData, String>(
+            animationDuration: 1000,
+            dataSource: chartData,
+            xValueMapper: (ChartData data, _) => data.x,
+            yValueMapper: (ChartData data, _) => data.y,
+            name: 'Unit Sold',
+            borderRadius: BorderRadius.circular(50),
+            spacing: 0.5,
+            color: ColorConfig.primarySwatch25,
           ),
-          series: <ChartSeries<ChartData, String>>[
-            ColumnSeries<ChartData, String>(
-              animationDuration: 1000,
-              dataSource: chartData,
-              xValueMapper: (ChartData data, _) => data.x,
-              yValueMapper: (ChartData data, _) => data.y,
-              name: 'Unit Sold',
-              borderRadius: BorderRadius.circular(50),
-              spacing: 0.5,
-              color: ColorConfig.primarySwatch25,
-            ),
-          ],
-          tooltipBehavior: TooltipBehavior(
-            enable: true,
-            canShowMarker: false,
-            format: 'point.x',
-            header: '',
-          ),
+        ],
+        tooltipBehavior: TooltipBehavior(
+          enable: true,
+          canShowMarker: false,
+          format: 'point.x',
+          header: '',
         ),
       );
     }

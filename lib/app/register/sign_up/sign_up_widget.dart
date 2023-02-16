@@ -69,9 +69,9 @@ class SignUpWidget {
   actionButton({
     required BuildContext context,
     required WidgetRef ref,
-    required String username,
-    required String email,
-    required String password,
+    required TextEditingController username,
+    required TextEditingController email,
+    required TextEditingController password,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
@@ -82,9 +82,9 @@ class SignUpWidget {
               title: 'Sign Up',
               onPressed: () => ref.read(authControllerProvider.notifier).signUp(
                     context: context,
-                    userName: email,
-                    email: email,
-                    password: password,
+                    userName: username.text,
+                    email: email.text,
+                    password: password.text,
                   ),
             ),
           ),
