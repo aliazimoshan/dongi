@@ -5,8 +5,8 @@ import './color_config.dart';
 class FontConfig {
   static TextStyle h4() => TextStyle(
         fontFamily: "Comfortaa",
-        fontWeight: FontWeight.w400,
-        fontSize: 34,
+        fontWeight: FontWeight.w700,
+        fontSize: 25,
         color: ColorConfig.midnight,
       );
 
