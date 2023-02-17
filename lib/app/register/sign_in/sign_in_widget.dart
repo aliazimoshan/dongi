@@ -96,27 +96,29 @@ class SignInWidget {
   }
 
   /// * ----- changeActionButton
-  changeActionButton(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            SignInContents.changeAction,
-            style: FontConfig.body1(),
-          ),
-          const SizedBox(width: 10),
-          InkWell(
-            onTap: () => context.go(RouteNameConfig.signup),
-            child: Text(
-              'Sign Up',
-              style: FontConfig.body1().copyWith(
-                fontWeight: FontWeight.w800,
-                decoration: TextDecoration.underline,
-              ),
+  changeActionButton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          SignInContents.changeAction,
+          style: FontConfig.body1(),
+        ),
+        const SizedBox(width: 10),
+        InkWell(
+          onTap: () => context.go(RouteNameConfig.signup),
+          child: Text(
+            'Sign Up',
+            style: FontConfig.body1().copyWith(
+              fontWeight: FontWeight.w800,
+              decoration: TextDecoration.underline,
             ),
           ),
-        ],
-      );
+        ),
+      ],
+    );
+  }
 
   /// * ----- forget password
   _forgetPassword() {
