@@ -33,7 +33,7 @@ class SignInPage extends HookConsumerWidget with SignInWidget {
                 email: emailController,
                 password: passwordController,
               ),
-              changeActionButton(),
+              changeActionButton(context),
             ],
           ),
         ],

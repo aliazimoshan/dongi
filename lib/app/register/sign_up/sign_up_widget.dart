@@ -1,6 +1,8 @@
 import 'package:dongi/app/register/auth_controller/auth_controller.dart';
+import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
@@ -96,27 +98,29 @@ class SignUpWidget {
   }
 
   /// * ----- changeActionButton
-  changeActionButton() => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            SignUpContent.changeAction,
-            style: FontConfig.body1(),
-          ),
-          const SizedBox(width: 10),
-          InkWell(
-            onTap: () {},
-            child: Text(
-              'Sign In',
-              style: FontConfig.body1().copyWith(
-                fontWeight: FontWeight.w800,
-                decoration: TextDecoration.underline,
-              ),
+  changeActionButton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          SignUpContent.changeAction,
+          style: FontConfig.body1(),
+        ),
+        const SizedBox(width: 10),
+        InkWell(
+          onTap: () => context.go(RouteNameConfig.signin),
+          child: Text(
+            'Sign In',
+            style: FontConfig.body1().copyWith(
+              fontWeight: FontWeight.w800,
+              decoration: TextDecoration.underline,
             ),
           ),
-        ],
-      );
+        ),
+      ],
+    );
+  }
 
   /// * ----- google button
   _googleButton() {

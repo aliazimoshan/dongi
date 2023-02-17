@@ -1,6 +1,5 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:dongi/constants/appwrite_config.dart';
-import 'package:dongi/constants/route_config.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final appwriteClientProvider = Provider((ref) {

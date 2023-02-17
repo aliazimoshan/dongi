@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
         scaffoldBackgroundColor: ColorConfig.white,
       ),
       debugShowCheckedModeBanner: false,
-      routerConfig: ref.watch(routerProvider),
+      routerConfig: ref.watch(routerProvider(ref)),
       //home: userAccountStatus.when(
       //  data: (user) {
       //    if (user != null) {

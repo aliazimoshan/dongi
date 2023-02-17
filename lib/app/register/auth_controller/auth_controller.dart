@@ -17,21 +17,37 @@ final authControllerProvider =
   );
 });
 
-final currentUserDetailsProvider = FutureProvider((ref) {
-  final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
-  final userDetails = ref.watch(userDetailsProvider(currentUserId));
-  return userDetails.value;
-});
+//final currentUserDetailsProvider = FutureProvider((ref) {
+//  final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
+//  final userDetails = ref.watch(userDetailsProvider(currentUserId));
+//  return userDetails.value;
+//});
 
-final userDetailsProvider = FutureProvider.family((ref, String uid) {
-  final authController = ref.watch(authControllerProvider.notifier);
-  return authController.getUserData(uid);
-});
+//final userDetailsProvider = FutureProvider.family((ref, String uid) {
+//  final authController = ref.watch(authControllerProvider.notifier);
+//  return authController.getUserData(uid);
+//});
 
-final currentUserAccountProvider = FutureProvider((ref) {
-  final authController = ref.watch(authControllerProvider.notifier);
-  return authController.currentUser();
-});
+//final currentUserAccountProvider = FutureProvider((ref) {
+//  final authController = ref.watch(authControllerProvider.notifier);
+//  return authController.currentUser();
+//});
+
+//final userIsLoggedIn = Provider<AuthType>(
+//  (ref) {
+//    final userAccountStatus = ref.watch(currentUserAccountProvider);
+//    //final authStatus = ref.watch(userDetailsProvider);
+//    print(userAccountStatus);
+//    //print(authStatus);
+//    if (userAccountStatus.isLoading) {
+//      return AuthType.isLoading;
+//    } else if (userAccountStatus.value == null) {
+//      return AuthType.isNotLoggedIn;
+//    } else {
+//      return AuthType.isLoggedIn;
+//    }
+//  },
+//);
 
 class AuthController extends StateNotifier<bool> {
   final AuthAPI _authAPI;
