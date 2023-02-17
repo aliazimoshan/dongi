@@ -1,5 +1,7 @@
+import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
@@ -94,7 +96,7 @@ class SignInWidget {
   }
 
   /// * ----- changeActionButton
-  changeActionButton() => Row(
+  changeActionButton(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -104,7 +106,7 @@ class SignInWidget {
           ),
           const SizedBox(width: 10),
           InkWell(
-            onTap: () {},
+            onTap: () => context.go(RouteNameConfig.signup),
             child: Text(
               'Sign Up',
               style: FontConfig.body1().copyWith(
