@@ -58,7 +58,11 @@ class SignInWidget {
       children: [
         TextFieldWidget(controller: email, hintText: 'email'),
         const SizedBox(height: 10),
-        TextFieldWidget(controller: password, hintText: 'password'),
+        TextFieldWidget(
+          controller: password,
+          hintText: 'password',
+          obscureText: true,
+        ),
         const SizedBox(height: 10),
         _forgetPassword(),
         const SizedBox(height: 20)

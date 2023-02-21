@@ -62,7 +62,11 @@ Widget child({
     height: 50,
     child: Center(
       child: isLoading ?? false
-          ? CircularProgressIndicator(color: ColorConfig.secondary)
+          ? SizedBox(
+              width: 25,
+              height: 25,
+              child: CircularProgressIndicator(color: ColorConfig.secondary),
+            )
           : Text(
               title ?? "",
               style: FontConfig.button().copyWith(color: textColor),

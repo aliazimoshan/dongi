@@ -61,7 +61,11 @@ class SignUpWidget {
         const SizedBox(height: 10),
         TextFieldWidget(controller: email, hintText: 'email'),
         const SizedBox(height: 10),
-        TextFieldWidget(controller: password, hintText: 'password'),
+        TextFieldWidget(
+          controller: password,
+          hintText: 'password',
+          obscureText: true,
+        ),
         const SizedBox(height: 20)
       ],
     );
@@ -82,6 +86,7 @@ class SignUpWidget {
           Expanded(
             child: ButtonWidget(
               title: 'Sign Up',
+              isLoading: ref.watch(authControllerProvider),
               onPressed: () => ref.read(authControllerProvider.notifier).signUp(
                     context: context,
                     userName: username.text,
