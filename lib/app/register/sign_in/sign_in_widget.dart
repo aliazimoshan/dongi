@@ -7,9 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
 import '../../../constants/content/register/sign_in_contents.dart';
 import '../../../constants/font_config.dart';
+import '../../../core/validation.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/text_field/text_field.dart';
 import '../auth_controller/auth_controller.dart';
+import 'package:dongi/extensions/validation_string.dart';
 
 class SignInWidget {
   /// * body
@@ -52,21 +54,32 @@ class SignInWidget {
   form({
     required TextEditingController email,
     required TextEditingController password,
+    required GlobalKey<FormState> formKey,
+    required WidgetRef ref,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        TextFieldWidget(controller: email, hintText: 'email'),
-        const SizedBox(height: 10),
-        TextFieldWidget(
-          controller: password,
-          hintText: 'password',
-          obscureText: true,
-        ),
-        const SizedBox(height: 10),
-        _forgetPassword(),
-        const SizedBox(height: 20)
-      ],
+    return Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          TextFieldWidget(
+            controller: email,
+            hintText: 'email',
+            validator: ref.read(formValidatorProvider.notifier).validateEmail,
+          ),
+          const SizedBox(height: 10),
+          TextFieldWidget(
+            controller: password,
+            hintText: 'password',
+            obscureText: true,
+            validator:
+                ref.read(formValidatorProvider.notifier).validatePassword,
+          ),
+          const SizedBox(height: 10),
+          _forgetPassword(),
+          const SizedBox(height: 20)
+        ],
+      ),
     );
   }
 
@@ -76,6 +89,7 @@ class SignInWidget {
     required WidgetRef ref,
     required TextEditingController email,
     required TextEditingController password,
+    required GlobalKey<FormState> formKey,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
@@ -85,11 +99,15 @@ class SignInWidget {
             child: ButtonWidget(
               title: "Sign in",
               isLoading: ref.watch(authControllerProvider),
-              onPressed: () => ref.read(authControllerProvider.notifier).login(
-                    context: context,
-                    email: email.text,
-                    password: password.text,
-                  ),
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  ref.read(authControllerProvider.notifier).login(
+                        context: context,
+                        email: email.text,
+                        password: password.text,
+                      );
+                }
+              },
             ),
           ),
           const SizedBox(width: 10),
