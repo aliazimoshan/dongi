@@ -24,7 +24,7 @@ class FormValidatorNotifier extends StateNotifier<String?> {
     if (value != null && value.length >= 4) {
       return null;
     } else {
-      return 'Please Enter a Valid Email';
+      return 'Username must be more than 4 characters';
     }
   }
 }
