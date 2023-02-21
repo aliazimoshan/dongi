@@ -86,13 +86,9 @@ class AuthController extends StateNotifier<bool> {
         res2.fold(
           (l) => showSnackBar(context, l.message),
           (r) {
-            showSnackBar(context, 'Accounted created! Please login.');
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SignInPage(),
-              ),
-            );
+            showSnackBar(context, 'Accounted created!!');
+            //context.go(RouteNameConfig.home);
+            login(email: email, password: password, context: context);
           },
         );
       },

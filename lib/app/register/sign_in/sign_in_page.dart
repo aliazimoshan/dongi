@@ -7,6 +7,7 @@ import './sign_in_widget.dart';
 
 class SignInPage extends HookConsumerWidget with SignInWidget {
   SignInPage({super.key});
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,10 +25,13 @@ class SignInPage extends HookConsumerWidget with SignInWidget {
             children: [
               title(),
               form(
+                ref: ref,
+                formKey: _formKey,
                 email: emailController,
                 password: passwordController,
               ),
               actionButton(
+                formKey: _formKey,
                 context: context,
                 ref: ref,
                 email: emailController,
