@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
 import '../../../constants/content/register/sign_up_contents.dart';
 import '../../../constants/font_config.dart';
+import '../../../core/validation.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/text_field/text_field.dart';
 
@@ -54,20 +55,36 @@ class SignUpWidget {
     required TextEditingController username,
     required TextEditingController email,
     required TextEditingController password,
+    required GlobalKey<FormState> formKey,
+    required WidgetRef ref,
   }) {
-    return Column(
-      children: [
-        TextFieldWidget(controller: username, hintText: 'username'),
-        const SizedBox(height: 10),
-        TextFieldWidget(controller: email, hintText: 'email'),
-        const SizedBox(height: 10),
-        TextFieldWidget(
-          controller: password,
-          hintText: 'password',
-          obscureText: true,
-        ),
-        const SizedBox(height: 20)
-      ],
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          TextFieldWidget(
+            controller: username,
+            hintText: 'username',
+            validator:
+                ref.read(formValidatorProvider.notifier).validateUsername,
+          ),
+          const SizedBox(height: 10),
+          TextFieldWidget(
+            controller: email,
+            hintText: 'email',
+            validator: ref.read(formValidatorProvider.notifier).validateEmail,
+          ),
+          const SizedBox(height: 10),
+          TextFieldWidget(
+            controller: password,
+            hintText: 'password',
+            obscureText: true,
+            validator:
+                ref.read(formValidatorProvider.notifier).validatePassword,
+          ),
+          const SizedBox(height: 20)
+        ],
+      ),
     );
   }
 
@@ -78,6 +95,7 @@ class SignUpWidget {
     required TextEditingController username,
     required TextEditingController email,
     required TextEditingController password,
+    required GlobalKey<FormState> formKey,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
@@ -85,15 +103,18 @@ class SignUpWidget {
         children: [
           Expanded(
             child: ButtonWidget(
-              title: 'Sign Up',
-              isLoading: ref.watch(authControllerProvider),
-              onPressed: () => ref.read(authControllerProvider.notifier).signUp(
-                    context: context,
-                    userName: username.text,
-                    email: email.text,
-                    password: password.text,
-                  ),
-            ),
+                title: 'Sign Up',
+                isLoading: ref.watch(authControllerProvider),
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    ref.read(authControllerProvider.notifier).signUp(
+                          context: context,
+                          userName: username.text,
+                          email: email.text,
+                          password: password.text,
+                        );
+                  }
+                }),
           ),
           const SizedBox(width: 10),
           _googleButton(),
