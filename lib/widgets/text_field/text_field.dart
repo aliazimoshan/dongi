@@ -10,6 +10,7 @@ class TextFieldWidget extends HookWidget {
   final int maxLines;
   final TextEditingController? controller;
   final bool obscureText;
+  final String? Function(String? value)? validator;
   const TextFieldWidget({
     required this.hintText,
     this.fillColor,
@@ -17,15 +18,17 @@ class TextFieldWidget extends HookWidget {
     this.maxLines = 1,
     this.controller,
     this.obscureText = false,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     final toggle = useState(false);
     return TextFormField(
+      validator: validator,
       maxLines: maxLines,
       controller: controller,
-      obscureText: !(obscureText && toggle.value),
+      obscureText: obscureText && !toggle.value,
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor ?? ColorConfig.grey,
