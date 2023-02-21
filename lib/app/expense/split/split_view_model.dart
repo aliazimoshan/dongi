@@ -1,4 +1,4 @@
-import 'package:dongi/extentions/round_double.dart';
+import 'package:dongi/extensions/round_double.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FriendsSelectorNotifier extends StateNotifier<List<String>> {
