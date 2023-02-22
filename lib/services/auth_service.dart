@@ -17,10 +17,11 @@ abstract class IAuthAPI {
     required String email,
     required String password,
   });
-  FutureEither<model.Session> login({
+  FutureEither<model.Session> signIn({
     required String email,
     required String password,
   });
+  FutureEitherVoid signInWithGoogle();
   FutureEitherVoid forgetPassword({
     required String email,
   });
@@ -67,7 +68,7 @@ class AuthAPI implements IAuthAPI {
   }
 
   @override
-  FutureEither<model.Session> login({
+  FutureEither<model.Session> signIn({
     required String email,
     required String password,
   }) async {
@@ -77,6 +78,26 @@ class AuthAPI implements IAuthAPI {
         password: password,
       );
       return right(session);
+    } on AppwriteException catch (e, stackTrace) {
+      return left(
+        Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
+      );
+    } catch (e, stackTrace) {
+      return left(
+        Failure(e.toString(), stackTrace),
+      );
+    }
+  }
+
+  @override
+  FutureEitherVoid signInWithGoogle() async {
+    try {
+      await _account.createOAuth2Session(
+        provider: "google",
+      );
+      //final session = await currentUserAccount();
+
+      return right(null);
     } on AppwriteException catch (e, stackTrace) {
       return left(
         Failure(e.message ?? 'Some unexpected error occurred', stackTrace),

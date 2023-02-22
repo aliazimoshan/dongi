@@ -72,8 +72,8 @@ class SignInWidget {
             controller: password,
             hintText: 'password',
             obscureText: true,
-            validator:
-                ref.read(formValidatorProvider.notifier).validatePassword,
+            //validator:
+            //    ref.read(formValidatorProvider.notifier).validatePassword,
           ),
           const SizedBox(height: 10),
           _forgetPassword(),
@@ -101,7 +101,7 @@ class SignInWidget {
               isLoading: ref.watch(authControllerProvider),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  ref.read(authControllerProvider.notifier).login(
+                  ref.read(authControllerProvider.notifier).signIn(
                         context: context,
                         email: email.text,
                         password: password.text,
@@ -111,7 +111,7 @@ class SignInWidget {
             ),
           ),
           const SizedBox(width: 10),
-          _googleButton(),
+          _googleButton(context: context, ref: ref),
         ],
       ),
     );
@@ -154,9 +154,14 @@ class SignInWidget {
   }
 
   /// * ----- google button
-  _googleButton() {
+  _googleButton({
+    required BuildContext context,
+    required WidgetRef ref,
+  }) {
     return InkWell(
-      onTap: () {},
+      onTap: () => ref
+          .read(authControllerProvider.notifier)
+          .signInWithGoogle(context: context),
       child: Container(
         height: 50,
         width: 50,
