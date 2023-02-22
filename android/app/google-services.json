@@ -1,45 +1,37 @@
 {
   "project_info": {
-    "project_number": "323276056333",
-    "project_id": "dispose-ef178",
-    "storage_bucket": "dispose-ef178.appspot.com"
+    "project_number": "439074732981",
+    "project_id": "dispose-9ffc6",
+    "storage_bucket": "dispose-9ffc6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:323276056333:android:cab2b0509a94ef61a7f244",
+        "mobilesdk_app_id": "1:439074732981:android:f0ba098401dfc9a9c237fc",
         "android_client_info": {
           "package_name": "ir.dispose.dongi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "323276056333-ooc4q0io289mj7h3akfrdlq4vnhkv5e3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "ir.dispose.dongi",
-            "certificate_hash": "a7884a3b2ae039d2dd131ecad54cba507d464e82"
-          }
-        },
-        {
-          "client_id": "323276056333-rdr3uledh8537q6vl299vjm6chu91epe.apps.googleusercontent.com",
+          "client_id": "439074732981-0orbj0fe4n576nj2tde2o7c4s4jqmhcf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD4WoE17d_tsdNg2oi5UppRe7gvqcklpu4"
+          "current_key": "AIzaSyC24ZR0M9_0S-xe4WNHBA9sU5i5qKKR2yo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "323276056333-rdr3uledh8537q6vl299vjm6chu91epe.apps.googleusercontent.com",
+              "client_id": "439074732981-0orbj0fe4n576nj2tde2o7c4s4jqmhcf.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "323276056333-b85v25ec4iehasu005hvq6k2t6emlumv.apps.googleusercontent.com",
+              "client_id": "439074732981-m5jd8365vi1c86gsqd01p5kietunucba.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "ir.dispose.dongi"

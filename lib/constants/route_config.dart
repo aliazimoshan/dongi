@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../app/register/auth_controller/auth_controller.dart';
+
 final navigatorKey = GlobalKey<NavigatorState>();
 final routerProvider = StateProvider.family(
   (ref, arg) => _goRouterConfig(ref),
@@ -41,38 +43,13 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
         builder: (context, state) => OnboardingPage(),
       ),
     ],
-    redirect: (context, state) {
-      return null;
-      //final AuthType isLoggedInProvider = ref.watch(userIsLoggedIn);
-      //final isLoggingIn = state.location == RouteNameConfig.signin ||
-      //    state.location == RouteNameConfig.signup;
-      //print(isLoggedInProvider);
-      //switch (isLoggedInProvider) {
-      //  case AuthType.isLoading:
-      //    //Loading Screen or Splash
-      //    return RouteNameConfig.onboarding;
-      //  case AuthType.isNotLoggedIn:
-      //  case AuthType.isLoggedOut:
-      //    if (isLoggingIn) {
-      //      return null;
-      //    } else {
-      //      return RouteNameConfig.signin;
-      //    }
-      //  case AuthType.isLoggedIn:
-      //    return null;
-      //  default:
-      //    return null;
-      //}
-      //return userAccountStatus.when(
-      //  data: (user) {
-      //    if (user != null) {
-      //      return RouteNameConfig.home;
-      //    }
-      //    return RouteNameConfig.signin;
-      //  },
-      //  error: (error, stackTrace) => null,
-      //  loading: () => null,
-      //);
+    redirect: (context, state) async {
+      final currentUserProvider =
+          await ref.read(authControllerProvider.notifier).currentUser();
+      if (currentUserProvider != null) {
+        return null;
+      }
+      return RouteNameConfig.signin;
     },
   );
 }

@@ -47,5 +47,13 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>CLIENT_ID</key>
+	<string>439074732981-s8k34onqaf3bfc41fub2450v77t2gb2d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.439074732981-s8k34onqaf3bfc41fub2450v77t2gb2d</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ir.dispose.dongi</string>
 </dict>
 </plist>

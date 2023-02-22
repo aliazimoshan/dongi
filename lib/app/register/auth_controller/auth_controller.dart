@@ -88,20 +88,20 @@ class AuthController extends StateNotifier<bool> {
           (r) {
             showSnackBar(context, 'Accounted created!!');
             //context.go(RouteNameConfig.home);
-            login(email: email, password: password, context: context);
+            signIn(email: email, password: password, context: context);
           },
         );
       },
     );
   }
 
-  void login({
+  void signIn({
     required String email,
     required String password,
     required BuildContext context,
   }) async {
     state = true;
-    final res = await _authAPI.login(
+    final res = await _authAPI.signIn(
       email: email,
       password: password,
     );
@@ -110,6 +110,17 @@ class AuthController extends StateNotifier<bool> {
       (l) => showSnackBar(context, l.message),
       (r) => context.go(RouteNameConfig.home),
     );
+  }
+
+  void signInWithGoogle({required BuildContext context}) async {
+    state = true;
+    await _authAPI.signInWithGoogle();
+    state = false;
+    //TODO
+    //res.fold(
+    //  (l) => showSnackBar(context, l.message),
+    //  (r) => context.go(RouteNameConfig.home),
+    //);
   }
 
   Future<UserModel> getUserData(String uid) async {
