@@ -95,7 +95,8 @@ class AuthAPI implements IAuthAPI {
       await _account.createOAuth2Session(
         provider: "google",
       );
-      //final session = await currentUserAccount();
+      final account = await currentUserAccount();
+      if (account == null) throw "account not found";
 
       return right(null);
     } on AppwriteException catch (e, stackTrace) {

@@ -114,13 +114,13 @@ class AuthController extends StateNotifier<bool> {
 
   void signInWithGoogle({required BuildContext context}) async {
     state = true;
-    await _authAPI.signInWithGoogle();
+    final res = await _authAPI.signInWithGoogle();
     state = false;
-    //TODO
-    //res.fold(
-    //  (l) => showSnackBar(context, l.message),
-    //  (r) => context.go(RouteNameConfig.home),
-    //);
+
+    res.fold(
+      (l) => showSnackBar(context, l.message),
+      (r) => context.go(RouteNameConfig.home),
+    );
   }
 
   Future<UserModel> getUserData(String uid) async {
