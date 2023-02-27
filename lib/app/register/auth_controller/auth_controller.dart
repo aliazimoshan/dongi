@@ -78,7 +78,7 @@ class AuthController extends StateNotifier<bool> {
       (l) => showSnackBar(context, l.message),
       (r) async {
         UserModel userModel = UserModel(
-          uid: r.$id,
+          id: r.$id,
           email: email,
           userName: userName,
         );

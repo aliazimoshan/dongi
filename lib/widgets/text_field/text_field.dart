@@ -43,7 +43,7 @@ class TextFieldWidget extends HookWidget {
         suffixIcon: obscureText
             ? InkWell(
                 child: Icon(
-                    toggle.value ? Icons.visibility_off : Icons.visibility),
+                    toggle.value ? Icons.visibility : Icons.visibility_off),
                 onTap: () => toggle.value = !toggle.value,
               )
             : null,

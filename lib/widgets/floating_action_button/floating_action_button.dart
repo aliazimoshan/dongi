@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../../constants/color_config.dart';
 
 class FloatingActionButtonWidget extends Container {
+  final void Function()? onPressed;
   FloatingActionButtonWidget({
     super.height = 48,
     super.width = 48,
     super.key,
+    this.onPressed,
   });
 
   @override
@@ -17,9 +19,7 @@ class FloatingActionButtonWidget extends Container {
 
   @override
   Widget? get child => ElevatedButton(
-        onPressed: () {
-          // print('yesss');
-        },
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
