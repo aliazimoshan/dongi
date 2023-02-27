@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class UserModel {
-  final String? uid;
+  final String? id;
   final String email;
   final String userName;
   final String? firstName;
@@ -18,7 +18,7 @@ class UserModel {
   final List<String>? token;
 
   const UserModel({
-    this.uid,
+    this.id,
     required this.email,
     required this.userName,
     this.firstName,
@@ -34,7 +34,7 @@ class UserModel {
   });
 
   UserModel copyWith({
-    String? uid,
+    String? id,
     String? email,
     String? userName,
     String? firstName,
@@ -49,7 +49,7 @@ class UserModel {
     List<String>? token,
   }) {
     return UserModel(
-      uid: uid ?? this.uid,
+      id: id ?? this.id,
       email: email ?? this.email,
       userName: userName ?? this.userName,
       firstName: firstName ?? this.firstName,
@@ -67,7 +67,7 @@ class UserModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'uid': uid,
+      'id': id,
       'email': email,
       'userName': userName,
       'firstName': firstName,
@@ -85,7 +85,7 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      uid: map['uid'] as String,
+      id: map['id'] as String,
       email: map['email'] as String,
       userName: map['userName'] as String,
       firstName: map['firstName'] != null ? map['firstName'] as String : null,
@@ -121,6 +121,6 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, email: $email, userName: $userName, firstName: $firstName, lastName: $lastName, profilePic: $profilePic, phoneNumber: $phoneNumber, totalExpense: $totalExpense, friends: $friends, groups: $groups, transactions: $transactions, fToken: $fToken, token: $token)';
+    return 'UserModel(id: $id, email: $email, userName: $userName, firstName: $firstName, lastName: $lastName, profilePic: $profilePic, phoneNumber: $phoneNumber, totalExpense: $totalExpense, friends: $friends, groups: $groups, transactions: $transactions, fToken: $fToken, token: $token)';
   }
 }
