@@ -1,3 +1,4 @@
+import 'package:dongi/app/group/group_list/group_list_page.dart';
 import 'package:dongi/app/home/home_page.dart';
 import 'package:dongi/app/onboarding/onboarding_page.dart';
 import 'package:dongi/app/register/sign_in/sign_in_page.dart';
@@ -19,11 +20,12 @@ class RouteNameConfig {
   static String signin = '/signin';
   static String signup = '/signup';
   static String onboarding = '/onboarding';
+  static String groupList = '/group';
 }
 
 GoRouter _goRouterConfig(StateProviderRef ref) {
   return GoRouter(
-    initialLocation: RouteNameConfig.home,
+    initialLocation: RouteNameConfig.groupList,
     navigatorKey: navigatorKey,
     routes: [
       GoRoute(
@@ -41,6 +43,10 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
       GoRoute(
         path: RouteNameConfig.onboarding,
         builder: (context, state) => OnboardingPage(),
+      ),
+      GoRoute(
+        path: RouteNameConfig.groupList,
+        builder: (context, state) => GroupListPage(),
       ),
     ],
     redirect: (context, state) async {
