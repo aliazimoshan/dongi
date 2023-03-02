@@ -23,4 +23,4 @@ doc/api/
 *.js.map
 
 # Appwrite token 
-#lib/constants/appwrite_config.dart
+lib/constants/appwrite_config.dart
