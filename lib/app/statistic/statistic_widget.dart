@@ -55,7 +55,7 @@ class StatisticWidget {
       ChartData(title: "THU", y: 5, x: 6),
     ];
 
-    ChartAxisLabel lableFormat(AxisLabelRenderDetails axisLabelRenderArgs) {
+    ChartAxisLabel labelFormat(AxisLabelRenderDetails axisLabelRenderArgs) {
       return ChartAxisLabel(
         chartData[int.parse(axisLabelRenderArgs.text) - 1].title,
         FontConfig.overline().copyWith(color: ColorConfig.white),
@@ -80,8 +80,8 @@ class StatisticWidget {
             width: 1,
             color: ColorConfig.white.withOpacity(0.1),
           ),
-          // labelFormat: _lableFormat('{value}'),
-          axisLabelFormatter: lableFormat,
+          // labelFormat: _labelFormat('{value}'),
+          axisLabelFormatter: labelFormat,
         ),
         series: <ChartSeries<ChartData, double>>[
           SplineSeries<ChartData, double>(
