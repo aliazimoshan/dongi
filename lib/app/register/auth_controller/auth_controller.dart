@@ -119,7 +119,24 @@ class AuthController extends StateNotifier<bool> {
 
     res.fold(
       (l) => showSnackBar(context, l.message),
-      (r) => context.go(RouteNameConfig.home),
+      (r) async {
+        UserModel userModel = UserModel(
+          id: r.$id,
+          email: r.email,
+          userName: r.name,
+        );
+        //Todo | If the user has an account don't save  data just update it if needed
+        //and the snackbar should not pop up
+        final res2 = await _userAPI.saveUserData(userModel);
+        res2.fold(
+          (l) => showSnackBar(context, l.message),
+          (r) {
+            showSnackBar(context, 'Accounted created!!');
+            context.go(RouteNameConfig.home);
+            //signIn(email: email, password: password, context: context);
+          },
+        );
+      },
     );
   }
 

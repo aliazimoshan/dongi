@@ -90,7 +90,7 @@ class AuthAPI implements IAuthAPI {
   }
 
   @override
-  FutureEitherVoid signInWithGoogle() async {
+  FutureEither<model.Account> signInWithGoogle() async {
     try {
       await _account.createOAuth2Session(
         provider: "google",
@@ -98,7 +98,7 @@ class AuthAPI implements IAuthAPI {
       final account = await currentUserAccount();
       if (account == null) throw "account not found";
 
-      return right(null);
+      return right(account);
     } on AppwriteException catch (e, stackTrace) {
       return left(
         Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
