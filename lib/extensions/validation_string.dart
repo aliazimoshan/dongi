@@ -16,9 +16,9 @@ extension ExtensionsString on String {
     return passwordRegExp.hasMatch(this);
   }
 
-  bool get isNotNull {
-    return this != null;
-  }
+  //bool get isNotNull {
+  //  return this != null;
+  //}
 
   bool get isValidPhone {
     final phoneRegExp = RegExp(r"^\+?0[0-9]{10}$");
