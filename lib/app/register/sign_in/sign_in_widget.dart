@@ -11,7 +11,6 @@ import '../../../core/validation.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/text_field/text_field.dart';
 import '../auth_controller/auth_controller.dart';
-import 'package:dongi/extensions/validation_string.dart';
 
 class SignInWidget {
   /// * body
