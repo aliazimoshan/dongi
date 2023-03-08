@@ -1,10 +1,19 @@
 import 'package:dongi/constants/color_config.dart';
+import 'package:dongi/models/group_model.dart';
 import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
 
-
 class GroupListWidget {
-  groupCard(String title, String subtitle) {
+  groupListView(List<GroupModel> groupModel) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+      child: ListView(
+        children: groupModel.map<Widget>((val) => _groupCard(val)).toList(),
+      ),
+    );
+  }
+
+  _groupCard(GroupModel group) {
     iconWidget() {
       return Container(
         width: 50,
@@ -19,8 +28,8 @@ class GroupListWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: ListTileCard(
-        titleString: title,
-        subtitleString: subtitle,
+        titleString: group.title,
+        subtitleString: "Member: ${group.members.length.toString()}",
         leading: iconWidget(),
       ),
     );
