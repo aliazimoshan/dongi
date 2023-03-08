@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:dongi/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
@@ -7,10 +12,16 @@ import '../../../constants/size_config.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/friends/friend.dart';
 import '../../../widgets/text_field/text_field.dart';
+import '../controller/group_controller.dart';
 
 class CreateGroupWidget {
   /// * ----- Groupe info card
-  groupInfoCard(BuildContext context) {
+  groupInfoCard({
+    required BuildContext context,
+    required TextEditingController groupTitle,
+    required TextEditingController groupDescription,
+    required ValueNotifier<File?> image,
+  }) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       padding: const EdgeInsets.all(15),
@@ -24,36 +35,42 @@ class CreateGroupWidget {
         children: [
           Row(
             children: [
-              _addPhotoButton(),
+              _addPhotoButton(image),
               const SizedBox(width: 10),
               Expanded(
-                child: TextFieldWidget(
-                  hintText: 'Group Name',
-                  fillColor: ColorConfig.white,
+                child: SizedBox(
+                  height: 50,
+                  child: TextFieldWidget(
+                    hintText: 'Group Title',
+                    fillColor: ColorConfig.white,
+                    controller: groupTitle,
+                  ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 10),
-          Row(
-            children: [
-              _selectOptionButton(
-                onTap: () {},
-                icon: 'assets/svg/category_icon.svg',
-                title: 'category',
-              ),
-              const SizedBox(width: 10),
-              _selectOptionButton(
-                onTap: () {},
-                icon: 'assets/svg/currency_icon.svg',
-                title: 'currency',
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
+          //Row(
+          //  children: [
+          //    _selectOptionButton(
+          //      onTap: () {},
+          //      icon: 'assets/svg/category_icon.svg',
+          //      title: 'category',
+          //    ),
+          //    const SizedBox(width: 10),
+          //    _selectOptionButton(
+          //      onTap: () {},
+          //      icon: 'assets/svg/currency_icon.svg',
+          //      title: 'currency',
+          //    ),
+          //  ],
+          //),
+          //const SizedBox(height: 10),
           TextFieldWidget(
             hintText: 'Description',
             fillColor: ColorConfig.white,
+            controller: groupDescription,
+            maxLines: 3,
           ),
         ],
       ),
@@ -108,11 +125,23 @@ class CreateGroupWidget {
   }
 
   /// * ----- submit button
-  createButton() {
+  createButton({
+    required WidgetRef ref,
+    required BuildContext context,
+    required ValueNotifier<File?> image,
+    required TextEditingController groupTitle,
+    required TextEditingController groupDescription,
+  }) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: ButtonWidget(
-        onPressed: () {},
+        isLoading: ref.watch(groupControllerProvider),
+        onPressed: () => ref.refresh(groupControllerProvider.notifier).addGroup(
+              ref: ref,
+              image: image,
+              groupTitle: groupTitle,
+              groupDescription: groupDescription,
+            ),
         title: 'create',
         textColor: ColorConfig.secondary,
       ),
@@ -120,39 +149,42 @@ class CreateGroupWidget {
   }
 
   /// * ----- select option button
-  _selectOptionButton({
-    required Function onTap,
-    required String icon,
-    required String title,
-  }) {
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          onTap();
-        },
-        child: Container(
-          height: 50,
-          decoration: BoxDecoration(
-            color: ColorConfig.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(icon),
-              const SizedBox(width: 10),
-              Text(title),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  //_selectOptionButton({
+  //  required Function onTap,
+  //  required String icon,
+  //  required String title,
+  //}) {
+  //  return Expanded(
+  //    child: InkWell(
+  //      onTap: () {
+  //        onTap();
+  //      },
+  //      child: Container(
+  //        height: 50,
+  //        decoration: BoxDecoration(
+  //          color: ColorConfig.white,
+  //          borderRadius: BorderRadius.circular(10),
+  //        ),
+  //        child: Row(
+  //          mainAxisAlignment: MainAxisAlignment.center,
+  //          children: [
+  //            SvgPicture.asset(icon),
+  //            const SizedBox(width: 10),
+  //            Text(title),
+  //          ],
+  //        ),
+  //      ),
+  //    ),
+  //  );
+  //}
 
   /// * ----- add photo button
-  _addPhotoButton() {
+  _addPhotoButton(ValueNotifier<File?> image) {
     return InkWell(
-      onTap: () {},
+      onTap: () async {
+        print('Mamaaad');
+        image.value = await pickImage();
+      },
       child: Container(
         width: 50,
         height: 50,

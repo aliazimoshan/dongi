@@ -1,5 +1,6 @@
-import 'package:dongi/models/group_model.dart';
+import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../widgets/appbar/appbar.dart';
 import '../../../widgets/floating_action_button/floating_action_button.dart';
@@ -11,28 +12,28 @@ class GroupListPage extends ConsumerWidget with GroupListWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final groupList = ref.watch(getGroupsProvider);
     return Scaffold(
       appBar: AppBarWidget(title: "Groups"),
       floatingActionButton: FloatingActionButtonWidget(
-        onPressed: () => ref.read(groupControllerProvider.notifier).addGroup(
-              context: context,
-              groupModel: GroupModel(
-                title: "title",
-                description: "description",
-                creatorId: "creatorId",
-                members: [],
-              ),
-            ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-        child: ListView(
-          children: [
-            groupCard("Group Name", "Member: 2"),
-            groupCard("Group Name", "Member: 3"),
-            groupCard("Group Name", "Member: 2"),
-            groupCard("Group Name", "Member: 7"),
-          ],
+          onPressed: () => context.push(RouteNameConfig.createGroup)
+          //ref.refresh(groupControllerProvider.notifier).addGroup(
+          //      groupModel: GroupModel(
+          //        title: "title1",
+          //        description: "description",
+          //        creatorId: "creatorId",
+          //        members: [],
+          //      ),
+          //    ),
+          ),
+      body: groupList.when(
+        //skipLoadingOnRefresh: true,
+        //skipLoadingOnReload: true,
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Center(child: Text(error.toString())),
+        data: (data) => RefreshIndicator(
+          child: groupListView(data),
+          onRefresh: () => ref.refresh(refreshGroupsProvider.future),
         ),
       ),
     );
