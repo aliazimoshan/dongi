@@ -61,7 +61,7 @@ class GroupModel {
       image: map['image'] != null ? map['image'] as String : null,
       creatorId: map['creatorId'] as String,
       members: List<Member>.from(
-        (map['members'] as List<int>).map<Member>(
+        (map['members'] as List).map<Member>(
           (x) => Member.fromMap(x as Map<String, dynamic>),
         ),
       ),
@@ -113,42 +113,51 @@ class GroupModel {
 
 class Member {
   final String? id;
-  final String name;
-  final String? image;
-  final String? userId;
+  final String userName;
+  final String? profilePic;
+  final String groupId;
+  final String userId;
   Member({
     this.id,
-    required this.name,
-    this.image,
-    this.userId,
+    required this.userName,
+    this.profilePic,
+    required this.groupId,
+    required this.userId,
   });
 
   Member copyWith({
     String? id,
-    String? name,
-    String? image,
+    String? userName,
+    String? profilePic,
+    String? groupId,
     String? userId,
   }) {
     return Member(
-      name: name ?? this.name,
-      image: image ?? this.image,
+      id: id ?? this.id,
+      userName: userName ?? this.userName,
+      profilePic: profilePic ?? this.profilePic,
+      groupId: groupId ?? this.groupId,
       userId: userId ?? this.userId,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'name': name,
-      'image': image,
+      'id': id,
+      'userName': userName,
+      'profilePic': profilePic,
+      'groupId': groupId,
       'userId': userId,
     };
   }
 
   factory Member.fromMap(Map<String, dynamic> map) {
     return Member(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      image: map['image'] as String,
+      id: map['id'] != null ? map['id'] as String : null,
+      userName: map['userName'] as String,
+      profilePic:
+          map['profilePic'] != null ? map['profilePic'] as String : null,
+      groupId: map['groupId'] as String,
       userId: map['userId'] as String,
     );
   }
@@ -160,7 +169,7 @@ class Member {
 
   @override
   String toString() {
-    return 'Member(id: $id, name: $name, image: $image, userId: $userId)';
+    return 'Member(id: $id, userName: $userName, profilePic: $profilePic, groupId: $groupId, userId: $userId)';
   }
 
   @override
@@ -168,13 +177,18 @@ class Member {
     if (identical(this, other)) return true;
 
     return other.id == id &&
-        other.name == name &&
-        other.image == image &&
+        other.userName == userName &&
+        other.profilePic == profilePic &&
+        other.groupId == groupId &&
         other.userId == userId;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode ^ image.hashCode ^ userId.hashCode;
+    return id.hashCode ^
+        userName.hashCode ^
+        profilePic.hashCode ^
+        groupId.hashCode ^
+        userId.hashCode;
   }
 }

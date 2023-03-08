@@ -1,5 +1,5 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart' as model;
+import 'package:appwrite/models.dart';
 import 'package:dongi/constants/appwrite_config.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,8 +15,8 @@ final groupAPIProvider = Provider((ref) {
 });
 
 abstract class IGroupAPI {
-  FutureEither<model.Document> addGroup(GroupModel groupModel);
-  FutureEither<model.DocumentList> getGroupList(String uid);
+  FutureEither<Document> addGroup(GroupModel groupModel);
+  Future<List<Document>> getGroups(String uid);
   //
   //FutureEitherVoid saveUserData(UserModel userModel);
   //Future<model.Document> getUserData(String uid);
@@ -37,7 +37,7 @@ class GroupAPI implements IGroupAPI {
   ;
 
   @override
-  FutureEither<model.Document> addGroup(GroupModel groupModel) async {
+  FutureEither<Document> addGroup(GroupModel groupModel) async {
     try {
       final document = await _db.createDocument(
         databaseId: AppwriteConfig.databaseId,
@@ -59,25 +59,14 @@ class GroupAPI implements IGroupAPI {
   }
 
   @override
-  FutureEither<model.DocumentList> getGroupList(String uid) async {
-    try {
-      final document = await _db.listDocuments(
-        databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.groupCollection,
-        queries: [
-          Query.equal('uid', uid),
-        ],
-      );
-      return right(document);
-    } on AppwriteException catch (e, st) {
-      return left(
-        Failure(
-          e.message ?? 'Some unexpected error occurred',
-          st,
-        ),
-      );
-    } catch (e, st) {
-      return left(Failure(e.toString(), st));
-    }
+  Future<List<Document>> getGroups(String uid) async {
+    final document = await _db.listDocuments(
+      databaseId: AppwriteConfig.databaseId,
+      collectionId: AppwriteConfig.groupCollection,
+      queries: [
+        Query.equal('creatorId', uid),
+      ],
+    );
+    return document.documents;
   }
 }
