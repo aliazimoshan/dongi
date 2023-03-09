@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:dongi/core/utils.dart';
 import 'package:dongi/models/group_model.dart';
 import 'package:dongi/services/auth_service.dart';
 import 'package:dongi/services/group_service.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../services/storage_api.dart';
@@ -42,6 +44,7 @@ class GroupNotifier extends StateNotifier<bool> {
         super(false);
 
   Future<void> addGroup({
+    required BuildContext context,
     required WidgetRef ref,
     required ValueNotifier<File?> image,
     required TextEditingController groupTitle,
@@ -64,10 +67,10 @@ class GroupNotifier extends StateNotifier<bool> {
 
     final res = await _groupAPI.addGroup(groupModel);
     state = false;
+
     res.fold(
-      // ************************Todo
-      (l) => print(l.message),
-      (r) => null,
+      (l) => showSnackBar(context, l.message),
+      (r) => context.pop(),
     );
   }
 
