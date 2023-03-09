@@ -138,6 +138,7 @@ class CreateGroupWidget {
         isLoading: ref.watch(groupControllerProvider),
         onPressed: () => ref.refresh(groupControllerProvider.notifier).addGroup(
               ref: ref,
+              context: context,
               image: image,
               groupTitle: groupTitle,
               groupDescription: groupDescription,
@@ -182,7 +183,6 @@ class CreateGroupWidget {
   _addPhotoButton(ValueNotifier<File?> image) {
     return InkWell(
       onTap: () async {
-        print('Mamaaad');
         image.value = await pickImage();
       },
       child: Container(
@@ -191,13 +191,18 @@ class CreateGroupWidget {
         decoration: BoxDecoration(
           color: ColorConfig.white,
           borderRadius: BorderRadius.circular(10),
+          image: image.value != null
+              ? DecorationImage(image: FileImage(image.value!))
+              : null,
         ),
-        child: Center(
-          child: SvgPicture.asset(
-            'assets/svg/add_photo_icon.svg',
-            height: 14,
-          ),
-        ),
+        child: image.value == null
+            ? Center(
+                child: SvgPicture.asset(
+                  'assets/svg/add_photo_icon.svg',
+                  height: 14,
+                ),
+              )
+            : null,
       ),
     );
   }

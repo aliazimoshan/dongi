@@ -21,6 +21,12 @@ class GroupListWidget {
         decoration: BoxDecoration(
           color: ColorConfig.primarySwatch,
           borderRadius: BorderRadius.circular(10),
+          image: group.image != null
+              ? DecorationImage(
+                  image: NetworkImage(group.image!),
+                  fit: BoxFit.cover,
+                )
+              : null,
         ),
       );
     }
