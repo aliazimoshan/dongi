@@ -70,7 +70,34 @@ class GroupNotifier extends StateNotifier<bool> {
 
     res.fold(
       (l) => showSnackBar(context, l.message),
-      (r) => context.pop(),
+      (r) async {
+        context.pop();
+        ref.refresh(refreshGroupsProvider).value;
+      },
+    );
+  }
+
+  Future<void> deleteGroup({
+    required BuildContext context,
+    required WidgetRef ref,
+    required GroupModel groupModel,
+  }) async {
+    state = true;
+    //remove group from server
+    final res = await _groupAPI.deleteGroup(groupModel.id!);
+    //remove group image from storage
+    if (groupModel.image != null) {
+      await _storageAPI.deleteImage(groupModel.image!);
+    }
+    state = false;
+    res.fold(
+      (l) => showSnackBar(context, l.message),
+      (r) {
+        showSnackBar(context, "Successfully deleted");
+        //update list of group when back
+        //.value is for prevent dart warning (it will work without .value)
+        ref.refresh(refreshGroupsProvider).value;
+      },
     );
   }
 

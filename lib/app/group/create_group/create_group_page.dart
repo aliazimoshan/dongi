@@ -9,7 +9,8 @@ import '../../../widgets/appbar/appbar.dart';
 import 'create_group_widget.dart';
 
 class CreateGroupPage extends HookConsumerWidget with CreateGroupWidget {
-  const CreateGroupPage({super.key});
+  CreateGroupPage({super.key});
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,12 +28,15 @@ class CreateGroupPage extends HookConsumerWidget with CreateGroupWidget {
             image: image,
             groupTitle: groupTitle,
             groupDescription: groupDescription,
+            formKey: _formKey,
+            ref: ref,
           ),
           addFriendsCard(context),
           const Spacer(),
           createButton(
             ref: ref,
             context: context,
+            formKey: _formKey,
             image: image,
             groupTitle: groupTitle,
             groupDescription: groupDescription,
