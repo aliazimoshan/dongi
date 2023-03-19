@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:dongi/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
 import '../../../constants/size_config.dart';
+import '../../../core/validation.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/friends/friend.dart';
 import '../../../widgets/text_field/text_field.dart';
@@ -21,58 +21,66 @@ class CreateGroupWidget {
     required TextEditingController groupTitle,
     required TextEditingController groupDescription,
     required ValueNotifier<File?> image,
+    required GlobalKey<FormState> formKey,
+    required WidgetRef ref,
   }) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-      padding: const EdgeInsets.all(15),
-      width: SizeConfig.width(context),
-      decoration: BoxDecoration(
-        color: ColorConfig.grey,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              _addPhotoButton(image),
-              const SizedBox(width: 10),
-              Expanded(
-                child: SizedBox(
-                  height: 50,
-                  child: TextFieldWidget(
-                    hintText: 'Group Title',
-                    fillColor: ColorConfig.white,
-                    controller: groupTitle,
+    return Form(
+      key: formKey,
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        padding: const EdgeInsets.all(15),
+        width: SizeConfig.width(context),
+        decoration: BoxDecoration(
+          color: ColorConfig.grey,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                _addPhotoButton(image),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: SizedBox(
+                    height: 50,
+                    child: TextFieldWidget(
+                      hintText: 'Group Title',
+                      fillColor: ColorConfig.white,
+                      controller: groupTitle,
+                      validator: ref
+                          .read(formValidatorProvider.notifier)
+                          .validateTitle,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          //Row(
-          //  children: [
-          //    _selectOptionButton(
-          //      onTap: () {},
-          //      icon: 'assets/svg/category_icon.svg',
-          //      title: 'category',
-          //    ),
-          //    const SizedBox(width: 10),
-          //    _selectOptionButton(
-          //      onTap: () {},
-          //      icon: 'assets/svg/currency_icon.svg',
-          //      title: 'currency',
-          //    ),
-          //  ],
-          //),
-          //const SizedBox(height: 10),
-          TextFieldWidget(
-            hintText: 'Description',
-            fillColor: ColorConfig.white,
-            controller: groupDescription,
-            maxLines: 3,
-          ),
-        ],
+              ],
+            ),
+            const SizedBox(height: 10),
+            //Row(
+            //  children: [
+            //    _selectOptionButton(
+            //      onTap: () {},
+            //      icon: 'assets/svg/category_icon.svg',
+            //      title: 'category',
+            //    ),
+            //    const SizedBox(width: 10),
+            //    _selectOptionButton(
+            //      onTap: () {},
+            //      icon: 'assets/svg/currency_icon.svg',
+            //      title: 'currency',
+            //    ),
+            //  ],
+            //),
+            //const SizedBox(height: 10),
+            TextFieldWidget(
+              hintText: 'Description',
+              fillColor: ColorConfig.white,
+              controller: groupDescription,
+              maxLines: 3,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -131,18 +139,23 @@ class CreateGroupWidget {
     required ValueNotifier<File?> image,
     required TextEditingController groupTitle,
     required TextEditingController groupDescription,
+    required GlobalKey<FormState> formKey,
   }) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: ButtonWidget(
         isLoading: ref.watch(groupControllerProvider),
-        onPressed: () => ref.refresh(groupControllerProvider.notifier).addGroup(
-              ref: ref,
-              context: context,
-              image: image,
-              groupTitle: groupTitle,
-              groupDescription: groupDescription,
-            ),
+        onPressed: () {
+          if (formKey.currentState!.validate()) {
+            ref.read(groupControllerProvider.notifier).addGroup(
+                  ref: ref,
+                  context: context,
+                  image: image,
+                  groupTitle: groupTitle,
+                  groupDescription: groupDescription,
+                );
+          }
+        },
         title: 'create',
         textColor: ColorConfig.secondary,
       ),
