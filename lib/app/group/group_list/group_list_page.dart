@@ -16,23 +16,15 @@ class GroupListPage extends ConsumerWidget with GroupListWidget {
     return Scaffold(
       appBar: AppBarWidget(title: "Groups"),
       floatingActionButton: FloatingActionButtonWidget(
-          onPressed: () => context.push(RouteNameConfig.createGroup)
-          //ref.refresh(groupControllerProvider.notifier).addGroup(
-          //      groupModel: GroupModel(
-          //        title: "title1",
-          //        description: "description",
-          //        creatorId: "creatorId",
-          //        members: [],
-          //      ),
-          //    ),
-          ),
+        onPressed: () => context.push(RouteNameConfig.createGroup),
+      ),
       body: groupList.when(
         //skipLoadingOnRefresh: true,
         //skipLoadingOnReload: true,
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(child: Text(error.toString())),
         data: (data) => RefreshIndicator(
-          child: groupListView(data),
+          child: groupListView(groupModel: data, ref: ref, context: context),
           onRefresh: () => ref.refresh(refreshGroupsProvider.future),
         ),
       ),

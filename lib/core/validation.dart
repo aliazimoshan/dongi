@@ -27,6 +27,14 @@ class FormValidatorNotifier extends StateNotifier<String?> {
       return 'Username must be more than 4 characters';
     }
   }
+
+  String? validateTitle(String? value) {
+    if (value != null && value.isNotEmpty) {
+      return null;
+    } else {
+      return 'Title must not be empty';
+    }
+  }
 }
 
 final formValidatorProvider =

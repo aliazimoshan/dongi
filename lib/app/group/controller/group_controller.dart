@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:dongi/core/utils.dart';
 import 'package:dongi/models/group_model.dart';
 import 'package:dongi/services/auth_service.dart';
 import 'package:dongi/services/group_service.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../services/storage_api.dart';
@@ -42,6 +44,7 @@ class GroupNotifier extends StateNotifier<bool> {
         super(false);
 
   Future<void> addGroup({
+    required BuildContext context,
     required WidgetRef ref,
     required ValueNotifier<File?> image,
     required TextEditingController groupTitle,
@@ -64,10 +67,37 @@ class GroupNotifier extends StateNotifier<bool> {
 
     final res = await _groupAPI.addGroup(groupModel);
     state = false;
+
     res.fold(
-      // ************************Todo
-      (l) => print(l.message),
-      (r) => null,
+      (l) => showSnackBar(context, l.message),
+      (r) async {
+        context.pop();
+        ref.refresh(refreshGroupsProvider).value;
+      },
+    );
+  }
+
+  Future<void> deleteGroup({
+    required BuildContext context,
+    required WidgetRef ref,
+    required GroupModel groupModel,
+  }) async {
+    state = true;
+    //remove group from server
+    final res = await _groupAPI.deleteGroup(groupModel.id!);
+    //remove group image from storage
+    if (groupModel.image != null) {
+      await _storageAPI.deleteImage(groupModel.image!);
+    }
+    state = false;
+    res.fold(
+      (l) => showSnackBar(context, l.message),
+      (r) {
+        showSnackBar(context, "Successfully deleted");
+        //update list of group when back
+        //.value is for prevent dart warning (it will work without .value)
+        ref.refresh(refreshGroupsProvider).value;
+      },
     );
   }
 

@@ -54,7 +54,7 @@ class GroupModel {
 
   factory GroupModel.fromMap(Map<String, dynamic> map) {
     return GroupModel(
-      id: map['id'] != null ? map['id'] as String : null,
+      id: map['\$id'] != null ? map['\$id'] as String : null,
       title: map['title'] as String,
       description:
           map['description'] != null ? map['description'] as String : null,
@@ -65,11 +65,11 @@ class GroupModel {
           (x) => Member.fromMap(x as Map<String, dynamic>),
         ),
       ),
-      createdAt: map['createdAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
+      createdAt: map['\$createdAt'] != null
+          ? DateTime.parse(map['\$createdAt'] as String)
           : null,
-      updatedAt: map['updatedAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int)
+      updatedAt: map['\$updatedAt'] != null
+          ? DateTime.parse(map['\$updatedAt'] as String)
           : null,
     );
   }

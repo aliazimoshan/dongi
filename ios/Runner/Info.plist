@@ -55,7 +55,7 @@
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>ir.dispose.dongi</string>
-		<key>NSPhotoLibraryUsageDescription</key>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Main</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Main</string>

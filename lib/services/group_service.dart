@@ -17,6 +17,7 @@ final groupAPIProvider = Provider((ref) {
 abstract class IGroupAPI {
   FutureEither<Document> addGroup(GroupModel groupModel);
   Future<List<Document>> getGroups(String uid);
+  FutureEither<bool> deleteGroup(String id);
   //
   //FutureEitherVoid saveUserData(UserModel userModel);
   //Future<model.Document> getUserData(String uid);
@@ -46,6 +47,27 @@ class GroupAPI implements IGroupAPI {
         data: groupModel.toMap(),
       );
       return right(document);
+    } on AppwriteException catch (e, st) {
+      return left(
+        Failure(
+          e.message ?? 'Some unexpected error occurred',
+          st,
+        ),
+      );
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  @override
+  FutureEither<bool> deleteGroup(String id) async {
+    try {
+      await _db.deleteDocument(
+        databaseId: AppwriteConfig.databaseId,
+        collectionId: AppwriteConfig.groupCollection,
+        documentId: id,
+      );
+      return right(true);
     } on AppwriteException catch (e, st) {
       return left(
         Failure(
