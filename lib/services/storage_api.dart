@@ -29,4 +29,15 @@ class StorageAPI {
     }
     return imageLinks;
   }
+
+  Future<void> deleteImage(String image) async {
+    String imageId = image.substring(
+      image.indexOf('/files/') + 7,
+      image.indexOf('/view'),
+    );
+    await _storage.deleteFile(
+      bucketId: AppwriteConfig.imagesBucket,
+      fileId: imageId,
+    );
+  }
 }
