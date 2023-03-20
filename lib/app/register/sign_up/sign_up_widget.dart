@@ -79,8 +79,8 @@ class SignUpWidget {
             controller: password,
             hintText: 'password',
             obscureText: true,
-            validator:
-                ref.read(formValidatorProvider.notifier).validatePassword,
+            //validator:
+            //    ref.read(formValidatorProvider.notifier).validatePassword,
           ),
           const SizedBox(height: 20)
         ],
