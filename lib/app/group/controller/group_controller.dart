@@ -77,6 +77,42 @@ class GroupNotifier extends StateNotifier<bool> {
     );
   }
 
+  Future<void> updateGroup({
+    required BuildContext context,
+    required WidgetRef ref,
+    required ValueNotifier<File?> image,
+    required TextEditingController groupTitle,
+    required TextEditingController groupDescription,
+    required GroupModel groupModel,
+  }) async {
+    state = true;
+    //final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
+    List<String> imageLinks = [];
+    if (image.value != null) {
+      imageLinks = await _storageAPI.uploadImage([image.value!]);
+    }
+
+    GroupModel newGroupModel = GroupModel(
+      id: groupModel.id,
+      title: groupTitle.text,
+      description: groupDescription.text,
+      creatorId: groupModel.creatorId,
+      image: imageLinks.isNotEmpty ? imageLinks[0] : groupModel.image,
+      members: [],
+    );
+
+    final res = await _groupAPI.updateGroup(newGroupModel);
+    state = false;
+
+    res.fold(
+      (l) => showSnackBar(context, l.message),
+      (r) async {
+        context.pop();
+        ref.refresh(refreshGroupsProvider).value;
+      },
+    );
+  }
+
   Future<void> deleteGroup({
     required BuildContext context,
     required WidgetRef ref,
