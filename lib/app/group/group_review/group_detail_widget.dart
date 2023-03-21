@@ -5,7 +5,7 @@ import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/friends/friend.dart';
 
-class GroupReviewWidget {
+class GroupDetailWidget {
   ///* group name
   groupName(String groupName) {
     return Expanded(
@@ -16,8 +16,8 @@ class GroupReviewWidget {
         child: Row(
           children: [
             Text(
-              "Group Name",
-              style: FontConfig.h5().copyWith(color: Colors.white),
+              groupName,
+              style: FontConfig.h6().copyWith(color: Colors.white),
             )
           ],
         ),
