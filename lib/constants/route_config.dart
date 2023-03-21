@@ -3,11 +3,13 @@ import 'package:dongi/app/home/home_page.dart';
 import 'package:dongi/app/onboarding/onboarding_page.dart';
 import 'package:dongi/app/register/sign_in/sign_in_page.dart';
 import 'package:dongi/app/register/sign_up/sign_up_page.dart';
+import 'package:dongi/models/group_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app/group/create_group/create_group_page.dart';
+import '../app/group/update_group/update_group_page.dart';
 import '../app/register/auth_controller/auth_controller.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -23,6 +25,7 @@ class RouteNameConfig {
   static String onboarding = '/onboarding';
   static String groupList = '/group';
   static String createGroup = '/group/create';
+  static String updateGroup = '/group/update';
 }
 
 GoRouter _goRouterConfig(StateProviderRef ref) {
@@ -53,6 +56,13 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
       GoRoute(
         path: RouteNameConfig.createGroup,
         builder: (context, state) => CreateGroupPage(),
+      ),
+      GoRoute(
+        path: RouteNameConfig.updateGroup,
+        builder: (context, state) {
+          GroupModel groupModel = state.extra as GroupModel;
+          return UpdateGroupPage(groupModel: groupModel);
+        },
       ),
     ],
     redirect: (context, state) async {
