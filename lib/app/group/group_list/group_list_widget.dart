@@ -19,7 +19,11 @@ class GroupListWidget {
       child: ListView(
         children: groupModel
             .map<Widget>(
-              (val) => _groupCard(group: val, ref: ref, context: context),
+              (val) => _groupCard(
+                ref: ref,
+                context: context,
+                groupModel: val,
+              ),
             )
             .toList(),
       ),
@@ -27,7 +31,7 @@ class GroupListWidget {
   }
 
   _groupCard({
-    required GroupModel group,
+    required GroupModel groupModel,
     required WidgetRef ref,
     required BuildContext context,
   }) {
@@ -38,9 +42,9 @@ class GroupListWidget {
         decoration: BoxDecoration(
           color: ColorConfig.primarySwatch,
           borderRadius: BorderRadius.circular(10),
-          image: group.image != null
+          image: groupModel.image != null
               ? DecorationImage(
-                  image: NetworkImage(group.image!),
+                  image: NetworkImage(groupModel.image!),
                   fit: BoxFit.cover,
                 )
               : null,
@@ -51,13 +55,14 @@ class GroupListWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: ListTileCard(
-        titleString: group.title,
-        subtitleString: "Member: ${group.members.length.toString()}",
+        onTap: () => context.push(RouteNameConfig.groupDetail(groupModel.id)),
+        titleString: groupModel.title,
+        subtitleString: "Member: ${groupModel.members.length.toString()}",
         leading: iconWidget(),
         trailing: _dropdownButton(
           ref: ref,
           context: context,
-          groupModel: group,
+          groupModel: groupModel,
         ),
       ),
     );
