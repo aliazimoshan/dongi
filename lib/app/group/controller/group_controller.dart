@@ -24,6 +24,13 @@ final getGroupsProvider = FutureProvider((ref) {
   final groupsController = ref.watch(groupControllerProvider.notifier);
   return groupsController.getGroups();
 });
+
+final getGroupDetailProvider =
+    FutureProvider.family.autoDispose((ref, String groupId) {
+  final groupsController = ref.watch(groupControllerProvider.notifier);
+  return groupsController.getGroupDetail(groupId);
+});
+
 final refreshGroupsProvider = FutureProvider((ref) {
   final groupsController = ref.refresh(groupControllerProvider.notifier);
   return groupsController.getGroups();
@@ -141,5 +148,11 @@ class GroupNotifier extends StateNotifier<bool> {
     final user = await _ref.watch(authAPIProvider).currentUserAccount();
     final groupList = await _groupAPI.getGroups(user!.$id);
     return groupList.map((group) => GroupModel.fromMap(group.data)).toList();
+  }
+
+  Future<GroupModel> getGroupDetail(String groupId) async {
+    final user = await _ref.watch(authAPIProvider).currentUserAccount();
+    final group = await _groupAPI.getGroupDetail(user!.$id, groupId);
+    return GroupModel.fromMap(group.data);
   }
 }

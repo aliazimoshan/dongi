@@ -55,7 +55,7 @@ class GroupListWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: ListTileCard(
-        onTap: () => context.push(RouteNameConfig.groupReview(groupModel.id)),
+        onTap: () => context.push(RouteNameConfig.groupDetail(groupModel.id)),
         titleString: groupModel.title,
         subtitleString: "Member: ${groupModel.members.length.toString()}",
         leading: iconWidget(),
