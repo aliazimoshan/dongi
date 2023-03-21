@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app/group/create_group/create_group_page.dart';
+import '../app/group/group_review/group_detail_page.dart';
 import '../app/group/update_group/update_group_page.dart';
 import '../app/register/auth_controller/auth_controller.dart';
 
@@ -26,6 +27,8 @@ class RouteNameConfig {
   static String groupList = '/group';
   static String createGroup = '/group/create';
   static String updateGroup = '/group/update';
+  static String groupDetail(String? groupId) =>
+      '/group/${groupId ?? ":groupId"}';
 }
 
 GoRouter _goRouterConfig(StateProviderRef ref) {
@@ -62,6 +65,13 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
         builder: (context, state) {
           GroupModel groupModel = state.extra as GroupModel;
           return UpdateGroupPage(groupModel: groupModel);
+        },
+      ),
+      GoRoute(
+        path: RouteNameConfig.groupDetail(null),
+        builder: (context, state) {
+          String groupId = state.params['groupId']!;
+          return GroupDetailPage(groupId: groupId);
         },
       ),
     ],
