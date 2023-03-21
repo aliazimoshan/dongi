@@ -1,7 +1,9 @@
 import 'package:dongi/constants/color_config.dart';
+import 'package:dongi/constants/route_config.dart';
 import 'package:dongi/models/group_model.dart';
 import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../controller/group_controller.dart';
@@ -79,7 +81,10 @@ class GroupListWidget {
       onChanged: (val) {
         if (val == items[0]) {
           //Edit dropdown action
-          print("EDIIIIIT");
+          context.push(
+            RouteNameConfig.updateGroup,
+            extra: groupModel,
+          );
         } else {
           //Delete dropdown action
           ref
