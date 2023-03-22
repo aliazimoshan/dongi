@@ -24,3 +24,8 @@ doc/api/
 
 # Appwrite token 
 lib/constants/appwrite_config.dart
+
+# Appwrite Function .env
+function/.env
+function/node_modules
+function/package-lock.json
