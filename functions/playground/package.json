@@ -1,0 +1,15 @@
+{
+  "name": "playground-for-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/appwrite/playground-for-node.git",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "node-appwrite": "^8.0.0"
+  }
+}
