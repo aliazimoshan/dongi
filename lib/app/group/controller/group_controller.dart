@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dongi/core/utils.dart';
@@ -147,12 +148,19 @@ class GroupNotifier extends StateNotifier<bool> {
   Future<List<GroupModel>> getGroups() async {
     final user = await _ref.watch(authAPIProvider).currentUserAccount();
     final groupList = await _groupAPI.getGroups(user!.$id);
-    return groupList.map((group) => GroupModel.fromMap(group.data)).toList();
+    return groupList.map((group) {
+      //remove members from response
+      //because appwrite not support relational database
+      //and we also cant remove fields from response
+      group.data["members"] = [];
+      return GroupModel.fromMap(group.data);
+    }).toList();
   }
 
   Future<GroupModel> getGroupDetail(String groupId) async {
     final user = await _ref.watch(authAPIProvider).currentUserAccount();
     final group = await _groupAPI.getGroupDetail(user!.$id, groupId);
-    return GroupModel.fromMap(group.data);
+    final groupDecode = json.decode(group.response)["data"];
+    return GroupModel.fromMap(groupDecode as Map<String, dynamic>);
   }
 }

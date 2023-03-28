@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:dongi/models/user_model.dart';
 import 'package:flutter/foundation.dart';
 
 class GroupModel {
@@ -9,7 +10,7 @@ class GroupModel {
   final String? description;
   final String? image;
   final String creatorId;
-  final List<Member> members;
+  final List<UserModel> members;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   GroupModel({
@@ -28,7 +29,7 @@ class GroupModel {
     String? description,
     String? image,
     String? creatorId,
-    List<Member>? members,
+    List<UserModel>? members,
   }) {
     return GroupModel(
       id: id,
@@ -60,9 +61,9 @@ class GroupModel {
           map['description'] != null ? map['description'] as String : null,
       image: map['image'] != null ? map['image'] as String : null,
       creatorId: map['creatorId'] as String,
-      members: List<Member>.from(
-        (map['members'] as List).map<Member>(
-          (x) => Member.fromMap(x as Map<String, dynamic>),
+      members: List<UserModel>.from(
+        (map['members'] as List).map<UserModel>(
+          (x) => UserModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
       createdAt: map['\$createdAt'] != null
@@ -108,87 +109,5 @@ class GroupModel {
         members.hashCode ^
         createdAt.hashCode ^
         updatedAt.hashCode;
-  }
-}
-
-class Member {
-  final String? id;
-  final String userName;
-  final String? profilePic;
-  final String groupId;
-  final String userId;
-  Member({
-    this.id,
-    required this.userName,
-    this.profilePic,
-    required this.groupId,
-    required this.userId,
-  });
-
-  Member copyWith({
-    String? id,
-    String? userName,
-    String? profilePic,
-    String? groupId,
-    String? userId,
-  }) {
-    return Member(
-      id: id ?? this.id,
-      userName: userName ?? this.userName,
-      profilePic: profilePic ?? this.profilePic,
-      groupId: groupId ?? this.groupId,
-      userId: userId ?? this.userId,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'userName': userName,
-      'profilePic': profilePic,
-      'groupId': groupId,
-      'userId': userId,
-    };
-  }
-
-  factory Member.fromMap(Map<String, dynamic> map) {
-    return Member(
-      id: map['id'] != null ? map['id'] as String : null,
-      userName: map['userName'] as String,
-      profilePic:
-          map['profilePic'] != null ? map['profilePic'] as String : null,
-      groupId: map['groupId'] as String,
-      userId: map['userId'] as String,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory Member.fromJson(String source) =>
-      Member.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'Member(id: $id, userName: $userName, profilePic: $profilePic, groupId: $groupId, userId: $userId)';
-  }
-
-  @override
-  bool operator ==(covariant Member other) {
-    if (identical(this, other)) return true;
-
-    return other.id == id &&
-        other.userName == userName &&
-        other.profilePic == profilePic &&
-        other.groupId == groupId &&
-        other.userId == userId;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        userName.hashCode ^
-        profilePic.hashCode ^
-        groupId.hashCode ^
-        userId.hashCode;
   }
 }
