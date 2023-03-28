@@ -8,19 +8,16 @@ import '../../../widgets/friends/friend.dart';
 class GroupDetailWidget {
   ///* group name
   groupName(String groupName) {
-    return Expanded(
-      flex: 1,
-      child: Container(
-        padding: const EdgeInsets.only(bottom: 16),
-        alignment: Alignment.bottomLeft,
-        child: Row(
-          children: [
-            Text(
-              groupName,
-              style: FontConfig.h6().copyWith(color: Colors.white),
-            )
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.only(bottom: 16),
+      alignment: Alignment.bottomLeft,
+      child: Row(
+        children: [
+          Text(
+            groupName,
+            style: FontConfig.h6().copyWith(color: Colors.white),
+          )
+        ],
       ),
     );
   }
