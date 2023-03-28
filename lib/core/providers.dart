@@ -29,3 +29,7 @@ final appwriteRealtimeProvider = Provider((ref) {
   final client = ref.watch(appwriteClientProvider);
   return Realtime(client);
 });
+final appwriteFunctionProvider = Provider((ref) {
+  final client = ref.watch(appwriteClientProvider);
+  return Functions(client);
+});

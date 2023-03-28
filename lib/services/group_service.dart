@@ -11,6 +11,7 @@ import '../models/group_model.dart';
 final groupAPIProvider = Provider((ref) {
   return GroupAPI(
     db: ref.watch(appwriteDatabaseProvider),
+    functions: ref.watch(appwriteFunctionProvider),
   );
 });
 
@@ -18,7 +19,7 @@ abstract class IGroupAPI {
   FutureEither<Document> addGroup(GroupModel groupModel);
   FutureEither<Document> updateGroup(GroupModel groupModel);
   Future<List<Document>> getGroups(String uid);
-  Future<Document> getGroupDetail(String uid, String groupId);
+  Future<Execution> getGroupDetail(String uid, String groupId);
   FutureEither<bool> deleteGroup(String id);
   //
   //FutureEitherVoid saveUserData(UserModel userModel);
@@ -31,13 +32,12 @@ abstract class IGroupAPI {
 
 class GroupAPI implements IGroupAPI {
   final Databases _db;
-  //final Realtime _realtime;
+  final Functions _functions;
   GroupAPI({
     required Databases db,
-    //required Realtime realtime,
-  }) : _db = db
-  //_realtime = realtime
-  ;
+    required Functions functions,
+  })  : _db = db,
+        _functions = functions;
 
   @override
   FutureEither<Document> addGroup(GroupModel groupModel) async {
@@ -117,12 +117,11 @@ class GroupAPI implements IGroupAPI {
   }
 
   @override
-  Future<Document> getGroupDetail(String uid, String groupId) async {
-    final document = await _db.getDocument(
-      documentId: groupId,
-      databaseId: AppwriteConfig.databaseId,
-      collectionId: AppwriteConfig.groupCollection,
+  Future<Execution> getGroupDetail(String uid, String groupId) async {
+    final response = await _functions.createExecution(
+      functionId: "64228b66dcfd3a49c094",
+      data: groupId,
     );
-    return document;
+    return response;
   }
 }
