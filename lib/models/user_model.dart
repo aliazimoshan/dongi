@@ -10,7 +10,7 @@ class UserModel {
   final String? lastName;
   final String? profilePic;
   final String? phoneNumber;
-  final double? totalExpense;
+  final int? totalExpense;
   final List<String>? friends;
   final List<String>? groups;
   final List<String>? transactions;
@@ -41,7 +41,7 @@ class UserModel {
     String? lastName,
     String? profilePic,
     String? phoneNumber,
-    double? totalExpense,
+    int? totalExpense,
     List<String>? friends,
     List<String>? groups,
     List<String>? transactions,
@@ -84,7 +84,7 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] as String,
+      id: map['\$id'] as String,
       email: map['email'] as String,
       userName: map['userName'] as String,
       firstName: map['firstName'] != null ? map['firstName'] as String : null,
@@ -94,20 +94,20 @@ class UserModel {
       phoneNumber:
           map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
       totalExpense:
-          map['totalExpense'] != null ? map['totalExpense'] as double : null,
-      friends: map['friends'] != null
+          map['totalExpense'] != null ? map['totalExpense'] as int : null,
+      friends: (map['friends'] as List).isNotEmpty
           ? List<String>.from((map['friends'] as List<String>))
           : [],
-      groups: map['groups'] != null
+      groups: (map['groups'] as List).isNotEmpty
           ? List<String>.from((map['groups'] as List<String>))
           : [],
-      transactions: map['transactions'] != null
+      transactions: (map['transactions'] as List).isNotEmpty
           ? List<String>.from((map['transactions'] as List<String>))
           : [],
-      fToken: map['fToken'] != null
+      fToken: (map['fToken'] as List).isNotEmpty
           ? List<String>.from((map['fToken'] as List<String>))
           : [],
-      token: map['token'] != null
+      token: (map['token'] as List).isNotEmpty
           ? List<String>.from((map['token'] as List<String>))
           : [],
     );
