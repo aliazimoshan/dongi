@@ -21,10 +21,17 @@ class SliverAppBarWidget extends NestedScrollView {
 }
 
 /// * ----- headerSliverBuilder
-NestedScrollViewHeaderSliversBuilder headerSliverBuilder(
-    {required Widget appbarTitle, double? height}) {
+NestedScrollViewHeaderSliversBuilder headerSliverBuilder({
+  required Widget appbarTitle,
+  double? height,
+}) {
   return (BuildContext context, bool innerBoxIsScrolled) {
-    return [sliverAppBarTitle(appbarTitle: appbarTitle, height: height)];
+    return [
+      sliverAppBarTitle(
+        appbarTitle: appbarTitle,
+        height: height,
+      ),
+    ];
   };
 }
 
