@@ -24,13 +24,15 @@ class GroupDetailPage extends ConsumerWidget with GroupDetailWidget {
         body: SliverAppBarWidget(
           height: 200,
           appbarTitle: groupName(data.title),
+          image: data.image,
           child: ListView(
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              groupInfo(),
-              friendsList(),
-              categoriesList(),
+              groupInfo(data),
+              friendsList(data.members),
+              boxesGrid(),
               //expensesList(),
             ],
           ),

@@ -1,3 +1,5 @@
+import 'package:dongi/models/group_model.dart';
+import 'package:dongi/models/user_model.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
@@ -9,7 +11,7 @@ class GroupDetailWidget {
   ///* group name
   groupName(String groupName) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 20),
       alignment: Alignment.bottomLeft,
       child: Row(
         children: [
@@ -22,6 +24,7 @@ class GroupDetailWidget {
     );
   }
 
+  /// * Body of group detail
   groupReviewBody({required List<Widget> children}) {
     return Expanded(
       flex: 3,
@@ -45,7 +48,7 @@ class GroupDetailWidget {
   }
 
   // * group info
-  groupInfo() {
+  groupInfo(GroupModel groupModel) {
     groupInfoCard(String title, String subtitle, IconData icon) {
       return Expanded(
         child: SizedBox(
@@ -76,31 +79,62 @@ class GroupDetailWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(11, 16, 11, 16),
+      padding: const EdgeInsets.fromLTRB(11, 0, 11, 16),
       child: Row(
         children: [
           groupInfoCard(
-              "Total Balance", "\$200.00", Icons.monetization_on_rounded),
-          groupInfoCard("Boxes", "5", Icons.group),
-          groupInfoCard("Members", "5", Icons.account_box),
+            "Total Balance",
+            "\$${groupModel.totalBalance}",
+            Icons.monetization_on_rounded,
+          ),
+          groupInfoCard(
+            "Boxes",
+            groupModel.boxes.length.toString(),
+            Icons.group,
+          ),
+          groupInfoCard(
+            "Members",
+            groupModel.members.length.toString(),
+            Icons.account_box,
+          ),
         ],
       ),
     );
   }
 
   /// * ----- friends list
-  friendsList() {
-    friendCard() {
+  friendsList(List<UserModel> users) {
+    friendCard(UserModel user) {
       return Padding(
         padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
         child: Column(
           children: [
-            FriendWidget(),
+            FriendWidget(image: user.profilePic),
             const SizedBox(height: 5),
             Row(
               children: [
                 Text(
-                  "Name",
+                  user.userName,
+                  style: FontConfig.caption(),
+                )
+              ],
+            )
+          ],
+        ),
+      );
+    }
+
+    addFriendCard() {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Column(
+          children: [
+            FriendWidget.add(),
+            const SizedBox(height: 5),
+            Row(
+              children: [
+                Text(
+                  "Add",
                   style: FontConfig.caption(),
                 )
               ],
@@ -124,14 +158,17 @@ class GroupDetailWidget {
           height: 110,
           child: ListView(
             scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
             children: [
               const SizedBox(width: 11),
-              friendCard(),
-              friendCard(),
-              friendCard(),
-              friendCard(),
-              friendCard(),
-              friendCard(),
+              ListView.builder(
+                itemCount: users.length,
+                itemBuilder: (context, index) => friendCard(users[index]),
+                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+              ),
+              addFriendCard(),
             ],
           ),
         ),
@@ -139,35 +176,39 @@ class GroupDetailWidget {
     );
   }
 
-  /// * ----- friends list
-  categoriesList() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(26, 0, 0, 10),
-            child: Text(
-              'Boxes',
-              style: FontConfig.body1(),
-            ),
+  /// * ----- Boxes grid
+  boxesGrid() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(26, 0, 0, 10),
+          child: Text(
+            'Boxes',
+            style: FontConfig.body1(),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 10,
-                childAspectRatio: 1.3,
-              ),
-              //scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (context, i) => const BoxCardWidget(),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+          child: GridView.builder(
+            padding: EdgeInsets.zero,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 0,
+              mainAxisSpacing: 10,
+              childAspectRatio: 1.3,
             ),
+            //scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 5,
+            itemBuilder: (context, i) => const BoxCardWidget(),
           ),
-        ],
-      );
+        ),
+      ],
+    );
+  }
 
   /// * ----- expenses list
   //expensesList() => Padding(

@@ -10,7 +10,7 @@ class UserModel {
   final String? lastName;
   final String? profilePic;
   final String? phoneNumber;
-  final int? totalExpense;
+  final num? totalExpense;
   final List<String>? friends;
   final List<String>? groups;
   final List<String>? transactions;
@@ -41,7 +41,7 @@ class UserModel {
     String? lastName,
     String? profilePic,
     String? phoneNumber,
-    int? totalExpense,
+    num? totalExpense,
     List<String>? friends,
     List<String>? groups,
     List<String>? transactions,
@@ -94,7 +94,7 @@ class UserModel {
       phoneNumber:
           map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
       totalExpense:
-          map['totalExpense'] != null ? map['totalExpense'] as int : null,
+          map['totalExpense'] != null ? map['totalExpense'] as num : null,
       friends: (map['friends'] as List).isNotEmpty
           ? List<String>.from((map['friends'] as List<String>))
           : [],
