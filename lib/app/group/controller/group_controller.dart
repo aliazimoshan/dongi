@@ -71,6 +71,8 @@ class GroupNotifier extends StateNotifier<bool> {
       creatorId: currentUser!.$id,
       image: imageLinks.isNotEmpty ? imageLinks[0] : null,
       members: [],
+      boxes: [],
+      totalBalance: 0,
     );
 
     final res = await _groupAPI.addGroup(groupModel);
@@ -107,6 +109,8 @@ class GroupNotifier extends StateNotifier<bool> {
       creatorId: groupModel.creatorId,
       image: imageLinks.isNotEmpty ? imageLinks[0] : groupModel.image,
       members: [],
+      boxes: [],
+      totalBalance: 0,
     );
 
     final res = await _groupAPI.updateGroup(newGroupModel);
