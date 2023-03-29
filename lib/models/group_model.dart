@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:dongi/models/box_model.dart';
 import 'package:dongi/models/user_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -10,7 +11,9 @@ class GroupModel {
   final String? description;
   final String? image;
   final String creatorId;
+  final num totalBalance;
   final List<UserModel> members;
+  final List<BoxModel?> boxes;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   GroupModel({
@@ -19,7 +22,9 @@ class GroupModel {
     this.description,
     this.image,
     required this.creatorId,
+    required this.totalBalance,
     required this.members,
+    required this.boxes,
     this.createdAt,
     this.updatedAt,
   });
@@ -29,7 +34,9 @@ class GroupModel {
     String? description,
     String? image,
     String? creatorId,
+    num? totalBalance,
     List<UserModel>? members,
+    List<BoxModel?>? boxes,
   }) {
     return GroupModel(
       id: id,
@@ -37,7 +44,9 @@ class GroupModel {
       description: description ?? this.description,
       image: image ?? this.image,
       creatorId: creatorId ?? this.creatorId,
+      totalBalance: totalBalance ?? this.totalBalance,
       members: members ?? this.members,
+      boxes: boxes ?? this.boxes,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );
@@ -49,7 +58,9 @@ class GroupModel {
       'description': description,
       'image': image,
       'creatorId': creatorId,
+      'totalBalance': totalBalance,
       'members': members.map((x) => x.toMap()).toList(),
+      'boxes': boxes.isNotEmpty ? boxes.map((x) => x!.toMap()).toList() : null,
     };
   }
 
@@ -61,9 +72,15 @@ class GroupModel {
           map['description'] != null ? map['description'] as String : null,
       image: map['image'] != null ? map['image'] as String : null,
       creatorId: map['creatorId'] as String,
+      totalBalance: map['totalBalance'] as num,
       members: List<UserModel>.from(
         (map['members'] as List).map<UserModel>(
           (x) => UserModel.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      boxes: List<BoxModel?>.from(
+        (map['boxes'] as List).map<BoxModel>(
+          (x) => BoxModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
       createdAt: map['\$createdAt'] != null
@@ -95,6 +112,7 @@ class GroupModel {
         other.image == image &&
         other.creatorId == creatorId &&
         listEquals(other.members, members) &&
+        listEquals(other.boxes, boxes) &&
         other.createdAt == createdAt &&
         other.updatedAt == updatedAt;
   }
@@ -107,6 +125,7 @@ class GroupModel {
         image.hashCode ^
         creatorId.hashCode ^
         members.hashCode ^
+        boxes.hashCode ^
         createdAt.hashCode ^
         updatedAt.hashCode;
   }
