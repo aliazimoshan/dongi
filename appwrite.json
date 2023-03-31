@@ -1,21 +1,18 @@
 {
-    "projectId": "64003e9a3343f8c2e63c",
-    "projectName": "dongi",
-    "functions": [
-        {
-            "$id": "641b5e3c4a00ea874bff",
-            "name": "test",
-            "runtime": "node-16.0",
-            "path": "functions/test",
-            "entrypoint": "src/index.js",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [],
-            "schedule": "",
-            "timeout": 15
-        }
-    ]
+  "projectId": "64003e9a3343f8c2e63c",
+  "projectName": "dongi",
+  "functions": [
+    {
+      "$id": "64228b66dcfd3a49c094",
+      "name": "get_groups_detail",
+      "runtime": "node-16.0",
+      "path": "functions/get_groups_detail",
+      "entrypoint": "src/index.js",
+      "ignore": ["node_modules", ".npm"],
+      "execute": [],
+      "events": [],
+      "schedule": "",
+      "timeout": 15
+    }
+  ]
 }
