@@ -26,6 +26,6 @@ doc/api/
 lib/constants/appwrite_config.dart
 
 # Appwrite Function .env
-function/get_groups_detail/.env
-function/get_groups_detail/node_modules
-function/get_groups_detail/package-lock.json
+functions/get_groups_detail/.env
+functions/get_groups_detail/node_modules
+functions/get_groups_detail/package-lock.json
