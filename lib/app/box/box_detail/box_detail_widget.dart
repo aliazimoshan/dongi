@@ -6,7 +6,7 @@ import '../../../constants/font_config.dart';
 import '../../../widgets/card/category_card.dart';
 import '../../../widgets/friends/friend.dart';
 
-class BoxReviewWidget {
+class BoxDetailWidget {
   /// * ----- total expense
   totalExpense() {
     return Expanded(

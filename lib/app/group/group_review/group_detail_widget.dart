@@ -1,3 +1,4 @@
+import 'package:dongi/models/box_model.dart';
 import 'package:dongi/models/group_model.dart';
 import 'package:dongi/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -177,7 +178,7 @@ class GroupDetailWidget {
   }
 
   /// * ----- Boxes grid
-  boxesGrid() {
+  boxesGrid(List<BoxModel> boxList) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -202,8 +203,8 @@ class GroupDetailWidget {
             //scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (context, i) => const BoxCardWidget(),
+            itemCount: boxList.length,
+            itemBuilder: (context, i) => BoxCardWidget(boxList[i]),
           ),
         ),
       ],
