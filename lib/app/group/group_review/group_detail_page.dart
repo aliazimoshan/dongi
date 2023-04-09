@@ -1,9 +1,12 @@
 import 'package:dongi/widgets/appbar/sliver_appbar.dart';
+import 'package:dongi/widgets/error/error.dart';
 import 'package:dongi/widgets/floating_action_button/floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
+import '../../../widgets/loading/loading.dart';
+import '../../box/controller/box_controller.dart';
 import '../controller/group_controller.dart';
 import './group_detail_widget.dart';
 
@@ -14,10 +17,11 @@ class GroupDetailPage extends ConsumerWidget with GroupDetailWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groupDetail = ref.watch(getGroupDetailProvider(groupId));
+    final boxesInGroup = ref.watch(getBoxesInGroupProvider(groupId));
 
     return groupDetail.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(child: Text(error.toString())),
+      loading: () => const LoadingWidget(),
+      error: (error, stackTrace) => ErrorTextWidget(error),
       data: (data) => Scaffold(
         backgroundColor: ColorConfig.primarySwatch,
         //appBar: AppBar(elevation: 0),
@@ -32,8 +36,12 @@ class GroupDetailPage extends ConsumerWidget with GroupDetailWidget {
             children: [
               groupInfo(data),
               friendsList(data.members),
-              boxesGrid(),
-              //expensesList(),
+              //* Get boxes
+              boxesInGroup.when(
+                loading: () => const LoadingWidget(),
+                error: (error, stackTrace) => ErrorTextWidget(error),
+                data: (data) => boxesGrid(data),
+              ),
             ],
           ),
         ),
