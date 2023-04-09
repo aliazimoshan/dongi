@@ -2,23 +2,25 @@
 import 'dart:convert';
 
 class BoxModel {
-  final String id;
+  final String? id;
   final String title;
-  final String description;
-  final String image;
+  final String? description;
+  final String? image;
   final String groupId;
-  final String creator;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final List<String> members;
+  final String creatorId;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
   BoxModel({
-    required this.id,
+    this.id,
     required this.title,
     required this.description,
-    required this.image,
+    this.image,
     required this.groupId,
-    required this.creator,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.creatorId,
+    this.members = const [],
+    this.createdAt,
+    this.updatedAt,
   });
 
   BoxModel copyWith({
@@ -27,7 +29,8 @@ class BoxModel {
     String? description,
     String? image,
     String? groupId,
-    String? creator,
+    List<String>? members,
+    String? creatorId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -37,7 +40,8 @@ class BoxModel {
       description: description ?? this.description,
       image: image ?? this.image,
       groupId: groupId ?? this.groupId,
-      creator: creator ?? this.creator,
+      members: members ?? this.members,
+      creatorId: creatorId ?? this.creatorId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -50,22 +54,27 @@ class BoxModel {
       'description': description,
       'image': image,
       'groupId': groupId,
-      'creator': creator,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'members': members,
+      'creatorId': creatorId,
     };
   }
 
   factory BoxModel.fromMap(Map<String, dynamic> map) {
     return BoxModel(
-      id: map['id'] as String,
+      id: map['\$id'] != null ? map['\$id'] as String : null,
       title: map['title'] as String,
-      description: map['description'] as String,
-      image: map['image'] as String,
+      description:
+          map['description'] != null ? map['description'] as String : null,
+      image: map['image'] != null ? map['image'] as String : null,
       groupId: map['groupId'] as String,
-      creator: map['creator'] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
+      members: List<String>.from(map['members'] ?? []),
+      creatorId: map['creatorId'] as String,
+      createdAt: map['\$createdAt'] != null
+          ? DateTime.parse(map['\$createdAt'] as String)
+          : null,
+      updatedAt: map['\$updatedAt'] != null
+          ? DateTime.parse(map['\$updatedAt'] as String)
+          : null,
     );
   }
 
@@ -76,7 +85,7 @@ class BoxModel {
 
   @override
   String toString() {
-    return 'BoxModel(id: $id, title: $title, description: $description, image: $image, groupId: $groupId, creator: $creator, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'BoxModel(id: $id, title: $title, description: $description, image: $image, groupId: $groupId, creatorId: $creatorId, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -88,7 +97,8 @@ class BoxModel {
         other.description == description &&
         other.image == image &&
         other.groupId == groupId &&
-        other.creator == creator &&
+        other.members == members &&
+        other.creatorId == creatorId &&
         other.createdAt == createdAt &&
         other.updatedAt == updatedAt;
   }
@@ -100,7 +110,8 @@ class BoxModel {
         description.hashCode ^
         image.hashCode ^
         groupId.hashCode ^
-        creator.hashCode ^
+        members.hashCode ^
+        creatorId.hashCode ^
         createdAt.hashCode ^
         updatedAt.hashCode;
   }

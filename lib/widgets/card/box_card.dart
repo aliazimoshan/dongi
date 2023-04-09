@@ -1,10 +1,12 @@
+import 'package:dongi/models/box_model.dart';
 import 'package:flutter/material.dart';
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
 import 'card.dart';
 
 class BoxCardWidget extends CardWidget {
-  const BoxCardWidget({super.key});
+  final BoxModel box;
+  const BoxCardWidget(this.box, {super.key});
 
   @override
   EdgeInsetsGeometry? get margin => const EdgeInsets.fromLTRB(5, 0, 5, 0);
@@ -26,10 +28,13 @@ class BoxCardWidget extends CardWidget {
                     decoration: BoxDecoration(
                       color: ColorConfig.darkGrey,
                       shape: BoxShape.circle,
+                      image: box.image != null
+                          ? DecorationImage(image: NetworkImage(box.image!))
+                          : null,
                     ),
                   ),
                   const SizedBox(width: 5),
-                  Expanded(child: Text("Box Name", style: FontConfig.body2())),
+                  Expanded(child: Text(box.title, style: FontConfig.body2())),
                   Icon(
                     Icons.more_vert,
                     color: ColorConfig.primarySwatch,
@@ -47,7 +52,7 @@ class BoxCardWidget extends CardWidget {
               const Spacer(),
               Text("Split to", style: FontConfig.overline()),
               Text(
-                '2',
+                box.members.length.toString(),
                 style: FontConfig.body2().copyWith(
                   fontWeight: FontWeight.w600,
                 ),
