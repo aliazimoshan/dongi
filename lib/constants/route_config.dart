@@ -1,15 +1,18 @@
+import 'package:dongi/app/box/create_box/create_box_page.dart';
 import 'package:dongi/app/group/group_list/group_list_page.dart';
 import 'package:dongi/app/home/home_page.dart';
 import 'package:dongi/app/onboarding/onboarding_page.dart';
 import 'package:dongi/app/register/sign_in/sign_in_page.dart';
 import 'package:dongi/app/register/sign_up/sign_up_page.dart';
+import 'package:dongi/models/box_model.dart';
 import 'package:dongi/models/group_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../app/box/update_box/update_box_page.dart';
 import '../app/group/create_group/create_group_page.dart';
-import '../app/group/group_review/group_detail_page.dart';
+import '../app/group/group_detail/group_detail_page.dart';
 import '../app/group/update_group/update_group_page.dart';
 import '../app/register/auth_controller/auth_controller.dart';
 
@@ -27,6 +30,8 @@ class RouteNameConfig {
   static String groupList = '/group';
   static String createGroup = '/group/create';
   static String updateGroup = '/group/update';
+  static String createBox = '/box/create';
+  static String updateBox = '/box/update';
   static String groupDetail(String? groupId) =>
       '/group/${groupId ?? ":groupId"}';
 }
@@ -61,10 +66,24 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
         builder: (context, state) => CreateGroupPage(),
       ),
       GoRoute(
+        path: RouteNameConfig.createBox,
+        builder: (context, state) {
+          String groupId = state.extra as String;
+          return CreateBoxPage(groupId);
+        },
+      ),
+      GoRoute(
         path: RouteNameConfig.updateGroup,
         builder: (context, state) {
           GroupModel groupModel = state.extra as GroupModel;
           return UpdateGroupPage(groupModel: groupModel);
+        },
+      ),
+      GoRoute(
+        path: RouteNameConfig.updateBox,
+        builder: (context, state) {
+          BoxModel boxModel = state.extra as BoxModel;
+          return UpdateBoxPage(boxModel: boxModel);
         },
       ),
       GoRoute(
