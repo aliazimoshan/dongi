@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dongi/models/box_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,13 +15,14 @@ import '../../../widgets/friends/friend.dart';
 import '../../../widgets/text_field/text_field.dart';
 import '../controller/box_controller.dart';
 
-class CreateBoxWidget {
+class UpdateBoxWidget {
   /// * ----- box info card
   boxInfoCard({
     required BuildContext context,
     required TextEditingController boxTitle,
     required TextEditingController boxDescription,
-    required ValueNotifier<File?> image,
+    required ValueNotifier<File?> newGroupImage,
+    required ValueNotifier<String?> oldGroupImage,
     required GlobalKey<FormState> formKey,
     required WidgetRef ref,
   }) {
@@ -76,7 +78,10 @@ class CreateBoxWidget {
           children: [
             Row(
               children: [
-                _addPhotoButton(image),
+                _addPhotoButton(
+                  newGroupImage: newGroupImage,
+                  oldGroupImage: oldGroupImage,
+                ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: TextFieldWidget(
@@ -155,11 +160,11 @@ class CreateBoxWidget {
   createButton({
     required WidgetRef ref,
     required BuildContext context,
-    required ValueNotifier<File?> image,
+    required ValueNotifier<File?> newBoxImage,
     required TextEditingController boxTitle,
     required TextEditingController boxDescription,
     required GlobalKey<FormState> formKey,
-    required String groupId,
+    required BoxModel boxModel,
   }) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
@@ -167,27 +172,30 @@ class CreateBoxWidget {
         isLoading: ref.watch(boxControllerProvider),
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            ref.read(boxControllerProvider.notifier).addBox(
+            ref.read(boxControllerProvider.notifier).updateBox(
                   ref: ref,
                   context: context,
-                  image: image,
+                  image: newBoxImage,
                   boxTitle: boxTitle,
                   boxDescription: boxDescription,
-                  groupId: groupId,
+                  boxModel: boxModel,
                 );
           }
         },
-        title: 'create',
+        title: 'update',
         textColor: ColorConfig.secondary,
       ),
     );
   }
 
   /// * ----- add photo button
-  _addPhotoButton(ValueNotifier<File?> image) {
+  _addPhotoButton({
+    required ValueNotifier<File?> newGroupImage,
+    required ValueNotifier<String?> oldGroupImage,
+  }) {
     return InkWell(
       onTap: () async {
-        image.value = await pickImage();
+        newGroupImage.value = await pickImage();
       },
       child: Container(
         width: 50,
@@ -195,11 +203,15 @@ class CreateBoxWidget {
         decoration: BoxDecoration(
           color: ColorConfig.white,
           borderRadius: BorderRadius.circular(10),
-          image: image.value != null
-              ? DecorationImage(image: FileImage(image.value!))
-              : null,
+          image: newGroupImage.value != null
+              //This will show selected image from file
+              ? DecorationImage(image: FileImage(newGroupImage.value!))
+              : oldGroupImage.value != null
+                  //this will show the image which uploaded before
+                  ? DecorationImage(image: NetworkImage(oldGroupImage.value!))
+                  : null,
         ),
-        child: image.value == null
+        child: newGroupImage.value == null && oldGroupImage.value == null
             ? Center(
                 child: SvgPicture.asset(
                   'assets/svg/add_photo_icon.svg',
