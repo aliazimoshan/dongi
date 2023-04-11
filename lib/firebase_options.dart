@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '439074732981',
     projectId: 'dispose-9ffc6',
     storageBucket: 'dispose-9ffc6.appspot.com',
-    iosClientId: '439074732981-m5jd8365vi1c86gsqd01p5kietunucba.apps.googleusercontent.com',
+    iosClientId:
+        '439074732981-m5jd8365vi1c86gsqd01p5kietunucba.apps.googleusercontent.com',
     iosBundleId: 'ir.dispose.dongi',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '439074732981',
     projectId: 'dispose-9ffc6',
     storageBucket: 'dispose-9ffc6.appspot.com',
-    iosClientId: '439074732981-m5jd8365vi1c86gsqd01p5kietunucba.apps.googleusercontent.com',
+    iosClientId:
+        '439074732981-m5jd8365vi1c86gsqd01p5kietunucba.apps.googleusercontent.com',
     iosBundleId: 'ir.dispose.dongi',
   );
 }

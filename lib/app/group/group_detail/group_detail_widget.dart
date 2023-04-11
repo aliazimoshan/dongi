@@ -1,13 +1,9 @@
-import 'package:dongi/app/box/controller/box_controller.dart';
 import 'package:dongi/models/box_model.dart';
 import 'package:dongi/models/group_model.dart';
 import 'package:dongi/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
-import '../../../constants/route_config.dart';
 import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/friends/friend.dart';
