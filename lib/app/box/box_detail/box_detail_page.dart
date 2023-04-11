@@ -26,7 +26,9 @@ class BoxDetailPage extends ConsumerWidget with BoxDetailWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButtonWidget(),
+      floatingActionButton: FloatingActionButtonWidget(
+        title: 'Box',
+      ),
     );
   }
 }
