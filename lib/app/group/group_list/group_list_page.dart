@@ -1,3 +1,4 @@
+import 'package:dongi/constants/color_config.dart';
 import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,27 @@ class GroupListPage extends ConsumerWidget with GroupListWidget {
     final groupList = ref.watch(getGroupsProvider);
     return Scaffold(
       appBar: AppBarWidget(title: "Groups"),
+      //floatingActionButton: FloatingActionButton.extended(
+      //  extendedPadding: EdgeInsets.fromLTRB(12, 0, 16, 0),
+      //  backgroundColor: ColorConfig.midnight,
+      //  onPressed: () {},
+      //  label: Row(
+      //    children: [
+      //      Icon(
+      //        Icons.add,
+      //        size: 18,
+      //        color: ColorConfig.secondary,
+      //      ),
+      //      SizedBox(width: 2),
+      //      Text(
+      //        "Group",
+      //        style: TextStyle(color: ColorConfig.secondary),
+      //      ),
+      //    ],
+      //  ),
+      //),
       floatingActionButton: FloatingActionButtonWidget(
+        title: "Group",
         onPressed: () => context.push(RouteNameConfig.createGroup),
       ),
       body: groupList.when(
