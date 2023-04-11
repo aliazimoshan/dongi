@@ -1,3 +1,4 @@
+import 'package:dongi/app/register/auth_controller/sign_in_controller.dart';
 import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,7 +11,6 @@ import 'package:dongi/constants/font_config.dart';
 import 'package:dongi/core/validation.dart';
 import 'package:dongi/widgets/button/button.dart';
 import 'package:dongi/widgets/text_field/text_field.dart';
-import 'package:dongi/app/register/auth_controller/auth_controller.dart';
 
 class SignInTitle extends StatelessWidget {
   const SignInTitle({super.key});
@@ -116,10 +116,15 @@ class SignInGoogleButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = ref.watch(signInNotifierProvider).maybeWhen(
+          loading: (isGoogle) => true,
+          orElse: () => false,
+        );
+
     return InkWell(
-      onTap: () => ref
-          .read(authControllerProvider.notifier)
-          .signInWithGoogle(context: context),
+      onTap: isLoading
+          ? null
+          : () => ref.read(signInNotifierProvider.notifier).signInWithGoogle(),
       child: Container(
         height: 50,
         width: 50,
