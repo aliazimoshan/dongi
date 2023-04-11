@@ -41,7 +41,7 @@ class FontConfig {
   static TextStyle button() => TextStyle(
         fontFamily: "Comfortaa",
         fontWeight: FontWeight.w900,
-        fontSize: 14,
+        fontSize: 16,
         color: ColorConfig.midnight,
       );
 

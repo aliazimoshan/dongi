@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../../constants/color_config.dart';
 
 class FloatingActionButtonWidget extends Container {
+  final String title;
   final void Function()? onPressed;
   FloatingActionButtonWidget({
     super.height = 48,
     super.width = 48,
     super.key,
+    required this.title,
     this.onPressed,
   });
 
@@ -31,14 +33,10 @@ class FloatingActionButtonWidget extends Container {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 10,
-              height: 10,
-              color: ColorConfig.secondary,
-            ),
+            Icon(Icons.add, color: ColorConfig.secondary, size: 20),
             const SizedBox(height: 2),
             Text(
-              'data',
+              title,
               style:
                   FontConfig.overline().copyWith(color: ColorConfig.secondary),
             ),

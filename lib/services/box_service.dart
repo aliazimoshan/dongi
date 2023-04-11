@@ -11,7 +11,7 @@ import '../models/box_model.dart';
 final boxAPIProvider = Provider((ref) {
   return BoxAPI(
     db: ref.watch(appwriteDatabaseProvider),
-    functions: ref.watch(appwriteFunctionProvider),
+    //functions: ref.watch(appwriteFunctionProvider),
   );
 });
 
@@ -26,19 +26,19 @@ abstract class IBoxAPI {
 
 class BoxAPI implements IBoxAPI {
   final Databases _db;
-  final Functions _functions;
+  //final Functions _functions;
   BoxAPI({
     required Databases db,
-    required Functions functions,
-  })  : _db = db,
-        _functions = functions;
+    //required Functions functions,
+  }) : _db = db;
+  //_functions = functions
 
   @override
   FutureEither<Document> addBox(BoxModel boxModel) async {
     try {
       final document = await _db.createDocument(
         databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.groupCollection,
+        collectionId: AppwriteConfig.boxCollection,
         documentId: ID.unique(),
         data: boxModel.toMap(),
       );
@@ -60,7 +60,7 @@ class BoxAPI implements IBoxAPI {
     try {
       final document = await _db.updateDocument(
         databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.groupCollection,
+        collectionId: AppwriteConfig.boxCollection,
         documentId: boxModel.id!,
         data: boxModel.toMap(),
       );
@@ -121,6 +121,7 @@ class BoxAPI implements IBoxAPI {
     );
     return document.documents;
   }
+
   @override
   Future<List<Document>> getCurrentUserBoxes(String uid) async {
     final document = await _db.listDocuments(

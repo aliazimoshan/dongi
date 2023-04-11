@@ -30,9 +30,10 @@ final getBoxesInGroupProvider =
   return boxesController.getBoxesInGroup(groupId);
 });
 
-final refreshBoxesProvider = FutureProvider((ref) {
+final refreshBoxesProvider =
+    FutureProvider.family.autoDispose((ref, String groupId) {
   final boxesController = ref.refresh(boxControllerProvider.notifier);
-  return boxesController.getBoxes();
+  return boxesController.getBoxesInGroup(groupId);
 });
 
 class BoxNotifier extends StateNotifier<bool> {
@@ -70,6 +71,8 @@ class BoxNotifier extends StateNotifier<bool> {
       creatorId: currentUser!.$id,
       groupId: groupId,
       image: imageLinks.isNotEmpty ? imageLinks[0] : null,
+      members: [],
+      total: 0,
     );
 
     final res = await _boxAPI.addBox(boxModel);
@@ -79,7 +82,7 @@ class BoxNotifier extends StateNotifier<bool> {
       (l) => showSnackBar(context, l.message),
       (r) async {
         context.pop();
-        ref.refresh(refreshBoxesProvider).value;
+        ref.refresh(refreshBoxesProvider(groupId)).value;
       },
     );
   }
@@ -114,7 +117,7 @@ class BoxNotifier extends StateNotifier<bool> {
       (l) => showSnackBar(context, l.message),
       (r) async {
         context.pop();
-        ref.refresh(refreshBoxesProvider).value;
+        ref.refresh(refreshBoxesProvider(boxModel.groupId)).value;
       },
     );
   }
@@ -138,7 +141,7 @@ class BoxNotifier extends StateNotifier<bool> {
         showSnackBar(context, "Successfully deleted");
         //update list of box when back
         //.value is for prevent dart warning (it will work without .value)
-        ref.refresh(refreshBoxesProvider).value;
+        ref.refresh(refreshBoxesProvider(boxModel.groupId)).value;
       },
     );
   }
@@ -146,13 +149,7 @@ class BoxNotifier extends StateNotifier<bool> {
   Future<List<BoxModel>> getBoxes() async {
     final user = await _ref.watch(authAPIProvider).currentUserAccount();
     final boxList = await _boxAPI.getBoxes(user!.$id);
-    return boxList.map((box) {
-      //remove members from response
-      //because appwrite not support relational database
-      //and we also cant remove fields from response
-      box.data["members"] = [];
-      return BoxModel.fromMap(box.data);
-    }).toList();
+    return boxList.map((box) => BoxModel.fromMap(box.data)).toList();
   }
 
   Future<List<BoxModel>> getBoxesInGroup(String groupId) async {

@@ -1,31 +1,34 @@
 import 'dart:io';
 
+import 'package:dongi/models/box_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
 import '../../../widgets/appbar/appbar.dart';
-import 'create_box_widget.dart';
+import 'update_box_widget.dart';
 
-class CreateBoxPage extends HookConsumerWidget with CreateBoxWidget {
-  final String groupId;
-  CreateBoxPage(this.groupId, {super.key});
+class UpdateBoxPage extends HookConsumerWidget with UpdateBoxWidget {
+  final BoxModel boxModel;
+  UpdateBoxPage({super.key, required this.boxModel});
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final boxTitle = useTextEditingController();
-    final boxDescription = useTextEditingController();
-    final image = useState<File?>(null);
+    final boxTitle = useTextEditingController(text: boxModel.title);
+    final boxDescription = useTextEditingController(text: boxModel.description);
+    final oldBoxImage = useState<String?>(boxModel.image);
+    final newBoxImage = useState<File?>(null);
 
     return Scaffold(
       backgroundColor: ColorConfig.white,
-      appBar: AppBarWidget(title: "Create Box"),
+      appBar: AppBarWidget(title: "Update Box"),
       body: Column(
         children: [
           boxInfoCard(
             context: context,
-            image: image,
+            oldGroupImage: oldBoxImage,
+            newGroupImage: newBoxImage,
             boxTitle: boxTitle,
             boxDescription: boxDescription,
             formKey: _formKey,
@@ -37,10 +40,10 @@ class CreateBoxPage extends HookConsumerWidget with CreateBoxWidget {
             ref: ref,
             context: context,
             formKey: _formKey,
-            image: image,
+            newBoxImage: newBoxImage,
             boxTitle: boxTitle,
             boxDescription: boxDescription,
-            groupId: groupId,
+            boxModel: boxModel,
           ),
         ],
       ),

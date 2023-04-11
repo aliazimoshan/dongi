@@ -8,6 +8,7 @@ class BoxModel {
   final String? image;
   final String groupId;
   final List<String> members;
+  final num? total;
   final String creatorId;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -17,6 +18,7 @@ class BoxModel {
     required this.description,
     this.image,
     required this.groupId,
+    this.total = 0,
     required this.creatorId,
     this.members = const [],
     this.createdAt,
@@ -30,6 +32,7 @@ class BoxModel {
     String? image,
     String? groupId,
     List<String>? members,
+    num? total,
     String? creatorId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -41,6 +44,7 @@ class BoxModel {
       image: image ?? this.image,
       groupId: groupId ?? this.groupId,
       members: members ?? this.members,
+      total: total ?? this.total,
       creatorId: creatorId ?? this.creatorId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -49,12 +53,12 @@ class BoxModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'title': title,
       'description': description,
       'image': image,
       'groupId': groupId,
       'members': members,
+      'total': total,
       'creatorId': creatorId,
     };
   }
@@ -68,6 +72,7 @@ class BoxModel {
       image: map['image'] != null ? map['image'] as String : null,
       groupId: map['groupId'] as String,
       members: List<String>.from(map['members'] ?? []),
+      total: map['total'] as num,
       creatorId: map['creatorId'] as String,
       createdAt: map['\$createdAt'] != null
           ? DateTime.parse(map['\$createdAt'] as String)
