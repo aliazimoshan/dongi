@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
 import '../../../widgets/checkbox/checkbox_widget.dart';
 import '../../../widgets/list_tile/list_tile_card.dart';
-import 'split_view_model.dart';
+import 'split_controller.dart';
 
 class SplitWidget {
   friendList(List<String> friends, WidgetRef ref) {

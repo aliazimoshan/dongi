@@ -1,7 +1,7 @@
-import 'package:dongi/app/expense/split/split_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../widgets/appbar/appbar.dart';
+import 'split_controller.dart';
 import 'split_widget.dart';
 
 class SplitPage extends ConsumerStatefulWidget {
