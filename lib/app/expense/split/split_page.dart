@@ -1,4 +1,4 @@
-import 'package:dongi/app/expense/split/split_view_model.dart';
+import 'package:dongi/app/expense/split/split_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../widgets/appbar/appbar.dart';
