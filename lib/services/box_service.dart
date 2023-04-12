@@ -82,7 +82,7 @@ class BoxAPI implements IBoxAPI {
     try {
       await _db.deleteDocument(
         databaseId: AppwriteConfig.databaseId,
-        collectionId: AppwriteConfig.groupCollection,
+        collectionId: AppwriteConfig.boxCollection,
         documentId: id,
       );
       return right(true);
