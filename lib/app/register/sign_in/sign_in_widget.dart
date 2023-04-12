@@ -35,16 +35,15 @@ class SignInTitle extends StatelessWidget {
 }
 
 class SignInForm extends ConsumerWidget {
+  final TextEditingController email;
+  final TextEditingController password;
+  final GlobalKey<FormState> formKey;
   const SignInForm({
     Key? key,
     required this.formKey,
     required this.email,
     required this.password,
   }) : super(key: key);
-
-  final TextEditingController email;
-  final TextEditingController password;
-  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -81,17 +80,19 @@ class SignInForm extends ConsumerWidget {
   }
 }
 
-class SignInActionButton extends StatelessWidget {
+class SignInActionButton extends ConsumerWidget {
+  final TextEditingController email;
+  final TextEditingController password;
+  final GlobalKey<FormState> formKey;
   const SignInActionButton({
     super.key,
-    this.isLoading = false,
-    required this.onTap,
+    required this.formKey,
+    required this.email,
+    required this.password,
   });
 
-  final bool isLoading;
-  final VoidCallback onTap;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Row(
@@ -99,8 +100,18 @@ class SignInActionButton extends StatelessWidget {
           Expanded(
             child: ButtonWidget(
               title: "Sign in",
-              isLoading: isLoading,
-              onPressed: onTap,
+              isLoading: ref.watch(signInNotifierProvider).maybeWhen(
+                    loading: (isGoogle) => true,
+                    orElse: () => false,
+                  ),
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  ref.read(signInNotifierProvider.notifier).signIn(
+                        email: email.text,
+                        password: password.text,
+                      );
+                }
+              },
             ),
           ),
           const SizedBox(width: 10),
