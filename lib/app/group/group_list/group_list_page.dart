@@ -1,4 +1,3 @@
-import 'package:dongi/constants/color_config.dart';
 import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

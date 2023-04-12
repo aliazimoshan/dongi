@@ -1,38 +1,22 @@
+import 'package:dongi/app/register/auth_controller/sign_in_controller.dart';
 import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../constants/color_config.dart';
-import '../../../constants/content/register/sign_in_contents.dart';
-import '../../../constants/font_config.dart';
-import '../../../core/validation.dart';
-import '../../../widgets/button/button.dart';
-import '../../../widgets/text_field/text_field.dart';
-import '../auth_controller/auth_controller.dart';
+import 'package:dongi/constants/color_config.dart';
+import 'package:dongi/constants/content/register/sign_in_contents.dart';
+import 'package:dongi/constants/font_config.dart';
+import 'package:dongi/core/validation.dart';
+import 'package:dongi/widgets/button/button.dart';
+import 'package:dongi/widgets/text_field/text_field.dart';
 
-class SignInWidget {
-  /// * body
-  signinBody({required List<Widget> children}) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(50, 30, 50, 50),
-      decoration: BoxDecoration(
-        color: ColorConfig.white,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: children,
-      ),
-    );
-  }
+class SignInTitle extends StatelessWidget {
+  const SignInTitle({super.key});
 
-  /// * ----- title
-  title() {
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -48,14 +32,21 @@ class SignInWidget {
       ],
     );
   }
+}
 
-  /// * ----- form
-  form({
-    required TextEditingController email,
-    required TextEditingController password,
-    required GlobalKey<FormState> formKey,
-    required WidgetRef ref,
-  }) {
+class SignInForm extends ConsumerWidget {
+  final TextEditingController email;
+  final TextEditingController password;
+  final GlobalKey<FormState> formKey;
+  const SignInForm({
+    Key? key,
+    required this.formKey,
+    required this.email,
+    required this.password,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Form(
       key: formKey,
       child: Column(
@@ -75,21 +66,33 @@ class SignInWidget {
             //    ref.read(formValidatorProvider.notifier).validatePassword,
           ),
           const SizedBox(height: 10),
-          _forgetPassword(),
+          InkWell(
+            onTap: () {},
+            child: Text(
+              SignInContents.forgetPassword,
+              style: FontConfig.body2().copyWith(),
+            ),
+          ),
           const SizedBox(height: 20)
         ],
       ),
     );
   }
+}
 
-  /// * ----- action buttons
-  actionButton({
-    required BuildContext context,
-    required WidgetRef ref,
-    required TextEditingController email,
-    required TextEditingController password,
-    required GlobalKey<FormState> formKey,
-  }) {
+class SignInActionButton extends ConsumerWidget {
+  final TextEditingController email;
+  final TextEditingController password;
+  final GlobalKey<FormState> formKey;
+  const SignInActionButton({
+    super.key,
+    required this.formKey,
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Row(
@@ -97,11 +100,13 @@ class SignInWidget {
           Expanded(
             child: ButtonWidget(
               title: "Sign in",
-              isLoading: ref.watch(authControllerProvider),
+              isLoading: ref.watch(signInNotifierProvider).maybeWhen(
+                    loading: (isGoogle) => true,
+                    orElse: () => false,
+                  ),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  ref.read(authControllerProvider.notifier).signIn(
-                        context: context,
+                  ref.read(signInNotifierProvider.notifier).signIn(
                         email: email.text,
                         password: password.text,
                       );
@@ -110,14 +115,52 @@ class SignInWidget {
             ),
           ),
           const SizedBox(width: 10),
-          _googleButton(context: context, ref: ref),
+          const SignInGoogleButton(),
         ],
       ),
     );
   }
+}
 
-  /// * ----- changeActionButton
-  changeActionButton(BuildContext context) {
+class SignInGoogleButton extends ConsumerWidget {
+  const SignInGoogleButton({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = ref.watch(signInNotifierProvider).maybeWhen(
+          loading: (isGoogle) => true,
+          orElse: () => false,
+        );
+
+    return InkWell(
+      onTap: isLoading
+          ? null
+          : () => ref.read(signInNotifierProvider.notifier).signInWithGoogle(),
+      child: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          color: ColorConfig.primarySwatch,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            'assets/svg/google_icon.svg',
+            color: ColorConfig.secondary,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SignInChangeActionButton extends StatelessWidget {
+  const SignInChangeActionButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,43 +181,6 @@ class SignInWidget {
           ),
         ),
       ],
-    );
-  }
-
-  /// * ----- forget password
-  _forgetPassword() {
-    return InkWell(
-      onTap: () {},
-      child: Text(
-        SignInContents.forgetPassword,
-        style: FontConfig.body2().copyWith(),
-      ),
-    );
-  }
-
-  /// * ----- google button
-  _googleButton({
-    required BuildContext context,
-    required WidgetRef ref,
-  }) {
-    return InkWell(
-      onTap: () => ref
-          .read(authControllerProvider.notifier)
-          .signInWithGoogle(context: context),
-      child: Container(
-        height: 50,
-        width: 50,
-        decoration: BoxDecoration(
-          color: ColorConfig.primarySwatch,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(
-          child: SvgPicture.asset(
-            'assets/svg/google_icon.svg',
-            color: ColorConfig.secondary,
-          ),
-        ),
-      ),
     );
   }
 }

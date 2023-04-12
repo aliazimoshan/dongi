@@ -22,6 +22,8 @@ final routerProvider = StateProvider.family(
 );
 
 class RouteNameConfig {
+  const RouteNameConfig._();
+
   static String home = '/';
   static String splash = '/splash';
   static String signin = '/signin';
