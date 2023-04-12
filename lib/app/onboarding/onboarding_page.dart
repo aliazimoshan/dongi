@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/color_config.dart';
 import '../../constants/content/onboarding_contents.dart';
-import 'onboarding_view_model.dart';
+import 'onboarding_controller.dart';
 import 'onboarding_widget.dart';
 
 class OnboardingPage extends ConsumerWidget with OnboardingWidget {
