@@ -15,19 +15,21 @@ import '../../../widgets/text_field/text_field.dart';
 class SignUpWidget {
   /// * ----- body
   signupBody({required List<Widget> children}) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(50, 30, 50, 50),
-      decoration: BoxDecoration(
-        color: ColorConfig.white,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(50, 30, 50, 50),
+        decoration: BoxDecoration(
+          color: ColorConfig.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
         ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: children,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        ),
       ),
     );
   }

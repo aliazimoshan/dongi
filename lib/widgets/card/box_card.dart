@@ -13,39 +13,39 @@ class BoxCardWidget extends StatelessWidget {
 
   const BoxCardWidget(this.box, {super.key});
 
-  ///* Drop down
-  _dropdownButton({
-    required BuildContext context,
-    required BoxModel boxModel,
-  }) {
+  ///* Popup menu
+  _popupButton(BoxModel boxModel) {
     List<String> items = ["Edit", "Delete"];
 
     return Consumer(
       builder: (context, ref, child) {
-        return DropdownButton<String>(
+        return PopupMenuButton<String>(
           icon: const Icon(Icons.more_vert_outlined),
-          items: items.map((String item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
-          onChanged: (val) {
-            if (val == items[0]) {
-              //Edit dropdown action
-              context.push(
-                RouteNameConfig.updateBox,
-                extra: boxModel,
-              );
-            } else {
-              //Delete dropdown action
-              ref
-                  .read(boxControllerProvider.notifier)
-                  .deleteBox(context: context, ref: ref, boxModel: boxModel);
-            }
+          itemBuilder: (BuildContext context) {
+            return items
+                .map(
+                  (val) => PopupMenuItem<String>(
+                    child: Text(val),
+                    onTap: () {
+                      if (val == items[0]) {
+                        //  Edit dropdown action
+                        context.push(
+                          RouteNameConfig.updateBox,
+                          extra: boxModel,
+                        );
+                      } else {
+                        //  Delete dropdown action
+                        ref.read(boxControllerProvider.notifier).deleteBox(
+                              context: context,
+                              ref: ref,
+                              boxModel: boxModel,
+                            );
+                      }
+                    },
+                  ),
+                )
+                .toList();
           },
-          underline: Container(),
-          isDense: true,
         );
       },
     );
@@ -78,27 +78,44 @@ class BoxCardWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  Expanded(child: Text(box.title, style: FontConfig.body2())),
-                  _dropdownButton(boxModel: box, context: context)
+                  Expanded(
+                    child: Text(
+                      box.title,
+                      style: FontConfig.body2(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  _popupButton(box)
                 ],
               ),
               const Spacer(),
-              Text("Total bill", style: FontConfig.overline()),
+              Text(
+                "Total bill",
+                style: FontConfig.overline(),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
               const SizedBox(height: 2),
               Text(
                 '\$${box.total}',
-                style: FontConfig.body2().copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: FontConfig.body2().copyWith(fontWeight: FontWeight.w600),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               const Spacer(),
-              Text("Split to", style: FontConfig.overline()),
+              Text(
+                "Split to",
+                style: FontConfig.overline(),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
               const SizedBox(height: 2),
               Text(
                 box.members.length.toString(),
-                style: FontConfig.body2().copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: FontConfig.body2().copyWith(fontWeight: FontWeight.w600),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               const Spacer(),
             ],
