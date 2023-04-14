@@ -86,51 +86,51 @@ class CreateGroupWidget {
   }
 
   /// * ----- select friends card
-  addFriendsCard(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 30, 16, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Add Member',
-            style: FontConfig.body1(),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-            width: SizeConfig.width(context),
-            decoration: BoxDecoration(
-              color: ColorConfig.grey,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 6,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, i) {
-                    return i != 5
-                        ? FriendWidget(
-                            backgroundColor: ColorConfig.white,
-                          )
-                        : FriendWidget.add();
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  //addFriendsCard(BuildContext context) {
+  //  return Padding(
+  //    padding: const EdgeInsets.fromLTRB(16, 30, 16, 0),
+  //    child: Column(
+  //      crossAxisAlignment: CrossAxisAlignment.start,
+  //      children: [
+  //        Text(
+  //          'Add Member',
+  //          style: FontConfig.body1(),
+  //        ),
+  //        const SizedBox(height: 10),
+  //        Container(
+  //          padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+  //          width: SizeConfig.width(context),
+  //          decoration: BoxDecoration(
+  //            color: ColorConfig.grey,
+  //            borderRadius: BorderRadius.circular(15),
+  //          ),
+  //          child: Column(
+  //            crossAxisAlignment: CrossAxisAlignment.start,
+  //            children: [
+  //              GridView.builder(
+  //                shrinkWrap: true,
+  //                physics: const NeverScrollableScrollPhysics(),
+  //                itemCount: 6,
+  //                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //                  crossAxisCount: 4,
+  //                  crossAxisSpacing: 10,
+  //                  mainAxisSpacing: 10,
+  //                ),
+  //                itemBuilder: (context, i) {
+  //                  return i != 5
+  //                      ? FriendWidget(
+  //                          backgroundColor: ColorConfig.white,
+  //                        )
+  //                      : FriendWidget.add();
+  //                },
+  //              ),
+  //            ],
+  //          ),
+  //        ),
+  //      ],
+  //    ),
+  //  );
+  //}
 
   /// * ----- submit button
   createButton({
@@ -218,5 +218,57 @@ class CreateGroupWidget {
             : null,
       ),
     );
+  }
+}
+
+class AddFriendCreateGroup extends ConsumerWidget {
+  const AddFriendCreateGroup({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 30, 16, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Add Member',
+            style: FontConfig.body1(),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+            width: SizeConfig.width(context),
+            decoration: BoxDecoration(
+              color: ColorConfig.grey,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 6,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, i) {
+                    return i != 5
+                        ? FriendWidget(
+                            backgroundColor: ColorConfig.white,
+                          )
+                        : FriendWidget.add();
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+    ;
   }
 }

@@ -31,7 +31,7 @@ class CreateGroupPage extends HookConsumerWidget with CreateGroupWidget {
             formKey: _formKey,
             ref: ref,
           ),
-          addFriendsCard(context),
+          const AddFriendCreateGroup(),
           const Spacer(),
           createButton(
             ref: ref,
