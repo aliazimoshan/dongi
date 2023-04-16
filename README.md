@@ -40,4 +40,4 @@ Dongi Expense Tracker is released under the MIT license. See the `LICENSE` file 
 
 ## Contact Information
 
-If you have any questions or feedback about Dongi, please contact us at support@dongi.com.
+If you have any questions or feedback about Dongi, please visit [aliazimoshan.info](https://aliazimoshan.info) for more information.
