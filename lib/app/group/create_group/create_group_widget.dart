@@ -269,6 +269,5 @@ class AddFriendCreateGroup extends ConsumerWidget {
         ],
       ),
     );
-    ;
   }
 }
