@@ -15,7 +15,7 @@ dependencies:
   flutter_hooks: ^0.18.5+1
   flutter_svg: ^1.1.6
   syncfusion_flutter_charts: ^20.4.41
-  appwrite: ^8.2.0
+  appwrite: ^9.0.0
   image_picker: ^0.8.6+4
   fpdart: ^0.4.0
   go_router: ^6.0.7
