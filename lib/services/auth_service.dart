@@ -1,10 +1,10 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart' as model;
+import 'package:appwrite/models.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../core/failure.dart';
-import '../core/providers.dart';
+import '../providers/appwrite_provider.dart';
 import '../core/type_defs.dart';
 
 final authAPIProvider = Provider((ref) {
@@ -13,11 +13,11 @@ final authAPIProvider = Provider((ref) {
 });
 
 abstract class IAuthAPI {
-  FutureEither<model.Account> signUp({
+  FutureEither<User> signUp({
     required String email,
     required String password,
   });
-  FutureEither<model.Session> signIn({
+  FutureEither<Session> signIn({
     required String email,
     required String password,
   });
@@ -25,7 +25,7 @@ abstract class IAuthAPI {
   FutureEitherVoid forgetPassword({
     required String email,
   });
-  Future<model.Account?> currentUserAccount();
+  Future<User?> currentUserAccount();
   FutureEitherVoid logout();
 }
 
@@ -34,7 +34,7 @@ class AuthAPI implements IAuthAPI {
   AuthAPI({required Account account}) : _account = account;
 
   @override
-  Future<model.Account?> currentUserAccount() async {
+  Future<User?> currentUserAccount() async {
     try {
       return await _account.get();
     } on AppwriteException {
@@ -45,7 +45,7 @@ class AuthAPI implements IAuthAPI {
   }
 
   @override
-  FutureEither<model.Account> signUp({
+  FutureEither<User> signUp({
     required String email,
     required String password,
   }) async {
@@ -68,7 +68,7 @@ class AuthAPI implements IAuthAPI {
   }
 
   @override
-  FutureEither<model.Session> signIn({
+  FutureEither<Session> signIn({
     required String email,
     required String password,
   }) async {
@@ -90,7 +90,7 @@ class AuthAPI implements IAuthAPI {
   }
 
   @override
-  FutureEither<model.Account> signInWithGoogle() async {
+  FutureEither<User> signInWithGoogle() async {
     try {
       await _account.createOAuth2Session(
         provider: "google",
