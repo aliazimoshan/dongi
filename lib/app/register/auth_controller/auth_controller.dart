@@ -1,4 +1,4 @@
-import 'package:appwrite/models.dart' as model;
+import 'package:appwrite/models.dart';
 import 'package:dongi/app/register/sign_in/sign_in_page.dart';
 import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class AuthController extends StateNotifier<bool> {
         super(false);
   // state = isLoading
 
-  Future<model.Account?> currentUser() => _authAPI.currentUserAccount();
+  Future<User?> currentUser() => _authAPI.currentUserAccount();
 
   void signUp({
     required BuildContext context,
