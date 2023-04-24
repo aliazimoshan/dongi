@@ -8,18 +8,18 @@ Dongi is an expense tracker app that helps you organize your expenses, split exp
 |-------------------------|------------------------------------------------------|
 | Flutter                 | Framework for building high-performance apps         |
 | Riverpod                | State management library for Flutter                 |
-| Flutter Hooks           | Library of reusable stateful logic for Flutter        |
-| Supabase                | Open source alternative to Firebase                  |
-| Supabase SDK            | Flutter SDK for integrating with Supabase backend     |
+| Flutter Hooks           | Library of reusable stateful logic for Flutter       |
+| Appwrite                | Open source alternative to Firebase                  |
+| Appwrite SDK            | Flutter SDK for integrating with Appwrite backend    |
 | Go Route                | Routing package for Flutter                          |
-| Syncfusion Flutter Charts| Charting library for Flutter                          |
-| Freezed                 | Code generation library for data classes in Flutter   |
+| Syncfusion Flutter Charts| Charting library for Flutter                        |
+| Freezed                 | Code generation library for data classes in Flutter  |
 
 ## Installation and Usage
 
 1. Clone the repository to your local machine.
 2. Install the required dependencies by running `flutter pub get`.
-3. Configure the backend by adding your Supabase credentials to the `lib/constants.dart` file.
+3. Configure the backend by adding your Appwrite credentials to the `lib/constants.dart` file.
 4. Run the app using `flutter run`.
 
 ## Features
@@ -28,7 +28,7 @@ Dongi is an expense tracker app that helps you organize your expenses, split exp
 - Split expenses with family and friends.
 - Set reminders and notifications for upcoming expenses.
 - View charts and graphs to track your expenses over time.
-- Sync your data across devices using Supabase backend.
+- Sync your data across devices using Appwrite backend.
 
 ## Contributing
 
