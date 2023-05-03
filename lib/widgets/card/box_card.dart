@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app/box/controller/box_controller.dart';
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
-import '../../constants/route_config.dart';
+import '../../router/router_notifier.dart';
 import 'card.dart';
 
 class BoxCardWidget extends StatelessWidget {
@@ -30,7 +30,7 @@ class BoxCardWidget extends StatelessWidget {
                       if (val == items[0]) {
                         //  Edit dropdown action
                         context.push(
-                          RouteNameConfig.updateBox,
+                          RouteName.updateBox,
                           extra: boxModel,
                         );
                       } else {
@@ -112,7 +112,7 @@ class BoxCardWidget extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                box.members.length.toString(),
+                box.boxUser.length.toString(),
                 style: FontConfig.body2().copyWith(fontWeight: FontWeight.w600),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

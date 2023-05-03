@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
-import '../../../constants/route_config.dart';
+import '../../../router/router_notifier.dart';
 import '../../../widgets/loading/loading.dart';
 import '../../box/controller/box_controller.dart';
 import '../controller/group_controller.dart';
@@ -37,7 +37,7 @@ class GroupDetailPage extends ConsumerWidget with GroupDetailWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: [
               groupInfo(data),
-              friendsList(data.members),
+              friendsList(data.groupUser),
               //* Get boxes
               boxesInGroup.when(
                 loading: () => const LoadingWidget(),
@@ -50,7 +50,7 @@ class GroupDetailPage extends ConsumerWidget with GroupDetailWidget {
         floatingActionButton: FloatingActionButtonWidget(
           title: "Box",
           onPressed: () => context.push(
-            RouteNameConfig.createBox,
+            RouteName.createBox,
             extra: groupId,
           ),
         ),

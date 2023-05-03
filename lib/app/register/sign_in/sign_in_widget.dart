@@ -1,5 +1,4 @@
 import 'package:dongi/app/register/auth_controller/sign_in_controller.dart';
-import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +10,8 @@ import 'package:dongi/constants/font_config.dart';
 import 'package:dongi/core/validation.dart';
 import 'package:dongi/widgets/button/button.dart';
 import 'package:dongi/widgets/text_field/text_field.dart';
+
+import '../../../router/router_notifier.dart';
 
 class SignInTitle extends StatelessWidget {
   const SignInTitle({super.key});
@@ -171,7 +172,7 @@ class SignInChangeActionButton extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         InkWell(
-          onTap: () => context.go(RouteNameConfig.signup),
+          onTap: () => context.go(RouteName.signup),
           child: Text(
             'Sign Up',
             style: FontConfig.body1().copyWith(
