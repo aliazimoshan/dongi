@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:appwrite/appwrite.dart';
 import 'package:dongi/core/utils.dart';
 import 'package:dongi/models/group_model.dart';
 import 'package:dongi/services/auth_service.dart';
@@ -70,8 +70,8 @@ class GroupNotifier extends StateNotifier<bool> {
       description: groupDescription.text,
       creatorId: currentUser!.$id,
       image: imageLinks.isNotEmpty ? imageLinks[0] : null,
-      members: [],
-      boxes: [],
+      groupUser: [],
+      box: [],
       totalBalance: 0,
     );
 
@@ -108,8 +108,8 @@ class GroupNotifier extends StateNotifier<bool> {
       description: groupDescription.text,
       creatorId: groupModel.creatorId,
       image: imageLinks.isNotEmpty ? imageLinks[0] : groupModel.image,
-      members: [],
-      boxes: [],
+      groupUser: [],
+      box: [],
       totalBalance: 0,
     );
 
@@ -152,19 +152,12 @@ class GroupNotifier extends StateNotifier<bool> {
   Future<List<GroupModel>> getGroups() async {
     final user = await _ref.watch(authAPIProvider).currentUserAccount();
     final groupList = await _groupAPI.getGroups(user!.$id);
-    return groupList.map((group) {
-      //remove members from response
-      //because appwrite not support relational database
-      //and we also cant remove fields from response
-      group.data["members"] = [];
-      return GroupModel.fromMap(group.data);
-    }).toList();
+    return groupList.map((group) => GroupModel.fromJson(group.data)).toList();
   }
 
   Future<GroupModel> getGroupDetail(String groupId) async {
     final user = await _ref.watch(authAPIProvider).currentUserAccount();
     final group = await _groupAPI.getGroupDetail(user!.$id, groupId);
-    final groupDecode = json.decode(group.response)["data"];
-    return GroupModel.fromMap(groupDecode as Map<String, dynamic>);
+    return GroupModel.fromJson(group.data);
   }
 }
