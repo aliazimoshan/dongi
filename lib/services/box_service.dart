@@ -40,7 +40,7 @@ class BoxAPI implements IBoxAPI {
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.boxCollection,
         documentId: ID.unique(),
-        data: boxModel.toMap(),
+        data: boxModel.toJson(),
       );
       return right(document);
     } on AppwriteException catch (e, st) {
@@ -62,7 +62,7 @@ class BoxAPI implements IBoxAPI {
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.boxCollection,
         documentId: boxModel.id!,
-        data: boxModel.toMap(),
+        data: boxModel.toJson(),
       );
       return right(document);
     } on AppwriteException catch (e, st) {
