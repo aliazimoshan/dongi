@@ -1,9 +1,9 @@
 import 'package:dongi/constants/color_config.dart';
-import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../constants/content/onboarding_contents.dart';
 import '../../constants/font_config.dart';
+import '../../router/router_notifier.dart';
 import '../../widgets/button/button.dart';
 
 class OnboardingWidget {
@@ -63,7 +63,7 @@ class OnboardingWidget {
                   title: "START",
                   textColor: ColorConfig.secondary,
                   onPressed: () => context.go(
-                    RouteNameConfig.signin,
+                    RouteName.signin,
                   ),
                 ),
               ),

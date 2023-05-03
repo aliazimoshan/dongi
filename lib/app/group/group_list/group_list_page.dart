@@ -1,7 +1,7 @@
-import 'package:dongi/constants/route_config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../../router/router_notifier.dart';
 import '../../../widgets/appbar/appbar.dart';
 import '../../../widgets/floating_action_button/floating_action_button.dart';
 import '../controller/group_controller.dart';
@@ -36,7 +36,7 @@ class GroupListPage extends ConsumerWidget with GroupListWidget {
       //),
       floatingActionButton: FloatingActionButtonWidget(
         title: "Group",
-        onPressed: () => context.push(RouteNameConfig.createGroup),
+        onPressed: () => context.push(RouteName.createGroup),
       ),
       body: groupList.when(
         //skipLoadingOnRefresh: true,

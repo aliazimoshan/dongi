@@ -1,9 +1,9 @@
 import 'package:dongi/models/box_model.dart';
 import 'package:dongi/models/group_model.dart';
-import 'package:dongi/models/user_model.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
+import '../../../models/group_user_model.dart';
 import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/friends/friend.dart';
@@ -90,12 +90,12 @@ class GroupDetailWidget {
           ),
           groupInfoCard(
             "Boxes",
-            groupModel.boxes.length.toString(),
+            groupModel.box.length.toString(),
             Icons.group,
           ),
           groupInfoCard(
             "Members",
-            groupModel.members.length.toString(),
+            groupModel.groupUser.length.toString(),
             Icons.account_box,
           ),
         ],
@@ -104,22 +104,22 @@ class GroupDetailWidget {
   }
 
   /// * ----- friends list
-  friendsList(List<UserModel> users) {
-    friendCard(UserModel user) {
+  friendsList(List<GroupUserModel> users) {
+    friendCard(GroupUserModel user) {
       return Padding(
         padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
         child: Column(
           children: [
-            FriendWidget(image: user.profilePic),
-            const SizedBox(height: 5),
-            Row(
-              children: [
-                Text(
-                  user.userName,
-                  style: FontConfig.caption(),
-                )
-              ],
-            )
+            //FriendWidget(image: user.profilePic),
+            //const SizedBox(height: 5),
+            //Row(
+            //  children: [
+            //    Text(
+            //      user.userName,
+            //      style: FontConfig.caption(),
+            //    )
+            //  ],
+            //)
           ],
         ),
       );

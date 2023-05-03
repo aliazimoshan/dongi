@@ -1,5 +1,5 @@
 import 'package:dongi/app/register/auth_controller/auth_controller.dart';
-import 'package:dongi/constants/route_config.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +9,7 @@ import '../../../constants/color_config.dart';
 import '../../../constants/content/register/sign_up_contents.dart';
 import '../../../constants/font_config.dart';
 import '../../../core/validation.dart';
+import '../../../router/router_notifier.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/text_field/text_field.dart';
 
@@ -137,7 +138,7 @@ class SignUpWidget {
         ),
         const SizedBox(width: 10),
         InkWell(
-          onTap: () => context.go(RouteNameConfig.signin),
+          onTap: () => context.go(RouteName.signin),
           child: Text(
             'Sign In',
             style: FontConfig.body1().copyWith(

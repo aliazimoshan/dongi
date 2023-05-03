@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:appwrite/appwrite.dart';
 import 'package:dongi/core/utils.dart';
 import 'package:dongi/models/box_model.dart';
 import 'package:dongi/services/auth_service.dart';
@@ -66,12 +67,13 @@ class BoxNotifier extends StateNotifier<bool> {
     }
 
     BoxModel boxModel = BoxModel(
+      id: ID.unique(),
       title: boxTitle.text,
       description: boxDescription.text,
       creatorId: currentUser!.$id,
       groupId: groupId,
       image: imageLinks.isNotEmpty ? imageLinks[0] : null,
-      members: [],
+      boxUser: [],
       total: 0,
     );
 
@@ -149,17 +151,17 @@ class BoxNotifier extends StateNotifier<bool> {
   Future<List<BoxModel>> getBoxes() async {
     final user = await _ref.watch(authAPIProvider).currentUserAccount();
     final boxList = await _boxAPI.getBoxes(user!.$id);
-    return boxList.map((box) => BoxModel.fromMap(box.data)).toList();
+    return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }
 
   Future<List<BoxModel>> getBoxesInGroup(String groupId) async {
     final boxList = await _boxAPI.getBoxesInGroup(groupId);
-    return boxList.map((box) => BoxModel.fromMap(box.data)).toList();
+    return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }
 
   Future<List<BoxModel>> getCurrentUserBoxes() async {
     final user = await _ref.watch(authAPIProvider).currentUserAccount();
     final boxList = await _boxAPI.getBoxesInGroup(user!.$id);
-    return boxList.map((box) => BoxModel.fromMap(box.data)).toList();
+    return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }
 }

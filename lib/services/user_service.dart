@@ -40,7 +40,7 @@ class UserAPI implements IUserAPI {
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.usersCollection,
         documentId: ID.unique(),
-        data: userModel.toMap(),
+        data: userModel.toJson(),
       );
       return right(null);
     } on AppwriteException catch (e, st) {
@@ -84,7 +84,7 @@ class UserAPI implements IUserAPI {
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.usersCollection,
         documentId: userModel.id!,
-        data: userModel.toMap(),
+        data: userModel.toJson(),
       );
       return right(null);
     } on AppwriteException catch (e, st) {

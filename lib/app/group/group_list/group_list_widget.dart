@@ -1,11 +1,11 @@
 import 'package:dongi/constants/color_config.dart';
-import 'package:dongi/constants/route_config.dart';
 import 'package:dongi/models/group_model.dart';
 import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../router/router_notifier.dart';
 import '../controller/group_controller.dart';
 
 class GroupListWidget {
@@ -55,9 +55,9 @@ class GroupListWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: ListTileCard(
-        onTap: () => context.push(RouteNameConfig.groupDetail(groupModel.id)),
+        onTap: () => context.push(RouteName.groupDetail(groupModel.id)),
         titleString: groupModel.title,
-        subtitleString: "Member: ${groupModel.members.length.toString()}",
+        subtitleString: "Member: ${groupModel.groupUser.length.toString()}",
         leading: iconWidget(),
         trailing: _dropdownButton(
           ref: ref,
@@ -87,7 +87,7 @@ class GroupListWidget {
         if (val == items[0]) {
           //Edit dropdown action
           context.push(
-            RouteNameConfig.updateGroup,
+            RouteName.updateGroup,
             extra: groupModel,
           );
         } else {

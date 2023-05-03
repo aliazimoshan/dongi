@@ -1,6 +1,7 @@
 import 'package:appwrite/models.dart';
 import 'package:dongi/app/register/sign_in/sign_in_page.dart';
-import 'package:dongi/constants/route_config.dart';
+
+import 'package:dongi/router/router_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -78,7 +79,6 @@ class AuthController extends StateNotifier<bool> {
       (l) => showSnackBar(context, l.message),
       (r) async {
         UserModel userModel = UserModel(
-          id: r.$id,
           email: email,
           userName: userName,
         );
@@ -87,7 +87,7 @@ class AuthController extends StateNotifier<bool> {
           (l) => showSnackBar(context, l.message),
           (r) {
             showSnackBar(context, 'Accounted created!!');
-            //context.go(RouteNameConfig.home);
+            //context.go(RouteName.home);
             signIn(email: email, password: password, context: context);
           },
         );
@@ -108,7 +108,7 @@ class AuthController extends StateNotifier<bool> {
     state = false;
     res.fold(
       (l) => showSnackBar(context, l.message),
-      (r) => context.go(RouteNameConfig.home),
+      (r) => context.go(RouteName.home),
     );
   }
 
@@ -132,7 +132,7 @@ class AuthController extends StateNotifier<bool> {
           (l) => showSnackBar(context, l.message),
           (r) {
             showSnackBar(context, 'Accounted created!!');
-            context.go(RouteNameConfig.home);
+            context.go(RouteName.home);
             //signIn(email: email, password: password, context: context);
           },
         );
@@ -142,7 +142,7 @@ class AuthController extends StateNotifier<bool> {
 
   Future<UserModel> getUserData(String uid) async {
     final document = await _userAPI.getUserData(uid);
-    final updatedUser = UserModel.fromMap(document.data);
+    final updatedUser = UserModel.fromJson(document.data);
     return updatedUser;
   }
 
@@ -150,7 +150,7 @@ class AuthController extends StateNotifier<bool> {
     final res = await _authAPI.logout();
     res.fold(
       (l) => null,
-      (r) => context.go(RouteNameConfig.signin),
+      (r) => context.go(RouteName.signin),
     );
   }
 
