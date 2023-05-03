@@ -19,7 +19,7 @@ abstract class IGroupAPI {
   FutureEither<Document> addGroup(GroupModel groupModel);
   FutureEither<Document> updateGroup(GroupModel groupModel);
   Future<List<Document>> getGroups(String uid);
-  Future<Execution> getGroupDetail(String uid, String groupId);
+  Future<Document> getGroupDetail(String uid, String groupId);
   FutureEither<bool> deleteGroup(String id);
   //
   //FutureEitherVoid saveUserData(UserModel userModel);
@@ -46,7 +46,7 @@ class GroupAPI implements IGroupAPI {
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.groupCollection,
         documentId: ID.unique(),
-        data: groupModel.toMap(),
+        data: groupModel.toJson(),
       );
       return right(document);
     } on AppwriteException catch (e, st) {
@@ -68,7 +68,7 @@ class GroupAPI implements IGroupAPI {
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.groupCollection,
         documentId: groupModel.id!,
-        data: groupModel.toMap(),
+        data: groupModel.toJson(),
       );
       return right(document);
     } on AppwriteException catch (e, st) {
@@ -117,11 +117,12 @@ class GroupAPI implements IGroupAPI {
   }
 
   @override
-  Future<Execution> getGroupDetail(String uid, String groupId) async {
-    final response = await _functions.createExecution(
-      functionId: "64228b66dcfd3a49c094",
-      data: groupId,
+  Future<Document> getGroupDetail(String uid, String groupId) async {
+    final document = await _db.getDocument(
+      databaseId: AppwriteConfig.databaseId,
+      collectionId: AppwriteConfig.groupCollection,
+      documentId: groupId,
     );
-    return response;
+    return document;
   }
 }
