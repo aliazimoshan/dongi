@@ -1,8 +1,9 @@
-import 'package:dongi/constants/route_config.dart';
+import 'package:dongi/router/router_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import './constants/color_config.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'core/state_logger.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -10,6 +11,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     const ProviderScope(
+      observers: [StateLogger()],
       child: MyApp(),
     ),
   );
@@ -20,6 +22,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //final router = ref.watch(routerProvider);
     return MaterialApp.router(
       theme: ThemeData(
         primarySwatch: ColorConfig.primarySwatch,
@@ -27,16 +30,6 @@ class MyApp extends ConsumerWidget {
       ),
       debugShowCheckedModeBanner: false,
       routerConfig: ref.watch(routerProvider(ref)),
-      //home: userAccountStatus.when(
-      //  data: (user) {
-      //    if (user != null) {
-      //      return HomePage();
-      //    }
-      //    return SignInPage();
-      //  },
-      //  error: (error, st) => Text(error.toString()),
-      //  loading: () => const Center(child: CircularProgressIndicator()),
-      //),
     );
   }
 }
