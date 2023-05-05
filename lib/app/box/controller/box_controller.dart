@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:appwrite/appwrite.dart';
 import 'package:dongi/core/utils.dart';
 import 'package:dongi/models/box_model.dart';
 import 'package:dongi/services/auth_service.dart';
@@ -67,7 +66,6 @@ class BoxNotifier extends StateNotifier<bool> {
     }
 
     BoxModel boxModel = BoxModel(
-      id: ID.unique(),
       title: boxTitle.text,
       description: boxDescription.text,
       creatorId: currentUser!.$id,
