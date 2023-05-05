@@ -2,13 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
+import '../../../core/utils.dart';
 import '../../../widgets/appbar/appbar.dart';
+import '../controller/group_controller.dart';
 import 'create_group_widget.dart';
 
-class CreateGroupPage extends HookConsumerWidget with CreateGroupWidget {
+class CreateGroupPage extends HookConsumerWidget {
   CreateGroupPage({super.key});
   final _formKey = GlobalKey<FormState>();
 
@@ -18,24 +21,36 @@ class CreateGroupPage extends HookConsumerWidget with CreateGroupWidget {
     final groupDescription = useTextEditingController();
     final image = useState<File?>(null);
 
+    /// by using listen we are not gonna rebuild our app
+    ref.listen<GroupState>(
+      groupNotifierProvider,
+      (previous, next) {
+        next.whenOrNull(
+          loaded: () {
+            context.pop();
+            ref.refresh(refreshGroupsProvider).value;
+          },
+          error: (message) {
+            showSnackBar(context, message);
+          },
+        );
+      },
+    );
+
     return Scaffold(
       backgroundColor: ColorConfig.white,
       appBar: AppBarWidget(title: "Create Group"),
       body: Column(
         children: [
-          groupInfoCard(
-            context: context,
+          CreateGroupInfoCard(
             image: image,
             groupTitle: groupTitle,
             groupDescription: groupDescription,
             formKey: _formKey,
-            ref: ref,
           ),
-          const AddFriendCreateGroup(),
+          const CreateGroupAddFriend(),
           const Spacer(),
-          createButton(
-            ref: ref,
-            context: context,
+          CreateGroupButton(
             formKey: _formKey,
             image: image,
             groupTitle: groupTitle,

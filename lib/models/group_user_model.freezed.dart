@@ -26,8 +26,8 @@ mixin _$GroupUserModel {
   String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: '\$updatedAt')
   String? get updatedAt => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
-  String get groupId => throw _privateConstructorUsedError;
+  UserModel get userId => throw _privateConstructorUsedError;
+  GroupModel get groupId => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,9 +46,12 @@ abstract class $GroupUserModelCopyWith<$Res> {
       {@JsonKey(name: '\$id') String? id,
       @JsonKey(name: '\$createdAt') String? createdAt,
       @JsonKey(name: '\$updatedAt') String? updatedAt,
-      String userId,
-      String groupId,
+      UserModel userId,
+      GroupModel groupId,
       String status});
+
+  $UserModelCopyWith<$Res> get userId;
+  $GroupModelCopyWith<$Res> get groupId;
 }
 
 /// @nodoc
@@ -87,16 +90,32 @@ class _$GroupUserModelCopyWithImpl<$Res, $Val extends GroupUserModel>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as UserModel,
       groupId: null == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as GroupModel,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res> get userId {
+    return $UserModelCopyWith<$Res>(_value.userId, (value) {
+      return _then(_value.copyWith(userId: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $GroupModelCopyWith<$Res> get groupId {
+    return $GroupModelCopyWith<$Res>(_value.groupId, (value) {
+      return _then(_value.copyWith(groupId: value) as $Val);
+    });
   }
 }
 
@@ -112,9 +131,14 @@ abstract class _$$_GroupUserModelCopyWith<$Res>
       {@JsonKey(name: '\$id') String? id,
       @JsonKey(name: '\$createdAt') String? createdAt,
       @JsonKey(name: '\$updatedAt') String? updatedAt,
-      String userId,
-      String groupId,
+      UserModel userId,
+      GroupModel groupId,
       String status});
+
+  @override
+  $UserModelCopyWith<$Res> get userId;
+  @override
+  $GroupModelCopyWith<$Res> get groupId;
 }
 
 /// @nodoc
@@ -151,11 +175,11 @@ class __$$_GroupUserModelCopyWithImpl<$Res>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as UserModel,
       groupId: null == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as GroupModel,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -188,9 +212,9 @@ class _$_GroupUserModel implements _GroupUserModel {
   @JsonKey(name: '\$updatedAt')
   final String? updatedAt;
   @override
-  final String userId;
+  final UserModel userId;
   @override
-  final String groupId;
+  final GroupModel groupId;
   @override
   @JsonKey()
   final String status;
@@ -239,8 +263,8 @@ abstract class _GroupUserModel implements GroupUserModel {
       {@JsonKey(name: '\$id') final String? id,
       @JsonKey(name: '\$createdAt') final String? createdAt,
       @JsonKey(name: '\$updatedAt') final String? updatedAt,
-      required final String userId,
-      required final String groupId,
+      required final UserModel userId,
+      required final GroupModel groupId,
       final String status}) = _$_GroupUserModel;
 
   factory _GroupUserModel.fromJson(Map<String, dynamic> json) =
@@ -256,9 +280,9 @@ abstract class _GroupUserModel implements GroupUserModel {
   @JsonKey(name: '\$updatedAt')
   String? get updatedAt;
   @override
-  String get userId;
+  UserModel get userId;
   @override
-  String get groupId;
+  GroupModel get groupId;
   @override
   String get status;
   @override

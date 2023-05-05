@@ -14,16 +14,49 @@ import '../../../widgets/friends/friend.dart';
 import '../../../widgets/text_field/text_field.dart';
 import '../controller/group_controller.dart';
 
-class CreateGroupWidget {
-  /// * ----- Groupe info card
-  groupInfoCard({
-    required BuildContext context,
-    required TextEditingController groupTitle,
-    required TextEditingController groupDescription,
-    required ValueNotifier<File?> image,
-    required GlobalKey<FormState> formKey,
-    required WidgetRef ref,
-  }) {
+class CreateGroupInfoCard extends ConsumerWidget {
+  final TextEditingController groupTitle;
+  final TextEditingController groupDescription;
+  final ValueNotifier<File?> image;
+  final GlobalKey<FormState> formKey;
+  const CreateGroupInfoCard({
+    super.key,
+    required this.groupTitle,
+    required this.groupDescription,
+    required this.image,
+    required this.formKey,
+  });
+
+  /// * ----- add photo button
+  _addPhotoButton(ValueNotifier<File?> image) {
+    return InkWell(
+      onTap: () async {
+        image.value = await pickImage();
+      },
+      child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          color: ColorConfig.white,
+          borderRadius: BorderRadius.circular(10),
+          image: image.value != null
+              ? DecorationImage(image: FileImage(image.value!))
+              : null,
+        ),
+        child: image.value == null
+            ? Center(
+                child: SvgPicture.asset(
+                  'assets/svg/add_photo_icon.svg',
+                  height: 14,
+                ),
+              )
+            : null,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Form(
       key: formKey,
       child: Container(
@@ -84,72 +117,33 @@ class CreateGroupWidget {
       ),
     );
   }
+}
 
-  /// * ----- select friends card
-  //addFriendsCard(BuildContext context) {
-  //  return Padding(
-  //    padding: const EdgeInsets.fromLTRB(16, 30, 16, 0),
-  //    child: Column(
-  //      crossAxisAlignment: CrossAxisAlignment.start,
-  //      children: [
-  //        Text(
-  //          'Add Member',
-  //          style: FontConfig.body1(),
-  //        ),
-  //        const SizedBox(height: 10),
-  //        Container(
-  //          padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-  //          width: SizeConfig.width(context),
-  //          decoration: BoxDecoration(
-  //            color: ColorConfig.grey,
-  //            borderRadius: BorderRadius.circular(15),
-  //          ),
-  //          child: Column(
-  //            crossAxisAlignment: CrossAxisAlignment.start,
-  //            children: [
-  //              GridView.builder(
-  //                shrinkWrap: true,
-  //                physics: const NeverScrollableScrollPhysics(),
-  //                itemCount: 6,
-  //                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //                  crossAxisCount: 4,
-  //                  crossAxisSpacing: 10,
-  //                  mainAxisSpacing: 10,
-  //                ),
-  //                itemBuilder: (context, i) {
-  //                  return i != 5
-  //                      ? FriendWidget(
-  //                          backgroundColor: ColorConfig.white,
-  //                        )
-  //                      : FriendWidget.add();
-  //                },
-  //              ),
-  //            ],
-  //          ),
-  //        ),
-  //      ],
-  //    ),
-  //  );
-  //}
+class CreateGroupButton extends ConsumerWidget {
+  final ValueNotifier<File?> image;
+  final TextEditingController groupTitle;
+  final TextEditingController groupDescription;
+  final GlobalKey<FormState> formKey;
+  const CreateGroupButton({
+    required this.image,
+    required this.groupTitle,
+    required this.groupDescription,
+    required this.formKey,
+    super.key,
+  });
 
-  /// * ----- submit button
-  createButton({
-    required WidgetRef ref,
-    required BuildContext context,
-    required ValueNotifier<File?> image,
-    required TextEditingController groupTitle,
-    required TextEditingController groupDescription,
-    required GlobalKey<FormState> formKey,
-  }) {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: ButtonWidget(
-        isLoading: ref.watch(groupControllerProvider),
+        isLoading: ref.watch(groupNotifierProvider).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            ),
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            ref.read(groupControllerProvider.notifier).addGroup(
-                  ref: ref,
-                  context: context,
+            ref.read(groupNotifierProvider.notifier).addGroup(
                   image: image,
                   groupTitle: groupTitle,
                   groupDescription: groupDescription,
@@ -161,68 +155,10 @@ class CreateGroupWidget {
       ),
     );
   }
-
-  /// * ----- select option button
-  //_selectOptionButton({
-  //  required Function onTap,
-  //  required String icon,
-  //  required String title,
-  //}) {
-  //  return Expanded(
-  //    child: InkWell(
-  //      onTap: () {
-  //        onTap();
-  //      },
-  //      child: Container(
-  //        height: 50,
-  //        decoration: BoxDecoration(
-  //          color: ColorConfig.white,
-  //          borderRadius: BorderRadius.circular(10),
-  //        ),
-  //        child: Row(
-  //          mainAxisAlignment: MainAxisAlignment.center,
-  //          children: [
-  //            SvgPicture.asset(icon),
-  //            const SizedBox(width: 10),
-  //            Text(title),
-  //          ],
-  //        ),
-  //      ),
-  //    ),
-  //  );
-  //}
-
-  /// * ----- add photo button
-  _addPhotoButton(ValueNotifier<File?> image) {
-    return InkWell(
-      onTap: () async {
-        image.value = await pickImage();
-      },
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          color: ColorConfig.white,
-          borderRadius: BorderRadius.circular(10),
-          image: image.value != null
-              ? DecorationImage(image: FileImage(image.value!))
-              : null,
-        ),
-        child: image.value == null
-            ? Center(
-                child: SvgPicture.asset(
-                  'assets/svg/add_photo_icon.svg',
-                  height: 14,
-                ),
-              )
-            : null,
-      ),
-    );
-  }
 }
 
-class AddFriendCreateGroup extends ConsumerWidget {
-  const AddFriendCreateGroup({super.key});
+class CreateGroupAddFriend extends ConsumerWidget {
+  const CreateGroupAddFriend({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

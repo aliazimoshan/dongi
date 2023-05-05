@@ -8,62 +8,39 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../router/router_notifier.dart';
 import '../controller/group_controller.dart';
 
-class GroupListWidget {
-  groupListView({
-    required List<GroupModel> groupModel,
-    required WidgetRef ref,
-    required BuildContext context,
-  }) {
+class GroupListView extends StatelessWidget {
+  final List<GroupModel> groupModel;
+  const GroupListView({required this.groupModel, super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: ListView(
         children: groupModel
-            .map<Widget>(
-              (val) => _groupCard(
-                ref: ref,
-                context: context,
-                groupModel: val,
-              ),
-            )
+            .map<Widget>((val) => GroupListCard(groupModel: val))
             .toList(),
       ),
     );
   }
+}
 
-  _groupCard({
-    required GroupModel groupModel,
-    required WidgetRef ref,
-    required BuildContext context,
-  }) {
-    iconWidget() {
-      return Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          color: ColorConfig.primarySwatch,
-          borderRadius: BorderRadius.circular(10),
-          image: groupModel.image != null
-              ? DecorationImage(
-                  image: NetworkImage(groupModel.image!),
-                  fit: BoxFit.cover,
-                )
-              : null,
-        ),
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: ListTileCard(
-        onTap: () => context.push(RouteName.groupDetail(groupModel.id)),
-        titleString: groupModel.title,
-        subtitleString: "Member: ${groupModel.groupUser.length.toString()}",
-        leading: iconWidget(),
-        trailing: _dropdownButton(
-          ref: ref,
-          context: context,
-          groupModel: groupModel,
-        ),
+class GroupListCard extends ConsumerWidget {
+  final GroupModel groupModel;
+  const GroupListCard({super.key, required this.groupModel});
+  iconWidget() {
+    return Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+        color: ColorConfig.primarySwatch,
+        borderRadius: BorderRadius.circular(10),
+        image: groupModel.image != null
+            ? DecorationImage(
+                image: NetworkImage(groupModel.image!),
+                fit: BoxFit.cover,
+              )
+            : null,
       ),
     );
   }
@@ -93,12 +70,30 @@ class GroupListWidget {
         } else {
           //Delete dropdown action
           ref
-              .read(groupControllerProvider.notifier)
+              .read(groupNotifierProvider.notifier)
               .deleteGroup(context: context, ref: ref, groupModel: groupModel);
         }
       },
       underline: Container(),
       isDense: true,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: ListTileCard(
+        onTap: () => context.push(RouteName.groupDetail(groupModel.id)),
+        titleString: groupModel.title,
+        subtitleString: "Member: ${groupModel.groupUser.length.toString()}",
+        leading: iconWidget(),
+        trailing: _dropdownButton(
+          ref: ref,
+          context: context,
+          groupModel: groupModel,
+        ),
+      ),
     );
   }
 }
