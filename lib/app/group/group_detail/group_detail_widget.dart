@@ -8,9 +8,12 @@ import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/friends/friend.dart';
 
-class GroupDetailWidget {
-  ///* group name
-  groupName(String groupName) {
+class GroupDetailTitle extends StatelessWidget {
+  final String groupName;
+  const GroupDetailTitle({super.key, required this.groupName});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(bottom: 20),
       alignment: Alignment.bottomLeft,
@@ -24,9 +27,14 @@ class GroupDetailWidget {
       ),
     );
   }
+}
 
-  /// * Body of group detail
-  groupReviewBody({required List<Widget> children}) {
+class GroupDetailReviewBody extends StatelessWidget {
+  final List<Widget> children;
+  const GroupDetailReviewBody({super.key, required this.children});
+
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
       flex: 3,
       child: Container(
@@ -47,38 +55,43 @@ class GroupDetailWidget {
       ),
     );
   }
+}
 
-  // * group info
-  groupInfo(GroupModel groupModel) {
-    groupInfoCard(String title, String subtitle, IconData icon) {
-      return Expanded(
-        child: SizedBox(
-          height: 100,
-          child: CardWidget(
-            margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //Group Icon
-                Icon(icon),
-                const Spacer(),
-                Text(
-                  title,
-                  style: FontConfig.caption(),
+class GroupDetailInfo extends StatelessWidget {
+  final GroupModel groupModel;
+  const GroupDetailInfo({super.key, required this.groupModel});
+
+  groupInfoCard(String title, String subtitle, IconData icon) {
+    return Expanded(
+      child: SizedBox(
+        height: 100,
+        child: CardWidget(
+          margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //Group Icon
+              Icon(icon),
+              const Spacer(),
+              Text(
+                title,
+                style: FontConfig.caption(),
+              ),
+              Text(
+                subtitle,
+                style: FontConfig.body2().copyWith(
+                  fontWeight: FontWeight.w700,
                 ),
-                Text(
-                  subtitle,
-                  style: FontConfig.body2().copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(11, 0, 11, 16),
       child: Row(
@@ -102,49 +115,53 @@ class GroupDetailWidget {
       ),
     );
   }
+}
 
-  /// * ----- friends list
-  friendsList(List<GroupUserModel> users) {
-    friendCard(GroupUserModel user) {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Column(
-          children: [
-            //FriendWidget(image: user.profilePic),
-            //const SizedBox(height: 5),
-            //Row(
-            //  children: [
-            //    Text(
-            //      user.userName,
-            //      style: FontConfig.caption(),
-            //    )
-            //  ],
-            //)
-          ],
-        ),
-      );
-    }
+class GroupDetailFriendList extends StatelessWidget {
+  final List<GroupUserModel> users;
+  const GroupDetailFriendList({super.key, required this.users});
+  friendCard(GroupUserModel user) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+      child: Column(
+        children: [
+          FriendWidget(image: user.userId.profilePic),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Text(
+                user.userId.userName,
+                style: FontConfig.caption(),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
 
-    addFriendCard() {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Column(
-          children: [
-            FriendWidget.add(),
-            const SizedBox(height: 5),
-            Row(
-              children: [
-                Text(
-                  "Add",
-                  style: FontConfig.caption(),
-                )
-              ],
-            )
-          ],
-        ),
-      );
-    }
+  addFriendCard() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+      child: Column(
+        children: [
+          FriendWidget.add(),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Text(
+                "Add",
+                style: FontConfig.caption(),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -176,9 +193,14 @@ class GroupDetailWidget {
       ],
     );
   }
+}
 
-  /// * ----- Boxes grid
-  boxesGrid(List<BoxModel> boxList) {
+class GroupDetailBoxGrid extends StatelessWidget {
+  final List<BoxModel> boxList;
+  const GroupDetailBoxGrid({super.key, required this.boxList});
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -210,33 +232,4 @@ class GroupDetailWidget {
       ],
     );
   }
-
-  /// * ----- expenses list
-  //expensesList() => Padding(
-  //      padding: const EdgeInsets.fromLTRB(16, 25, 16, 25),
-  //      child: Column(
-  //        crossAxisAlignment: CrossAxisAlignment.start,
-  //        children: [
-  //          Text(
-  //            'Expenses',
-  //            style: FontConfig.body1(),
-  //          ),
-  //          const SizedBox(height: 10),
-  //          ListView.builder(
-  //            shrinkWrap: true,
-  //            physics: const NeverScrollableScrollPhysics(),
-  //            itemCount: 5,
-  //            itemBuilder: (context, i) => Column(
-  //              children: const [
-  //                ListTileWidget(
-  //                  titleString: 'data',
-  //                  trailing: Text("\$53"),
-  //                ),
-  //                SizedBox(height: 10),
-  //              ],
-  //            ),
-  //          ),
-  //        ],
-  //      ),
-  //    );
 }

@@ -12,7 +12,7 @@ import '../../box/controller/box_controller.dart';
 import '../controller/group_controller.dart';
 import './group_detail_widget.dart';
 
-class GroupDetailPage extends ConsumerWidget with GroupDetailWidget {
+class GroupDetailPage extends ConsumerWidget {
   final String groupId;
   const GroupDetailPage({super.key, required this.groupId});
 
@@ -29,20 +29,20 @@ class GroupDetailPage extends ConsumerWidget with GroupDetailWidget {
         //appBar: AppBar(elevation: 0),
         body: SliverAppBarWidget(
           height: 200,
-          appbarTitle: groupName(data.title),
+          appbarTitle: GroupDetailTitle(groupName: data.title),
           image: data.image,
           child: ListView(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              groupInfo(data),
-              friendsList(data.groupUser),
+              GroupDetailInfo(groupModel: data),
+              GroupDetailFriendList(users: data.groupUser),
               //* Get boxes
               boxesInGroup.when(
                 loading: () => const LoadingWidget(),
                 error: (error, stackTrace) => ErrorTextWidget(error),
-                data: (data) => boxesGrid(data),
+                data: (data) => GroupDetailBoxGrid(boxList: data),
               ),
             ],
           ),

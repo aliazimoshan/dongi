@@ -15,17 +15,58 @@ import '../../../widgets/friends/friend.dart';
 import '../../../widgets/text_field/text_field.dart';
 import '../controller/group_controller.dart';
 
-class UpdateGroupWidget {
-  /// * ----- Groupe info card
-  groupInfoCard({
-    required BuildContext context,
-    required TextEditingController groupTitle,
-    required TextEditingController groupDescription,
+class UpdateGroupInfoCard extends ConsumerWidget {
+  final TextEditingController groupTitle;
+  final TextEditingController groupDescription;
+  final ValueNotifier<File?> newGroupImage;
+  final ValueNotifier<String?> oldGroupImage;
+  final GlobalKey<FormState> formKey;
+
+  const UpdateGroupInfoCard({
+    required this.groupTitle,
+    required this.groupDescription,
+    required this.newGroupImage,
+    required this.oldGroupImage,
+    required this.formKey,
+    super.key,
+  });
+
+  _addPhotoButton({
     required ValueNotifier<File?> newGroupImage,
     required ValueNotifier<String?> oldGroupImage,
-    required GlobalKey<FormState> formKey,
-    required WidgetRef ref,
   }) {
+    return InkWell(
+      onTap: () async {
+        newGroupImage.value = await pickImage();
+      },
+      child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          color: ColorConfig.white,
+          borderRadius: BorderRadius.circular(10),
+          image: newGroupImage.value != null
+              //This will show selected image from file
+              ? DecorationImage(image: FileImage(newGroupImage.value!))
+              : oldGroupImage.value != null
+                  //this will show the image which uploaded before
+                  ? DecorationImage(image: NetworkImage(oldGroupImage.value!))
+                  : null,
+        ),
+        child: newGroupImage.value == null && oldGroupImage.value == null
+            ? Center(
+                child: SvgPicture.asset(
+                  'assets/svg/add_photo_icon.svg',
+                  height: 14,
+                ),
+              )
+            : null,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Form(
       key: formKey,
       child: Container(
@@ -62,22 +103,6 @@ class UpdateGroupWidget {
               ],
             ),
             const SizedBox(height: 10),
-            //Row(
-            //  children: [
-            //    _selectOptionButton(
-            //      onTap: () {},
-            //      icon: 'assets/svg/category_icon.svg',
-            //      title: 'category',
-            //    ),
-            //    const SizedBox(width: 10),
-            //    _selectOptionButton(
-            //      onTap: () {},
-            //      icon: 'assets/svg/currency_icon.svg',
-            //      title: 'currency',
-            //    ),
-            //  ],
-            //),
-            //const SizedBox(height: 10),
             TextFieldWidget(
               hintText: 'Description',
               fillColor: ColorConfig.white,
@@ -89,9 +114,13 @@ class UpdateGroupWidget {
       ),
     );
   }
+}
 
-  /// * ----- select friends card
-  addFriendsCard(BuildContext context) {
+class UpdateGroupAddFriendCard extends StatelessWidget {
+  const UpdateGroupAddFriendCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 30, 16, 0),
       child: Column(
@@ -136,26 +165,36 @@ class UpdateGroupWidget {
       ),
     );
   }
+}
 
-  /// * ----- submit button
-  createButton({
-    required WidgetRef ref,
-    required BuildContext context,
-    required ValueNotifier<File?> newGroupImage,
-    required TextEditingController groupTitle,
-    required TextEditingController groupDescription,
-    required GlobalKey<FormState> formKey,
-    required GroupModel groupModel,
-  }) {
+class UpgradeGroupCreateButton extends ConsumerWidget {
+  final ValueNotifier<File?> newGroupImage;
+  final TextEditingController groupTitle;
+  final TextEditingController groupDescription;
+  final GlobalKey<FormState> formKey;
+  final GroupModel groupModel;
+
+  const UpgradeGroupCreateButton({
+    required this.newGroupImage,
+    required this.groupTitle,
+    required this.groupDescription,
+    required this.groupModel,
+    required this.formKey,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: ButtonWidget(
-        isLoading: ref.watch(groupControllerProvider),
+        isLoading: ref.watch(groupNotifierProvider).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            ),
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            ref.read(groupControllerProvider.notifier).updateGroup(
-                  ref: ref,
-                  context: context,
+            ref.read(groupNotifierProvider.notifier).updateGroup(
                   image: newGroupImage,
                   groupTitle: groupTitle,
                   groupDescription: groupDescription,
@@ -165,41 +204,6 @@ class UpdateGroupWidget {
         },
         title: 'update',
         textColor: ColorConfig.secondary,
-      ),
-    );
-  }
-
-  /// * ----- add photo button
-  _addPhotoButton({
-    required ValueNotifier<File?> newGroupImage,
-    required ValueNotifier<String?> oldGroupImage,
-  }) {
-    return InkWell(
-      onTap: () async {
-        newGroupImage.value = await pickImage();
-      },
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          color: ColorConfig.white,
-          borderRadius: BorderRadius.circular(10),
-          image: newGroupImage.value != null
-              //This will show selected image from file
-              ? DecorationImage(image: FileImage(newGroupImage.value!))
-              : oldGroupImage.value != null
-                  //this will show the image which uploaded before
-                  ? DecorationImage(image: NetworkImage(oldGroupImage.value!))
-                  : null,
-        ),
-        child: newGroupImage.value == null && oldGroupImage.value == null
-            ? Center(
-                child: SvgPicture.asset(
-                  'assets/svg/add_photo_icon.svg',
-                  height: 14,
-                ),
-              )
-            : null,
       ),
     );
   }

@@ -129,13 +129,12 @@ class SignUpAction extends ConsumerWidget {
             child: ButtonWidget(
                 title: 'Sign Up',
                 isLoading: ref.watch(signUpNotifierProvider).maybeWhen(
-                      loading: (isGoogle) => true,
+                      loading: () => true,
                       orElse: () => false,
                     ),
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     await ref.read(signUpNotifierProvider.notifier).signUp(
-                          ref: ref,
                           userName: username.text,
                           email: email.text,
                           password: password.text,

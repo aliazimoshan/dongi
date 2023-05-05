@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'sign_up_controller.dart';
+part of 'group_controller.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$SignUpState {
+mixin _$GroupState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
@@ -43,42 +43,42 @@ mixin _$SignUpState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SignUpInitState value) init,
-    required TResult Function(SignUpLoadingState value) loading,
-    required TResult Function(SignUpLoadedState value) loaded,
-    required TResult Function(SignUpErrorState value) error,
+    required TResult Function(GroupInitState value) init,
+    required TResult Function(GroupLoadingState value) loading,
+    required TResult Function(GroupLoadedState value) loaded,
+    required TResult Function(GroupErrorState value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SignUpInitState value)? init,
-    TResult? Function(SignUpLoadingState value)? loading,
-    TResult? Function(SignUpLoadedState value)? loaded,
-    TResult? Function(SignUpErrorState value)? error,
+    TResult? Function(GroupInitState value)? init,
+    TResult? Function(GroupLoadingState value)? loading,
+    TResult? Function(GroupLoadedState value)? loaded,
+    TResult? Function(GroupErrorState value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SignUpInitState value)? init,
-    TResult Function(SignUpLoadingState value)? loading,
-    TResult Function(SignUpLoadedState value)? loaded,
-    TResult Function(SignUpErrorState value)? error,
+    TResult Function(GroupInitState value)? init,
+    TResult Function(GroupLoadingState value)? loading,
+    TResult Function(GroupLoadedState value)? loaded,
+    TResult Function(GroupErrorState value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SignUpStateCopyWith<$Res> {
-  factory $SignUpStateCopyWith(
-          SignUpState value, $Res Function(SignUpState) then) =
-      _$SignUpStateCopyWithImpl<$Res, SignUpState>;
+abstract class $GroupStateCopyWith<$Res> {
+  factory $GroupStateCopyWith(
+          GroupState value, $Res Function(GroupState) then) =
+      _$GroupStateCopyWithImpl<$Res, GroupState>;
 }
 
 /// @nodoc
-class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
-    implements $SignUpStateCopyWith<$Res> {
-  _$SignUpStateCopyWithImpl(this._value, this._then);
+class _$GroupStateCopyWithImpl<$Res, $Val extends GroupState>
+    implements $GroupStateCopyWith<$Res> {
+  _$GroupStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -87,35 +87,35 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
 }
 
 /// @nodoc
-abstract class _$$SignUpInitStateCopyWith<$Res> {
-  factory _$$SignUpInitStateCopyWith(
-          _$SignUpInitState value, $Res Function(_$SignUpInitState) then) =
-      __$$SignUpInitStateCopyWithImpl<$Res>;
+abstract class _$$GroupInitStateCopyWith<$Res> {
+  factory _$$GroupInitStateCopyWith(
+          _$GroupInitState value, $Res Function(_$GroupInitState) then) =
+      __$$GroupInitStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SignUpInitStateCopyWithImpl<$Res>
-    extends _$SignUpStateCopyWithImpl<$Res, _$SignUpInitState>
-    implements _$$SignUpInitStateCopyWith<$Res> {
-  __$$SignUpInitStateCopyWithImpl(
-      _$SignUpInitState _value, $Res Function(_$SignUpInitState) _then)
+class __$$GroupInitStateCopyWithImpl<$Res>
+    extends _$GroupStateCopyWithImpl<$Res, _$GroupInitState>
+    implements _$$GroupInitStateCopyWith<$Res> {
+  __$$GroupInitStateCopyWithImpl(
+      _$GroupInitState _value, $Res Function(_$GroupInitState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SignUpInitState implements SignUpInitState {
-  const _$SignUpInitState();
+class _$GroupInitState implements GroupInitState {
+  const _$GroupInitState();
 
   @override
   String toString() {
-    return 'SignUpState.init()';
+    return 'GroupState.init()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SignUpInitState);
+        (other.runtimeType == runtimeType && other is _$GroupInitState);
   }
 
   @override
@@ -161,10 +161,10 @@ class _$SignUpInitState implements SignUpInitState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SignUpInitState value) init,
-    required TResult Function(SignUpLoadingState value) loading,
-    required TResult Function(SignUpLoadedState value) loaded,
-    required TResult Function(SignUpErrorState value) error,
+    required TResult Function(GroupInitState value) init,
+    required TResult Function(GroupLoadingState value) loading,
+    required TResult Function(GroupLoadedState value) loaded,
+    required TResult Function(GroupErrorState value) error,
   }) {
     return init(this);
   }
@@ -172,10 +172,10 @@ class _$SignUpInitState implements SignUpInitState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SignUpInitState value)? init,
-    TResult? Function(SignUpLoadingState value)? loading,
-    TResult? Function(SignUpLoadedState value)? loaded,
-    TResult? Function(SignUpErrorState value)? error,
+    TResult? Function(GroupInitState value)? init,
+    TResult? Function(GroupLoadingState value)? loading,
+    TResult? Function(GroupLoadedState value)? loaded,
+    TResult? Function(GroupErrorState value)? error,
   }) {
     return init?.call(this);
   }
@@ -183,10 +183,10 @@ class _$SignUpInitState implements SignUpInitState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SignUpInitState value)? init,
-    TResult Function(SignUpLoadingState value)? loading,
-    TResult Function(SignUpLoadedState value)? loaded,
-    TResult Function(SignUpErrorState value)? error,
+    TResult Function(GroupInitState value)? init,
+    TResult Function(GroupLoadingState value)? loading,
+    TResult Function(GroupLoadedState value)? loaded,
+    TResult Function(GroupErrorState value)? error,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -196,40 +196,40 @@ class _$SignUpInitState implements SignUpInitState {
   }
 }
 
-abstract class SignUpInitState implements SignUpState {
-  const factory SignUpInitState() = _$SignUpInitState;
+abstract class GroupInitState implements GroupState {
+  const factory GroupInitState() = _$GroupInitState;
 }
 
 /// @nodoc
-abstract class _$$SignUpLoadingStateCopyWith<$Res> {
-  factory _$$SignUpLoadingStateCopyWith(_$SignUpLoadingState value,
-          $Res Function(_$SignUpLoadingState) then) =
-      __$$SignUpLoadingStateCopyWithImpl<$Res>;
+abstract class _$$GroupLoadingStateCopyWith<$Res> {
+  factory _$$GroupLoadingStateCopyWith(
+          _$GroupLoadingState value, $Res Function(_$GroupLoadingState) then) =
+      __$$GroupLoadingStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SignUpLoadingStateCopyWithImpl<$Res>
-    extends _$SignUpStateCopyWithImpl<$Res, _$SignUpLoadingState>
-    implements _$$SignUpLoadingStateCopyWith<$Res> {
-  __$$SignUpLoadingStateCopyWithImpl(
-      _$SignUpLoadingState _value, $Res Function(_$SignUpLoadingState) _then)
+class __$$GroupLoadingStateCopyWithImpl<$Res>
+    extends _$GroupStateCopyWithImpl<$Res, _$GroupLoadingState>
+    implements _$$GroupLoadingStateCopyWith<$Res> {
+  __$$GroupLoadingStateCopyWithImpl(
+      _$GroupLoadingState _value, $Res Function(_$GroupLoadingState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SignUpLoadingState implements SignUpLoadingState {
-  const _$SignUpLoadingState();
+class _$GroupLoadingState implements GroupLoadingState {
+  const _$GroupLoadingState();
 
   @override
   String toString() {
-    return 'SignUpState.loading()';
+    return 'GroupState.loading()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SignUpLoadingState);
+        (other.runtimeType == runtimeType && other is _$GroupLoadingState);
   }
 
   @override
@@ -275,10 +275,10 @@ class _$SignUpLoadingState implements SignUpLoadingState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SignUpInitState value) init,
-    required TResult Function(SignUpLoadingState value) loading,
-    required TResult Function(SignUpLoadedState value) loaded,
-    required TResult Function(SignUpErrorState value) error,
+    required TResult Function(GroupInitState value) init,
+    required TResult Function(GroupLoadingState value) loading,
+    required TResult Function(GroupLoadedState value) loaded,
+    required TResult Function(GroupErrorState value) error,
   }) {
     return loading(this);
   }
@@ -286,10 +286,10 @@ class _$SignUpLoadingState implements SignUpLoadingState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SignUpInitState value)? init,
-    TResult? Function(SignUpLoadingState value)? loading,
-    TResult? Function(SignUpLoadedState value)? loaded,
-    TResult? Function(SignUpErrorState value)? error,
+    TResult? Function(GroupInitState value)? init,
+    TResult? Function(GroupLoadingState value)? loading,
+    TResult? Function(GroupLoadedState value)? loaded,
+    TResult? Function(GroupErrorState value)? error,
   }) {
     return loading?.call(this);
   }
@@ -297,10 +297,10 @@ class _$SignUpLoadingState implements SignUpLoadingState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SignUpInitState value)? init,
-    TResult Function(SignUpLoadingState value)? loading,
-    TResult Function(SignUpLoadedState value)? loaded,
-    TResult Function(SignUpErrorState value)? error,
+    TResult Function(GroupInitState value)? init,
+    TResult Function(GroupLoadingState value)? loading,
+    TResult Function(GroupLoadedState value)? loaded,
+    TResult Function(GroupErrorState value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -310,40 +310,40 @@ class _$SignUpLoadingState implements SignUpLoadingState {
   }
 }
 
-abstract class SignUpLoadingState implements SignUpState {
-  const factory SignUpLoadingState() = _$SignUpLoadingState;
+abstract class GroupLoadingState implements GroupState {
+  const factory GroupLoadingState() = _$GroupLoadingState;
 }
 
 /// @nodoc
-abstract class _$$SignUpLoadedStateCopyWith<$Res> {
-  factory _$$SignUpLoadedStateCopyWith(
-          _$SignUpLoadedState value, $Res Function(_$SignUpLoadedState) then) =
-      __$$SignUpLoadedStateCopyWithImpl<$Res>;
+abstract class _$$GroupLoadedStateCopyWith<$Res> {
+  factory _$$GroupLoadedStateCopyWith(
+          _$GroupLoadedState value, $Res Function(_$GroupLoadedState) then) =
+      __$$GroupLoadedStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SignUpLoadedStateCopyWithImpl<$Res>
-    extends _$SignUpStateCopyWithImpl<$Res, _$SignUpLoadedState>
-    implements _$$SignUpLoadedStateCopyWith<$Res> {
-  __$$SignUpLoadedStateCopyWithImpl(
-      _$SignUpLoadedState _value, $Res Function(_$SignUpLoadedState) _then)
+class __$$GroupLoadedStateCopyWithImpl<$Res>
+    extends _$GroupStateCopyWithImpl<$Res, _$GroupLoadedState>
+    implements _$$GroupLoadedStateCopyWith<$Res> {
+  __$$GroupLoadedStateCopyWithImpl(
+      _$GroupLoadedState _value, $Res Function(_$GroupLoadedState) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SignUpLoadedState implements SignUpLoadedState {
-  const _$SignUpLoadedState();
+class _$GroupLoadedState implements GroupLoadedState {
+  const _$GroupLoadedState();
 
   @override
   String toString() {
-    return 'SignUpState.loaded()';
+    return 'GroupState.loaded()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SignUpLoadedState);
+        (other.runtimeType == runtimeType && other is _$GroupLoadedState);
   }
 
   @override
@@ -389,10 +389,10 @@ class _$SignUpLoadedState implements SignUpLoadedState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SignUpInitState value) init,
-    required TResult Function(SignUpLoadingState value) loading,
-    required TResult Function(SignUpLoadedState value) loaded,
-    required TResult Function(SignUpErrorState value) error,
+    required TResult Function(GroupInitState value) init,
+    required TResult Function(GroupLoadingState value) loading,
+    required TResult Function(GroupLoadedState value) loaded,
+    required TResult Function(GroupErrorState value) error,
   }) {
     return loaded(this);
   }
@@ -400,10 +400,10 @@ class _$SignUpLoadedState implements SignUpLoadedState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SignUpInitState value)? init,
-    TResult? Function(SignUpLoadingState value)? loading,
-    TResult? Function(SignUpLoadedState value)? loaded,
-    TResult? Function(SignUpErrorState value)? error,
+    TResult? Function(GroupInitState value)? init,
+    TResult? Function(GroupLoadingState value)? loading,
+    TResult? Function(GroupLoadedState value)? loaded,
+    TResult? Function(GroupErrorState value)? error,
   }) {
     return loaded?.call(this);
   }
@@ -411,10 +411,10 @@ class _$SignUpLoadedState implements SignUpLoadedState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SignUpInitState value)? init,
-    TResult Function(SignUpLoadingState value)? loading,
-    TResult Function(SignUpLoadedState value)? loaded,
-    TResult Function(SignUpErrorState value)? error,
+    TResult Function(GroupInitState value)? init,
+    TResult Function(GroupLoadingState value)? loading,
+    TResult Function(GroupLoadedState value)? loaded,
+    TResult Function(GroupErrorState value)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -424,25 +424,25 @@ class _$SignUpLoadedState implements SignUpLoadedState {
   }
 }
 
-abstract class SignUpLoadedState implements SignUpState {
-  const factory SignUpLoadedState() = _$SignUpLoadedState;
+abstract class GroupLoadedState implements GroupState {
+  const factory GroupLoadedState() = _$GroupLoadedState;
 }
 
 /// @nodoc
-abstract class _$$SignUpErrorStateCopyWith<$Res> {
-  factory _$$SignUpErrorStateCopyWith(
-          _$SignUpErrorState value, $Res Function(_$SignUpErrorState) then) =
-      __$$SignUpErrorStateCopyWithImpl<$Res>;
+abstract class _$$GroupErrorStateCopyWith<$Res> {
+  factory _$$GroupErrorStateCopyWith(
+          _$GroupErrorState value, $Res Function(_$GroupErrorState) then) =
+      __$$GroupErrorStateCopyWithImpl<$Res>;
   @useResult
   $Res call({String message});
 }
 
 /// @nodoc
-class __$$SignUpErrorStateCopyWithImpl<$Res>
-    extends _$SignUpStateCopyWithImpl<$Res, _$SignUpErrorState>
-    implements _$$SignUpErrorStateCopyWith<$Res> {
-  __$$SignUpErrorStateCopyWithImpl(
-      _$SignUpErrorState _value, $Res Function(_$SignUpErrorState) _then)
+class __$$GroupErrorStateCopyWithImpl<$Res>
+    extends _$GroupStateCopyWithImpl<$Res, _$GroupErrorState>
+    implements _$$GroupErrorStateCopyWith<$Res> {
+  __$$GroupErrorStateCopyWithImpl(
+      _$GroupErrorState _value, $Res Function(_$GroupErrorState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -450,7 +450,7 @@ class __$$SignUpErrorStateCopyWithImpl<$Res>
   $Res call({
     Object? message = null,
   }) {
-    return _then(_$SignUpErrorState(
+    return _then(_$GroupErrorState(
       null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -461,22 +461,22 @@ class __$$SignUpErrorStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SignUpErrorState implements SignUpErrorState {
-  const _$SignUpErrorState(this.message);
+class _$GroupErrorState implements GroupErrorState {
+  const _$GroupErrorState(this.message);
 
   @override
   final String message;
 
   @override
   String toString() {
-    return 'SignUpState.error(message: $message)';
+    return 'GroupState.error(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SignUpErrorState &&
+            other is _$GroupErrorState &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -486,8 +486,8 @@ class _$SignUpErrorState implements SignUpErrorState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SignUpErrorStateCopyWith<_$SignUpErrorState> get copyWith =>
-      __$$SignUpErrorStateCopyWithImpl<_$SignUpErrorState>(this, _$identity);
+  _$$GroupErrorStateCopyWith<_$GroupErrorState> get copyWith =>
+      __$$GroupErrorStateCopyWithImpl<_$GroupErrorState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -529,10 +529,10 @@ class _$SignUpErrorState implements SignUpErrorState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(SignUpInitState value) init,
-    required TResult Function(SignUpLoadingState value) loading,
-    required TResult Function(SignUpLoadedState value) loaded,
-    required TResult Function(SignUpErrorState value) error,
+    required TResult Function(GroupInitState value) init,
+    required TResult Function(GroupLoadingState value) loading,
+    required TResult Function(GroupLoadedState value) loaded,
+    required TResult Function(GroupErrorState value) error,
   }) {
     return error(this);
   }
@@ -540,10 +540,10 @@ class _$SignUpErrorState implements SignUpErrorState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SignUpInitState value)? init,
-    TResult? Function(SignUpLoadingState value)? loading,
-    TResult? Function(SignUpLoadedState value)? loaded,
-    TResult? Function(SignUpErrorState value)? error,
+    TResult? Function(GroupInitState value)? init,
+    TResult? Function(GroupLoadingState value)? loading,
+    TResult? Function(GroupLoadedState value)? loaded,
+    TResult? Function(GroupErrorState value)? error,
   }) {
     return error?.call(this);
   }
@@ -551,10 +551,10 @@ class _$SignUpErrorState implements SignUpErrorState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(SignUpInitState value)? init,
-    TResult Function(SignUpLoadingState value)? loading,
-    TResult Function(SignUpLoadedState value)? loaded,
-    TResult Function(SignUpErrorState value)? error,
+    TResult Function(GroupInitState value)? init,
+    TResult Function(GroupLoadingState value)? loading,
+    TResult Function(GroupLoadedState value)? loaded,
+    TResult Function(GroupErrorState value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -564,11 +564,11 @@ class _$SignUpErrorState implements SignUpErrorState {
   }
 }
 
-abstract class SignUpErrorState implements SignUpState {
-  const factory SignUpErrorState(final String message) = _$SignUpErrorState;
+abstract class GroupErrorState implements GroupState {
+  const factory GroupErrorState(final String message) = _$GroupErrorState;
 
   String get message;
   @JsonKey(ignore: true)
-  _$$SignUpErrorStateCopyWith<_$SignUpErrorState> get copyWith =>
+  _$$GroupErrorStateCopyWith<_$GroupErrorState> get copyWith =>
       throw _privateConstructorUsedError;
 }

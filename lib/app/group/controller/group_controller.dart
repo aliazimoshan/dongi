@@ -1,66 +1,69 @@
 import 'dart:io';
-import 'package:dongi/core/utils.dart';
-import 'package:dongi/models/group_model.dart';
-import 'package:dongi/services/auth_service.dart';
-import 'package:dongi/services/group_service.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../models/group_model.dart';
+import '../../../services/auth_service.dart';
+import '../../../services/group_service.dart';
 import '../../../services/storage_api.dart';
+part 'group_controller.freezed.dart';
 
-final groupControllerProvider = StateNotifierProvider<GroupNotifier, bool>(
+final groupNotifierProvider = StateNotifierProvider<GroupNotifier, GroupState>(
   (ref) {
     return GroupNotifier(
+      ref: ref,
       groupAPI: ref.watch(groupAPIProvider),
       storageAPI: ref.watch(storageAPIProvider),
-      ref: ref,
     );
   },
 );
 
+@freezed
+class GroupState with _$GroupState {
+  const factory GroupState.init() = GroupInitState;
+  const factory GroupState.loading() = GroupLoadingState;
+  const factory GroupState.loaded() = GroupLoadedState;
+  const factory GroupState.error(String message) = GroupErrorState;
+}
+
 final getGroupsProvider = FutureProvider((ref) {
-  final groupsController = ref.watch(groupControllerProvider.notifier);
+  final groupsController = ref.watch(groupNotifierProvider.notifier);
   return groupsController.getGroups();
 });
 
 final getGroupDetailProvider =
     FutureProvider.family.autoDispose((ref, String groupId) {
-  final groupsController = ref.watch(groupControllerProvider.notifier);
+  final groupsController = ref.watch(groupNotifierProvider.notifier);
   return groupsController.getGroupDetail(groupId);
 });
 
 final refreshGroupsProvider = FutureProvider((ref) {
-  final groupsController = ref.refresh(groupControllerProvider.notifier);
+  final groupsController = ref.refresh(groupNotifierProvider.notifier);
   return groupsController.getGroups();
 });
 
-class GroupNotifier extends StateNotifier<bool> {
-  final Ref _ref;
-  final GroupAPI _groupAPI;
-  final StorageAPI _storageAPI;
-
+class GroupNotifier extends StateNotifier<GroupState> {
   GroupNotifier({
-    required Ref ref,
-    required GroupAPI groupAPI,
-    required StorageAPI storageAPI,
-  })  : _ref = ref,
-        _groupAPI = groupAPI,
-        _storageAPI = storageAPI,
-        super(false);
+    required this.ref,
+    required this.groupAPI,
+    required this.storageAPI,
+  }) : super(const GroupState.init());
+
+  final Ref ref;
+  final GroupAPI groupAPI;
+  final StorageAPI storageAPI;
 
   Future<void> addGroup({
-    required BuildContext context,
-    required WidgetRef ref,
     required ValueNotifier<File?> image,
     required TextEditingController groupTitle,
     required TextEditingController groupDescription,
   }) async {
-    state = true;
+    state = const GroupState.loading();
     final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
     List<String> imageLinks = [];
     if (image.value != null) {
-      imageLinks = await _storageAPI.uploadImage([image.value!]);
+      imageLinks = await storageAPI.uploadImage([image.value!]);
     }
 
     GroupModel groupModel = GroupModel(
@@ -73,31 +76,24 @@ class GroupNotifier extends StateNotifier<bool> {
       totalBalance: 0,
     );
 
-    final res = await _groupAPI.addGroup(groupModel);
-    state = false;
-
-    res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) async {
-        context.pop();
-        ref.refresh(refreshGroupsProvider).value;
-      },
+    final res = await groupAPI.addGroup(groupModel);
+    state = res.fold(
+      (l) => GroupState.error(l.message),
+      (r) => const GroupState.loaded(),
     );
   }
 
   Future<void> updateGroup({
-    required BuildContext context,
-    required WidgetRef ref,
     required ValueNotifier<File?> image,
     required TextEditingController groupTitle,
     required TextEditingController groupDescription,
     required GroupModel groupModel,
   }) async {
-    state = true;
+    state = const GroupState.loading();
     //final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
     List<String> imageLinks = [];
     if (image.value != null) {
-      imageLinks = await _storageAPI.uploadImage([image.value!]);
+      imageLinks = await storageAPI.uploadImage([image.value!]);
     }
 
     GroupModel newGroupModel = GroupModel(
@@ -111,15 +107,10 @@ class GroupNotifier extends StateNotifier<bool> {
       totalBalance: 0,
     );
 
-    final res = await _groupAPI.updateGroup(newGroupModel);
-    state = false;
-
-    res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) async {
-        context.pop();
-        ref.refresh(refreshGroupsProvider).value;
-      },
+    final res = await groupAPI.updateGroup(newGroupModel);
+    state = res.fold(
+      (l) => GroupState.error(l.message),
+      (r) => const GroupState.loaded(),
     );
   }
 
@@ -128,34 +119,29 @@ class GroupNotifier extends StateNotifier<bool> {
     required WidgetRef ref,
     required GroupModel groupModel,
   }) async {
-    state = true;
+    state = const GroupState.loading();
     //remove group from server
-    final res = await _groupAPI.deleteGroup(groupModel.id!);
+    final res = await groupAPI.deleteGroup(groupModel.id!);
     //remove group image from storage
     if (groupModel.image != null) {
-      await _storageAPI.deleteImage(groupModel.image!);
+      await storageAPI.deleteImage(groupModel.image!);
     }
-    state = false;
-    res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) {
-        showSnackBar(context, "Successfully deleted");
-        //update list of group when back
-        //.value is for prevent dart warning (it will work without .value)
-        ref.refresh(refreshGroupsProvider).value;
-      },
+
+    state = res.fold(
+      (l) => GroupState.error(l.message),
+      (r) => const GroupState.loaded(),
     );
   }
 
   Future<List<GroupModel>> getGroups() async {
-    final user = await _ref.watch(authAPIProvider).currentUserAccount();
-    final groupList = await _groupAPI.getGroups(user!.$id);
+    final user = await ref.watch(authAPIProvider).currentUserAccount();
+    final groupList = await groupAPI.getGroups(user!.$id);
     return groupList.map((group) => GroupModel.fromJson(group.data)).toList();
   }
 
   Future<GroupModel> getGroupDetail(String groupId) async {
-    final user = await _ref.watch(authAPIProvider).currentUserAccount();
-    final group = await _groupAPI.getGroupDetail(user!.$id, groupId);
+    final user = await ref.watch(authAPIProvider).currentUserAccount();
+    final group = await groupAPI.getGroupDetail(user!.$id, groupId);
     return GroupModel.fromJson(group.data);
   }
 }
