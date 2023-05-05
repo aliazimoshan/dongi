@@ -26,12 +26,9 @@ mixin _$BoxUserModel {
   String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: '\$updatedAt')
   String? get updatedAt => throw _privateConstructorUsedError;
-  String get sendRequestUserId => throw _privateConstructorUsedError;
-  String get receiveRequestUserId => throw _privateConstructorUsedError;
-  String get sendRequestUserName => throw _privateConstructorUsedError;
-  String get receiveRequestUserName => throw _privateConstructorUsedError;
-  String? get sendRequestProfilePic => throw _privateConstructorUsedError;
-  String? get receiveRequestProfilePic => throw _privateConstructorUsedError;
+  UserModel get userId => throw _privateConstructorUsedError;
+  GroupModel get groupId => throw _privateConstructorUsedError;
+  BoxModel get boxId => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,13 +47,14 @@ abstract class $BoxUserModelCopyWith<$Res> {
       {@JsonKey(name: '\$id') String? id,
       @JsonKey(name: '\$createdAt') String? createdAt,
       @JsonKey(name: '\$updatedAt') String? updatedAt,
-      String sendRequestUserId,
-      String receiveRequestUserId,
-      String sendRequestUserName,
-      String receiveRequestUserName,
-      String? sendRequestProfilePic,
-      String? receiveRequestProfilePic,
+      UserModel userId,
+      GroupModel groupId,
+      BoxModel boxId,
       String status});
+
+  $UserModelCopyWith<$Res> get userId;
+  $GroupModelCopyWith<$Res> get groupId;
+  $BoxModelCopyWith<$Res> get boxId;
 }
 
 /// @nodoc
@@ -75,12 +73,9 @@ class _$BoxUserModelCopyWithImpl<$Res, $Val extends BoxUserModel>
     Object? id = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
-    Object? sendRequestUserId = null,
-    Object? receiveRequestUserId = null,
-    Object? sendRequestUserName = null,
-    Object? receiveRequestUserName = null,
-    Object? sendRequestProfilePic = freezed,
-    Object? receiveRequestProfilePic = freezed,
+    Object? userId = null,
+    Object? groupId = null,
+    Object? boxId = null,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -96,35 +91,47 @@ class _$BoxUserModelCopyWithImpl<$Res, $Val extends BoxUserModel>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      sendRequestUserId: null == sendRequestUserId
-          ? _value.sendRequestUserId
-          : sendRequestUserId // ignore: cast_nullable_to_non_nullable
-              as String,
-      receiveRequestUserId: null == receiveRequestUserId
-          ? _value.receiveRequestUserId
-          : receiveRequestUserId // ignore: cast_nullable_to_non_nullable
-              as String,
-      sendRequestUserName: null == sendRequestUserName
-          ? _value.sendRequestUserName
-          : sendRequestUserName // ignore: cast_nullable_to_non_nullable
-              as String,
-      receiveRequestUserName: null == receiveRequestUserName
-          ? _value.receiveRequestUserName
-          : receiveRequestUserName // ignore: cast_nullable_to_non_nullable
-              as String,
-      sendRequestProfilePic: freezed == sendRequestProfilePic
-          ? _value.sendRequestProfilePic
-          : sendRequestProfilePic // ignore: cast_nullable_to_non_nullable
-              as String?,
-      receiveRequestProfilePic: freezed == receiveRequestProfilePic
-          ? _value.receiveRequestProfilePic
-          : receiveRequestProfilePic // ignore: cast_nullable_to_non_nullable
-              as String?,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as UserModel,
+      groupId: null == groupId
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
+              as GroupModel,
+      boxId: null == boxId
+          ? _value.boxId
+          : boxId // ignore: cast_nullable_to_non_nullable
+              as BoxModel,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res> get userId {
+    return $UserModelCopyWith<$Res>(_value.userId, (value) {
+      return _then(_value.copyWith(userId: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $GroupModelCopyWith<$Res> get groupId {
+    return $GroupModelCopyWith<$Res>(_value.groupId, (value) {
+      return _then(_value.copyWith(groupId: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $BoxModelCopyWith<$Res> get boxId {
+    return $BoxModelCopyWith<$Res>(_value.boxId, (value) {
+      return _then(_value.copyWith(boxId: value) as $Val);
+    });
   }
 }
 
@@ -140,13 +147,17 @@ abstract class _$$_BoxUserModelCopyWith<$Res>
       {@JsonKey(name: '\$id') String? id,
       @JsonKey(name: '\$createdAt') String? createdAt,
       @JsonKey(name: '\$updatedAt') String? updatedAt,
-      String sendRequestUserId,
-      String receiveRequestUserId,
-      String sendRequestUserName,
-      String receiveRequestUserName,
-      String? sendRequestProfilePic,
-      String? receiveRequestProfilePic,
+      UserModel userId,
+      GroupModel groupId,
+      BoxModel boxId,
       String status});
+
+  @override
+  $UserModelCopyWith<$Res> get userId;
+  @override
+  $GroupModelCopyWith<$Res> get groupId;
+  @override
+  $BoxModelCopyWith<$Res> get boxId;
 }
 
 /// @nodoc
@@ -163,12 +174,9 @@ class __$$_BoxUserModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
-    Object? sendRequestUserId = null,
-    Object? receiveRequestUserId = null,
-    Object? sendRequestUserName = null,
-    Object? receiveRequestUserName = null,
-    Object? sendRequestProfilePic = freezed,
-    Object? receiveRequestProfilePic = freezed,
+    Object? userId = null,
+    Object? groupId = null,
+    Object? boxId = null,
     Object? status = null,
   }) {
     return _then(_$_BoxUserModel(
@@ -184,30 +192,18 @@ class __$$_BoxUserModelCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String?,
-      sendRequestUserId: null == sendRequestUserId
-          ? _value.sendRequestUserId
-          : sendRequestUserId // ignore: cast_nullable_to_non_nullable
-              as String,
-      receiveRequestUserId: null == receiveRequestUserId
-          ? _value.receiveRequestUserId
-          : receiveRequestUserId // ignore: cast_nullable_to_non_nullable
-              as String,
-      sendRequestUserName: null == sendRequestUserName
-          ? _value.sendRequestUserName
-          : sendRequestUserName // ignore: cast_nullable_to_non_nullable
-              as String,
-      receiveRequestUserName: null == receiveRequestUserName
-          ? _value.receiveRequestUserName
-          : receiveRequestUserName // ignore: cast_nullable_to_non_nullable
-              as String,
-      sendRequestProfilePic: freezed == sendRequestProfilePic
-          ? _value.sendRequestProfilePic
-          : sendRequestProfilePic // ignore: cast_nullable_to_non_nullable
-              as String?,
-      receiveRequestProfilePic: freezed == receiveRequestProfilePic
-          ? _value.receiveRequestProfilePic
-          : receiveRequestProfilePic // ignore: cast_nullable_to_non_nullable
-              as String?,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as UserModel,
+      groupId: null == groupId
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
+              as GroupModel,
+      boxId: null == boxId
+          ? _value.boxId
+          : boxId // ignore: cast_nullable_to_non_nullable
+              as BoxModel,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -223,12 +219,9 @@ class _$_BoxUserModel implements _BoxUserModel {
       {@JsonKey(name: '\$id') this.id,
       @JsonKey(name: '\$createdAt') this.createdAt,
       @JsonKey(name: '\$updatedAt') this.updatedAt,
-      required this.sendRequestUserId,
-      required this.receiveRequestUserId,
-      required this.sendRequestUserName,
-      required this.receiveRequestUserName,
-      this.sendRequestProfilePic,
-      this.receiveRequestProfilePic,
+      required this.userId,
+      required this.groupId,
+      required this.boxId,
       this.status = "accept"});
 
   factory _$_BoxUserModel.fromJson(Map<String, dynamic> json) =>
@@ -244,24 +237,18 @@ class _$_BoxUserModel implements _BoxUserModel {
   @JsonKey(name: '\$updatedAt')
   final String? updatedAt;
   @override
-  final String sendRequestUserId;
+  final UserModel userId;
   @override
-  final String receiveRequestUserId;
+  final GroupModel groupId;
   @override
-  final String sendRequestUserName;
-  @override
-  final String receiveRequestUserName;
-  @override
-  final String? sendRequestProfilePic;
-  @override
-  final String? receiveRequestProfilePic;
+  final BoxModel boxId;
   @override
   @JsonKey()
   final String status;
 
   @override
   String toString() {
-    return 'BoxUserModel(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, sendRequestUserId: $sendRequestUserId, receiveRequestUserId: $receiveRequestUserId, sendRequestUserName: $sendRequestUserName, receiveRequestUserName: $receiveRequestUserName, sendRequestProfilePic: $sendRequestProfilePic, receiveRequestProfilePic: $receiveRequestProfilePic, status: $status)';
+    return 'BoxUserModel(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, groupId: $groupId, boxId: $boxId, status: $status)';
   }
 
   @override
@@ -274,36 +261,16 @@ class _$_BoxUserModel implements _BoxUserModel {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.sendRequestUserId, sendRequestUserId) ||
-                other.sendRequestUserId == sendRequestUserId) &&
-            (identical(other.receiveRequestUserId, receiveRequestUserId) ||
-                other.receiveRequestUserId == receiveRequestUserId) &&
-            (identical(other.sendRequestUserName, sendRequestUserName) ||
-                other.sendRequestUserName == sendRequestUserName) &&
-            (identical(other.receiveRequestUserName, receiveRequestUserName) ||
-                other.receiveRequestUserName == receiveRequestUserName) &&
-            (identical(other.sendRequestProfilePic, sendRequestProfilePic) ||
-                other.sendRequestProfilePic == sendRequestProfilePic) &&
-            (identical(
-                    other.receiveRequestProfilePic, receiveRequestProfilePic) ||
-                other.receiveRequestProfilePic == receiveRequestProfilePic) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            (identical(other.boxId, boxId) || other.boxId == boxId) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      createdAt,
-      updatedAt,
-      sendRequestUserId,
-      receiveRequestUserId,
-      sendRequestUserName,
-      receiveRequestUserName,
-      sendRequestProfilePic,
-      receiveRequestProfilePic,
-      status);
+      runtimeType, id, createdAt, updatedAt, userId, groupId, boxId, status);
 
   @JsonKey(ignore: true)
   @override
@@ -324,12 +291,9 @@ abstract class _BoxUserModel implements BoxUserModel {
       {@JsonKey(name: '\$id') final String? id,
       @JsonKey(name: '\$createdAt') final String? createdAt,
       @JsonKey(name: '\$updatedAt') final String? updatedAt,
-      required final String sendRequestUserId,
-      required final String receiveRequestUserId,
-      required final String sendRequestUserName,
-      required final String receiveRequestUserName,
-      final String? sendRequestProfilePic,
-      final String? receiveRequestProfilePic,
+      required final UserModel userId,
+      required final GroupModel groupId,
+      required final BoxModel boxId,
       final String status}) = _$_BoxUserModel;
 
   factory _BoxUserModel.fromJson(Map<String, dynamic> json) =
@@ -345,17 +309,11 @@ abstract class _BoxUserModel implements BoxUserModel {
   @JsonKey(name: '\$updatedAt')
   String? get updatedAt;
   @override
-  String get sendRequestUserId;
+  UserModel get userId;
   @override
-  String get receiveRequestUserId;
+  GroupModel get groupId;
   @override
-  String get sendRequestUserName;
-  @override
-  String get receiveRequestUserName;
-  @override
-  String? get sendRequestProfilePic;
-  @override
-  String? get receiveRequestProfilePic;
+  BoxModel get boxId;
   @override
   String get status;
   @override
