@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:dongi/models/group_model.dart';
 import 'package:dongi/models/user_friend_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

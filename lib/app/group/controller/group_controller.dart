@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:appwrite/appwrite.dart';
 import 'package:dongi/core/utils.dart';
 import 'package:dongi/models/group_model.dart';
 import 'package:dongi/services/auth_service.dart';

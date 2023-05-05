@@ -11,7 +11,7 @@ import '../models/group_model.dart';
 final groupAPIProvider = Provider((ref) {
   return GroupAPI(
     db: ref.watch(appwriteDatabaseProvider),
-    functions: ref.watch(appwriteFunctionProvider),
+    //functions: ref.watch(appwriteFunctionProvider),
   );
 });
 
@@ -32,12 +32,12 @@ abstract class IGroupAPI {
 
 class GroupAPI implements IGroupAPI {
   final Databases _db;
-  final Functions _functions;
+  //final Functions _functions;
   GroupAPI({
     required Databases db,
-    required Functions functions,
-  })  : _db = db,
-        _functions = functions;
+    //required Functions functions,
+  }) : _db = db;
+  //_functions = functions;
 
   @override
   FutureEither<Document> addGroup(GroupModel groupModel) async {

@@ -4,10 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
-import '../../../constants/route_config.dart';
 import '../../../core/utils.dart';
 import '../../../router/router_notifier.dart';
-import '../auth_controller/sign_in_controller.dart';
+import '../controller/sign_in_controller.dart';
 import 'sign_in_widget.dart';
 
 class SignInPage extends HookConsumerWidget {

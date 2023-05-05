@@ -1,5 +1,3 @@
-import 'package:dongi/app/register/auth_controller/auth_controller.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -12,10 +10,14 @@ import '../../../core/validation.dart';
 import '../../../router/router_notifier.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/text_field/text_field.dart';
+import '../controller/sign_up_controller.dart';
 
-class SignUpWidget {
-  /// * ----- body
-  signupBody({required List<Widget> children}) {
+class SignUpBody extends StatelessWidget {
+  final List<Widget> children;
+  const SignUpBody({super.key, required this.children});
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.fromLTRB(50, 30, 50, 50),
@@ -34,9 +36,13 @@ class SignUpWidget {
       ),
     );
   }
+}
 
-  /// * ----- title
-  title() {
+class SignUpTitle extends StatelessWidget {
+  const SignUpTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,15 +58,23 @@ class SignUpWidget {
       ],
     );
   }
+}
 
-  /// * ----- form
-  form({
-    required TextEditingController username,
-    required TextEditingController email,
-    required TextEditingController password,
-    required GlobalKey<FormState> formKey,
-    required WidgetRef ref,
-  }) {
+class SignUpForm extends ConsumerWidget {
+  final TextEditingController username;
+  final TextEditingController email;
+  final TextEditingController password;
+  final GlobalKey<FormState> formKey;
+  const SignUpForm({
+    super.key,
+    required this.username,
+    required this.email,
+    required this.password,
+    required this.formKey,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Form(
       key: formKey,
       child: Column(
@@ -90,16 +104,23 @@ class SignUpWidget {
       ),
     );
   }
+}
 
-  /// * ----- action buttons
-  actionButton({
-    required BuildContext context,
-    required WidgetRef ref,
-    required TextEditingController username,
-    required TextEditingController email,
-    required TextEditingController password,
-    required GlobalKey<FormState> formKey,
-  }) {
+class SignUpAction extends ConsumerWidget {
+  final TextEditingController username;
+  final TextEditingController email;
+  final TextEditingController password;
+  final GlobalKey<FormState> formKey;
+  const SignUpAction({
+    required this.username,
+    required this.email,
+    required this.password,
+    required this.formKey,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Row(
@@ -107,11 +128,14 @@ class SignUpWidget {
           Expanded(
             child: ButtonWidget(
                 title: 'Sign Up',
-                isLoading: ref.watch(authControllerProvider),
-                onPressed: () {
+                isLoading: ref.watch(signUpNotifierProvider).maybeWhen(
+                      loading: (isGoogle) => true,
+                      orElse: () => false,
+                    ),
+                onPressed: () async {
                   if (formKey.currentState!.validate()) {
-                    ref.read(authControllerProvider.notifier).signUp(
-                          context: context,
+                    await ref.read(signUpNotifierProvider.notifier).signUp(
+                          ref: ref,
                           userName: username.text,
                           email: email.text,
                           password: password.text,
@@ -120,14 +144,36 @@ class SignUpWidget {
                 }),
           ),
           const SizedBox(width: 10),
-          _googleButton(),
+
+          //* Google Button
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                color: ColorConfig.primarySwatch,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: SvgPicture.asset(
+                  'assets/svg/google_icon.svg',
+                  color: ColorConfig.secondary,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
+}
 
-  /// * ----- changeActionButton
-  changeActionButton(BuildContext context) {
+class SignUpChangeAction extends ConsumerWidget {
+  const SignUpChangeAction({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -148,27 +194,6 @@ class SignUpWidget {
           ),
         ),
       ],
-    );
-  }
-
-  /// * ----- google button
-  _googleButton() {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        height: 50,
-        width: 50,
-        decoration: BoxDecoration(
-          color: ColorConfig.primarySwatch,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(
-          child: SvgPicture.asset(
-            'assets/svg/google_icon.svg',
-            color: ColorConfig.secondary,
-          ),
-        ),
-      ),
     );
   }
 }
