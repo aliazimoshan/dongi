@@ -1,14 +1,13 @@
 import 'package:appwrite/models.dart';
-import 'package:dongi/app/register/sign_in/sign_in_page.dart';
 
-import 'package:dongi/router/router_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/utils.dart';
 import '../../../models/user_model.dart';
+import '../../../router/router_notifier.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/user_service.dart';
+import '../sign_in/sign_in_page.dart';
 
 final authControllerProvider =
     StateNotifierProvider<AuthController, bool>((ref) {
@@ -63,82 +62,50 @@ class AuthController extends StateNotifier<bool> {
 
   Future<User?> currentUser() => _authAPI.currentUserAccount();
 
-  void signUp({
-    required BuildContext context,
-    required String email,
-    required String userName,
-    required String password,
-  }) async {
-    state = true;
-    final res = await _authAPI.signUp(
-      email: email,
-      password: password,
-    );
-    state = false;
-    res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) async {
-        UserModel userModel = UserModel(
-          email: email,
-          userName: userName,
-        );
-        final res2 = await _userAPI.saveUserData(userModel);
-        res2.fold(
-          (l) => showSnackBar(context, l.message),
-          (r) {
-            showSnackBar(context, 'Accounted created!!');
-            //context.go(RouteName.home);
-            signIn(email: email, password: password, context: context);
-          },
-        );
-      },
-    );
-  }
+  //void signIn({
+  //  required String email,
+  //  required String password,
+  //  required BuildContext context,
+  //}) async {
+  //  state = true;
+  //  final res = await _authAPI.signIn(
+  //    email: email,
+  //    password: password,
+  //  );
+  //  state = false;
+  //  res.fold(
+  //    (l) => showSnackBar(context, l.message),
+  //    (r) => context.go(RouteName.home),
+  //  );
+  //}
 
-  void signIn({
-    required String email,
-    required String password,
-    required BuildContext context,
-  }) async {
-    state = true;
-    final res = await _authAPI.signIn(
-      email: email,
-      password: password,
-    );
-    state = false;
-    res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) => context.go(RouteName.home),
-    );
-  }
+  //void signInWithGoogle({required BuildContext context}) async {
+  //  state = true;
+  //  final res = await _authAPI.signInWithGoogle();
+  //  state = false;
 
-  void signInWithGoogle({required BuildContext context}) async {
-    state = true;
-    final res = await _authAPI.signInWithGoogle();
-    state = false;
-
-    res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) async {
-        UserModel userModel = UserModel(
-          id: r.$id,
-          email: r.email,
-          userName: r.name,
-        );
-        //Todo | If the user has an account don't save  data just update it if needed
-        //and the snackbar should not pop up
-        final res2 = await _userAPI.saveUserData(userModel);
-        res2.fold(
-          (l) => showSnackBar(context, l.message),
-          (r) {
-            showSnackBar(context, 'Accounted created!!');
-            context.go(RouteName.home);
-            //signIn(email: email, password: password, context: context);
-          },
-        );
-      },
-    );
-  }
+  //  res.fold(
+  //    (l) => showSnackBar(context, l.message),
+  //    (r) async {
+  //      UserModel userModel = UserModel(
+  //        id: r.$id,
+  //        email: r.email,
+  //        userName: r.name,
+  //      );
+  //      //Todo | If the user has an account don't save  data just update it if needed
+  //      //and the snackbar should not pop up
+  //      final res2 = await _userAPI.saveUserData(userModel);
+  //      res2.fold(
+  //        (l) => showSnackBar(context, l.message),
+  //        (r) {
+  //          showSnackBar(context, 'Accounted created!!');
+  //          context.go(RouteName.home);
+  //          //signIn(email: email, password: password, context: context);
+  //        },
+  //      );
+  //    },
+  //  );
+  //}
 
   Future<UserModel> getUserData(String uid) async {
     final document = await _userAPI.getUserData(uid);

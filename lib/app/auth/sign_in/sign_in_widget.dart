@@ -1,4 +1,3 @@
-import 'package:dongi/app/register/auth_controller/sign_in_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +11,7 @@ import 'package:dongi/widgets/button/button.dart';
 import 'package:dongi/widgets/text_field/text_field.dart';
 
 import '../../../router/router_notifier.dart';
+import '../controller/sign_in_controller.dart';
 
 class SignInTitle extends StatelessWidget {
   const SignInTitle({super.key});
