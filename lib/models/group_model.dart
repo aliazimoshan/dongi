@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:dongi/models/box_model.dart';
 
 import 'group_user_model.dart';
