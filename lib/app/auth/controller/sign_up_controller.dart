@@ -1,5 +1,3 @@
-import 'package:dongi/core/utils.dart';
-import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,6 +11,7 @@ part 'sign_up_controller.freezed.dart';
 final signUpNotifierProvider =
     StateNotifierProvider<SignUpNotifier, SignUpState>((ref) {
   return SignUpNotifier(
+    ref: ref,
     authAPI: ref.watch(authAPIProvider),
     userAPI: ref.watch(userAPIProvider),
   );
@@ -28,15 +27,16 @@ class SignUpState with _$SignUpState {
 
 class SignUpNotifier extends StateNotifier<SignUpState> {
   SignUpNotifier({
+    required this.ref,
     required this.authAPI,
     required this.userAPI,
   }) : super(const SignUpState.init());
 
   final AuthAPI authAPI;
   final UserAPI userAPI;
+  final Ref ref;
 
   Future<SignUpState> signUp({
-    required WidgetRef ref,
     required String email,
     required String userName,
     required String password,

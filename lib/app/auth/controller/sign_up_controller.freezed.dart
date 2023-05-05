@@ -19,7 +19,7 @@ mixin _$SignUpState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(bool isGoogle) loading,
+    required TResult Function() loading,
     required TResult Function() loaded,
     required TResult Function(String message) error,
   }) =>
@@ -27,7 +27,7 @@ mixin _$SignUpState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(bool isGoogle)? loading,
+    TResult? Function()? loading,
     TResult? Function()? loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -35,7 +35,7 @@ mixin _$SignUpState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(bool isGoogle)? loading,
+    TResult Function()? loading,
     TResult Function()? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -125,7 +125,7 @@ class _$SignUpInitState implements SignUpInitState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(bool isGoogle) loading,
+    required TResult Function() loading,
     required TResult Function() loaded,
     required TResult Function(String message) error,
   }) {
@@ -136,7 +136,7 @@ class _$SignUpInitState implements SignUpInitState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(bool isGoogle)? loading,
+    TResult? Function()? loading,
     TResult? Function()? loaded,
     TResult? Function(String message)? error,
   }) {
@@ -147,7 +147,7 @@ class _$SignUpInitState implements SignUpInitState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(bool isGoogle)? loading,
+    TResult Function()? loading,
     TResult Function()? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -205,8 +205,6 @@ abstract class _$$SignUpLoadingStateCopyWith<$Res> {
   factory _$$SignUpLoadingStateCopyWith(_$SignUpLoadingState value,
           $Res Function(_$SignUpLoadingState) then) =
       __$$SignUpLoadingStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isGoogle});
 }
 
 /// @nodoc
@@ -216,87 +214,60 @@ class __$$SignUpLoadingStateCopyWithImpl<$Res>
   __$$SignUpLoadingStateCopyWithImpl(
       _$SignUpLoadingState _value, $Res Function(_$SignUpLoadingState) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isGoogle = null,
-  }) {
-    return _then(_$SignUpLoadingState(
-      isGoogle: null == isGoogle
-          ? _value.isGoogle
-          : isGoogle // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$SignUpLoadingState implements SignUpLoadingState {
-  const _$SignUpLoadingState({this.isGoogle = false});
-
-  @override
-  @JsonKey()
-  final bool isGoogle;
+  const _$SignUpLoadingState();
 
   @override
   String toString() {
-    return 'SignUpState.loading(isGoogle: $isGoogle)';
+    return 'SignUpState.loading()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SignUpLoadingState &&
-            (identical(other.isGoogle, isGoogle) ||
-                other.isGoogle == isGoogle));
+        (other.runtimeType == runtimeType && other is _$SignUpLoadingState);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isGoogle);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SignUpLoadingStateCopyWith<_$SignUpLoadingState> get copyWith =>
-      __$$SignUpLoadingStateCopyWithImpl<_$SignUpLoadingState>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(bool isGoogle) loading,
+    required TResult Function() loading,
     required TResult Function() loaded,
     required TResult Function(String message) error,
   }) {
-    return loading(isGoogle);
+    return loading();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(bool isGoogle)? loading,
+    TResult? Function()? loading,
     TResult? Function()? loaded,
     TResult? Function(String message)? error,
   }) {
-    return loading?.call(isGoogle);
+    return loading?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(bool isGoogle)? loading,
+    TResult Function()? loading,
     TResult Function()? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading(isGoogle);
+      return loading();
     }
     return orElse();
   }
@@ -340,13 +311,7 @@ class _$SignUpLoadingState implements SignUpLoadingState {
 }
 
 abstract class SignUpLoadingState implements SignUpState {
-  const factory SignUpLoadingState({final bool isGoogle}) =
-      _$SignUpLoadingState;
-
-  bool get isGoogle;
-  @JsonKey(ignore: true)
-  _$$SignUpLoadingStateCopyWith<_$SignUpLoadingState> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory SignUpLoadingState() = _$SignUpLoadingState;
 }
 
 /// @nodoc
@@ -388,7 +353,7 @@ class _$SignUpLoadedState implements SignUpLoadedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(bool isGoogle) loading,
+    required TResult Function() loading,
     required TResult Function() loaded,
     required TResult Function(String message) error,
   }) {
@@ -399,7 +364,7 @@ class _$SignUpLoadedState implements SignUpLoadedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(bool isGoogle)? loading,
+    TResult? Function()? loading,
     TResult? Function()? loaded,
     TResult? Function(String message)? error,
   }) {
@@ -410,7 +375,7 @@ class _$SignUpLoadedState implements SignUpLoadedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(bool isGoogle)? loading,
+    TResult Function()? loading,
     TResult Function()? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -528,7 +493,7 @@ class _$SignUpErrorState implements SignUpErrorState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function(bool isGoogle) loading,
+    required TResult Function() loading,
     required TResult Function() loaded,
     required TResult Function(String message) error,
   }) {
@@ -539,7 +504,7 @@ class _$SignUpErrorState implements SignUpErrorState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function(bool isGoogle)? loading,
+    TResult? Function()? loading,
     TResult? Function()? loaded,
     TResult? Function(String message)? error,
   }) {
@@ -550,7 +515,7 @@ class _$SignUpErrorState implements SignUpErrorState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function(bool isGoogle)? loading,
+    TResult Function()? loading,
     TResult Function()? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
