@@ -20,7 +20,8 @@ class BoxCardWidget extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         return PopupMenuButton<String>(
-          icon: const Icon(Icons.more_vert_outlined),
+          padding: EdgeInsets.zero,
+          child: const Icon(Icons.more_vert_outlined),
           itemBuilder: (BuildContext context) {
             return items
                 .map(
