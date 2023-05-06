@@ -38,11 +38,6 @@ final getGroupDetailProvider =
   return groupsController.getGroupDetail(groupId);
 });
 
-final refreshGroupsProvider = FutureProvider((ref) {
-  final groupsController = ref.refresh(groupNotifierProvider.notifier);
-  return groupsController.getGroups();
-});
-
 class GroupNotifier extends StateNotifier<GroupState> {
   GroupNotifier({
     required this.ref,
@@ -134,13 +129,13 @@ class GroupNotifier extends StateNotifier<GroupState> {
   }
 
   Future<List<GroupModel>> getGroups() async {
-    final user = await ref.watch(authAPIProvider).currentUserAccount();
+    final user = await ref.read(authAPIProvider).currentUserAccount();
     final groupList = await groupAPI.getGroups(user!.$id);
     return groupList.map((group) => GroupModel.fromJson(group.data)).toList();
   }
 
   Future<GroupModel> getGroupDetail(String groupId) async {
-    final user = await ref.watch(authAPIProvider).currentUserAccount();
+    final user = await ref.read(authAPIProvider).currentUserAccount();
     final group = await groupAPI.getGroupDetail(user!.$id, groupId);
     return GroupModel.fromJson(group.data);
   }
