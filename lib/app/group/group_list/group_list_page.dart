@@ -20,12 +20,7 @@ class GroupListPage extends ConsumerWidget {
       groupNotifierProvider,
       (previous, next) {
         next.whenOrNull(
-          loaded: () {
-            showSnackBar(context, "Successfully deleted");
-            //update list of group when back
-            //.value is for prevent dart warning (it will work without .value)
-            ref.refresh(refreshGroupsProvider).value;
-          },
+          loaded: () => ref.refresh(getGroupsProvider),
           error: (message) {
             showSnackBar(context, message);
           },
@@ -59,13 +54,13 @@ class GroupListPage extends ConsumerWidget {
         onPressed: () => context.push(RouteName.createGroup),
       ),
       body: groupList.when(
-        //skipLoadingOnRefresh: true,
+        skipLoadingOnRefresh: false,
         //skipLoadingOnReload: true,
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(child: Text(error.toString())),
         data: (data) => RefreshIndicator(
           child: GroupListView(groupModel: data),
-          onRefresh: () => ref.refresh(refreshGroupsProvider.future),
+          onRefresh: () async => ref.refresh(getGroupsProvider),
         ),
       ),
     );

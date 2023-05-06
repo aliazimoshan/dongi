@@ -27,8 +27,8 @@ class CreateGroupPage extends HookConsumerWidget {
       (previous, next) {
         next.whenOrNull(
           loaded: () {
+            showSnackBar(context, "Successfully Created!!");
             context.pop();
-            ref.refresh(refreshGroupsProvider).value;
           },
           error: (message) {
             showSnackBar(context, message);
