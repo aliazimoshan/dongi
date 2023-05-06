@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../core/utils.dart';
 import '../../../router/router_notifier.dart';
 import '../controller/group_controller.dart';
 
@@ -69,6 +70,7 @@ class GroupListCard extends ConsumerWidget {
           );
         } else {
           //Delete dropdown action
+          showSnackBar(context, "Successfully deleted");
           ref
               .read(groupNotifierProvider.notifier)
               .deleteGroup(context: context, ref: ref, groupModel: groupModel);

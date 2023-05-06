@@ -31,8 +31,9 @@ class UpdateGroupPage extends HookConsumerWidget {
       (previous, next) {
         next.whenOrNull(
           loaded: () {
+            showSnackBar(context, "Successfully updated!!");
             context.pop();
-            ref.refresh(refreshGroupsProvider).value;
+            //ref.refresh(refreshGroupsProvider).value;
           },
           error: (message) {
             showSnackBar(context, message);
