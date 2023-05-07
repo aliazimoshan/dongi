@@ -5,7 +5,7 @@ import '../../widgets/appbar/appbar.dart';
 import '../auth/controller/auth_controller.dart';
 import 'home_widget.dart';
 
-class HomePage extends ConsumerWidget with HomeWidget {
+class HomePage extends ConsumerWidget {
   HomePage({super.key});
 
   @override
@@ -15,18 +15,13 @@ class HomePage extends ConsumerWidget with HomeWidget {
       appBar: AppBarWidget(),
       body: ListView(
         children: [
-          //const SizedBox(height: 16),
-          InkWell(
-            onTap: () =>
-                ref.read(authControllerProvider.notifier).logout(context),
-            child: expenseSummery(),
-          ),
+          const HomeExpenseSummery(),
           const SizedBox(height: 30),
-          recentGroup(),
+          const HomeRecentGroup(),
           const SizedBox(height: 30),
-          weeklyAnalytic(context),
+          HomeWeeklyAnalytic(),
           const SizedBox(height: 30),
-          recentTransaction(context),
+          const HomeRecentTransaction(),
           const SizedBox(height: 30),
         ],
       ),

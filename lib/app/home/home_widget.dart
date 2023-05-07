@@ -1,33 +1,15 @@
 import 'package:dongi/constants/color_config.dart';
+import 'package:dongi/router/router_notifier.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
 import '../../constants/font_config.dart';
 import '../../constants/size_config.dart';
 import '../../widgets/card/card.dart';
 
-class HomeWidget {
-  Widget expenseSummery() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-      child: Row(
-        children: [
-          Expanded(child: _totalExpenseCard()),
-          Expanded(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Column(
-                children: [
-                  _incomeCard(),
-                  _outcomeCard(),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
+class HomeExpenseSummery extends ConsumerWidget {
+  const HomeExpenseSummery({super.key});
   _totalExpenseCard() {
     return AspectRatio(
       aspectRatio: 1,
@@ -115,14 +97,32 @@ class HomeWidget {
     );
   }
 
-  recentGroup() {
-    return Column(
-      children: [
-        _groupTitle(),
-        _groupCardLists(),
-      ],
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+      child: Row(
+        children: [
+          Expanded(child: _totalExpenseCard()),
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Column(
+                children: [
+                  _incomeCard(),
+                  _outcomeCard(),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
+}
+
+class HomeRecentGroup extends StatelessWidget {
+  const HomeRecentGroup({super.key});
 
   _groupTitle() {
     return Padding(
@@ -138,7 +138,7 @@ class HomeWidget {
     );
   }
 
-  _groupCardLists() {
+  _groupCardLists(BuildContext context) {
     return SizedBox(
       height: 172,
       child: ListView(
@@ -148,7 +148,7 @@ class HomeWidget {
           _groupCard(),
           _groupCard(),
           _groupCard(),
-          _moreCircle(),
+          _moreCircle(context),
         ],
       ),
     );
@@ -195,7 +195,7 @@ class HomeWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "members",
+            "Members",
             style: FontConfig.overline().copyWith(
               color: ColorConfig.midnight.withOpacity(0.5),
             ),
@@ -220,13 +220,13 @@ class HomeWidget {
                     ),
                     Positioned(
                       left: 40,
-                      child: circleBox(Colors.grey.shade400),
+                      child: circleBox(Colors.grey.shade600),
                     ),
                     Positioned(
                       left: 20,
-                      child: circleBox(Colors.grey.shade600),
+                      child: circleBox(Colors.grey.shade400),
                     ),
-                    circleBox(Colors.grey.shade500),
+                    circleBox(Colors.grey.shade300),
                   ],
                 ),
               ),
@@ -277,82 +277,100 @@ class HomeWidget {
     );
   }
 
-  _moreCircle() {
-    return Container(
-      width: 48,
-      height: 48,
-      margin: const EdgeInsets.fromLTRB(10, 0, 16, 0),
-      decoration: BoxDecoration(
-        color: ColorConfig.primarySwatch,
-        shape: BoxShape.circle,
-      ),
-      child: Icon(
-        Icons.arrow_forward_rounded,
-        color: ColorConfig.secondary,
+  _moreCircle(BuildContext context) {
+    return InkWell(
+      onTap: () => context.push(RouteName.groupList),
+      child: Container(
+        width: 48,
+        height: 48,
+        margin: const EdgeInsets.fromLTRB(10, 0, 16, 0),
+        decoration: BoxDecoration(
+          color: ColorConfig.primarySwatch,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          Icons.arrow_forward_rounded,
+          color: ColorConfig.secondary,
+        ),
       ),
     );
   }
 
-  weeklyAnalytic(context) {
-    final List<ChartData> chartData = <ChartData>[
-      ChartData(x: "SAT", y: 5),
-      ChartData(x: "SUN", y: 2),
-      ChartData(x: "MON", y: 8),
-      ChartData(x: "TUE", y: 4),
-      ChartData(x: "WEN", y: 7),
-      ChartData(x: "THU", y: 5),
-      ChartData(x: "FRI", y: 10),
-    ];
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _groupTitle(),
+        _groupCardLists(context),
+      ],
+    );
+  }
+}
 
-    chartWidget() {
-      return SfCartesianChart(
-        margin: const EdgeInsets.only(left: 32),
-        plotAreaBorderWidth: 0,
-        primaryYAxis: CategoryAxis(
-          //isVisible: false,
-          //labelStyle: const TextStyle(color: Colors.white),
-          axisLine: const AxisLine(width: 0),
-          //labelPosition: ChartDataLabelPosition.inside,
-          majorTickLines: const MajorTickLines(width: 0),
-          majorGridLines: const MajorGridLines(width: 1, dashArray: [10]),
-          opposedPosition: true,
-          maximum: 10,
-          interval: 5,
-          edgeLabelPlacement: EdgeLabelPlacement.hide,
-          axisLabelFormatter: (axisLabelRenderArgs) => ChartAxisLabel(
-            "\$${axisLabelRenderArgs.text}00",
-            FontConfig.overline(),
-          ),
-          //isVisible: false,
-        ),
-        primaryXAxis: CategoryAxis(
-          //labelStyle: const TextStyle(color: Colors.white),
-          axisLine: const AxisLine(width: 0),
-          //labelPosition: ChartDataLabelPosition.inside,
-          majorTickLines: const MajorTickLines(width: 0),
-          majorGridLines: const MajorGridLines(width: 0),
-        ),
-        series: <ChartSeries<ChartData, String>>[
-          ColumnSeries<ChartData, String>(
-            animationDuration: 1000,
-            dataSource: chartData,
-            xValueMapper: (ChartData data, _) => data.x,
-            yValueMapper: (ChartData data, _) => data.y,
-            name: 'Unit Sold',
-            borderRadius: BorderRadius.circular(50),
-            spacing: 0.5,
-            color: ColorConfig.primarySwatch25,
-          ),
-        ],
-        tooltipBehavior: TooltipBehavior(
-          enable: true,
-          canShowMarker: false,
-          format: 'point.x',
-          header: '',
-        ),
-      );
-    }
+class HomeWeeklyAnalytic extends StatelessWidget {
+  HomeWeeklyAnalytic({super.key});
 
+  final List<ChartData> chartData = <ChartData>[
+    ChartData(x: "SAT", y: 5),
+    ChartData(x: "SUN", y: 2),
+    ChartData(x: "MON", y: 8),
+    ChartData(x: "TUE", y: 4),
+    ChartData(x: "WEN", y: 7),
+    ChartData(x: "THU", y: 5),
+    ChartData(x: "FRI", y: 10),
+  ];
+
+  chartWidget() {
+    return SfCartesianChart(
+      margin: const EdgeInsets.only(left: 32),
+      plotAreaBorderWidth: 0,
+      primaryYAxis: CategoryAxis(
+        //isVisible: false,
+        //labelStyle: const TextStyle(color: Colors.white),
+        axisLine: const AxisLine(width: 0),
+        //labelPosition: ChartDataLabelPosition.inside,
+        majorTickLines: const MajorTickLines(width: 0),
+        majorGridLines: const MajorGridLines(width: 1, dashArray: [10]),
+        opposedPosition: true,
+        maximum: 10,
+        interval: 5,
+        edgeLabelPlacement: EdgeLabelPlacement.hide,
+        axisLabelFormatter: (axisLabelRenderArgs) => ChartAxisLabel(
+          "\$${axisLabelRenderArgs.text}00",
+          FontConfig.overline(),
+        ),
+        //isVisible: false,
+      ),
+      primaryXAxis: CategoryAxis(
+        //labelStyle: const TextStyle(color: Colors.white),
+        axisLine: const AxisLine(width: 0),
+        //labelPosition: ChartDataLabelPosition.inside,
+        majorTickLines: const MajorTickLines(width: 0),
+        majorGridLines: const MajorGridLines(width: 0),
+      ),
+      series: <ChartSeries<ChartData, String>>[
+        ColumnSeries<ChartData, String>(
+          animationDuration: 1000,
+          dataSource: chartData,
+          xValueMapper: (ChartData data, _) => data.x,
+          yValueMapper: (ChartData data, _) => data.y,
+          name: 'Unit Sold',
+          borderRadius: BorderRadius.circular(50),
+          spacing: 0.5,
+          color: ColorConfig.primarySwatch25,
+        ),
+      ],
+      tooltipBehavior: TooltipBehavior(
+        enable: true,
+        canShowMarker: false,
+        format: 'point.x',
+        header: '',
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -376,15 +394,10 @@ class HomeWidget {
       ],
     );
   }
+}
 
-  recentTransaction(context) {
-    return Column(
-      children: [
-        _recentTransactionsTitle(),
-        _recentTransactionsCardList(context),
-      ],
-    );
-  }
+class HomeRecentTransaction extends ConsumerWidget {
+  const HomeRecentTransaction({super.key});
 
   _recentTransactionsTitle() {
     return Padding(
@@ -477,6 +490,16 @@ class HomeWidget {
           ],
         ),
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
+      children: [
+        _recentTransactionsTitle(),
+        _recentTransactionsCardList(context),
+      ],
     );
   }
 }
