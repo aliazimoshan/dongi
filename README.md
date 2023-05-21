@@ -1,6 +1,6 @@
 # Dongi Expense Tracker
 
-Dongi is an expense tracker app that helps you organize your expenses, split expenses with family and friends, and even set reminders for certain expenses or gifts. With notifications and reminders, you'll never miss a payment or forget to split expenses again. Dongi is available on Android, iOS, and the web, and it's built using the Flutter framework.
+Dongi is a comprehensive financial management app built with Flutter. Keep track of your spending, split expenses with others, and set reminders to never miss a payment. Available on Android, iOS, and the web.
 
 ## Technologies Used
 
