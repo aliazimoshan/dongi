@@ -47,10 +47,16 @@ class UpdateGroupInfoCard extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10),
           image: newGroupImage.value != null
               //This will show selected image from file
-              ? DecorationImage(image: FileImage(newGroupImage.value!))
+              ? DecorationImage(
+                  image: FileImage(newGroupImage.value!),
+                  fit: BoxFit.cover,
+                )
               : oldGroupImage.value != null
                   //this will show the image which uploaded before
-                  ? DecorationImage(image: NetworkImage(oldGroupImage.value!))
+                  ? DecorationImage(
+                      image: NetworkImage(oldGroupImage.value!),
+                      fit: BoxFit.cover,
+                    )
                   : null,
         ),
         child: newGroupImage.value == null && oldGroupImage.value == null
