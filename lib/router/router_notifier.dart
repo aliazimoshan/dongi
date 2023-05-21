@@ -45,7 +45,7 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
     routes: [
       GoRoute(
         path: RouteName.home,
-        builder: (context, state) => HomePage(),
+        builder: (context, state) => const HomePage(),
       ),
       GoRoute(
         path: RouteName.signup,
@@ -61,7 +61,7 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
       ),
       GoRoute(
         path: RouteName.groupList,
-        builder: (context, state) => GroupListPage(),
+        builder: (context, state) => const GroupListPage(),
       ),
       GoRoute(
         path: RouteName.createGroup,
