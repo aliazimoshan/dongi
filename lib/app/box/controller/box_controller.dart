@@ -1,15 +1,15 @@
 import 'dart:io';
-import 'package:dongi/core/utils.dart';
-import 'package:dongi/models/box_model.dart';
-import 'package:dongi/services/auth_service.dart';
-import 'package:dongi/services/box_service.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../models/box_model.dart';
+import '../../../services/auth_service.dart';
+import '../../../services/box_service.dart';
 import '../../../services/storage_api.dart';
+part 'box_controller.freezed.dart';
 
-final boxControllerProvider = StateNotifierProvider<BoxNotifier, bool>(
+final boxNotifierProvider = StateNotifierProvider<BoxNotifier, BoxState>(
   (ref) {
     return BoxNotifier(
       boxAPI: ref.watch(boxAPIProvider),
@@ -19,36 +19,41 @@ final boxControllerProvider = StateNotifierProvider<BoxNotifier, bool>(
   },
 );
 
+@freezed
+class BoxState with _$BoxState {
+  const factory BoxState.init() = BoxInitState;
+  const factory BoxState.loading() = BoxLoadingState;
+  const factory BoxState.loaded() = BoxLoadedState;
+  const factory BoxState.error(String message) = BoxErrorState;
+}
+
 final getBoxesProvider = FutureProvider((ref) {
-  final boxesController = ref.watch(boxControllerProvider.notifier);
+  final boxesController = ref.watch(boxNotifierProvider.notifier);
   return boxesController.getBoxes();
 });
 
 final getBoxesInGroupProvider =
     FutureProvider.family.autoDispose((ref, String groupId) {
-  final boxesController = ref.watch(boxControllerProvider.notifier);
+  final boxesController = ref.watch(boxNotifierProvider.notifier);
   return boxesController.getBoxesInGroup(groupId);
 });
 
-final refreshBoxesProvider =
-    FutureProvider.family.autoDispose((ref, String groupId) {
-  final boxesController = ref.refresh(boxControllerProvider.notifier);
-  return boxesController.getBoxesInGroup(groupId);
-});
+//final refreshBoxesProvider =
+//    FutureProvider.family.autoDispose((ref, String groupId) {
+//  final boxesController = ref.refresh(boxNotifierProvider.notifier);
+//  return boxesController.getBoxesInGroup(groupId);
+//});
 
-class BoxNotifier extends StateNotifier<bool> {
-  final Ref _ref;
-  final BoxAPI _boxAPI;
-  final StorageAPI _storageAPI;
-
+class BoxNotifier extends StateNotifier<BoxState> {
   BoxNotifier({
-    required Ref ref,
-    required BoxAPI boxAPI,
-    required StorageAPI storageAPI,
-  })  : _ref = ref,
-        _boxAPI = boxAPI,
-        _storageAPI = storageAPI,
-        super(false);
+    required this.ref,
+    required this.boxAPI,
+    required this.storageAPI,
+  }) : super(const BoxState.init());
+
+  final Ref ref;
+  final BoxAPI boxAPI;
+  final StorageAPI storageAPI;
 
   Future<void> addBox({
     required BuildContext context,
@@ -58,11 +63,15 @@ class BoxNotifier extends StateNotifier<bool> {
     required TextEditingController boxDescription,
     required String groupId,
   }) async {
-    state = true;
+    state = const BoxState.loading();
     final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
     List<String> imageLinks = [];
     if (image.value != null) {
-      imageLinks = await _storageAPI.uploadImage([image.value!]);
+      final imageUploadRes = await storageAPI.uploadImage([image.value!]);
+      imageUploadRes.fold(
+        (l) => BoxState.error(l.message),
+        (r) => imageLinks = r,
+      );
     }
 
     BoxModel boxModel = BoxModel(
@@ -75,15 +84,11 @@ class BoxNotifier extends StateNotifier<bool> {
       total: 0,
     );
 
-    final res = await _boxAPI.addBox(boxModel);
-    state = false;
+    final res = await boxAPI.addBox(boxModel);
 
     res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) async {
-        context.pop();
-        ref.refresh(refreshBoxesProvider(groupId)).value;
-      },
+      (l) => BoxState.error(l.message),
+      (r) => const BoxState.loaded(),
     );
   }
 
@@ -95,11 +100,15 @@ class BoxNotifier extends StateNotifier<bool> {
     required TextEditingController boxDescription,
     required BoxModel boxModel,
   }) async {
-    state = true;
+    state = const BoxState.loading();
     //final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
     List<String> imageLinks = [];
     if (image.value != null) {
-      imageLinks = await _storageAPI.uploadImage([image.value!]);
+      final imageUploadRes = await storageAPI.uploadImage([image.value!]);
+      imageUploadRes.fold(
+        (l) => BoxState.error(l.message),
+        (r) => imageLinks = r,
+      );
     }
     BoxModel newBoxModel = BoxModel(
       id: boxModel.id,
@@ -110,15 +119,11 @@ class BoxNotifier extends StateNotifier<bool> {
       image: imageLinks.isNotEmpty ? imageLinks[0] : boxModel.image,
     );
 
-    final res = await _boxAPI.updateBox(newBoxModel);
-    state = false;
+    final res = await boxAPI.updateBox(newBoxModel);
 
     res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) async {
-        context.pop();
-        ref.refresh(refreshBoxesProvider(boxModel.groupId)).value;
-      },
+      (l) => BoxState.error(l.message),
+      (r) => const BoxState.loaded(),
     );
   }
 
@@ -127,39 +132,38 @@ class BoxNotifier extends StateNotifier<bool> {
     required WidgetRef ref,
     required BoxModel boxModel,
   }) async {
-    state = true;
+    state = const BoxState.loading();
     //remove box from server
-    final res = await _boxAPI.deleteBox(boxModel.id!);
+    final res = await boxAPI.deleteBox(boxModel.id!);
     //remove box image from storage
     if (boxModel.image != null) {
-      await _storageAPI.deleteImage(boxModel.image!);
+      final imageDeleteRes = await storageAPI.deleteImage(boxModel.image!);
+      imageDeleteRes.fold(
+        (l) => BoxState.error(l.message),
+        (r) => null,
+      );
     }
-    state = false;
+
     res.fold(
-      (l) => showSnackBar(context, l.message),
-      (r) {
-        showSnackBar(context, "Successfully deleted");
-        //update list of box when back
-        //.value is for prevent dart warning (it will work without .value)
-        ref.refresh(refreshBoxesProvider(boxModel.groupId)).value;
-      },
+      (l) => BoxState.error(l.message),
+      (r) => const BoxState.loaded(),
     );
   }
 
   Future<List<BoxModel>> getBoxes() async {
-    final user = await _ref.watch(authAPIProvider).currentUserAccount();
-    final boxList = await _boxAPI.getBoxes(user!.$id);
+    final user = await ref.watch(authAPIProvider).currentUserAccount();
+    final boxList = await boxAPI.getBoxes(user!.$id);
     return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }
 
   Future<List<BoxModel>> getBoxesInGroup(String groupId) async {
-    final boxList = await _boxAPI.getBoxesInGroup(groupId);
+    final boxList = await boxAPI.getBoxesInGroup(groupId);
     return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }
 
   Future<List<BoxModel>> getCurrentUserBoxes() async {
-    final user = await _ref.watch(authAPIProvider).currentUserAccount();
-    final boxList = await _boxAPI.getBoxesInGroup(user!.$id);
+    final user = await ref.watch(authAPIProvider).currentUserAccount();
+    final boxList = await boxAPI.getBoxesInGroup(user!.$id);
     return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }
 }

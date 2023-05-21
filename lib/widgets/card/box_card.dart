@@ -36,7 +36,7 @@ class BoxCardWidget extends StatelessWidget {
                         );
                       } else {
                         //  Delete dropdown action
-                        ref.read(boxControllerProvider.notifier).deleteBox(
+                        ref.read(boxNotifierProvider.notifier).deleteBox(
                               context: context,
                               ref: ref,
                               boxModel: boxModel,

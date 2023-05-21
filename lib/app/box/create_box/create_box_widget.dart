@@ -164,10 +164,13 @@ class CreateBoxWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: ButtonWidget(
-        isLoading: ref.watch(boxControllerProvider),
+        isLoading: ref.watch(boxNotifierProvider).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            ),
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            ref.read(boxControllerProvider.notifier).addBox(
+            ref.read(boxNotifierProvider.notifier).addBox(
                   ref: ref,
                   context: context,
                   image: image,
@@ -196,7 +199,10 @@ class CreateBoxWidget {
           color: ColorConfig.white,
           borderRadius: BorderRadius.circular(10),
           image: image.value != null
-              ? DecorationImage(image: FileImage(image.value!))
+              ? DecorationImage(
+                  image: FileImage(image.value!),
+                  fit: BoxFit.cover,
+                )
               : null,
         ),
         child: image.value == null

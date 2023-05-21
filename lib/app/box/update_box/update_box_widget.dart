@@ -169,10 +169,13 @@ class UpdateBoxWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 30),
       child: ButtonWidget(
-        isLoading: ref.watch(boxControllerProvider),
+        isLoading: ref.watch(boxNotifierProvider).maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            ),
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            ref.read(boxControllerProvider.notifier).updateBox(
+            ref.read(boxNotifierProvider.notifier).updateBox(
                   ref: ref,
                   context: context,
                   image: newBoxImage,
@@ -205,10 +208,16 @@ class UpdateBoxWidget {
           borderRadius: BorderRadius.circular(10),
           image: newGroupImage.value != null
               //This will show selected image from file
-              ? DecorationImage(image: FileImage(newGroupImage.value!))
+              ? DecorationImage(
+                  image: FileImage(newGroupImage.value!),
+                  fit: BoxFit.cover,
+                )
               : oldGroupImage.value != null
                   //this will show the image which uploaded before
-                  ? DecorationImage(image: NetworkImage(oldGroupImage.value!))
+                  ? DecorationImage(
+                      image: NetworkImage(oldGroupImage.value!),
+                      fit: BoxFit.cover,
+                    )
                   : null,
         ),
         child: newGroupImage.value == null && oldGroupImage.value == null
