@@ -58,7 +58,11 @@ class GroupNotifier extends StateNotifier<GroupState> {
     final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
     List<String> imageLinks = [];
     if (image.value != null) {
-      imageLinks = await storageAPI.uploadImage([image.value!]);
+      final imageUploadRes = await storageAPI.uploadImage([image.value!]);
+      imageUploadRes.fold(
+        (l) => GroupState.error(l.message),
+        (r) => imageLinks = r,
+      );
     }
 
     GroupModel groupModel = GroupModel(
@@ -88,7 +92,11 @@ class GroupNotifier extends StateNotifier<GroupState> {
     //final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
     List<String> imageLinks = [];
     if (image.value != null) {
-      imageLinks = await storageAPI.uploadImage([image.value!]);
+      final imageUploadRes = await storageAPI.uploadImage([image.value!]);
+      imageUploadRes.fold(
+        (l) => state = GroupState.error(l.message),
+        (r) => imageLinks = r,
+      );
     }
 
     GroupModel newGroupModel = GroupModel(
