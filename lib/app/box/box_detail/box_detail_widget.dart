@@ -143,8 +143,8 @@ class BoxDetailWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
-                itemBuilder: (context, i) => Row(
-                  children: const [
+                itemBuilder: (context, i) => const Row(
+                  children: [
                     CategoryCardWidget(
                       name: 'category name',
                       balance: '210,000',
@@ -177,8 +177,8 @@ class BoxDetailWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 5,
-            itemBuilder: (context, i) => Column(
-              children: const [
+            itemBuilder: (context, i) => const Column(
+              children: [
                 ListTileCard(
                   titleString: 'expense title',
                   trailing: Text("\$53"),

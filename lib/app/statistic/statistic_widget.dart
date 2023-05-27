@@ -137,8 +137,8 @@ class StatisticWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 6,
                 itemBuilder: (context, index) {
-                  return Row(
-                    children: const [
+                  return const Row(
+                    children: [
                       CategoryCardWidget(
                         name: 'category name',
                         balance: '\$ 210,000',
