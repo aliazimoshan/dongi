@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app/box/controller/box_controller.dart';
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
+import '../../core/utils.dart';
 import '../../router/router_notifier.dart';
 import 'card.dart';
 
@@ -36,11 +37,10 @@ class BoxCardWidget extends StatelessWidget {
                         );
                       } else {
                         //  Delete dropdown action
-                        ref.read(boxNotifierProvider.notifier).deleteBox(
-                              context: context,
-                              ref: ref,
-                              boxModel: boxModel,
-                            );
+                        showSnackBar(context, "Successfully deleted");
+                        ref
+                            .read(boxNotifierProvider.notifier)
+                            .deleteBox(boxModel);
                       }
                     },
                   ),
