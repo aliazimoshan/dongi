@@ -56,8 +56,6 @@ class BoxNotifier extends StateNotifier<BoxState> {
   final StorageAPI storageAPI;
 
   Future<void> addBox({
-    required BuildContext context,
-    required WidgetRef ref,
     required ValueNotifier<File?> image,
     required TextEditingController boxTitle,
     required TextEditingController boxDescription,
@@ -86,15 +84,13 @@ class BoxNotifier extends StateNotifier<BoxState> {
 
     final res = await boxAPI.addBox(boxModel);
 
-    res.fold(
+    state = res.fold(
       (l) => BoxState.error(l.message),
       (r) => const BoxState.loaded(),
     );
   }
 
   Future<void> updateBox({
-    required BuildContext context,
-    required WidgetRef ref,
     required ValueNotifier<File?> image,
     required TextEditingController boxTitle,
     required TextEditingController boxDescription,
@@ -121,17 +117,13 @@ class BoxNotifier extends StateNotifier<BoxState> {
 
     final res = await boxAPI.updateBox(newBoxModel);
 
-    res.fold(
+    state = res.fold(
       (l) => BoxState.error(l.message),
       (r) => const BoxState.loaded(),
     );
   }
 
-  Future<void> deleteBox({
-    required BuildContext context,
-    required WidgetRef ref,
-    required BoxModel boxModel,
-  }) async {
+  Future<void> deleteBox(BoxModel boxModel) async {
     state = const BoxState.loading();
     //remove box from server
     final res = await boxAPI.deleteBox(boxModel.id!);
@@ -144,7 +136,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
       );
     }
 
-    res.fold(
+    state = res.fold(
       (l) => BoxState.error(l.message),
       (r) => const BoxState.loaded(),
     );
