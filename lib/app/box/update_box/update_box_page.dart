@@ -8,7 +8,7 @@ import '../../../constants/color_config.dart';
 import '../../../widgets/appbar/appbar.dart';
 import 'update_box_widget.dart';
 
-class UpdateBoxPage extends HookConsumerWidget with UpdateBoxWidget {
+class UpdateBoxPage extends HookConsumerWidget {
   final BoxModel boxModel;
   UpdateBoxPage({super.key, required this.boxModel});
   final _formKey = GlobalKey<FormState>();
@@ -25,20 +25,16 @@ class UpdateBoxPage extends HookConsumerWidget with UpdateBoxWidget {
       appBar: AppBarWidget(title: "Update Box"),
       body: Column(
         children: [
-          boxInfoCard(
-            context: context,
+          UpdateBoxInfoCard(
             oldGroupImage: oldBoxImage,
             newGroupImage: newBoxImage,
             boxTitle: boxTitle,
             boxDescription: boxDescription,
             formKey: _formKey,
-            ref: ref,
           ),
-          selectFriendsCard(context),
+          const UpdateBoxSelectFriends(),
           const Spacer(),
-          createButton(
-            ref: ref,
-            context: context,
+          UpdateBoxButton(
             formKey: _formKey,
             newBoxImage: newBoxImage,
             boxTitle: boxTitle,
