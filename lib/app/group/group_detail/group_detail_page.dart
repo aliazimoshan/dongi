@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
+import '../../../core/utils.dart';
 import '../../../router/router_notifier.dart';
 import '../../../widgets/loading/loading.dart';
 import '../../box/controller/box_controller.dart';
@@ -20,6 +21,27 @@ class GroupDetailPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final groupDetail = ref.watch(getGroupDetailProvider(groupId));
     final boxesInGroup = ref.watch(getBoxesInGroupProvider(groupId));
+
+    /// by using listen we are not gonna rebuild our app
+    ref.listen<GroupState>(
+      groupNotifierProvider,
+      (previous, next) {
+        next.whenOrNull(
+          loaded: () => ref.refresh(getGroupsProvider),
+          error: (message) => showSnackBar(context, message),
+        );
+      },
+    );
+
+    ref.listen<BoxState>(
+      boxNotifierProvider,
+      (previous, next) {
+        next.whenOrNull(
+          loaded: () => ref.refresh(getBoxesInGroupProvider(groupId)),
+          error: (message) => showSnackBar(context, message),
+        );
+      },
+    );
 
     return groupDetail.when(
       loading: () => const LoadingWidget(),
