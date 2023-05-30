@@ -5,7 +5,7 @@ import '../../../constants/color_config.dart';
 import '../../../widgets/appbar/appbar.dart';
 import './friends_list_screen.dart';
 
-class FriendsListPage extends ConsumerWidget with FriendsListWidget {
+class FriendsListPage extends ConsumerWidget {
   const FriendsListPage({super.key});
 
   @override
@@ -13,7 +13,7 @@ class FriendsListPage extends ConsumerWidget with FriendsListWidget {
     return Scaffold(
       backgroundColor: ColorConfig.white,
       appBar: AppBarWidget(title: 'Friends List'),
-      body: friendsList(),
+      body: const FriendList(),
     );
   }
 }

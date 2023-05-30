@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
 import '../../../widgets/list_tile/list_tile_card.dart';
 
-class FriendsListWidget {
-  friendsList() {
+class FriendList extends ConsumerWidget {
+  const FriendList({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: 20,
