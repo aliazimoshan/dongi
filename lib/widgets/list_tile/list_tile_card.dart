@@ -41,5 +41,6 @@ class ListTileCard extends CardWidget {
           leading: leading,
           onTap: onTap,
           visualDensity: visualDensity,
+          contentPadding: const EdgeInsets.all(10),
         );
 }
