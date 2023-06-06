@@ -1,3 +1,5 @@
+import 'package:dongi/app/box/box_detail/box_detail_page.dart';
+import 'package:dongi/app/friends/friends_list/friends_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -36,6 +38,8 @@ class RouteName {
   static String updateBox = '/box/update';
   static String groupDetail(String? groupId) =>
       '/group/${groupId ?? ":groupId"}';
+  static String boxDetail(String? boxId) => '/box/${boxId ?? ":boxId"}';
+  static String friendList = '/friend/list';
 }
 
 GoRouter _goRouterConfig(StateProviderRef ref) {
@@ -68,6 +72,10 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
         builder: (context, state) => CreateGroupPage(),
       ),
       GoRoute(
+        path: RouteName.friendList,
+        builder: (context, state) => const FriendsListPage(),
+      ),
+      GoRoute(
         path: RouteName.createBox,
         builder: (context, state) {
           String groupId = state.extra as String;
@@ -86,6 +94,13 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
         builder: (context, state) {
           BoxModel boxModel = state.extra as BoxModel;
           return UpdateBoxPage(boxModel: boxModel);
+        },
+      ),
+      GoRoute(
+        path: RouteName.boxDetail(null),
+        builder: (context, state) {
+          String boxId = state.params['boxId']!;
+          return BoxDetailPage(boxId);
         },
       ),
       GoRoute(
