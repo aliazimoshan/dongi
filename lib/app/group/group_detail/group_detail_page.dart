@@ -50,6 +50,7 @@ class GroupDetailPage extends ConsumerWidget {
         backgroundColor: ColorConfig.primarySwatch,
         //appBar: AppBar(elevation: 0),
         body: SliverAppBarWidget(
+          collapsedHeight: 90,
           height: 200,
           appbarTitle: GroupDetailTitle(groupName: data.title),
           image: data.image,

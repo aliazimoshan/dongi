@@ -6,17 +6,20 @@ class SliverAppBarWidget extends NestedScrollView {
   final Widget appbarTitle;
   final Widget child;
   final double? height;
+  final double? collapsedHeight;
   final String? image;
   SliverAppBarWidget({
     required this.appbarTitle,
     required this.child,
     this.height,
+    this.collapsedHeight,
     this.image,
     super.key,
   }) : super(
           headerSliverBuilder: headerSliverBuilder(
             appbarTitle: appbarTitle,
             height: height,
+            collapsedHeight: collapsedHeight,
             image: image,
           ),
           body: sliverAppBarBody(child: child),
@@ -27,6 +30,7 @@ class SliverAppBarWidget extends NestedScrollView {
 NestedScrollViewHeaderSliversBuilder headerSliverBuilder({
   required Widget appbarTitle,
   double? height,
+  double? collapsedHeight,
   String? image,
 }) {
   return (BuildContext context, bool innerBoxIsScrolled) {
@@ -35,6 +39,7 @@ NestedScrollViewHeaderSliversBuilder headerSliverBuilder({
         context: context,
         appbarTitle: appbarTitle,
         height: height,
+        collapsedHeight: collapsedHeight,
         image: image,
       ),
     ];
@@ -46,6 +51,7 @@ SliverAppBar sliverAppBarTitle({
   required BuildContext context,
   required Widget appbarTitle,
   double? height,
+  double? collapsedHeight,
   String? image,
 }) {
   return SliverAppBar(
@@ -53,7 +59,7 @@ SliverAppBar sliverAppBarTitle({
     centerTitle: false,
     pinned: false,
     floating: true,
-    collapsedHeight: 90,
+    collapsedHeight: collapsedHeight,
     elevation: 0,
     flexibleSpace: Stack(
       children: [
