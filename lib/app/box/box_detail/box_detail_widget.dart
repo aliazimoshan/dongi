@@ -1,57 +1,63 @@
 import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
 import '../../../widgets/card/category_card.dart';
 import '../../../widgets/friends/friend.dart';
 
-class BoxDetailWidget {
-  /// * ----- total expense
-  totalExpense() {
-    return Expanded(
-      flex: 1,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(bottom: 10),
-            alignment: Alignment.bottomLeft,
-            child: Row(
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: ColorConfig.baseGrey,
-                    borderRadius: BorderRadius.circular(5),
+class TotalExpenseBoxDetail extends ConsumerWidget {
+  const TotalExpenseBoxDetail({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          padding: const EdgeInsets.only(bottom: 20),
+          alignment: Alignment.bottomLeft,
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: ColorConfig.baseGrey,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'total expense',
+                    style: FontConfig.body2()
+                        .copyWith(color: ColorConfig.pureWhite),
                   ),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'total expense',
-                      style: FontConfig.body2()
-                          .copyWith(color: ColorConfig.pureWhite),
-                    ),
-                    Text(
-                      '\$7,540.00',
-                      style: FontConfig.h5()
-                          .copyWith(color: ColorConfig.pureWhite),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  Text(
+                    '\$7,540.00',
+                    style:
+                        FontConfig.h6().copyWith(color: ColorConfig.pureWhite),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
+}
 
-  boxReviewBody({required List<Widget> children}) {
+class ReviewBodyBoxDetail extends ConsumerWidget {
+  final List<Widget> children;
+  const ReviewBodyBoxDetail(this.children, {super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       flex: 3,
       child: Container(
@@ -72,22 +78,25 @@ class BoxDetailWidget {
       ),
     );
   }
+}
 
-  /// * ----- friends list
-  friendsList() {
-    friendItem() {
-      return Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: Column(
-          children: [
-            FriendWidget(),
-            const SizedBox(height: 5),
-            Text("data", style: FontConfig.overline()),
-          ],
-        ),
-      );
-    }
+class FriendListBoxDetail extends ConsumerWidget {
+  const FriendListBoxDetail({super.key});
+  friendItem() {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Column(
+        children: [
+          FriendWidget(),
+          const SizedBox(height: 5),
+          Text("data", style: FontConfig.overline()),
+        ],
+      ),
+    );
+  }
 
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -119,9 +128,13 @@ class BoxDetailWidget {
       ],
     );
   }
+}
 
-  /// * ----- friends list
-  categoriesList() {
+class CategoryListBoxDetail extends ConsumerWidget {
+  const CategoryListBoxDetail({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -160,9 +173,13 @@ class BoxDetailWidget {
       ],
     );
   }
+}
 
-  /// * ----- expenses list
-  expensesList() {
+class ExpenseListBoxDetail extends ConsumerWidget {
+  const ExpenseListBoxDetail({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 25, 16, 25),
       child: Column(
