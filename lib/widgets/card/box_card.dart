@@ -54,72 +54,99 @@ class BoxCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CardWidget(
-      padding: EdgeInsets.zero,
-      margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SizedBox(
-          width: 150,
-          height: 150,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: ColorConfig.darkGrey,
-                      shape: BoxShape.circle,
-                      image: box.image != null
-                          ? DecorationImage(image: NetworkImage(box.image!))
-                          : null,
+    return InkWell(
+      onTap: () => context.push(RouteName.boxDetail(box.id)),
+      child: CardWidget(
+        padding: EdgeInsets.zero,
+        margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SizedBox(
+            width: 150,
+            height: 150,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: ColorConfig.darkGrey,
+                        shape: BoxShape.circle,
+                        image: box.image != null
+                            ? DecorationImage(
+                                image: NetworkImage(box.image!),
+                                fit: BoxFit.cover,
+                              )
+                            : null,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5),
-                  Expanded(
-                    child: Text(
-                      box.title,
-                      style: FontConfig.body2(),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    const SizedBox(width: 5),
+                    Expanded(
+                      child: Text(
+                        box.title,
+                        style: FontConfig.body1(),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
+                    _popupButton(box)
+                  ],
+                ),
+                const Spacer(flex: 3),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            "Total bill",
+                            style: FontConfig.caption(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            '\$${box.total}',
+                            style: FontConfig.body2()
+                                .copyWith(fontWeight: FontWeight.w600),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Split to",
+                            style: FontConfig.caption(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            box.boxUser.length.toString(),
+                            style: FontConfig.body2()
+                                .copyWith(fontWeight: FontWeight.w600),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                  _popupButton(box)
-                ],
-              ),
-              const Spacer(),
-              Text(
-                "Total bill",
-                style: FontConfig.overline(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 2),
-              Text(
-                '\$${box.total}',
-                style: FontConfig.body2().copyWith(fontWeight: FontWeight.w600),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const Spacer(),
-              Text(
-                "Split to",
-                style: FontConfig.overline(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 2),
-              Text(
-                box.boxUser.length.toString(),
-                style: FontConfig.body2().copyWith(fontWeight: FontWeight.w600),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const Spacer(),
-            ],
+                ),
+                const Spacer(),
+
+                //const Spacer(),
+                // const Spacer(),
+              ],
+            ),
           ),
         ),
       ),
