@@ -1,3 +1,4 @@
+import 'package:dongi/models/box_user_model.dart';
 import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -81,15 +82,37 @@ class ReviewBodyBoxDetail extends ConsumerWidget {
 }
 
 class FriendListBoxDetail extends ConsumerWidget {
-  const FriendListBoxDetail({super.key});
-  friendItem() {
+  final List<BoxUserModel> users;
+  const FriendListBoxDetail({required this.users, super.key});
+
+  friendItem(BoxUserModel user) {
     return Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Column(
         children: [
-          FriendWidget(),
+          FriendWidget(image: user.userId.profilePic),
           const SizedBox(height: 5),
-          Text("data", style: FontConfig.overline()),
+          Text(user.userId.userName, style: FontConfig.overline()),
+        ],
+      ),
+    );
+  }
+
+  addFriendCard() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+      child: Column(
+        children: [
+          FriendWidget.add(),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Text(
+                "Add",
+                style: FontConfig.caption(),
+              )
+            ],
+          )
         ],
       ),
     );
@@ -112,15 +135,16 @@ class FriendListBoxDetail extends ConsumerWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              const SizedBox(width: 16),
+              const SizedBox(width: 11),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (context, i) => friendItem(),
+                itemCount: users.length,
+                itemBuilder: (context, index) => friendItem(users[index]),
               ),
-              const SizedBox(width: 6),
+              //const SizedBox(width: 6),
+              addFriendCard(),
             ],
           ),
         ),
@@ -191,6 +215,7 @@ class ExpenseListBoxDetail extends ConsumerWidget {
           ),
           const SizedBox(height: 10),
           ListView.builder(
+            padding: const EdgeInsets.only(top: 10),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 5,
@@ -199,6 +224,7 @@ class ExpenseListBoxDetail extends ConsumerWidget {
                 ListTileCard(
                   titleString: 'expense title',
                   trailing: Text("\$53"),
+                  visualDensity: VisualDensity(vertical: -2),
                   //subtitleString: "subtitle",
                   //headerString: "header",
                 ),
