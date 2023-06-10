@@ -38,6 +38,12 @@ final getBoxesInGroupProvider =
   return boxesController.getBoxesInGroup(groupId);
 });
 
+final getBoxDetailProvider =
+    FutureProvider.family.autoDispose((ref, String boxId) {
+  final boxesController = ref.watch(boxNotifierProvider.notifier);
+  return boxesController.getBoxDetail(boxId);
+});
+
 //final refreshBoxesProvider =
 //    FutureProvider.family.autoDispose((ref, String groupId) {
 //  final boxesController = ref.refresh(boxNotifierProvider.notifier);
@@ -151,6 +157,11 @@ class BoxNotifier extends StateNotifier<BoxState> {
   Future<List<BoxModel>> getBoxesInGroup(String groupId) async {
     final boxList = await boxAPI.getBoxesInGroup(groupId);
     return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
+  }
+
+  Future<BoxModel> getBoxDetail(String boxId) async {
+    final box = await boxAPI.getBoxDetail(boxId);
+    return BoxModel.fromJson(box.data);
   }
 
   Future<List<BoxModel>> getCurrentUserBoxes() async {
