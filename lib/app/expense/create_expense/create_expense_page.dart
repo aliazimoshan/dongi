@@ -1,4 +1,5 @@
 import 'package:dongi/constants/color_config.dart';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../widgets/appbar/appbar.dart';
@@ -6,8 +7,14 @@ import '../../../widgets/card/card.dart';
 import '../../../widgets/text_field/text_field.dart';
 import 'create_expense_widget.dart';
 
-class CreateExpensePage extends ConsumerWidget with CreateExpenseWidget {
-  const CreateExpensePage({super.key});
+class CreateExpensePage extends ConsumerWidget {
+  final String boxId;
+  final String groupId;
+  const CreateExpensePage({
+    super.key,
+    required this.boxId,
+    required this.groupId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,40 +31,31 @@ class CreateExpensePage extends ConsumerWidget with CreateExpenseWidget {
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
-                        amountRow(),
+                        const CreateExpenseAmount(),
                         const SizedBox(height: 10),
                         TextFieldWidget(
                           hintText: "Title",
                           fillColor: ColorConfig.white,
                         ),
                         const SizedBox(height: 10),
-                        Row(
+                        const Row(
                           children: [
-                            categoryCard(),
-                            const SizedBox(width: 10),
-                            dateCard(),
+                            CreateExpenseCategory(),
+                            SizedBox(width: 10),
+                            CreateExpenseDate()
                           ],
                         )
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
-                  CardWidget(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        madeByButton(),
-                        const SizedBox(height: 10),
-                        splitBetweenButton(),
-                      ],
-                    ),
-                  ),
+                  const CreateExpenseAction(),
                   const SizedBox(height: 20),
-                  descriptionCard(),
+                  const CreateExpenseDescription(),
                 ],
               ),
             ),
-            createButton(),
+            const CreateExpenseCreateButton()
           ],
         ),
       ),

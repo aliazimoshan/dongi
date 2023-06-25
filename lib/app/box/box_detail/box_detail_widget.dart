@@ -9,7 +9,8 @@ import '../../../widgets/card/category_card.dart';
 import '../../../widgets/friends/friend.dart';
 
 class TotalExpenseBoxDetail extends ConsumerWidget {
-  const TotalExpenseBoxDetail({super.key});
+  final num total;
+  const TotalExpenseBoxDetail(this.total, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,7 +40,7 @@ class TotalExpenseBoxDetail extends ConsumerWidget {
                         .copyWith(color: ColorConfig.pureWhite),
                   ),
                   Text(
-                    '\$7,540.00',
+                    '\$$total',
                     style:
                         FontConfig.h6().copyWith(color: ColorConfig.pureWhite),
                   ),

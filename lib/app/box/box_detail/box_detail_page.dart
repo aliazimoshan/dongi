@@ -1,8 +1,10 @@
 import 'package:dongi/widgets/appbar/sliver_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
+import '../../../router/router_notifier.dart';
 import '../../../widgets/error/error.dart';
 import '../../../widgets/floating_action_button/floating_action_button.dart';
 import '../../../widgets/loading/loading.dart';
@@ -11,7 +13,12 @@ import './box_detail_widget.dart';
 
 class BoxDetailPage extends ConsumerWidget {
   final String boxId;
-  const BoxDetailPage(this.boxId, {super.key});
+  final String groupId;
+  const BoxDetailPage({
+    super.key,
+    required this.boxId,
+    required this.groupId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,13 +35,14 @@ class BoxDetailPage extends ConsumerWidget {
             image: data.image,
             collapsedHeight: 120,
             height: 200,
-            appbarTitle: const TotalExpenseBoxDetail(),
+            appbarTitle: TotalExpenseBoxDetail(data.total!),
             child: ListView(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 FriendListBoxDetail(users: data.boxUser),
+                //TODO: Think about the structure
                 const CategoryListBoxDetail(),
                 const ExpenseListBoxDetail(),
               ],
@@ -43,7 +51,13 @@ class BoxDetailPage extends ConsumerWidget {
         },
       ),
 
-      floatingActionButton: FloatingActionButtonWidget(title: 'Expense'),
+      floatingActionButton: FloatingActionButtonWidget(
+        title: 'Expense',
+        onPressed: () => context.push(
+          RouteName.createExpense,
+          extra: {"boxId": boxId, "groupId": groupId},
+        ),
+      ),
     );
   }
 }
