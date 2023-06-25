@@ -32,7 +32,7 @@ class _SplitPageState extends ConsumerState<SplitPage> with SplitWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(title: "Expense made by"),
+      appBar: AppBarWidget(title: "Expense Split"),
       body: Column(
         children: [
           friendList(friends, ref),
