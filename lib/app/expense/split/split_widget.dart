@@ -69,7 +69,7 @@ class SplitWidget {
                 child: SizedBox(
                   height: 64,
                   child: CardWidget(
-                    color: ColorConfig.primarySwatch,
+                    backColor: ColorConfig.primarySwatch,
                     child: Row(
                       children: [
                         CheckboxWidget(
@@ -98,7 +98,7 @@ class SplitWidget {
               ),
               const SizedBox(width: 10),
               CardWidget(
-                color: ColorConfig.primarySwatch,
+                backColor: ColorConfig.primarySwatch,
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: Icon(
