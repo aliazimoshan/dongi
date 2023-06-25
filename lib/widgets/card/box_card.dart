@@ -55,7 +55,10 @@ class BoxCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(RouteName.boxDetail(box.id)),
+      onTap: () => context.push(
+        RouteName.boxDetail(box.id),
+        extra: {"boxId": box.id, "groupId": box.groupId},
+      ),
       child: CardWidget(
         padding: EdgeInsets.zero,
         margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
