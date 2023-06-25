@@ -1,4 +1,7 @@
 import 'package:dongi/app/box/box_detail/box_detail_page.dart';
+import 'package:dongi/app/expense/create_expense/create_expense_page.dart';
+import 'package:dongi/app/expense/made_by/made_by_page.dart';
+import 'package:dongi/app/expense/split/split_page.dart';
 import 'package:dongi/app/friends/friends_list/friends_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -40,6 +43,9 @@ class RouteName {
       '/group/${groupId ?? ":groupId"}';
   static String boxDetail(String? boxId) => '/box/${boxId ?? ":boxId"}';
   static String friendList = '/friend/list';
+  static String createExpense = '/expense/create';
+  static String expenseMadeBy = '/expense/madeByd';
+  static String expenseSplit = '/expense/split';
 }
 
 GoRouter _goRouterConfig(StateProviderRef ref) {
@@ -99,8 +105,11 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
       GoRoute(
         path: RouteName.boxDetail(null),
         builder: (context, state) {
-          String boxId = state.params['boxId']!;
-          return BoxDetailPage(boxId);
+          Map extra = state.extra as Map<String, dynamic>;
+          return BoxDetailPage(
+            boxId: extra['boxId'],
+            groupId: extra['groupId'],
+          );
         },
       ),
       GoRoute(
@@ -109,6 +118,24 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
           String groupId = state.params['groupId']!;
           return GroupDetailPage(groupId: groupId);
         },
+      ),
+      GoRoute(
+        path: RouteName.createExpense,
+        builder: (context, state) {
+          Map extra = state.extra as Map<String, dynamic>;
+          return CreateExpensePage(
+            boxId: extra['boxId'],
+            groupId: extra['groupId'],
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.expenseMadeBy,
+        builder: (context, state) => MadeByPage(),
+      ),
+      GoRoute(
+        path: RouteName.expenseSplit,
+        builder: (context, state) => const SplitPage(),
       ),
     ],
     redirect: (context, state) async {
