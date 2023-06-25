@@ -1,18 +1,24 @@
+import 'package:dongi/router/router_notifier.dart';
 import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/card/grey_card.dart';
 import '../../../widgets/text_field/text_field.dart';
 
-class CreateExpenseWidget {
-  amountRow() {
+class CreateExpenseAmount extends ConsumerWidget {
+  const CreateExpenseAmount({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
         Expanded(
           child: TextFieldWidget(
-            hintText: "hintText",
+            hintText: "10,000",
             fillColor: ColorConfig.white,
           ),
         ),
@@ -27,8 +33,13 @@ class CreateExpenseWidget {
       ],
     );
   }
+}
 
-  categoryCard() {
+class CreateExpenseCategory extends ConsumerWidget {
+  const CreateExpenseCategory({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: CardWidget(
         backColor: ColorConfig.white,
@@ -43,8 +54,13 @@ class CreateExpenseWidget {
       ),
     );
   }
+}
 
-  dateCard() {
+class CreateExpenseDate extends ConsumerWidget {
+  const CreateExpenseDate({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: CardWidget(
         backColor: ColorConfig.white,
@@ -62,25 +78,19 @@ class CreateExpenseWidget {
       ),
     );
   }
+}
 
-  madeByButton() {
-    return _actionButton(
-      "made by",
-      "Person name",
-      Icons.account_box,
-    );
-  }
+class CreateExpenseAction extends ConsumerWidget {
+  const CreateExpenseAction({super.key});
 
-  splitBetweenButton() {
-    return _actionButton(
-      "split between",
-      "Splitting method",
-      Icons.call_split,
-    );
-  }
-
-  _actionButton(String title, String subtitle, IconData icon) {
+  _actionButton({
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Function()? onTap,
+  }) {
     return ListTileCard(
+      onTap: onTap,
       backColor: ColorConfig.white,
       titleString: title,
       subtitleString: subtitle,
@@ -96,7 +106,36 @@ class CreateExpenseWidget {
     );
   }
 
-  descriptionCard() {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CardWidget(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          _actionButton(
+            title: "made by",
+            subtitle: "Person name",
+            icon: Icons.account_box,
+            onTap: () => context.push(RouteName.expenseMadeBy),
+          ),
+          const SizedBox(height: 10),
+          _actionButton(
+            title: "split between",
+            subtitle: "Splitting method",
+            icon: Icons.call_split,
+            onTap: () => context.push(RouteName.expenseSplit),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CreateExpenseDescription extends ConsumerWidget {
+  const CreateExpenseDescription({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return CardWidget(
       padding: const EdgeInsets.all(15),
       child: Row(
@@ -124,8 +163,13 @@ class CreateExpenseWidget {
       ),
     );
   }
+}
 
-  createButton() {
+class CreateExpenseCreateButton extends ConsumerWidget {
+  const CreateExpenseCreateButton({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
