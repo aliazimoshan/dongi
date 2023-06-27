@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
+import '../../../models/box_user_model.dart';
 import '../../../router/router_notifier.dart';
 import '../../../widgets/error/error.dart';
 import '../../../widgets/floating_action_button/floating_action_button.dart';
@@ -31,6 +32,7 @@ class BoxDetailPage extends ConsumerWidget {
         loading: () => const LoadingWidget(),
         error: (error, stackTrace) => ErrorTextWidget(error),
         data: (data) {
+          print(data.boxUser);
           return SliverAppBarWidget(
             image: data.image,
             collapsedHeight: 120,
@@ -41,7 +43,8 @@ class BoxDetailPage extends ConsumerWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                FriendListBoxDetail(users: data.boxUser),
+                FriendListBoxDetail(
+                    users: (data.boxUser as List<BoxUserModel>)),
                 //TODO: Think about the structure
                 const CategoryListBoxDetail(),
                 const ExpenseListBoxDetail(),

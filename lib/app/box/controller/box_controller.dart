@@ -84,7 +84,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
       creatorId: currentUser!.$id,
       groupId: groupId,
       image: imageLinks.isNotEmpty ? imageLinks[0] : null,
-      boxUser: [],
+      boxUser: [currentUser.$id],
       total: 0,
     );
 

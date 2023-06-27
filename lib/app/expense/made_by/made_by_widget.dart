@@ -5,45 +5,6 @@ import '../../../widgets/list_tile/list_tile_card.dart';
 import 'made_by_controller.dart';
 
 class MadeByWidget {
-  //multipleSwitch() {
-  //  return Padding(
-  //    padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-  //    child: CardWidget(
-  //      color: ColorConfig.primarySwatch,
-  //      child: SizedBox(
-  //        height: 50,
-  //        child: Row(
-  //          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //          children: [
-  //            Text(
-  //              "multiple people",
-  //              style: FontConfig.body2().copyWith(
-  //                color: ColorConfig.pureWhite,
-  //              ),
-  //            ),
-  //            Container(
-  //              decoration: BoxDecoration(
-  //                borderRadius: BorderRadius.circular(20.0),
-  //                border: Border.all(color: ColorConfig.pureWhite),
-  //              ),
-  //              padding: const EdgeInsets.all(5),
-  //              child: SizedBox(
-  //                width: 50,
-  //                height: 20,
-  //                child: Switch(
-  //                  onChanged: (value) {},
-  //                  value: true,
-  //                  activeColor: ColorConfig.darkGrey,
-  //                ),
-  //              ),
-  //            ),
-  //          ],
-  //        ),
-  //      ),
-  //    ),
-  //  );
-  //}
-
   friendList(List<String> friends, WidgetRef ref) {
     cardIcon() {
       return Padding(
