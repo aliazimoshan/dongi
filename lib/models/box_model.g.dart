@@ -15,7 +15,7 @@ _$_BoxModel _$$_BoxModelFromJson(Map<String, dynamic> json) => _$_BoxModel(
       image: json['image'] as String?,
       groupId: json['groupId'] as String,
       boxUser: (json['boxUser'] as List<dynamic>?)
-              ?.map((e) => BoxUserModel.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => e as String)
               .toList() ??
           const [],
       total: json['total'] as num? ?? 0,

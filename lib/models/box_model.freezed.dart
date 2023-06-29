@@ -30,7 +30,7 @@ mixin _$BoxModel {
   String? get description => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
   String get groupId => throw _privateConstructorUsedError;
-  List<BoxUserModel> get boxUser => throw _privateConstructorUsedError;
+  List<String> get boxUser => throw _privateConstructorUsedError;
   num? get total => throw _privateConstructorUsedError;
   String get creatorId => throw _privateConstructorUsedError;
 
@@ -53,7 +53,7 @@ abstract class $BoxModelCopyWith<$Res> {
       String? description,
       String? image,
       String groupId,
-      List<BoxUserModel> boxUser,
+      List<String> boxUser,
       num? total,
       String creatorId});
 }
@@ -114,7 +114,7 @@ class _$BoxModelCopyWithImpl<$Res, $Val extends BoxModel>
       boxUser: null == boxUser
           ? _value.boxUser
           : boxUser // ignore: cast_nullable_to_non_nullable
-              as List<BoxUserModel>,
+              as List<String>,
       total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -142,7 +142,7 @@ abstract class _$$_BoxModelCopyWith<$Res> implements $BoxModelCopyWith<$Res> {
       String? description,
       String? image,
       String groupId,
-      List<BoxUserModel> boxUser,
+      List<String> boxUser,
       num? total,
       String creatorId});
 }
@@ -201,7 +201,7 @@ class __$$_BoxModelCopyWithImpl<$Res>
       boxUser: null == boxUser
           ? _value._boxUser
           : boxUser // ignore: cast_nullable_to_non_nullable
-              as List<BoxUserModel>,
+              as List<String>,
       total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -225,7 +225,7 @@ class _$_BoxModel implements _BoxModel {
       this.description,
       this.image,
       required this.groupId,
-      final List<BoxUserModel> boxUser = const [],
+      final List<String> boxUser = const [],
       this.total = 0,
       required this.creatorId})
       : _boxUser = boxUser;
@@ -250,10 +250,10 @@ class _$_BoxModel implements _BoxModel {
   final String? image;
   @override
   final String groupId;
-  final List<BoxUserModel> _boxUser;
+  final List<String> _boxUser;
   @override
   @JsonKey()
-  List<BoxUserModel> get boxUser {
+  List<String> get boxUser {
     if (_boxUser is EqualUnmodifiableListView) return _boxUser;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_boxUser);
@@ -329,7 +329,7 @@ abstract class _BoxModel implements BoxModel {
       final String? description,
       final String? image,
       required final String groupId,
-      final List<BoxUserModel> boxUser,
+      final List<String> boxUser,
       final num? total,
       required final String creatorId}) = _$_BoxModel;
 
@@ -353,7 +353,7 @@ abstract class _BoxModel implements BoxModel {
   @override
   String get groupId;
   @override
-  List<BoxUserModel> get boxUser;
+  List<String> get boxUser;
   @override
   num? get total;
   @override

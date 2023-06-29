@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'box_user_model.dart';
 part 'box_model.freezed.dart';
 part 'box_model.g.dart';
 
@@ -15,7 +14,7 @@ class BoxModel with _$BoxModel {
     String? description,
     String? image,
     required String groupId,
-    @Default([]) List<BoxUserModel> boxUser,
+    @Default([]) List<String> boxUser,
     @Default(0) num? total,
     required String creatorId,
   }) = _BoxModel;
