@@ -26,9 +26,9 @@ mixin _$BoxUserModel {
   String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: '\$updatedAt')
   String? get updatedAt => throw _privateConstructorUsedError;
-  UserModel get userId => throw _privateConstructorUsedError;
-  GroupModel get groupId => throw _privateConstructorUsedError;
-  BoxModel get boxId => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
+  String get groupId => throw _privateConstructorUsedError;
+  String get boxId => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,14 +47,10 @@ abstract class $BoxUserModelCopyWith<$Res> {
       {@JsonKey(name: '\$id') String? id,
       @JsonKey(name: '\$createdAt') String? createdAt,
       @JsonKey(name: '\$updatedAt') String? updatedAt,
-      UserModel userId,
-      GroupModel groupId,
-      BoxModel boxId,
+      String userId,
+      String groupId,
+      String boxId,
       String status});
-
-  $UserModelCopyWith<$Res> get userId;
-  $GroupModelCopyWith<$Res> get groupId;
-  $BoxModelCopyWith<$Res> get boxId;
 }
 
 /// @nodoc
@@ -94,44 +90,20 @@ class _$BoxUserModelCopyWithImpl<$Res, $Val extends BoxUserModel>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as String,
       groupId: null == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as GroupModel,
+              as String,
       boxId: null == boxId
           ? _value.boxId
           : boxId // ignore: cast_nullable_to_non_nullable
-              as BoxModel,
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserModelCopyWith<$Res> get userId {
-    return $UserModelCopyWith<$Res>(_value.userId, (value) {
-      return _then(_value.copyWith(userId: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $GroupModelCopyWith<$Res> get groupId {
-    return $GroupModelCopyWith<$Res>(_value.groupId, (value) {
-      return _then(_value.copyWith(groupId: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BoxModelCopyWith<$Res> get boxId {
-    return $BoxModelCopyWith<$Res>(_value.boxId, (value) {
-      return _then(_value.copyWith(boxId: value) as $Val);
-    });
   }
 }
 
@@ -147,17 +119,10 @@ abstract class _$$_BoxUserModelCopyWith<$Res>
       {@JsonKey(name: '\$id') String? id,
       @JsonKey(name: '\$createdAt') String? createdAt,
       @JsonKey(name: '\$updatedAt') String? updatedAt,
-      UserModel userId,
-      GroupModel groupId,
-      BoxModel boxId,
+      String userId,
+      String groupId,
+      String boxId,
       String status});
-
-  @override
-  $UserModelCopyWith<$Res> get userId;
-  @override
-  $GroupModelCopyWith<$Res> get groupId;
-  @override
-  $BoxModelCopyWith<$Res> get boxId;
 }
 
 /// @nodoc
@@ -195,15 +160,15 @@ class __$$_BoxUserModelCopyWithImpl<$Res>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as String,
       groupId: null == groupId
           ? _value.groupId
           : groupId // ignore: cast_nullable_to_non_nullable
-              as GroupModel,
+              as String,
       boxId: null == boxId
           ? _value.boxId
           : boxId // ignore: cast_nullable_to_non_nullable
-              as BoxModel,
+              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -237,11 +202,11 @@ class _$_BoxUserModel implements _BoxUserModel {
   @JsonKey(name: '\$updatedAt')
   final String? updatedAt;
   @override
-  final UserModel userId;
+  final String userId;
   @override
-  final GroupModel groupId;
+  final String groupId;
   @override
-  final BoxModel boxId;
+  final String boxId;
   @override
   @JsonKey()
   final String status;
@@ -291,9 +256,9 @@ abstract class _BoxUserModel implements BoxUserModel {
       {@JsonKey(name: '\$id') final String? id,
       @JsonKey(name: '\$createdAt') final String? createdAt,
       @JsonKey(name: '\$updatedAt') final String? updatedAt,
-      required final UserModel userId,
-      required final GroupModel groupId,
-      required final BoxModel boxId,
+      required final String userId,
+      required final String groupId,
+      required final String boxId,
       final String status}) = _$_BoxUserModel;
 
   factory _BoxUserModel.fromJson(Map<String, dynamic> json) =
@@ -309,11 +274,11 @@ abstract class _BoxUserModel implements BoxUserModel {
   @JsonKey(name: '\$updatedAt')
   String? get updatedAt;
   @override
-  UserModel get userId;
+  String get userId;
   @override
-  GroupModel get groupId;
+  String get groupId;
   @override
-  BoxModel get boxId;
+  String get boxId;
   @override
   String get status;
   @override

@@ -14,28 +14,29 @@ _$_BoxModel _$$_BoxModelFromJson(Map<String, dynamic> json) => _$_BoxModel(
       userName: json['userName'] as String,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
-      profilePic: json['profilePic'] as String?,
+      profileImage: json['profileImage'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
       totalExpense: json['totalExpense'] as num? ?? 0,
-      userFriend: (json['userFriend'] as List<dynamic>?)
-              ?.map((e) => UserFriendModel.fromJson(e as Map<String, dynamic>))
+      userFriends: (json['userFriends'] as List<dynamic>?)
+              ?.map((e) => e as String)
               .toList() ??
           const [],
-      group: (json['group'] as List<dynamic>?)
-              ?.map((e) => GroupModel.fromJson(e as Map<String, dynamic>))
+      groupIds: (json['groupIds'] as List<dynamic>?)
+              ?.map((e) => e as String)
               .toList() ??
           const [],
       transactions: (json['transactions'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      fToken: (json['fToken'] as List<dynamic>?)
+      firebaseTokens: (json['firebaseTokens'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      token:
-          (json['token'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-              const [],
+      tokens: (json['tokens'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$_BoxModelToJson(_$_BoxModel instance) =>
@@ -47,12 +48,12 @@ Map<String, dynamic> _$$_BoxModelToJson(_$_BoxModel instance) =>
       'userName': instance.userName,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
-      'profilePic': instance.profilePic,
+      'profileImage': instance.profileImage,
       'phoneNumber': instance.phoneNumber,
       'totalExpense': instance.totalExpense,
-      'userFriend': instance.userFriend,
-      'group': instance.group,
+      'userFriends': instance.userFriends,
+      'groupIds': instance.groupIds,
       'transactions': instance.transactions,
-      'fToken': instance.fToken,
-      'token': instance.token,
+      'firebaseTokens': instance.firebaseTokens,
+      'tokens': instance.tokens,
     };

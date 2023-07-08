@@ -16,12 +16,12 @@ _$_GroupModel _$$_GroupModelFromJson(Map<String, dynamic> json) =>
       image: json['image'] as String?,
       creatorId: json['creatorId'] as String,
       totalBalance: json['totalBalance'] as num? ?? 0,
-      groupUser: (json['groupUser'] as List<dynamic>?)
-              ?.map((e) => GroupUserModel.fromJson(e as Map<String, dynamic>))
+      groupUsers: (json['groupUsers'] as List<dynamic>?)
+              ?.map((e) => e as String)
               .toList() ??
           const [],
-      box: (json['box'] as List<dynamic>?)
-              ?.map((e) => BoxModel.fromJson(e as Map<String, dynamic>))
+      boxIds: (json['boxIds'] as List<dynamic>?)
+              ?.map((e) => e as String)
               .toList() ??
           const [],
     );
@@ -36,6 +36,6 @@ Map<String, dynamic> _$$_GroupModelToJson(_$_GroupModel instance) =>
       'image': instance.image,
       'creatorId': instance.creatorId,
       'totalBalance': instance.totalBalance,
-      'groupUser': instance.groupUser,
-      'box': instance.box,
+      'groupUsers': instance.groupUsers,
+      'boxIds': instance.boxIds,
     };

@@ -1,6 +1,6 @@
 // ignore_for_file: invalid_annotation_target
-
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'user_friend_model.freezed.dart';
 part 'user_friend_model.g.dart';
 

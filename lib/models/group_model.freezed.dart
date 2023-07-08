@@ -31,8 +31,8 @@ mixin _$GroupModel {
   String? get image => throw _privateConstructorUsedError;
   String get creatorId => throw _privateConstructorUsedError;
   num get totalBalance => throw _privateConstructorUsedError;
-  List<GroupUserModel> get groupUser => throw _privateConstructorUsedError;
-  List<BoxModel> get box => throw _privateConstructorUsedError;
+  List<String> get groupUsers => throw _privateConstructorUsedError;
+  List<String> get boxIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,8 +55,8 @@ abstract class $GroupModelCopyWith<$Res> {
       String? image,
       String creatorId,
       num totalBalance,
-      List<GroupUserModel> groupUser,
-      List<BoxModel> box});
+      List<String> groupUsers,
+      List<String> boxIds});
 }
 
 /// @nodoc
@@ -80,8 +80,8 @@ class _$GroupModelCopyWithImpl<$Res, $Val extends GroupModel>
     Object? image = freezed,
     Object? creatorId = null,
     Object? totalBalance = null,
-    Object? groupUser = null,
-    Object? box = null,
+    Object? groupUsers = null,
+    Object? boxIds = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -116,14 +116,14 @@ class _$GroupModelCopyWithImpl<$Res, $Val extends GroupModel>
           ? _value.totalBalance
           : totalBalance // ignore: cast_nullable_to_non_nullable
               as num,
-      groupUser: null == groupUser
-          ? _value.groupUser
-          : groupUser // ignore: cast_nullable_to_non_nullable
-              as List<GroupUserModel>,
-      box: null == box
-          ? _value.box
-          : box // ignore: cast_nullable_to_non_nullable
-              as List<BoxModel>,
+      groupUsers: null == groupUsers
+          ? _value.groupUsers
+          : groupUsers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      boxIds: null == boxIds
+          ? _value.boxIds
+          : boxIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -145,8 +145,8 @@ abstract class _$$_GroupModelCopyWith<$Res>
       String? image,
       String creatorId,
       num totalBalance,
-      List<GroupUserModel> groupUser,
-      List<BoxModel> box});
+      List<String> groupUsers,
+      List<String> boxIds});
 }
 
 /// @nodoc
@@ -168,8 +168,8 @@ class __$$_GroupModelCopyWithImpl<$Res>
     Object? image = freezed,
     Object? creatorId = null,
     Object? totalBalance = null,
-    Object? groupUser = null,
-    Object? box = null,
+    Object? groupUsers = null,
+    Object? boxIds = null,
   }) {
     return _then(_$_GroupModel(
       id: freezed == id
@@ -204,14 +204,14 @@ class __$$_GroupModelCopyWithImpl<$Res>
           ? _value.totalBalance
           : totalBalance // ignore: cast_nullable_to_non_nullable
               as num,
-      groupUser: null == groupUser
-          ? _value._groupUser
-          : groupUser // ignore: cast_nullable_to_non_nullable
-              as List<GroupUserModel>,
-      box: null == box
-          ? _value._box
-          : box // ignore: cast_nullable_to_non_nullable
-              as List<BoxModel>,
+      groupUsers: null == groupUsers
+          ? _value._groupUsers
+          : groupUsers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      boxIds: null == boxIds
+          ? _value._boxIds
+          : boxIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -228,10 +228,10 @@ class _$_GroupModel implements _GroupModel {
       this.image,
       required this.creatorId,
       this.totalBalance = 0,
-      final List<GroupUserModel> groupUser = const [],
-      final List<BoxModel> box = const []})
-      : _groupUser = groupUser,
-        _box = box;
+      final List<String> groupUsers = const [],
+      final List<String> boxIds = const []})
+      : _groupUsers = groupUsers,
+        _boxIds = boxIds;
 
   factory _$_GroupModel.fromJson(Map<String, dynamic> json) =>
       _$$_GroupModelFromJson(json);
@@ -256,27 +256,27 @@ class _$_GroupModel implements _GroupModel {
   @override
   @JsonKey()
   final num totalBalance;
-  final List<GroupUserModel> _groupUser;
+  final List<String> _groupUsers;
   @override
   @JsonKey()
-  List<GroupUserModel> get groupUser {
-    if (_groupUser is EqualUnmodifiableListView) return _groupUser;
+  List<String> get groupUsers {
+    if (_groupUsers is EqualUnmodifiableListView) return _groupUsers;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_groupUser);
+    return EqualUnmodifiableListView(_groupUsers);
   }
 
-  final List<BoxModel> _box;
+  final List<String> _boxIds;
   @override
   @JsonKey()
-  List<BoxModel> get box {
-    if (_box is EqualUnmodifiableListView) return _box;
+  List<String> get boxIds {
+    if (_boxIds is EqualUnmodifiableListView) return _boxIds;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_box);
+    return EqualUnmodifiableListView(_boxIds);
   }
 
   @override
   String toString() {
-    return 'GroupModel(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, title: $title, description: $description, image: $image, creatorId: $creatorId, totalBalance: $totalBalance, groupUser: $groupUser, box: $box)';
+    return 'GroupModel(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, title: $title, description: $description, image: $image, creatorId: $creatorId, totalBalance: $totalBalance, groupUsers: $groupUsers, boxIds: $boxIds)';
   }
 
   @override
@@ -298,8 +298,8 @@ class _$_GroupModel implements _GroupModel {
             (identical(other.totalBalance, totalBalance) ||
                 other.totalBalance == totalBalance) &&
             const DeepCollectionEquality()
-                .equals(other._groupUser, _groupUser) &&
-            const DeepCollectionEquality().equals(other._box, _box));
+                .equals(other._groupUsers, _groupUsers) &&
+            const DeepCollectionEquality().equals(other._boxIds, _boxIds));
   }
 
   @JsonKey(ignore: true)
@@ -314,8 +314,8 @@ class _$_GroupModel implements _GroupModel {
       image,
       creatorId,
       totalBalance,
-      const DeepCollectionEquality().hash(_groupUser),
-      const DeepCollectionEquality().hash(_box));
+      const DeepCollectionEquality().hash(_groupUsers),
+      const DeepCollectionEquality().hash(_boxIds));
 
   @JsonKey(ignore: true)
   @override
@@ -341,8 +341,8 @@ abstract class _GroupModel implements GroupModel {
       final String? image,
       required final String creatorId,
       final num totalBalance,
-      final List<GroupUserModel> groupUser,
-      final List<BoxModel> box}) = _$_GroupModel;
+      final List<String> groupUsers,
+      final List<String> boxIds}) = _$_GroupModel;
 
   factory _GroupModel.fromJson(Map<String, dynamic> json) =
       _$_GroupModel.fromJson;
@@ -367,9 +367,9 @@ abstract class _GroupModel implements GroupModel {
   @override
   num get totalBalance;
   @override
-  List<GroupUserModel> get groupUser;
+  List<String> get groupUsers;
   @override
-  List<BoxModel> get box;
+  List<String> get boxIds;
   @override
   @JsonKey(ignore: true)
   _$$_GroupModelCopyWith<_$_GroupModel> get copyWith =>

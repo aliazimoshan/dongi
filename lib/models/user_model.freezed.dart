@@ -30,14 +30,14 @@ mixin _$UserModel {
   String get userName => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
-  String? get profilePic => throw _privateConstructorUsedError;
+  String? get profileImage => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   num? get totalExpense => throw _privateConstructorUsedError;
-  List<UserFriendModel> get userFriend => throw _privateConstructorUsedError;
-  List<GroupModel> get group => throw _privateConstructorUsedError;
+  List<String> get userFriends => throw _privateConstructorUsedError;
+  List<String> get groupIds => throw _privateConstructorUsedError;
   List<String> get transactions => throw _privateConstructorUsedError;
-  List<String> get fToken => throw _privateConstructorUsedError;
-  List<String> get token => throw _privateConstructorUsedError;
+  List<String> get firebaseTokens => throw _privateConstructorUsedError;
+  List<String> get tokens => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,14 +58,14 @@ abstract class $UserModelCopyWith<$Res> {
       String userName,
       String? firstName,
       String? lastName,
-      String? profilePic,
+      String? profileImage,
       String? phoneNumber,
       num? totalExpense,
-      List<UserFriendModel> userFriend,
-      List<GroupModel> group,
+      List<String> userFriends,
+      List<String> groupIds,
       List<String> transactions,
-      List<String> fToken,
-      List<String> token});
+      List<String> firebaseTokens,
+      List<String> tokens});
 }
 
 /// @nodoc
@@ -88,14 +88,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? userName = null,
     Object? firstName = freezed,
     Object? lastName = freezed,
-    Object? profilePic = freezed,
+    Object? profileImage = freezed,
     Object? phoneNumber = freezed,
     Object? totalExpense = freezed,
-    Object? userFriend = null,
-    Object? group = null,
+    Object? userFriends = null,
+    Object? groupIds = null,
     Object? transactions = null,
-    Object? fToken = null,
-    Object? token = null,
+    Object? firebaseTokens = null,
+    Object? tokens = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -126,9 +126,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
-      profilePic: freezed == profilePic
-          ? _value.profilePic
-          : profilePic // ignore: cast_nullable_to_non_nullable
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
               as String?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
@@ -138,25 +138,25 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.totalExpense
           : totalExpense // ignore: cast_nullable_to_non_nullable
               as num?,
-      userFriend: null == userFriend
-          ? _value.userFriend
-          : userFriend // ignore: cast_nullable_to_non_nullable
-              as List<UserFriendModel>,
-      group: null == group
-          ? _value.group
-          : group // ignore: cast_nullable_to_non_nullable
-              as List<GroupModel>,
+      userFriends: null == userFriends
+          ? _value.userFriends
+          : userFriends // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      groupIds: null == groupIds
+          ? _value.groupIds
+          : groupIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       transactions: null == transactions
           ? _value.transactions
           : transactions // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      fToken: null == fToken
-          ? _value.fToken
-          : fToken // ignore: cast_nullable_to_non_nullable
+      firebaseTokens: null == firebaseTokens
+          ? _value.firebaseTokens
+          : firebaseTokens // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      token: null == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
+      tokens: null == tokens
+          ? _value.tokens
+          : tokens // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ) as $Val);
   }
@@ -177,14 +177,14 @@ abstract class _$$_BoxModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String userName,
       String? firstName,
       String? lastName,
-      String? profilePic,
+      String? profileImage,
       String? phoneNumber,
       num? totalExpense,
-      List<UserFriendModel> userFriend,
-      List<GroupModel> group,
+      List<String> userFriends,
+      List<String> groupIds,
       List<String> transactions,
-      List<String> fToken,
-      List<String> token});
+      List<String> firebaseTokens,
+      List<String> tokens});
 }
 
 /// @nodoc
@@ -205,14 +205,14 @@ class __$$_BoxModelCopyWithImpl<$Res>
     Object? userName = null,
     Object? firstName = freezed,
     Object? lastName = freezed,
-    Object? profilePic = freezed,
+    Object? profileImage = freezed,
     Object? phoneNumber = freezed,
     Object? totalExpense = freezed,
-    Object? userFriend = null,
-    Object? group = null,
+    Object? userFriends = null,
+    Object? groupIds = null,
     Object? transactions = null,
-    Object? fToken = null,
-    Object? token = null,
+    Object? firebaseTokens = null,
+    Object? tokens = null,
   }) {
     return _then(_$_BoxModel(
       id: freezed == id
@@ -243,9 +243,9 @@ class __$$_BoxModelCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
-      profilePic: freezed == profilePic
-          ? _value.profilePic
-          : profilePic // ignore: cast_nullable_to_non_nullable
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
               as String?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
@@ -255,25 +255,25 @@ class __$$_BoxModelCopyWithImpl<$Res>
           ? _value.totalExpense
           : totalExpense // ignore: cast_nullable_to_non_nullable
               as num?,
-      userFriend: null == userFriend
-          ? _value._userFriend
-          : userFriend // ignore: cast_nullable_to_non_nullable
-              as List<UserFriendModel>,
-      group: null == group
-          ? _value._group
-          : group // ignore: cast_nullable_to_non_nullable
-              as List<GroupModel>,
+      userFriends: null == userFriends
+          ? _value._userFriends
+          : userFriends // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      groupIds: null == groupIds
+          ? _value._groupIds
+          : groupIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       transactions: null == transactions
           ? _value._transactions
           : transactions // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      fToken: null == fToken
-          ? _value._fToken
-          : fToken // ignore: cast_nullable_to_non_nullable
+      firebaseTokens: null == firebaseTokens
+          ? _value._firebaseTokens
+          : firebaseTokens // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      token: null == token
-          ? _value._token
-          : token // ignore: cast_nullable_to_non_nullable
+      tokens: null == tokens
+          ? _value._tokens
+          : tokens // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -290,19 +290,19 @@ class _$_BoxModel implements _BoxModel {
       required this.userName,
       this.firstName,
       this.lastName,
-      this.profilePic,
+      this.profileImage,
       this.phoneNumber,
       this.totalExpense = 0,
-      final List<UserFriendModel> userFriend = const [],
-      final List<GroupModel> group = const [],
+      final List<String> userFriends = const [],
+      final List<String> groupIds = const [],
       final List<String> transactions = const [],
-      final List<String> fToken = const [],
-      final List<String> token = const []})
-      : _userFriend = userFriend,
-        _group = group,
+      final List<String> firebaseTokens = const [],
+      final List<String> tokens = const []})
+      : _userFriends = userFriends,
+        _groupIds = groupIds,
         _transactions = transactions,
-        _fToken = fToken,
-        _token = token;
+        _firebaseTokens = firebaseTokens,
+        _tokens = tokens;
 
   factory _$_BoxModel.fromJson(Map<String, dynamic> json) =>
       _$$_BoxModelFromJson(json);
@@ -325,28 +325,28 @@ class _$_BoxModel implements _BoxModel {
   @override
   final String? lastName;
   @override
-  final String? profilePic;
+  final String? profileImage;
   @override
   final String? phoneNumber;
   @override
   @JsonKey()
   final num? totalExpense;
-  final List<UserFriendModel> _userFriend;
+  final List<String> _userFriends;
   @override
   @JsonKey()
-  List<UserFriendModel> get userFriend {
-    if (_userFriend is EqualUnmodifiableListView) return _userFriend;
+  List<String> get userFriends {
+    if (_userFriends is EqualUnmodifiableListView) return _userFriends;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_userFriend);
+    return EqualUnmodifiableListView(_userFriends);
   }
 
-  final List<GroupModel> _group;
+  final List<String> _groupIds;
   @override
   @JsonKey()
-  List<GroupModel> get group {
-    if (_group is EqualUnmodifiableListView) return _group;
+  List<String> get groupIds {
+    if (_groupIds is EqualUnmodifiableListView) return _groupIds;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_group);
+    return EqualUnmodifiableListView(_groupIds);
   }
 
   final List<String> _transactions;
@@ -358,27 +358,27 @@ class _$_BoxModel implements _BoxModel {
     return EqualUnmodifiableListView(_transactions);
   }
 
-  final List<String> _fToken;
+  final List<String> _firebaseTokens;
   @override
   @JsonKey()
-  List<String> get fToken {
-    if (_fToken is EqualUnmodifiableListView) return _fToken;
+  List<String> get firebaseTokens {
+    if (_firebaseTokens is EqualUnmodifiableListView) return _firebaseTokens;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_fToken);
+    return EqualUnmodifiableListView(_firebaseTokens);
   }
 
-  final List<String> _token;
+  final List<String> _tokens;
   @override
   @JsonKey()
-  List<String> get token {
-    if (_token is EqualUnmodifiableListView) return _token;
+  List<String> get tokens {
+    if (_tokens is EqualUnmodifiableListView) return _tokens;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_token);
+    return EqualUnmodifiableListView(_tokens);
   }
 
   @override
   String toString() {
-    return 'UserModel(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, email: $email, userName: $userName, firstName: $firstName, lastName: $lastName, profilePic: $profilePic, phoneNumber: $phoneNumber, totalExpense: $totalExpense, userFriend: $userFriend, group: $group, transactions: $transactions, fToken: $fToken, token: $token)';
+    return 'UserModel(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, email: $email, userName: $userName, firstName: $firstName, lastName: $lastName, profileImage: $profileImage, phoneNumber: $phoneNumber, totalExpense: $totalExpense, userFriends: $userFriends, groupIds: $groupIds, transactions: $transactions, firebaseTokens: $firebaseTokens, tokens: $tokens)';
   }
 
   @override
@@ -398,19 +398,20 @@ class _$_BoxModel implements _BoxModel {
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
-            (identical(other.profilePic, profilePic) ||
-                other.profilePic == profilePic) &&
+            (identical(other.profileImage, profileImage) ||
+                other.profileImage == profileImage) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.totalExpense, totalExpense) ||
                 other.totalExpense == totalExpense) &&
             const DeepCollectionEquality()
-                .equals(other._userFriend, _userFriend) &&
-            const DeepCollectionEquality().equals(other._group, _group) &&
+                .equals(other._userFriends, _userFriends) &&
+            const DeepCollectionEquality().equals(other._groupIds, _groupIds) &&
             const DeepCollectionEquality()
                 .equals(other._transactions, _transactions) &&
-            const DeepCollectionEquality().equals(other._fToken, _fToken) &&
-            const DeepCollectionEquality().equals(other._token, _token));
+            const DeepCollectionEquality()
+                .equals(other._firebaseTokens, _firebaseTokens) &&
+            const DeepCollectionEquality().equals(other._tokens, _tokens));
   }
 
   @JsonKey(ignore: true)
@@ -424,14 +425,14 @@ class _$_BoxModel implements _BoxModel {
       userName,
       firstName,
       lastName,
-      profilePic,
+      profileImage,
       phoneNumber,
       totalExpense,
-      const DeepCollectionEquality().hash(_userFriend),
-      const DeepCollectionEquality().hash(_group),
+      const DeepCollectionEquality().hash(_userFriends),
+      const DeepCollectionEquality().hash(_groupIds),
       const DeepCollectionEquality().hash(_transactions),
-      const DeepCollectionEquality().hash(_fToken),
-      const DeepCollectionEquality().hash(_token));
+      const DeepCollectionEquality().hash(_firebaseTokens),
+      const DeepCollectionEquality().hash(_tokens));
 
   @JsonKey(ignore: true)
   @override
@@ -456,14 +457,14 @@ abstract class _BoxModel implements UserModel {
       required final String userName,
       final String? firstName,
       final String? lastName,
-      final String? profilePic,
+      final String? profileImage,
       final String? phoneNumber,
       final num? totalExpense,
-      final List<UserFriendModel> userFriend,
-      final List<GroupModel> group,
+      final List<String> userFriends,
+      final List<String> groupIds,
       final List<String> transactions,
-      final List<String> fToken,
-      final List<String> token}) = _$_BoxModel;
+      final List<String> firebaseTokens,
+      final List<String> tokens}) = _$_BoxModel;
 
   factory _BoxModel.fromJson(Map<String, dynamic> json) = _$_BoxModel.fromJson;
 
@@ -485,21 +486,21 @@ abstract class _BoxModel implements UserModel {
   @override
   String? get lastName;
   @override
-  String? get profilePic;
+  String? get profileImage;
   @override
   String? get phoneNumber;
   @override
   num? get totalExpense;
   @override
-  List<UserFriendModel> get userFriend;
+  List<String> get userFriends;
   @override
-  List<GroupModel> get group;
+  List<String> get groupIds;
   @override
   List<String> get transactions;
   @override
-  List<String> get fToken;
+  List<String> get firebaseTokens;
   @override
-  List<String> get token;
+  List<String> get tokens;
   @override
   @JsonKey(ignore: true)
   _$$_BoxModelCopyWith<_$_BoxModel> get copyWith =>

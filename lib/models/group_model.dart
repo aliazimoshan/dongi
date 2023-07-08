@@ -1,8 +1,4 @@
 // ignore_for_file: invalid_annotation_target
-
-import 'package:dongi/models/box_model.dart';
-
-import 'group_user_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'group_model.freezed.dart';
@@ -19,8 +15,8 @@ class GroupModel with _$GroupModel {
     String? image,
     required String creatorId,
     @Default(0) num totalBalance,
-    @Default([]) List<GroupUserModel> groupUser,
-    @Default([]) List<BoxModel> box,
+    @Default([]) List<String> groupUsers,
+    @Default([]) List<String> boxIds,
   }) = _GroupModel;
 
   factory GroupModel.fromJson(Map<String, dynamic> json) =>

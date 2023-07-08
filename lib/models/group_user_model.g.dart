@@ -11,8 +11,8 @@ _$_GroupUserModel _$$_GroupUserModelFromJson(Map<String, dynamic> json) =>
       id: json[r'$id'] as String?,
       createdAt: json[r'$createdAt'] as String?,
       updatedAt: json[r'$updatedAt'] as String?,
-      userId: UserModel.fromJson(json['userId'] as Map<String, dynamic>),
-      groupId: GroupModel.fromJson(json['groupId'] as Map<String, dynamic>),
+      userId: json['userId'] as String,
+      groupId: json['groupId'] as String,
       status: json['status'] as String? ?? "pending",
     );
 

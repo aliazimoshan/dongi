@@ -14,7 +14,7 @@ class BoxModel with _$BoxModel {
     String? description,
     String? image,
     required String groupId,
-    @Default([]) List<String> boxUser,
+    @Default([]) List<String> boxUsers,
     @Default(0) num? total,
     required String creatorId,
   }) = _BoxModel;

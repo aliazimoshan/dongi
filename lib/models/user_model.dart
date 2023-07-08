@@ -1,7 +1,4 @@
 // ignore_for_file: invalid_annotation_target
-
-import 'package:dongi/models/group_model.dart';
-import 'package:dongi/models/user_friend_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.freezed.dart';
@@ -17,14 +14,14 @@ class UserModel with _$UserModel {
     required String userName,
     String? firstName,
     String? lastName,
-    String? profilePic,
+    String? profileImage,
     String? phoneNumber,
     @Default(0) num? totalExpense,
-    @Default([]) List<UserFriendModel> userFriend,
-    @Default([]) List<GroupModel> group,
+    @Default([]) List<String> userFriends,
+    @Default([]) List<String> groupIds,
     @Default([]) List<String> transactions,
-    @Default([]) List<String> fToken,
-    @Default([]) List<String> token,
+    @Default([]) List<String> firebaseTokens,
+    @Default([]) List<String> tokens,
   }) = _BoxModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
