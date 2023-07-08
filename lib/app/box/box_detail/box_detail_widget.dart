@@ -1,12 +1,15 @@
-import 'package:dongi/models/box_user_model.dart';
-import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
+import '../../../models/user_model.dart';
 import '../../../widgets/card/category_card.dart';
+import '../../../widgets/error/error.dart';
 import '../../../widgets/friends/friend.dart';
+import '../../../widgets/list_tile/list_tile_card.dart';
+import '../../../widgets/loading/loading.dart';
+import '../controller/box_controller.dart';
 
 class TotalExpenseBoxDetail extends ConsumerWidget {
   final num total;
@@ -83,17 +86,17 @@ class ReviewBodyBoxDetail extends ConsumerWidget {
 }
 
 class FriendListBoxDetail extends ConsumerWidget {
-  final List<BoxUserModel> users;
-  const FriendListBoxDetail({required this.users, super.key});
+  final List<String> userIds;
+  const FriendListBoxDetail({required this.userIds, super.key});
 
-  friendItem(BoxUserModel user) {
+  friendItem(UserModel user) {
     return Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Column(
         children: [
-          FriendWidget(image: user.userId.profilePic),
+          FriendWidget(image: user.profileImage),
           const SizedBox(height: 5),
-          Text(user.userId.userName, style: FontConfig.overline()),
+          Text(user.userName, style: FontConfig.overline()),
         ],
       ),
     );
@@ -121,36 +124,42 @@ class FriendListBoxDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 0, 10),
-          child: Text(
-            'Friends',
-            style: FontConfig.body1(),
+    final users = ref.watch(getUserInBoxProvider(userIds));
+
+    return users.when(
+      loading: () => const LoadingWidget(),
+      error: (error, stackTrace) => ErrorTextWidget(error),
+      data: (data) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 0, 10),
+            child: Text(
+              'Friends',
+              style: FontConfig.body1(),
+            ),
           ),
-        ),
-        SizedBox(
-          height: 90,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              const SizedBox(width: 11),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: users.length,
-                itemBuilder: (context, index) => friendItem(users[index]),
-              ),
-              //const SizedBox(width: 6),
-              addFriendCard(),
-            ],
+          SizedBox(
+            height: 90,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                const SizedBox(width: 11),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: data.length,
+                  itemBuilder: (context, index) => friendItem(data[index]),
+                ),
+                //const SizedBox(width: 6),
+                addFriendCard(),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: 25),
-      ],
+          const SizedBox(height: 25),
+        ],
+      ),
     );
   }
 }

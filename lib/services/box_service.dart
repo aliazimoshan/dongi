@@ -21,6 +21,7 @@ abstract class IBoxAPI {
   Future<List<Document>> getBoxes(String uid);
   Future<List<Document>> getBoxesInGroup(String groupId);
   Future<Document> getBoxDetail(String boxId);
+  Future<List<Document>> getUserInBox(List<String> userIds);
   Future<List<Document>> getCurrentUserBoxes(String uid);
   FutureEither<bool> deleteBox(String id);
 }
@@ -134,6 +135,18 @@ class BoxAPI implements IBoxAPI {
       //],
     );
     return document;
+  }
+
+  @override
+  Future<List<Document>> getUserInBox(List<String> userIds) async {
+    final document = await _db.listDocuments(
+      databaseId: AppwriteConfig.databaseId,
+      collectionId: AppwriteConfig.usersCollection,
+      queries: [
+        Query.equal('id', userIds),
+      ],
+    );
+    return document.documents;
   }
 
   @override

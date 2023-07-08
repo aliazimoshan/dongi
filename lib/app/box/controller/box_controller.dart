@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dongi/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -44,6 +45,12 @@ final getBoxDetailProvider =
   return boxesController.getBoxDetail(boxId);
 });
 
+final getUserInBoxProvider =
+    FutureProvider.family.autoDispose((ref, List<String> userIds) {
+  final boxesController = ref.watch(boxNotifierProvider.notifier);
+  return boxesController.getUserInBox(userIds);
+});
+
 //final refreshBoxesProvider =
 //    FutureProvider.family.autoDispose((ref, String groupId) {
 //  final boxesController = ref.refresh(boxNotifierProvider.notifier);
@@ -84,7 +91,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
       creatorId: currentUser!.$id,
       groupId: groupId,
       image: imageLinks.isNotEmpty ? imageLinks[0] : null,
-      boxUser: [currentUser.$id],
+      boxUsers: [currentUser.$id],
       total: 0,
     );
 
@@ -162,6 +169,11 @@ class BoxNotifier extends StateNotifier<BoxState> {
   Future<BoxModel> getBoxDetail(String boxId) async {
     final box = await boxAPI.getBoxDetail(boxId);
     return BoxModel.fromJson(box.data);
+  }
+
+  Future<List<UserModel>> getUserInBox(List<String> userIds) async {
+    final users = await boxAPI.getUserInBox(userIds);
+    return users.map((user) => UserModel.fromJson(user.data)).toList();
   }
 
   Future<List<BoxModel>> getCurrentUserBoxes() async {
