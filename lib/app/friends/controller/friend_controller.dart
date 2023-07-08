@@ -56,10 +56,10 @@ class FriendNotifier extends StateNotifier<FriendState> {
     UserFriendModel friendModel = UserFriendModel(
       sendRequestUserId: currentUserModel.id!,
       sendRequestUserName: currentUserModel.userName,
-      sendRequestProfilePic: currentUserModel.profilePic,
+      sendRequestProfilePic: currentUserModel.profileImage,
       receiveRequestUserId: userModel.id!,
       receiveRequestUserName: userModel.userName,
-      receiveRequestProfilePic: userModel.profilePic,
+      receiveRequestProfilePic: userModel.profileImage,
     );
 
     final res = await friendAPI.addFriend(friendModel);

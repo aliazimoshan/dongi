@@ -118,8 +118,8 @@ class GroupDetailInfo extends StatelessWidget {
 }
 
 class GroupDetailFriendList extends StatelessWidget {
-  final List<GroupUserModel> users;
-  const GroupDetailFriendList({super.key, required this.users});
+  final List<String> userIds;
+  const GroupDetailFriendList({super.key, required this.userIds});
   friendCard(GroupUserModel user) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
