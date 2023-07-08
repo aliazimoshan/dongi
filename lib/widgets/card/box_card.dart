@@ -133,7 +133,7 @@ class BoxCardWidget extends StatelessWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            box.boxUser.length.toString(),
+                            box.boxUsers.length.toString(),
                             style: FontConfig.body2()
                                 .copyWith(fontWeight: FontWeight.w600),
                             maxLines: 1,

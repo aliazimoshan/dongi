@@ -60,7 +60,7 @@ class GroupDetailPage extends ConsumerWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: [
               GroupDetailInfo(groupModel: data),
-              GroupDetailFriendList(users: data.groupUser),
+              GroupDetailFriendList(userIds: data.groupUsers),
               //* Get boxes
               boxesInGroup.when(
                 loading: () => const LoadingWidget(),

@@ -70,8 +70,8 @@ class GroupNotifier extends StateNotifier<GroupState> {
       description: groupDescription.text,
       creatorId: currentUser!.$id,
       image: imageLinks.isNotEmpty ? imageLinks[0] : null,
-      groupUser: [],
-      box: [],
+      groupUsers: [],
+      boxIds: [],
       totalBalance: 0,
     );
 
@@ -105,8 +105,8 @@ class GroupNotifier extends StateNotifier<GroupState> {
       description: groupDescription.text,
       creatorId: groupModel.creatorId,
       image: imageLinks.isNotEmpty ? imageLinks[0] : groupModel.image,
-      groupUser: [],
-      box: [],
+      groupUsers: [],
+      boxIds: [],
       totalBalance: 0,
     );
 

@@ -88,7 +88,7 @@ class GroupListCard extends ConsumerWidget {
       child: ListTileCard(
         onTap: () => context.push(RouteName.groupDetail(groupModel.id)),
         titleString: groupModel.title,
-        subtitleString: "Member: ${groupModel.groupUser.length.toString()}",
+        subtitleString: "Member: ${groupModel.groupUsers.length.toString()}",
         leading: iconWidget(),
         trailing: _dropdownButton(
           ref: ref,
