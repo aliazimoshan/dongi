@@ -124,7 +124,7 @@ class FriendListBoxDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final users = ref.watch(getUserInBoxProvider(userIds));
+    final users = ref.watch(getUsersInBoxProvider(userIds));
 
     return users.when(
       loading: () => const LoadingWidget(),

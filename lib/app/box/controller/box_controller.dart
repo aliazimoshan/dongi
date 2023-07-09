@@ -45,10 +45,10 @@ final getBoxDetailProvider =
   return boxesController.getBoxDetail(boxId);
 });
 
-final getUserInBoxProvider =
+final getUsersInBoxProvider =
     FutureProvider.family.autoDispose((ref, List<String> userIds) {
   final boxesController = ref.watch(boxNotifierProvider.notifier);
-  return boxesController.getUserInBox(userIds);
+  return boxesController.getUsersInBox(userIds);
 });
 
 //final refreshBoxesProvider =
@@ -171,8 +171,8 @@ class BoxNotifier extends StateNotifier<BoxState> {
     return BoxModel.fromJson(box.data);
   }
 
-  Future<List<UserModel>> getUserInBox(List<String> userIds) async {
-    final users = await boxAPI.getUserInBox(userIds);
+  Future<List<UserModel>> getUsersInBox(List<String> userIds) async {
+    final users = await boxAPI.getUsersInBox(userIds);
     return users.map((user) => UserModel.fromJson(user.data)).toList();
   }
 

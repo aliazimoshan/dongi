@@ -33,10 +33,10 @@ final getGroupsProvider = FutureProvider((ref) {
   return groupsController.getGroups();
 });
 
-final getUserInGroupProvider =
+final getUsersInGroupProvider =
     FutureProvider.family.autoDispose((ref, List<String> userIds) {
   final groupController = ref.watch(groupNotifierProvider.notifier);
-  return groupController.getUserInGroup(userIds);
+  return groupController.getUsersInGroup(userIds);
 });
 
 final getGroupDetailProvider =
@@ -149,8 +149,8 @@ class GroupNotifier extends StateNotifier<GroupState> {
     return groupList.map((group) => GroupModel.fromJson(group.data)).toList();
   }
 
-  Future<List<UserModel>> getUserInGroup(List<String> userIds) async {
-    final users = await groupAPI.getUserInGroup(userIds);
+  Future<List<UserModel>> getUsersInGroup(List<String> userIds) async {
+    final users = await groupAPI.getUsersInGroup(userIds);
     return users.map((user) => UserModel.fromJson(user.data)).toList();
   }
 
