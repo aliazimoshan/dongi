@@ -139,14 +139,19 @@ class BoxAPI implements IBoxAPI {
 
   @override
   Future<List<Document>> getUsersInBox(List<String> userIds) async {
-    final document = await _db.listDocuments(
-      databaseId: AppwriteConfig.databaseId,
-      collectionId: AppwriteConfig.usersCollection,
-      queries: [
-        Query.equal('\$id', userIds),
-      ],
-    );
-    return document.documents;
+    try {
+      final document = await _db.listDocuments(
+        databaseId: AppwriteConfig.databaseId,
+        collectionId: AppwriteConfig.usersCollection,
+        queries: [
+          Query.equal('\$id', userIds),
+        ],
+      );
+      return document.documents;
+    } on Exception catch (e) {
+      //debugPrint(e.toString());
+      return [];
+    }
   }
 
   @override
