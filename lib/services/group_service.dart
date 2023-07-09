@@ -107,14 +107,19 @@ class GroupAPI implements IGroupAPI {
 
   @override
   Future<List<Document>> getUsersInGroup(List<String> userIds) async {
-    final document = await _db.listDocuments(
-      databaseId: AppwriteConfig.databaseId,
-      collectionId: AppwriteConfig.usersCollection,
-      queries: [
-        Query.equal('\$id', userIds),
-      ],
-    );
-    return document.documents;
+    try {
+      if (userIds.isEmpty) return [];
+      final document = await _db.listDocuments(
+        databaseId: AppwriteConfig.databaseId,
+        collectionId: AppwriteConfig.usersCollection,
+        queries: [
+          Query.equal('\$id', userIds),
+        ],
+      );
+      return document.documents;
+    } catch (e) {
+      return [];
+    }
   }
 
   @override

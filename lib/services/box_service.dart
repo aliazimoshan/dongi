@@ -140,6 +140,7 @@ class BoxAPI implements IBoxAPI {
   @override
   Future<List<Document>> getUsersInBox(List<String> userIds) async {
     try {
+      if (userIds.isEmpty) return [];
       final document = await _db.listDocuments(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.usersCollection,
@@ -148,8 +149,7 @@ class BoxAPI implements IBoxAPI {
         ],
       );
       return document.documents;
-    } on Exception catch (e) {
-      print(e);
+    } catch (e) {
       return [];
     }
   }
