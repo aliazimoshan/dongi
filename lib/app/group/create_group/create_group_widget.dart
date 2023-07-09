@@ -40,7 +40,10 @@ class CreateGroupInfoCard extends ConsumerWidget {
           color: ColorConfig.white,
           borderRadius: BorderRadius.circular(10),
           image: image.value != null
-              ? DecorationImage(image: FileImage(image.value!))
+              ? DecorationImage(
+                  image: FileImage(image.value!),
+                  fit: BoxFit.cover,
+                )
               : null,
         ),
         child: image.value == null
