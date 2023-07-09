@@ -148,9 +148,8 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
 
       if (isUserSigningIn) return null;
 
-      final currentUserProvider =
-          await ref.read(authControllerProvider.notifier).currentUser();
-      if (currentUserProvider != null) {
+      final user = await ref.watch(currentUserProvider);
+      if (user != null) {
         return null;
       }
 

@@ -5,9 +5,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/box_model.dart';
-import '../../../services/auth_service.dart';
 import '../../../services/box_service.dart';
 import '../../../services/storage_api.dart';
+import '../../auth/controller/auth_controller.dart';
 part 'box_controller.freezed.dart';
 
 final boxNotifierProvider = StateNotifierProvider<BoxNotifier, BoxState>(
@@ -75,7 +75,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
     required String groupId,
   }) async {
     state = const BoxState.loading();
-    final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
+    final currentUser = await ref.watch(currentUserProvider);
     List<String> imageLinks = [];
     if (image.value != null) {
       final imageUploadRes = await storageAPI.uploadImage([image.value!]);
@@ -110,7 +110,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
     required BoxModel boxModel,
   }) async {
     state = const BoxState.loading();
-    //final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
+    //final currentUser = await ref.watch(currentUserProvider);
     List<String> imageLinks = [];
     if (image.value != null) {
       final imageUploadRes = await storageAPI.uploadImage([image.value!]);
@@ -156,7 +156,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
   }
 
   Future<List<BoxModel>> getBoxes() async {
-    final user = await ref.watch(authAPIProvider).currentUserAccount();
+    final user = await ref.watch(currentUserProvider);
     final boxList = await boxAPI.getBoxes(user!.$id);
     return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }
@@ -177,7 +177,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
   }
 
   Future<List<BoxModel>> getCurrentUserBoxes() async {
-    final user = await ref.watch(authAPIProvider).currentUserAccount();
+    final user = await ref.watch(currentUserProvider);
     final boxList = await boxAPI.getBoxesInGroup(user!.$id);
     return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }

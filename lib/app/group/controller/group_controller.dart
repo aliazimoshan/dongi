@@ -5,9 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/group_model.dart';
 import '../../../models/user_model.dart';
-import '../../../services/auth_service.dart';
 import '../../../services/group_service.dart';
 import '../../../services/storage_api.dart';
+import '../../auth/controller/auth_controller.dart';
 part 'group_controller.freezed.dart';
 
 final groupNotifierProvider = StateNotifierProvider<GroupNotifier, GroupState>(
@@ -62,7 +62,7 @@ class GroupNotifier extends StateNotifier<GroupState> {
     required TextEditingController groupDescription,
   }) async {
     state = const GroupState.loading();
-    final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
+    final currentUser = await ref.watch(currentUserProvider);
     List<String> imageLinks = [];
     if (image.value != null) {
       final imageUploadRes = await storageAPI.uploadImage([image.value!]);
@@ -77,7 +77,7 @@ class GroupNotifier extends StateNotifier<GroupState> {
       description: groupDescription.text,
       creatorId: currentUser!.$id,
       image: imageLinks.isNotEmpty ? imageLinks[0] : null,
-      groupUsers: [],
+      groupUsers: [currentUser.$id],
       boxIds: [],
       totalBalance: 0,
     );
@@ -144,7 +144,7 @@ class GroupNotifier extends StateNotifier<GroupState> {
   }
 
   Future<List<GroupModel>> getGroups() async {
-    final user = await ref.read(authAPIProvider).currentUserAccount();
+    final user = await ref.watch(currentUserProvider);
     final groupList = await groupAPI.getGroups(user!.$id);
     return groupList.map((group) => GroupModel.fromJson(group.data)).toList();
   }
@@ -155,7 +155,7 @@ class GroupNotifier extends StateNotifier<GroupState> {
   }
 
   Future<GroupModel> getGroupDetail(String groupId) async {
-    final user = await ref.read(authAPIProvider).currentUserAccount();
+    final user = await ref.watch(currentUserProvider);
     final group = await groupAPI.getGroupDetail(user!.$id, groupId);
     return GroupModel.fromJson(group.data);
   }
