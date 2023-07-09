@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../models/user_model.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/user_service.dart';
-import 'sign_in_controller.dart';
+import 'auth_controller.dart';
 
 part 'sign_up_controller.freezed.dart';
 
@@ -54,14 +54,24 @@ class SignUpNotifier extends StateNotifier<SignUpState> {
           email: email,
           userName: userName,
         );
-        final res2 = await userAPI.saveUserData(userModel);
+        final res2 = await userAPI.saveUserData(userModel, r.$id);
         return res2.fold(
           (l) => SignUpState.error(l.message),
-          (r) {
-            ref
-                .read(signInNotifierProvider.notifier)
-                .signIn(email: email, password: password);
-            return const SignUpState.loaded();
+          (r) async {
+            //Sign in user to create session
+            final res = await authAPI.signIn(
+              email: email,
+              password: password,
+            );
+
+            //This will refresh auth provider and update the currentUser provider
+            //we update authController for go_route redirect
+            ref.read(authControllerProvider.notifier);
+
+            return res.fold(
+              (l) => SignUpState.error(l.message),
+              (r) => const SignUpState.loaded(),
+            );
           },
         );
       },
