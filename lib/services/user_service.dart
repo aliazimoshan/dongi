@@ -16,7 +16,7 @@ final userAPIProvider = Provider((ref) {
 });
 
 abstract class IUserAPI {
-  FutureEitherVoid saveUserData(UserModel userModel);
+  FutureEitherVoid saveUserData(UserModel userModel, String uid);
   Future<model.Document> getUserData(String uid);
   Future<List<model.Document>> searchUserByName(String name);
   FutureEitherVoid updateUserData(UserModel userModel);
@@ -34,12 +34,12 @@ class UserAPI implements IUserAPI {
         _db = db;
 
   @override
-  FutureEitherVoid saveUserData(UserModel userModel) async {
+  FutureEitherVoid saveUserData(UserModel userModel, String authUid) async {
     try {
       await _db.createDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.usersCollection,
-        documentId: ID.unique(),
+        documentId: authUid,
         data: userModel.toJson(),
       );
       return right(null);
