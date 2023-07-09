@@ -19,6 +19,7 @@ abstract class IGroupAPI {
   FutureEither<Document> addGroup(GroupModel groupModel);
   FutureEither<Document> updateGroup(GroupModel groupModel);
   Future<List<Document>> getGroups(String uid);
+  Future<List<Document>> getUserInGroup(List<String> userIds);
   Future<Document> getGroupDetail(String uid, String groupId);
   FutureEither<bool> deleteGroup(String id);
   //
@@ -102,6 +103,18 @@ class GroupAPI implements IGroupAPI {
     } catch (e, st) {
       return left(Failure(e.toString(), st));
     }
+  }
+
+  @override
+  Future<List<Document>> getUserInGroup(List<String> userIds) async {
+    final document = await _db.listDocuments(
+      databaseId: AppwriteConfig.databaseId,
+      collectionId: AppwriteConfig.usersCollection,
+      queries: [
+        Query.equal('\$id', userIds),
+      ],
+    );
+    return document.documents;
   }
 
   @override

@@ -1,12 +1,16 @@
+import 'package:dongi/app/group/controller/group_controller.dart';
 import 'package:dongi/models/box_model.dart';
 import 'package:dongi/models/group_model.dart';
+import 'package:dongi/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
-import '../../../models/group_user_model.dart';
 import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
+import '../../../widgets/error/error.dart';
 import '../../../widgets/friends/friend.dart';
+import '../../../widgets/loading/loading.dart';
 
 class GroupDetailTitle extends StatelessWidget {
   final String groupName;
@@ -103,12 +107,12 @@ class GroupDetailInfo extends StatelessWidget {
           ),
           groupInfoCard(
             "Boxes",
-            groupModel.box.length.toString(),
+            groupModel.boxIds.length.toString(),
             Icons.group,
           ),
           groupInfoCard(
             "Members",
-            groupModel.groupUser.length.toString(),
+            groupModel.groupUsers.length.toString(),
             Icons.account_box,
           ),
         ],
@@ -117,20 +121,21 @@ class GroupDetailInfo extends StatelessWidget {
   }
 }
 
-class GroupDetailFriendList extends StatelessWidget {
+class GroupDetailFriendList extends ConsumerWidget {
   final List<String> userIds;
   const GroupDetailFriendList({super.key, required this.userIds});
-  friendCard(GroupUserModel user) {
+
+  friendCard(UserModel user) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
       child: Column(
         children: [
-          FriendWidget(image: user.userId.profilePic),
+          FriendWidget(image: user.profileImage),
           const SizedBox(height: 5),
           Row(
             children: [
               Text(
-                user.userId.userName,
+                user.userName,
                 style: FontConfig.caption(),
               )
             ],
@@ -161,36 +166,42 @@ class GroupDetailFriendList extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(26, 16, 0, 10),
-          child: Text(
-            'Friends',
-            style: FontConfig.body1(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final groupDetail = ref.watch(getUserInGroupProvider(userIds));
+
+    return groupDetail.when(
+      loading: () => const LoadingWidget(),
+      error: (error, stackTrace) => ErrorTextWidget(error),
+      data: (data) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(26, 16, 0, 10),
+            child: Text(
+              'Friends',
+              style: FontConfig.body1(),
+            ),
           ),
-        ),
-        SizedBox(
-          height: 110,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            children: [
-              const SizedBox(width: 11),
-              ListView.builder(
-                itemCount: users.length,
-                itemBuilder: (context, index) => friendCard(users[index]),
-                scrollDirection: Axis.horizontal,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-              ),
-              addFriendCard(),
-            ],
+          SizedBox(
+            height: 110,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              children: [
+                const SizedBox(width: 11),
+                ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) => friendCard(data[index]),
+                  scrollDirection: Axis.horizontal,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                ),
+                addFriendCard(),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

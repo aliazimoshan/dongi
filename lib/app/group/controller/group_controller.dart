@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/group_model.dart';
+import '../../../models/user_model.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/group_service.dart';
 import '../../../services/storage_api.dart';
@@ -30,6 +31,12 @@ class GroupState with _$GroupState {
 final getGroupsProvider = FutureProvider((ref) {
   final groupsController = ref.watch(groupNotifierProvider.notifier);
   return groupsController.getGroups();
+});
+
+final getUserInGroupProvider =
+    FutureProvider.family.autoDispose((ref, List<String> userIds) {
+  final groupController = ref.watch(groupNotifierProvider.notifier);
+  return groupController.getUserInGroup(userIds);
 });
 
 final getGroupDetailProvider =
@@ -140,6 +147,11 @@ class GroupNotifier extends StateNotifier<GroupState> {
     final user = await ref.read(authAPIProvider).currentUserAccount();
     final groupList = await groupAPI.getGroups(user!.$id);
     return groupList.map((group) => GroupModel.fromJson(group.data)).toList();
+  }
+
+  Future<List<UserModel>> getUserInGroup(List<String> userIds) async {
+    final users = await groupAPI.getUserInGroup(userIds);
+    return users.map((user) => UserModel.fromJson(user.data)).toList();
   }
 
   Future<GroupModel> getGroupDetail(String groupId) async {
