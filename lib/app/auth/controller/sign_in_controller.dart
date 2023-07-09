@@ -4,11 +4,14 @@ import 'package:dongi/services/user_service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'auth_controller.dart';
+
 part 'sign_in_controller.freezed.dart';
 
 final signInNotifierProvider =
     StateNotifierProvider<SignInNotifier, SignInState>((ref) {
   return SignInNotifier(
+    ref: ref,
     authAPI: ref.watch(authAPIProvider),
     userAPI: ref.watch(userAPIProvider),
   );
@@ -25,12 +28,14 @@ class SignInState with _$SignInState {
 
 class SignInNotifier extends StateNotifier<SignInState> {
   SignInNotifier({
+    required this.ref,
     required this.authAPI,
     required this.userAPI,
   }) : super(const SignInState.init());
 
   final AuthAPI authAPI;
   final UserAPI userAPI;
+  final Ref ref;
 
   Future<void> signIn({required String email, required String password}) async {
     state = const SignInState.loading();
@@ -39,6 +44,10 @@ class SignInNotifier extends StateNotifier<SignInState> {
       email: email,
       password: password,
     );
+
+    //This will refresh auth provider and update the currentUser provider
+    //we update authController for go_route redirect
+    ref.read(authControllerProvider.notifier);
 
     state = res.fold(
       (l) => SignInState.error(l.message),
@@ -54,13 +63,12 @@ class SignInNotifier extends StateNotifier<SignInState> {
       (l) => SignInState.error(l.message),
       (r) async {
         UserModel userModel = UserModel(
-          id: r.$id,
           email: r.email,
           userName: r.name,
         );
         //Todo | If the user has an account don't save  data just update it if needed
         //and the snackbar should not pop up
-        final res2 = await userAPI.saveUserData(userModel);
+        final res2 = await userAPI.saveUserData(userModel, r.$id);
         return res2.fold(
           (l) => SignInState.error(l.message),
           (r) => const SignInState.loaded(),
