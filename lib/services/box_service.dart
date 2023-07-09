@@ -149,7 +149,7 @@ class BoxAPI implements IBoxAPI {
       );
       return document.documents;
     } on Exception catch (e) {
-      //debugPrint(e.toString());
+      print(e);
       return [];
     }
   }
