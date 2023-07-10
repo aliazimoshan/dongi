@@ -3,7 +3,6 @@ import 'package:dongi/models/user_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../services/auth_service.dart';
 import '../../../services/friend_service.dart';
 import '../../auth/controller/auth_controller.dart';
 part 'friend_controller.freezed.dart';
