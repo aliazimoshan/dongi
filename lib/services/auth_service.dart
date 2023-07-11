@@ -17,7 +17,7 @@ abstract class IAuthAPI {
     required String email,
     required String password,
   });
-  FutureEither<Session> signIn({
+  FutureEither<User> signIn({
     required String email,
     required String password,
   });
@@ -68,16 +68,20 @@ class AuthAPI implements IAuthAPI {
   }
 
   @override
-  FutureEither<Session> signIn({
+  FutureEither<User> signIn({
     required String email,
     required String password,
   }) async {
     try {
-      final session = await _account.createEmailSession(
+      // Below API will return session that we don't need in this step
+      await _account.createEmailSession(
         email: email,
         password: password,
       );
-      return right(session);
+      final account = await currentUserAccount();
+      if (account == null) throw "account not found";
+
+      return right(account);
     } on AppwriteException catch (e, stackTrace) {
       return left(
         Failure(e.message ?? 'Some unexpected error occurred', stackTrace),
