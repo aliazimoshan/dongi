@@ -11,6 +11,7 @@ class TextFieldWidget extends HookWidget {
   final TextEditingController? controller;
   final bool obscureText;
   final String? Function(String? value)? validator;
+  final String? Function(String? value)? onChanged;
   const TextFieldWidget({
     required this.hintText,
     this.fillColor,
@@ -19,6 +20,7 @@ class TextFieldWidget extends HookWidget {
     this.controller,
     this.obscureText = false,
     this.validator,
+    this.onChanged,
   });
 
   @override
@@ -29,6 +31,7 @@ class TextFieldWidget extends HookWidget {
       maxLines: maxLines,
       controller: controller,
       obscureText: obscureText && !toggle.value,
+      onChanged: onChanged,
       decoration: InputDecoration(
         filled: true,
         fillColor: fillColor ?? ColorConfig.grey,
