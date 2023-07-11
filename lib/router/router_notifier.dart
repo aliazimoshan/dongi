@@ -18,6 +18,7 @@ import '../app/group/group_list/group_list_page.dart';
 import '../app/group/update_group/update_group_page.dart';
 import '../app/home/home_page.dart';
 import '../app/onboarding/onboarding_page.dart';
+import '../app/splash/splash_page.dart';
 import '../models/box_model.dart';
 import '../models/group_model.dart';
 
@@ -50,12 +51,16 @@ class RouteName {
 
 GoRouter _goRouterConfig(StateProviderRef ref) {
   return GoRouter(
-    initialLocation: RouteName.home,
+    initialLocation: RouteName.splash,
     navigatorKey: navigatorKey,
     routes: [
       GoRoute(
         path: RouteName.home,
         builder: (context, state) => const HomePage(),
+      ),
+      GoRoute(
+        path: RouteName.splash,
+        builder: (context, state) => const SplashPage(),
       ),
       GoRoute(
         path: RouteName.signup,
@@ -131,7 +136,7 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
       ),
       GoRoute(
         path: RouteName.expenseMadeBy,
-        builder: (context, state) => MadeByPage(),
+        builder: (context, state) => const MadeByPage(),
       ),
       GoRoute(
         path: RouteName.expenseSplit,
@@ -139,16 +144,14 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
       ),
     ],
     redirect: (context, state) async {
-      bool isUserSigningIn = false;
       if (state.location == RouteName.signup ||
-          state.location == RouteName.signin) {
+          state.location == RouteName.signin ||
+          state.location == RouteName.splash) {
         //user try to sign in or sign up
-        isUserSigningIn = true;
+        return null;
       }
 
-      if (isUserSigningIn) return null;
-
-      final user = await ref.watch(currentUserProvider);
+      final user = ref.watch(currentUserProvider);
       if (user != null) {
         return null;
       }
