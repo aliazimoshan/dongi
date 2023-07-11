@@ -1,51 +1,58 @@
 import 'package:dongi/constants/font_config.dart';
+import 'package:dongi/extensions/round_double.dart';
+import 'package:dongi/models/user_model.dart';
 import 'package:dongi/widgets/card/card.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
 import '../../../widgets/checkbox/checkbox_widget.dart';
 import '../../../widgets/list_tile/list_tile_card.dart';
-import 'split_controller.dart';
+import '../controller/expense_controller.dart';
 
-class SplitWidget {
-  friendList(List<String> friends, WidgetRef ref) {
-    final provider = ref.watch(friendsSelectorProvider);
+class SplitFriendListWidget extends ConsumerWidget {
+  final List<UserModel> users;
+  const SplitFriendListWidget(this.users, {super.key});
 
-    cardIcon() {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Container(
-            //width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: ColorConfig.primarySwatch,
-              borderRadius: BorderRadius.circular(10),
-            ),
+  cardIcon() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Container(
+          //width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: ColorConfig.primarySwatch,
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
-      );
-    }
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedUsers = ref.watch(splitUserProvider);
 
     return Expanded(
       child: ListView.builder(
-        itemCount: friends.length,
+        itemCount: users.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
             child: ListTileCard(
               leading: cardIcon(),
-              titleString: friends[index],
-              onTap: () => ref
-                  .read(friendsSelectorProvider.notifier)
-                  .select(friends[index]),
+              titleString: users[index].userName,
+              onTap: () =>
+                  ref.watch(splitUserProvider.notifier).select(users[index]),
               trailing: CheckboxWidget(
                 borderColor: ColorConfig.primarySwatch,
-                value: provider.contains(friends[index]),
-                onChanged: (val) => ref
-                    .read(friendsSelectorProvider.notifier)
-                    .select(friends[index]),
+                value: selectedUsers
+                    .map((val) => val.id)
+                    .toList()
+                    .contains(users[index].id),
+                onChanged: (val) =>
+                    ref.watch(splitUserProvider.notifier).select(users[index]),
               ),
             ),
           );
@@ -53,10 +60,33 @@ class SplitWidget {
       ),
     );
   }
+}
 
-  actionButton(List<String> friends, WidgetRef ref) {
-    final friendViewModel = ref.watch(friendsSelectorProvider);
-    final splitViewModel = ref.watch(splitProvider(10000).notifier);
+class SplitActionButtonWidget extends ConsumerWidget {
+  final List<UserModel> users;
+  const SplitActionButtonWidget(this.users, {super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedUsers = ref.watch(splitUserProvider);
+    final splitCost = ref.watch(splitCostProvider);
+
+    String splitCostString() {
+      int selectedUserLength = selectedUsers.length;
+
+      if (selectedUserLength != 0) {
+        double amountPerPerson =
+            (int.parse(splitCost.text) / selectedUserLength).fixedDouble();
+
+        if (amountPerPerson > 0) {
+          return "\$$amountPerPerson / person($selectedUserLength)";
+        } else {
+          return "no one selected";
+        }
+      } else {
+        return "no one selected";
+      }
+    }
 
     return SafeArea(
       child: Padding(
@@ -73,10 +103,10 @@ class SplitWidget {
                     child: Row(
                       children: [
                         CheckboxWidget(
-                          value: friendViewModel.length == friends.length,
+                          value: selectedUsers.length == users.length,
                           onChanged: (value) => ref
-                              .read(friendsSelectorProvider.notifier)
-                              .addAll(friends),
+                              .read(splitUserProvider.notifier)
+                              .addAll(users),
                         ),
                         Text(
                           "All",
@@ -86,7 +116,7 @@ class SplitWidget {
                         ),
                         const Spacer(),
                         Text(
-                          splitViewModel.toString(),
+                          splitCostString(),
                           style: FontConfig.body2().copyWith(
                             color: ColorConfig.pureWhite,
                           ),

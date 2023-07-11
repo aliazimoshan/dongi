@@ -8,6 +8,7 @@ import '../../../widgets/button/button.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/card/grey_card.dart';
 import '../../../widgets/text_field/text_field.dart';
+import '../controller/expense_controller.dart';
 
 class CreateExpenseAmount extends ConsumerWidget {
   const CreateExpenseAmount({super.key});
@@ -20,6 +21,8 @@ class CreateExpenseAmount extends ConsumerWidget {
           child: TextFieldWidget(
             hintText: "10,000",
             fillColor: ColorConfig.white,
+            onChanged: (value) =>
+                ref.read(splitCostProvider.notifier).state.text = value!,
           ),
         ),
         const SizedBox(width: 10),
@@ -132,7 +135,8 @@ class CreateExpenseAction extends ConsumerWidget {
 }
 
 class CreateExpenseDescription extends ConsumerWidget {
-  const CreateExpenseDescription({super.key});
+  final TextEditingController expenseDescription;
+  const CreateExpenseDescription(this.expenseDescription, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -154,6 +158,7 @@ class CreateExpenseDescription extends ConsumerWidget {
           const SizedBox(width: 10),
           Expanded(
             child: TextFieldWidget(
+              controller: expenseDescription,
               hintText: "Description",
               maxLines: 3,
               fillColor: ColorConfig.white,
@@ -166,7 +171,20 @@ class CreateExpenseDescription extends ConsumerWidget {
 }
 
 class CreateExpenseCreateButton extends ConsumerWidget {
-  const CreateExpenseCreateButton({super.key});
+  final TextEditingController expenseTitle;
+  final TextEditingController expenseDescription;
+  final GlobalKey<FormState> formKey;
+  final String groupId;
+  final String boxId;
+
+  const CreateExpenseCreateButton({
+    required this.expenseTitle,
+    required this.expenseDescription,
+    required this.formKey,
+    required this.groupId,
+    required this.boxId,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -174,7 +192,20 @@ class CreateExpenseCreateButton extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
         child: ButtonWidget(
-          onPressed: () {},
+          isLoading: ref.watch(expenseNotifierProvider).maybeWhen(
+                loading: () => true,
+                orElse: () => false,
+              ),
+          onPressed: () {
+            if (formKey.currentState!.validate()) {
+              ref.read(expenseNotifierProvider.notifier).addExpense(
+                    expenseTitle: expenseTitle,
+                    expenseDescription: expenseDescription,
+                    groupId: groupId,
+                    boxId: boxId,
+                  );
+            }
+          },
           title: "Create",
           textColor: ColorConfig.secondary,
         ),
