@@ -46,16 +46,16 @@ final getBoxDetailProvider =
 });
 
 final getUsersInBoxProvider =
-    FutureProvider.family.autoDispose((ref, List<String> userIds) {
+    FutureProvider.family.autoDispose((ref, List<String> userIds) async {
   final boxesController = ref.watch(boxNotifierProvider.notifier);
-  return boxesController.getUsersInBox(userIds);
+  List<UserModel> usersInBox = await boxesController.getUsersInBox(userIds);
+  ref.read(userInBoxStoreProvider.notifier).state = usersInBox;
+  return usersInBox;
 });
 
-//final refreshBoxesProvider =
-//    FutureProvider.family.autoDispose((ref, String groupId) {
-//  final boxesController = ref.refresh(boxNotifierProvider.notifier);
-//  return boxesController.getBoxesInGroup(groupId);
-//});
+final userInBoxStoreProvider = StateProvider<List<UserModel>>((ref) {
+  return [];
+});
 
 class BoxNotifier extends StateNotifier<BoxState> {
   BoxNotifier({
@@ -75,7 +75,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
     required String groupId,
   }) async {
     state = const BoxState.loading();
-    final currentUser = await ref.watch(currentUserProvider);
+    final currentUser = ref.watch(currentUserProvider);
     List<String> imageLinks = [];
     if (image.value != null) {
       final imageUploadRes = await storageAPI.uploadImage([image.value!]);
@@ -110,7 +110,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
     required BoxModel boxModel,
   }) async {
     state = const BoxState.loading();
-    //final currentUser = await ref.watch(currentUserProvider);
+    //final currentUser = ref.read(currentUserProvider);
     List<String> imageLinks = [];
     if (image.value != null) {
       final imageUploadRes = await storageAPI.uploadImage([image.value!]);
@@ -156,7 +156,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
   }
 
   Future<List<BoxModel>> getBoxes() async {
-    final user = await ref.watch(currentUserProvider);
+    final user = ref.watch(currentUserProvider);
     final boxList = await boxAPI.getBoxes(user!.$id);
     return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }
@@ -177,7 +177,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
   }
 
   Future<List<BoxModel>> getCurrentUserBoxes() async {
-    final user = await ref.watch(currentUserProvider);
+    final user = ref.watch(currentUserProvider);
     final boxList = await boxAPI.getBoxesInGroup(user!.$id);
     return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
   }

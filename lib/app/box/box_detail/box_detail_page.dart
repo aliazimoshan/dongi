@@ -1,10 +1,9 @@
-import 'package:dongi/widgets/appbar/sliver_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../constants/color_config.dart';
 import '../../../router/router_notifier.dart';
+import '../../../widgets/appbar/sliver_appbar.dart';
 import '../../../widgets/error/error.dart';
 import '../../../widgets/floating_action_button/floating_action_button.dart';
 import '../../../widgets/loading/loading.dart';
@@ -24,8 +23,29 @@ class BoxDetailPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final boxDetail = ref.watch(getBoxDetailProvider(boxId));
 
+    // by using listen we are not gonna rebuild our app
+    //ref.listen<ExpenseState>(
+    //  expenseNotifierProvider,
+    //  (previous, next) {
+    //    next.whenOrNull(
+    //      loaded: () => ref.refresh(expenseNotifierProvider),
+    //      error: (message) => showSnackBar(context, message),
+    //    );
+    //  },
+    //);
+
+    //ref.listen<BoxState>(
+    //  boxNotifierProvider,
+    //  (previous, next) {
+    //    next.whenOrNull(
+    //      loaded: () => ref.refresh(getBoxesInGroupProvider(groupId)),
+    //      error: (message) => showSnackBar(context, message),
+    //    );
+    //  },
+    //);
+
     return Scaffold(
-      backgroundColor: ColorConfig.primarySwatch,
+      //backgroundColor: ColorConfig.primarySwatch,
       //appBar: AppBar(elevation: 0),
       body: boxDetail.when(
         loading: () => const LoadingWidget(),
