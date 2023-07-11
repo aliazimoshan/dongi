@@ -49,9 +49,8 @@ final authControllerProvider =
 //  },
 //);
 
-final currentUserProvider = StateProvider((ref) {
-  final user = ref.watch(authControllerProvider.notifier);
-  return user.currentUser();
+final currentUserProvider = StateProvider<User?>((ref) {
+  return null;
 });
 
 class AuthController extends StateNotifier<bool> {

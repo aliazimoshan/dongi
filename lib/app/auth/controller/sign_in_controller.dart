@@ -45,13 +45,13 @@ class SignInNotifier extends StateNotifier<SignInState> {
       password: password,
     );
 
-    //This will refresh auth provider and update the currentUser provider
-    //we update authController for go_route redirect
-    ref.read(authControllerProvider.notifier);
-
     state = res.fold(
       (l) => SignInState.error(l.message),
-      (r) => const SignInState.loaded(),
+      (r) {
+        // Save User data to provider
+        ref.watch(currentUserProvider.notifier).state = r;
+        return const SignInState.loaded();
+      },
     );
   }
 
@@ -66,6 +66,8 @@ class SignInNotifier extends StateNotifier<SignInState> {
           email: r.email,
           userName: r.name,
         );
+        // Save User data to provider
+        ref.watch(currentUserProvider.notifier).state = r;
         //Todo | If the user has an account don't save  data just update it if needed
         //and the snackbar should not pop up
         final res2 = await userAPI.saveUserData(userModel, r.$id);

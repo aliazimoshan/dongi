@@ -64,13 +64,13 @@ class SignUpNotifier extends StateNotifier<SignUpState> {
               password: password,
             );
 
-            //This will refresh auth provider and update the currentUser provider
-            //we update authController for go_route redirect
-            ref.read(authControllerProvider.notifier);
-
             return res.fold(
               (l) => SignUpState.error(l.message),
-              (r) => const SignUpState.loaded(),
+              (r) {
+                // Save User data to provider
+                ref.watch(currentUserProvider.notifier).state = r;
+                return const SignUpState.loaded();
+              },
             );
           },
         );

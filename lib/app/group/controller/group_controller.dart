@@ -62,7 +62,7 @@ class GroupNotifier extends StateNotifier<GroupState> {
     required TextEditingController groupDescription,
   }) async {
     state = const GroupState.loading();
-    final currentUser = await ref.watch(currentUserProvider);
+    final currentUser = ref.read(currentUserProvider);
     List<String> imageLinks = [];
     if (image.value != null) {
       final imageUploadRes = await storageAPI.uploadImage([image.value!]);
@@ -144,7 +144,7 @@ class GroupNotifier extends StateNotifier<GroupState> {
   }
 
   Future<List<GroupModel>> getGroups() async {
-    final user = await ref.watch(currentUserProvider);
+    final user = ref.read(currentUserProvider);
     final groupList = await groupAPI.getGroups(user!.$id);
     return groupList.map((group) => GroupModel.fromJson(group.data)).toList();
   }
@@ -155,7 +155,7 @@ class GroupNotifier extends StateNotifier<GroupState> {
   }
 
   Future<GroupModel> getGroupDetail(String groupId) async {
-    final user = await ref.watch(currentUserProvider);
+    final user = ref.read(currentUserProvider);
     final group = await groupAPI.getGroupDetail(user!.$id, groupId);
     return GroupModel.fromJson(group.data);
   }

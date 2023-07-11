@@ -47,7 +47,7 @@ class FriendNotifier extends StateNotifier<FriendState> {
 
   Future<void> addFriend(UserModel userModel) async {
     state = const FriendState.loading();
-    final currentUser = await ref.watch(currentUserProvider);
+    final currentUser = ref.read(currentUserProvider);
     final currentUserModel = await ref
         .read(authControllerProvider.notifier)
         .getUserData(currentUser!.$id);
@@ -80,7 +80,7 @@ class FriendNotifier extends StateNotifier<FriendState> {
   }
 
   Future<List<UserFriendModel>> getFriends() async {
-    final user = await ref.watch(currentUserProvider);
+    final user = ref.read(currentUserProvider);
     final friendList = await friendAPI.getFriends(user!.$id);
     return friendList
         .map((friend) => UserFriendModel.fromJson(friend.data))
@@ -88,7 +88,7 @@ class FriendNotifier extends StateNotifier<FriendState> {
   }
 
   Future<UserFriendModel> getFriendDetail(String friendId) async {
-    final user = await ref.watch(currentUserProvider);
+    final user = ref.read(currentUserProvider);
     final friend = await friendAPI.getFriendDetail(user!.$id, friendId);
     return UserFriendModel.fromJson(friend.data);
   }
