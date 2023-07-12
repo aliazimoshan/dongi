@@ -49,7 +49,7 @@ class SignInNotifier extends StateNotifier<SignInState> {
       (l) => SignInState.error(l.message),
       (r) {
         // Save User data to provider
-        ref.watch(currentUserProvider.notifier).state = r;
+        ref.read(currentUserProvider.notifier).state = r;
         return const SignInState.loaded();
       },
     );
@@ -67,7 +67,7 @@ class SignInNotifier extends StateNotifier<SignInState> {
           userName: r.name,
         );
         // Save User data to provider
-        ref.watch(currentUserProvider.notifier).state = r;
+        ref.read(currentUserProvider.notifier).state = r;
         //Todo | If the user has an account don't save  data just update it if needed
         //and the snackbar should not pop up
         final res2 = await userAPI.saveUserData(userModel, r.$id);

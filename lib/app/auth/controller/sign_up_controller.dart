@@ -68,7 +68,7 @@ class SignUpNotifier extends StateNotifier<SignUpState> {
               (l) => SignUpState.error(l.message),
               (r) {
                 // Save User data to provider
-                ref.watch(currentUserProvider.notifier).state = r;
+                ref.read(currentUserProvider.notifier).state = r;
                 return const SignUpState.loaded();
               },
             );
