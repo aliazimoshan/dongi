@@ -12,6 +12,7 @@ import '../sign_in/sign_in_page.dart';
 final authControllerProvider =
     StateNotifierProvider<AuthController, bool>((ref) {
   return AuthController(
+    ref: ref,
     authAPI: ref.watch(authAPIProvider),
     userAPI: ref.watch(userAPIProvider),
   );
@@ -54,17 +55,19 @@ final currentUserProvider = StateProvider<User?>((ref) {
 });
 
 class AuthController extends StateNotifier<bool> {
-  final AuthAPI _authAPI;
-  final UserAPI _userAPI;
+  final AuthAPI authAPI;
+  final UserAPI userAPI;
+  final Ref ref;
+
   AuthController({
-    required AuthAPI authAPI,
-    required UserAPI userAPI,
-  })  : _authAPI = authAPI,
-        _userAPI = userAPI,
-        super(false);
+    required this.authAPI,
+    required this.userAPI,
+    required this.ref,
+  }) : super(false);
+
   // state = isLoading
 
-  Future<User?> currentUser() => _authAPI.currentUserAccount();
+  Future<User?> currentUser() => authAPI.currentUserAccount();
 
   //void signIn({
   //  required String email,
@@ -112,21 +115,24 @@ class AuthController extends StateNotifier<bool> {
   //}
 
   Future<UserModel> getUserData(String uid) async {
-    final document = await _userAPI.getUserData(uid);
+    final document = await userAPI.getUserData(uid);
     final updatedUser = UserModel.fromJson(document.data);
     return updatedUser;
   }
 
   void logout(BuildContext context) async {
-    final res = await _authAPI.logout();
+    final res = await authAPI.logout();
     res.fold(
       (l) => null,
-      (r) => context.go(RouteName.signin),
+      (r) {
+        ref.read(currentUserProvider.notifier).state = null;
+        context.go(RouteName.signin);
+      },
     );
   }
 
   void forgetPassword(BuildContext context) async {
-    final res = await _authAPI.logout();
+    final res = await authAPI.logout();
     res.fold(
       (l) => null,
       (r) {
