@@ -12,6 +12,7 @@ import '../app/auth/sign_in/sign_in_page.dart';
 import '../app/auth/sign_up/sign_up_page.dart';
 import '../app/box/create_box/create_box_page.dart';
 import '../app/box/update_box/update_box_page.dart';
+import '../app/expense/expense_detail/expense_detail_page.dart';
 import '../app/group/create_group/create_group_page.dart';
 import '../app/group/group_detail/group_detail_page.dart';
 import '../app/group/group_list/group_list_page.dart';
@@ -47,6 +48,7 @@ class RouteName {
   static String createExpense = '/expense/create';
   static String expenseMadeBy = '/expense/madeByd';
   static String expenseSplit = '/expense/split';
+  static String expenseDetail = '/expense/detail';
 }
 
 GoRouter _goRouterConfig(StateProviderRef ref) {
@@ -139,8 +141,16 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
         builder: (context, state) => const MadeByPage(),
       ),
       GoRoute(
-        path: RouteName.expenseSplit,
-        builder: (context, state) => const SplitPage(),
+          path: RouteName.expenseSplit,
+          builder: (context, state) {
+            Map extra = state.extra as Map<String, dynamic>;
+            return SplitPage(
+              expenseCost: extra["expenseCost"],
+            );
+          }),
+      GoRoute(
+        path: RouteName.expenseDetail,
+        builder: (context, state) => const ExpenseDetailPage(),
       ),
     ],
     redirect: (context, state) async {
