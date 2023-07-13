@@ -7,7 +7,7 @@ import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
 import '../../../widgets/friends/friend.dart';
 
-class ExpenseReviewWidget {
+class ExpenseDetailWidget {
   /// * ----- total expense
   userInfoRow() {
     return Column(
