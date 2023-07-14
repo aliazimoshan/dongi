@@ -19,7 +19,7 @@ abstract class IExpenseAPI {
   FutureEither<Document> addExpense(ExpenseModel expenseModel);
   FutureEither<Document> updateExpense(ExpenseModel expenseModel);
   Future<List<Document>> getExpenses(String uid);
-  Future<List<Document>> getExpensesInGroup(String groupId);
+  Future<List<Document>> getExpensesInBox(String groupId);
   Future<Document> getExpenseDetail(String expenseId);
   Future<List<Document>> getUsersInExpense(List<String> userIds);
   Future<List<Document>> getCurrentUserExpenses(String uid);
@@ -113,12 +113,14 @@ class ExpenseAPI implements IExpenseAPI {
   }
 
   @override
-  Future<List<Document>> getExpensesInGroup(String groupId) async {
+  Future<List<Document>> getExpensesInBox(String boxId) async {
     final document = await _db.listDocuments(
       databaseId: AppwriteConfig.databaseId,
       collectionId: AppwriteConfig.expenseCollection,
       queries: [
-        Query.equal('groupId', groupId),
+        // Show the new expense on top
+        Query.orderDesc('\$createdAt'),
+        Query.equal('boxId', boxId),
       ],
     );
     return document.documents;
