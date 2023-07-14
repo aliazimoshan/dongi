@@ -23,6 +23,8 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.1
   dartz: ^0.10.1
+  flutter_slidable: ^3.0.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
