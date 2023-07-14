@@ -64,19 +64,23 @@ class SplitFriendListWidget extends ConsumerWidget {
 
 class SplitActionButtonWidget extends ConsumerWidget {
   final List<UserModel> users;
-  const SplitActionButtonWidget(this.users, {super.key});
+  final TextEditingController expenseCost;
+  const SplitActionButtonWidget({
+    super.key,
+    required this.users,
+    required this.expenseCost,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedUsers = ref.watch(splitUserProvider);
-    final splitCost = ref.watch(splitCostProvider);
 
     String splitCostString() {
       int selectedUserLength = selectedUsers.length;
 
       if (selectedUserLength != 0) {
         double amountPerPerson =
-            (int.parse(splitCost.text) / selectedUserLength).fixedDouble();
+            (int.parse(expenseCost.text) / selectedUserLength).fixedDouble();
 
         if (amountPerPerson > 0) {
           return "\$$amountPerPerson / person($selectedUserLength)";

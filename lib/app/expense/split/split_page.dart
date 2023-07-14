@@ -5,7 +5,8 @@ import '../../box/controller/box_controller.dart';
 import 'split_widget.dart';
 
 class SplitPage extends ConsumerWidget {
-  const SplitPage({super.key});
+  final TextEditingController expenseCost;
+  const SplitPage({super.key, required this.expenseCost});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,7 +17,7 @@ class SplitPage extends ConsumerWidget {
       body: Column(
         children: [
           SplitFriendListWidget(allUsers),
-          SplitActionButtonWidget(allUsers),
+          SplitActionButtonWidget(users: allUsers, expenseCost: expenseCost),
         ],
       ),
     );

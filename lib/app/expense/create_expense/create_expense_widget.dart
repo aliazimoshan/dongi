@@ -1,3 +1,4 @@
+import 'package:dongi/extensions/format_with_comma.dart';
 import 'package:dongi/router/router_notifier.dart';
 import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,8 @@ import '../../../widgets/text_field/text_field.dart';
 import '../controller/expense_controller.dart';
 
 class CreateExpenseAmount extends ConsumerWidget {
-  const CreateExpenseAmount({super.key});
+  final TextEditingController expenseCost;
+  const CreateExpenseAmount({super.key, required this.expenseCost});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,8 +23,8 @@ class CreateExpenseAmount extends ConsumerWidget {
           child: TextFieldWidget(
             hintText: "10,000",
             fillColor: ColorConfig.white,
-            onChanged: (value) =>
-                ref.read(splitCostProvider.notifier).state.text = value!,
+            controller: expenseCost,
+            onChanged: (value) => expenseCost.text.formatWithCommas(),
           ),
         ),
         const SizedBox(width: 10),
@@ -84,7 +86,8 @@ class CreateExpenseDate extends ConsumerWidget {
 }
 
 class CreateExpenseAction extends ConsumerWidget {
-  const CreateExpenseAction({super.key});
+  final TextEditingController expenseCost;
+  const CreateExpenseAction({super.key, required this.expenseCost});
 
   _actionButton({
     required String title,
@@ -126,7 +129,10 @@ class CreateExpenseAction extends ConsumerWidget {
             title: "split between",
             subtitle: "Splitting method",
             icon: Icons.call_split,
-            onTap: () => context.push(RouteName.expenseSplit),
+            onTap: () => context.push(
+              RouteName.expenseSplit,
+              extra: {"expenseCost": expenseCost},
+            ),
           ),
         ],
       ),
@@ -173,6 +179,7 @@ class CreateExpenseDescription extends ConsumerWidget {
 class CreateExpenseCreateButton extends ConsumerWidget {
   final TextEditingController expenseTitle;
   final TextEditingController expenseDescription;
+  final TextEditingController expenseCost;
   final GlobalKey<FormState> formKey;
   final String groupId;
   final String boxId;
@@ -180,6 +187,7 @@ class CreateExpenseCreateButton extends ConsumerWidget {
   const CreateExpenseCreateButton({
     required this.expenseTitle,
     required this.expenseDescription,
+    required this.expenseCost,
     required this.formKey,
     required this.groupId,
     required this.boxId,
@@ -201,6 +209,7 @@ class CreateExpenseCreateButton extends ConsumerWidget {
               ref.read(expenseNotifierProvider.notifier).addExpense(
                     expenseTitle: expenseTitle,
                     expenseDescription: expenseDescription,
+                    expenseCost: expenseCost,
                     groupId: groupId,
                     boxId: boxId,
                   );

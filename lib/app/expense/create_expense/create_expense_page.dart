@@ -26,6 +26,7 @@ class CreateExpensePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final expenseTitle = useTextEditingController();
     final expenseDescription = useTextEditingController();
+    final expenseCost = useTextEditingController();
 
     /// by using listen we are not gonna rebuild our app
     ref.listen<ExpenseState>(
@@ -55,7 +56,7 @@ class CreateExpensePage extends HookConsumerWidget {
                       padding: const EdgeInsets.all(10),
                       child: Column(
                         children: [
-                          const CreateExpenseAmount(),
+                          CreateExpenseAmount(expenseCost: expenseCost),
                           const SizedBox(height: 10),
                           TextFieldWidget(
                             hintText: "Title",
@@ -74,7 +75,7 @@ class CreateExpensePage extends HookConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const CreateExpenseAction(),
+                    CreateExpenseAction(expenseCost: expenseCost),
                     const SizedBox(height: 20),
                     CreateExpenseDescription(expenseDescription),
                   ],
@@ -83,6 +84,7 @@ class CreateExpensePage extends HookConsumerWidget {
               CreateExpenseCreateButton(
                 expenseTitle: expenseTitle,
                 expenseDescription: expenseDescription,
+                expenseCost: expenseCost,
                 formKey: _formKey,
                 groupId: groupId,
                 boxId: boxId,
