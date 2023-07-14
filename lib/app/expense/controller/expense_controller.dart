@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../models/box_model.dart';
 import '../../../models/user_model.dart';
 import '../../../services/expense_service.dart';
 import '../../../services/storage_api.dart';
@@ -15,9 +14,9 @@ final expenseNotifierProvider =
     StateNotifierProvider<ExpenseNotifier, ExpenseState>(
   (ref) {
     return ExpenseNotifier(
+      ref: ref,
       expenseAPI: ref.watch(expenseAPIProvider),
       storageAPI: ref.watch(storageAPIProvider),
-      ref: ref,
     );
   },
 );
@@ -30,27 +29,10 @@ class ExpenseState with _$ExpenseState {
   const factory ExpenseState.error(String message) = ExpenseErrorState;
 }
 
-final getBoxesProvider = FutureProvider((ref) {
-  final boxesController = ref.watch(expenseNotifierProvider.notifier);
-  return boxesController.getBoxes();
-});
-
-final getBoxesInGroupProvider =
-    FutureProvider.family.autoDispose((ref, String groupId) {
-  final boxesController = ref.watch(expenseNotifierProvider.notifier);
-  return boxesController.getBoxesInGroup(groupId);
-});
-
-//final getBoxDetailProvider =
-//    FutureProvider.family.autoDispose((ref, String boxId) {
-//  final boxesController = ref.watch(expenseNotifierProvider.notifier);
-//  return boxesController.getBoxDetail(boxId);
-//});
-
-final getUsersInBoxProvider =
-    FutureProvider.family.autoDispose((ref, List<String> userIds) {
-  final boxesController = ref.watch(expenseNotifierProvider.notifier);
-  return boxesController.getUsersInBox(userIds);
+final getExpensesInBoxProvider =
+    FutureProvider.family.autoDispose((ref, String boxId) {
+  final expenseController = ref.watch(expenseNotifierProvider.notifier);
+  return expenseController.getExpensesInBox(boxId);
 });
 
 final expenseCreatorProvider = StateProvider<String?>((ref) {
@@ -62,10 +44,6 @@ final splitUserProvider =
     StateNotifierProvider<SplitUserNotifier, List<UserModel>>((ref) {
   final allUsers = ref.watch(userInBoxStoreProvider);
   return SplitUserNotifier(allUsers);
-});
-
-final splitCostProvider = StateProvider<TextEditingController>((ref) {
-  return TextEditingController(text: "0");
 });
 
 class ExpenseNotifier extends StateNotifier<ExpenseState> {
@@ -82,13 +60,13 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
   Future<void> addExpense({
     required TextEditingController expenseTitle,
     required TextEditingController expenseDescription,
+    required TextEditingController expenseCost,
     required String groupId,
     required String boxId,
   }) async {
     state = const ExpenseState.loading();
     final currentUser = ref.read(currentUserProvider);
     final creatorUserId = ref.read(expenseCreatorProvider);
-    final splitCost = ref.read(splitCostProvider);
     final splitUser = ref.read(splitUserProvider.notifier);
 
     ExpenseModel expenseModel = ExpenseModel(
@@ -98,7 +76,7 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
       groupId: groupId,
       creatorId: creatorUserId ?? currentUser!.$id,
       //equal: equal,
-      cost: int.parse(splitCost.text),
+      cost: int.parse(expenseCost.text),
       expenseUsers: splitUser.getIds(),
     );
 
@@ -113,13 +91,13 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
   Future<void> updateBox({
     required TextEditingController expenseTitle,
     required TextEditingController expenseDescription,
+    required TextEditingController expenseCost,
     required String groupId,
     required String boxId,
   }) async {
     state = const ExpenseState.loading();
     final currentUser = ref.read(currentUserProvider);
     final creatorUserId = ref.read(expenseCreatorProvider);
-    final splitCost = ref.read(splitCostProvider);
     final splitUser = ref.read(splitUserProvider.notifier);
 
     ExpenseModel expenseModel = ExpenseModel(
@@ -129,7 +107,7 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
       groupId: groupId,
       creatorId: creatorUserId ?? currentUser!.$id,
       //equal: equal,
-      cost: int.parse(splitCost.text),
+      cost: int.parse(expenseCost.text),
       expenseUsers: splitUser.getIds(),
     );
 
@@ -152,31 +130,9 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     );
   }
 
-  Future<List<BoxModel>> getBoxes() async {
-    final user = ref.read(currentUserProvider);
-    final boxList = await expenseAPI.getExpenses(user!.$id);
-    return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
-  }
-
-  Future<List<BoxModel>> getBoxesInGroup(String groupId) async {
-    final boxList = await expenseAPI.getExpensesInGroup(groupId);
-    return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
-  }
-
-  Future<BoxModel> getBoxDetail(String boxId) async {
-    final box = await expenseAPI.getExpenseDetail(boxId);
-    return BoxModel.fromJson(box.data);
-  }
-
-  Future<List<UserModel>> getUsersInBox(List<String> userIds) async {
-    final users = await expenseAPI.getUsersInExpense(userIds);
-    return users.map((user) => UserModel.fromJson(user.data)).toList();
-  }
-
-  Future<List<BoxModel>> getCurrentUserBoxes() async {
-    final user = ref.read(currentUserProvider);
-    final boxList = await expenseAPI.getExpensesInGroup(user!.$id);
-    return boxList.map((box) => BoxModel.fromJson(box.data)).toList();
+  Future<List<ExpenseModel>> getExpensesInBox(String boxId) async {
+    final expenseList = await expenseAPI.getExpensesInBox(boxId);
+    return expenseList.map((box) => ExpenseModel.fromJson(box.data)).toList();
   }
 }
 
