@@ -24,16 +24,6 @@ class BoxDetailPage extends ConsumerWidget {
     final boxDetail = ref.watch(getBoxDetailProvider(boxId));
 
     // by using listen we are not gonna rebuild our app
-    //ref.listen<ExpenseState>(
-    //  expenseNotifierProvider,
-    //  (previous, next) {
-    //    next.whenOrNull(
-    //      loaded: () => ref.refresh(expenseNotifierProvider),
-    //      error: (message) => showSnackBar(context, message),
-    //    );
-    //  },
-    //);
-
     //ref.listen<BoxState>(
     //  boxNotifierProvider,
     //  (previous, next) {
@@ -65,7 +55,7 @@ class BoxDetailPage extends ConsumerWidget {
                 FriendListBoxDetail(userIds: data.boxUsers),
                 //TODO: Think about the structure
                 const CategoryListBoxDetail(),
-                const ExpenseListBoxDetail(),
+                ExpenseListBoxDetail(boxId),
               ],
             ),
           );
