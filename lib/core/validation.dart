@@ -35,6 +35,18 @@ class FormValidatorNotifier extends StateNotifier<String?> {
       return 'Title must not be empty';
     }
   }
+
+  String? validateCost(String? value) {
+    if (value != null && value.isNotEmpty) {
+      if (num.parse(value.replaceAll(',', '')) > 0) {
+        return null;
+      } else {
+        return 'cost must be bigger than 0';
+      }
+    } else {
+      return 'cost must not be empty';
+    }
+  }
 }
 
 final formValidatorProvider =
