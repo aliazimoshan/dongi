@@ -1,14 +1,12 @@
-import 'package:dongi/app/expense/controller/expense_controller.dart';
-import 'package:dongi/constants/color_config.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../core/utils.dart';
 import '../../../widgets/appbar/appbar.dart';
 import '../../../widgets/card/card.dart';
-import '../../../widgets/text_field/text_field.dart';
+import '../controller/expense_controller.dart';
 import 'create_expense_widget.dart';
 
 class CreateExpensePage extends HookConsumerWidget {
@@ -58,11 +56,7 @@ class CreateExpensePage extends HookConsumerWidget {
                         children: [
                           CreateExpenseAmount(expenseCost: expenseCost),
                           const SizedBox(height: 10),
-                          TextFieldWidget(
-                            hintText: "Title",
-                            fillColor: ColorConfig.white,
-                            controller: expenseTitle,
-                          ),
+                          CreateExpenseTitle(expenseTitle: expenseTitle),
                           const SizedBox(height: 10),
                           const Row(
                             children: [

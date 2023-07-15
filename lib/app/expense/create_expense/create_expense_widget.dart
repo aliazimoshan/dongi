@@ -8,13 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
+import '../../../core/validation.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/card/grey_card.dart';
 import '../../../widgets/text_field/text_field.dart';
 import '../controller/expense_controller.dart';
 
-class CreateExpenseAmount extends HookConsumerWidget {
+class CreateExpenseAmount extends ConsumerWidget {
   final TextEditingController expenseCost;
   const CreateExpenseAmount({super.key, required this.expenseCost});
 
@@ -24,6 +25,7 @@ class CreateExpenseAmount extends HookConsumerWidget {
       children: [
         Expanded(
           child: TextFieldWidget(
+            validator: ref.read(formValidatorProvider.notifier).validateCost,
             hintText: "10,000",
             fillColor: ColorConfig.white,
             controller: expenseCost,
@@ -56,6 +58,21 @@ class CreateExpenseAmount extends HookConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class CreateExpenseTitle extends ConsumerWidget {
+  final TextEditingController expenseTitle;
+  const CreateExpenseTitle({super.key, required this.expenseTitle});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return TextFieldWidget(
+      hintText: "Title",
+      validator: ref.read(formValidatorProvider.notifier).validateTitle,
+      fillColor: ColorConfig.white,
+      controller: expenseTitle,
     );
   }
 }
