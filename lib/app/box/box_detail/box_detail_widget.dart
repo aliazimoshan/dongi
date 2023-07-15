@@ -247,6 +247,7 @@ class ExpenseListBoxDetail extends ConsumerWidget {
           ),
           const SizedBox(height: 10),
           expenses.when(
+            skipLoadingOnRefresh: false,
             loading: () => const LoadingWidget(),
             error: (error, stackTrace) => ErrorTextWidget(error),
             data: (data) {
@@ -300,15 +301,26 @@ class ExpenseCardItem extends ConsumerWidget {
       showMenu(
         context: context,
         position: RelativeRect.fromLTRB(
-            context.widgetPosition!.dx, context.widgetPosition!.dy, 0, 0),
-        items: const [
+          context.widgetPosition!.dx,
+          context.widgetPosition!.dy,
+          0,
+          0,
+        ),
+        items: [
           PopupMenuItem(
             value: 1,
-            child: Text('Item 1'),
+            child: const Text('Edit'),
+            onTap: () => context.push(
+              RouteName.updateExpense,
+              extra: {
+                "expenseModel": expenseModel,
+              },
+            ),
           ),
           PopupMenuItem(
             value: 2,
-            child: Text('Item 2'),
+            child: const Text('Delete'),
+            onTap: () {},
           ),
         ],
         elevation: 8,
@@ -322,14 +334,24 @@ class ExpenseCardItem extends ConsumerWidget {
           startActionPane: ActionPane(
             extentRatio: 0.25,
             motion: const ScrollMotion(),
-            dismissible: DismissiblePane(onDismissed: () {}),
+            //dismissible: DismissiblePane(
+            //  onDismissed: () => context.push(
+            //    RouteName.updateExpense,
+            //    extra: {
+            //      "expenseModel": expenseModel,
+            //    },
+            //  ),
+            //),
             children: [
               SlidableAction(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   bottomLeft: Radius.circular(10),
                 ),
-                onPressed: (context) {},
+                onPressed: (context) => context.push(
+                  RouteName.updateExpense,
+                  extra: {"expenseModel": expenseModel},
+                ),
                 backgroundColor: const Color(0xFF0392CF),
                 foregroundColor: Colors.white,
                 icon: Icons.edit,
@@ -340,7 +362,22 @@ class ExpenseCardItem extends ConsumerWidget {
           endActionPane: ActionPane(
             extentRatio: 0.25,
             motion: const ScrollMotion(),
-            dismissible: DismissiblePane(onDismissed: () {}),
+            dismissible: DismissiblePane(
+              onDismissed: () => ref
+                  .read(expenseNotifierProvider.notifier)
+                  .deleteExpense(expenseModel),
+              //confirmDismiss: () async {
+              //  return await showDialog(
+              //    context: context,
+              //    builder: (context) {
+              //      return AlertDialog(
+              //        title: Text("Are you sure?"),
+              //        actions: [],
+              //      );
+              //    },
+              //  );
+              //},
+            ),
             children: [
               SlidableAction(
                 borderRadius: const BorderRadius.only(
