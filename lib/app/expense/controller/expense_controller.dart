@@ -1,9 +1,8 @@
-import 'package:dongi/models/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../models/user_model.dart';
+import '../../../models/expense_model.dart';
 import '../../../services/expense_service.dart';
 import '../../../services/storage_api.dart';
 import '../../auth/controller/auth_controller.dart';
@@ -41,9 +40,9 @@ final expenseCreatorProvider = StateProvider<String?>((ref) {
 });
 
 final splitUserProvider =
-    StateNotifierProvider<SplitUserNotifier, List<UserModel>>((ref) {
+    StateNotifierProvider<SplitUserNotifier, List<String>>((ref) {
   final allUsers = ref.watch(userInBoxStoreProvider);
-  return SplitUserNotifier(allUsers);
+  return SplitUserNotifier(allUsers.map((e) => e.id!).toList());
 });
 
 class ExpenseNotifier extends StateNotifier<ExpenseState> {
@@ -76,8 +75,8 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
       groupId: groupId,
       creatorId: creatorUserId ?? currentUser!.$id,
       //equal: equal,
-      cost: int.parse(expenseCost.text),
-      expenseUsers: splitUser.getIds(),
+      cost: int.parse(expenseCost.text.replaceAll(',', '')),
+      expenseUsers: splitUser.state,
     );
 
     final res = await expenseAPI.addExpense(expenseModel);
@@ -88,7 +87,8 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     );
   }
 
-  Future<void> updateBox({
+  Future<void> updateExpense({
+    required String expenseId,
     required TextEditingController expenseTitle,
     required TextEditingController expenseDescription,
     required TextEditingController expenseCost,
@@ -101,6 +101,7 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     final splitUser = ref.read(splitUserProvider.notifier);
 
     ExpenseModel expenseModel = ExpenseModel(
+      id: expenseId,
       title: expenseTitle.text,
       description: expenseDescription.text,
       boxId: boxId,
@@ -108,10 +109,10 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
       creatorId: creatorUserId ?? currentUser!.$id,
       //equal: equal,
       cost: int.parse(expenseCost.text),
-      expenseUsers: splitUser.getIds(),
+      expenseUsers: splitUser.state,
     );
 
-    final res = await expenseAPI.addExpense(expenseModel);
+    final res = await expenseAPI.updateExpense(expenseModel);
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
@@ -119,10 +120,10 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     );
   }
 
-  Future<void> deleteBox(ExpenseModel expenseModel) async {
+  Future<void> deleteExpense(ExpenseModel expenseModel) async {
     state = const ExpenseState.loading();
     //remove box from server
-    final res = await expenseAPI.updateExpense(expenseModel);
+    final res = await expenseAPI.deleteExpense(expenseModel.id!);
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
@@ -136,27 +137,29 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
   }
 }
 
-class SplitUserNotifier extends StateNotifier<List<UserModel>> {
-  final List<UserModel> users;
-  SplitUserNotifier(this.users) : super(users);
+class SplitUserNotifier extends StateNotifier<List<String>> {
+  SplitUserNotifier(super.state);
 
-  List<String> getIds() {
-    return state.map((val) => val.id!).toList();
-  }
+  //final List<String> users;
+  //SplitUserNotifier(this.users) : super(users);
 
-  void select(UserModel user) {
-    if (state.map((val) => val.id).toList().contains(user.id)) {
-      state = state.where((val) => val.id != user.id).toList();
+  //List<String> getIds() {
+  //  return state.map((val) => val.id!).toList();
+  //}
+
+  void select(String userId) {
+    if (state.map((val) => val).toList().contains(userId)) {
+      state = state.where((val) => val != userId).toList();
     } else {
-      state = [...state, user];
+      state = [...state, userId];
     }
   }
 
-  void addAll(List<UserModel> users) {
-    if (state.length == users.length) {
+  void addAll(List<String> userIds) {
+    if (state.length == userIds.length) {
       state = [];
     } else {
-      state = users;
+      state = userIds;
     }
   }
 }

@@ -43,16 +43,18 @@ class SplitFriendListWidget extends ConsumerWidget {
             child: ListTileCard(
               leading: cardIcon(),
               titleString: users[index].userName,
-              onTap: () =>
-                  ref.watch(splitUserProvider.notifier).select(users[index]),
+              onTap: () => ref
+                  .watch(splitUserProvider.notifier)
+                  .select(users[index].id!),
               trailing: CheckboxWidget(
                 borderColor: ColorConfig.primarySwatch,
                 value: selectedUsers
-                    .map((val) => val.id)
+                    .map((val) => val)
                     .toList()
                     .contains(users[index].id),
-                onChanged: (val) =>
-                    ref.watch(splitUserProvider.notifier).select(users[index]),
+                onChanged: (val) => ref
+                    .watch(splitUserProvider.notifier)
+                    .select(users[index].id!),
               ),
             ),
           );
@@ -80,7 +82,9 @@ class SplitActionButtonWidget extends ConsumerWidget {
 
       if (selectedUserLength != 0) {
         double amountPerPerson =
-            (int.parse(expenseCost.text) / selectedUserLength).fixedDouble();
+            (int.parse(expenseCost.text.replaceAll(',', '')) /
+                    selectedUserLength)
+                .fixedDouble();
 
         if (amountPerPerson > 0) {
           return "\$$amountPerPerson / person($selectedUserLength)";
@@ -110,7 +114,7 @@ class SplitActionButtonWidget extends ConsumerWidget {
                           value: selectedUsers.length == users.length,
                           onChanged: (value) => ref
                               .read(splitUserProvider.notifier)
-                              .addAll(users),
+                              .addAll(users.map((e) => e.id!).toList()),
                         ),
                         Text(
                           "All",
