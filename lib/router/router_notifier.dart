@@ -13,6 +13,7 @@ import '../app/auth/sign_up/sign_up_page.dart';
 import '../app/box/create_box/create_box_page.dart';
 import '../app/box/update_box/update_box_page.dart';
 import '../app/expense/expense_detail/expense_detail_page.dart';
+import '../app/expense/update_expense/update_expense_page.dart';
 import '../app/group/create_group/create_group_page.dart';
 import '../app/group/group_detail/group_detail_page.dart';
 import '../app/group/group_list/group_list_page.dart';
@@ -46,6 +47,7 @@ class RouteName {
   static String boxDetail(String? boxId) => '/box/${boxId ?? ":boxId"}';
   static String friendList = '/friend/list';
   static String createExpense = '/expense/create';
+  static String updateExpense = '/expense/update';
   static String expenseMadeBy = '/expense/madeByd';
   static String expenseSplit = '/expense/split';
   static String expenseDetail = '/expense/detail';
@@ -133,6 +135,15 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
           return CreateExpensePage(
             boxId: extra['boxId'],
             groupId: extra['groupId'],
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.updateExpense,
+        builder: (context, state) {
+          Map extra = state.extra as Map<String, dynamic>;
+          return UpdateExpensePage(
+            expenseModel: extra['expenseModel'],
           );
         },
       ),
