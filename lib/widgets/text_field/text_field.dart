@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../constants/color_config.dart';
@@ -12,6 +13,7 @@ class TextFieldWidget extends HookWidget {
   final bool obscureText;
   final String? Function(String? value)? validator;
   final String? Function(String? value)? onChanged;
+  final List<TextInputFormatter> inputFormatters;
   const TextFieldWidget({
     required this.hintText,
     this.fillColor,
@@ -21,12 +23,14 @@ class TextFieldWidget extends HookWidget {
     this.obscureText = false,
     this.validator,
     this.onChanged,
+    this.inputFormatters = const [],
   });
 
   @override
   Widget build(BuildContext context) {
     final toggle = useState(false);
     return TextFormField(
+      inputFormatters: inputFormatters,
       validator: validator,
       maxLines: maxLines,
       controller: controller,

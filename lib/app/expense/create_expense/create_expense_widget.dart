@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:dongi/extensions/format_with_comma.dart';
 import 'package:dongi/router/router_notifier.dart';
 import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
@@ -11,7 +14,7 @@ import '../../../widgets/card/grey_card.dart';
 import '../../../widgets/text_field/text_field.dart';
 import '../controller/expense_controller.dart';
 
-class CreateExpenseAmount extends ConsumerWidget {
+class CreateExpenseAmount extends HookConsumerWidget {
   final TextEditingController expenseCost;
   const CreateExpenseAmount({super.key, required this.expenseCost});
 
@@ -24,7 +27,24 @@ class CreateExpenseAmount extends ConsumerWidget {
             hintText: "10,000",
             fillColor: ColorConfig.white,
             controller: expenseCost,
-            onChanged: (value) => expenseCost.text.formatWithCommas(),
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(10),
+              TextInputFormatter.withFunction(
+                (oldValue, newValue) {
+                  final formattedValue = newValue.text.formatWithCommas();
+                  final selectionIndex = newValue.selection.end +
+                      formattedValue.length -
+                      newValue.text.length;
+                  return TextEditingValue(
+                    text: formattedValue,
+                    selection: TextSelection.collapsed(
+                      offset: max(0, selectionIndex),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
         const SizedBox(width: 10),
