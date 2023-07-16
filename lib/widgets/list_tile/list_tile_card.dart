@@ -10,7 +10,6 @@ class ListTileCard extends CardWidget {
   final Widget? leading;
   final VisualDensity? visualDensity;
   final void Function()? onTap;
-  final void Function()? onLongPress;
   const ListTileCard({
     super.key,
     super.borderColor,
@@ -21,30 +20,25 @@ class ListTileCard extends CardWidget {
     this.trailing,
     this.leading,
     this.onTap,
-    this.onLongPress,
     this.visualDensity,
   });
 
   @override
-  Widget? get child => GestureDetector(
-        onTap: onTap,
-        onLongPress: onLongPress,
-        child: subtitleString != null
-            ? ListTileWidget(
-                titleString: titleString,
-                subtitleString: subtitleString!,
-                headerString: headerString,
-                trailing: trailing,
-                leading: leading,
-                visualDensity: visualDensity,
-              )
-            : ListTileWidget(
-                titleString: titleString,
-                trailing: trailing,
-                headerString: headerString,
-                leading: leading,
-                visualDensity: visualDensity,
-                contentPadding: const EdgeInsets.all(10),
-              ),
-      );
+  Widget? get child => subtitleString != null
+      ? ListTileWidget(
+          titleString: titleString,
+          subtitleString: subtitleString!,
+          headerString: headerString,
+          trailing: trailing,
+          leading: leading,
+          visualDensity: visualDensity,
+        )
+      : ListTileWidget(
+          titleString: titleString,
+          trailing: trailing,
+          headerString: headerString,
+          leading: leading,
+          visualDensity: visualDensity,
+          contentPadding: const EdgeInsets.all(10),
+        );
 }
