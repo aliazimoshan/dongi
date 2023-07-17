@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../core/utils.dart';
 import '../../../router/router_notifier.dart';
 import '../../../widgets/appbar/sliver_appbar.dart';
 import '../../../widgets/error/error.dart';
@@ -23,12 +24,23 @@ class BoxDetailPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final boxDetail = ref.watch(getBoxDetailProvider(boxId));
 
-    // by using listen we are not gonna rebuild our app
-    //ref.listen<BoxState>(
-    //  boxNotifierProvider,
+    //by using listen we are not gonna rebuild our app
+    ref.listen<BoxState>(
+      boxNotifierProvider,
+      (previous, next) {
+        next.whenOrNull(
+          loaded: () => ref.refresh(getBoxesInGroupProvider(groupId)),
+          error: (message) => showSnackBar(context, message),
+        );
+      },
+    );
+
+    //this section moved to ExpenseListBoxDetail
+    //ref.listen<ExpenseState>(
+    //  expenseNotifierProvider,
     //  (previous, next) {
     //    next.whenOrNull(
-    //      loaded: () => ref.refresh(getBoxesInGroupProvider(groupId)),
+    //      loaded: () => ref.refresh(getExpensesInBoxProvider(boxId)),
     //      error: (message) => showSnackBar(context, message),
     //    );
     //  },
