@@ -124,11 +124,7 @@ class GroupNotifier extends StateNotifier<GroupState> {
     );
   }
 
-  Future<void> deleteGroup({
-    required BuildContext context,
-    required WidgetRef ref,
-    required GroupModel groupModel,
-  }) async {
+  Future<void> deleteGroup(GroupModel groupModel) async {
     state = const GroupState.loading();
     //remove group from server
     final res = await groupAPI.deleteGroup(groupModel.id!);

@@ -59,7 +59,7 @@ class GroupListPage extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(child: Text(error.toString())),
         data: (data) => RefreshIndicator(
-          child: GroupListView(groupModel: data),
+          child: GroupListView(data),
           onRefresh: () async => ref.refresh(getGroupsProvider),
         ),
       ),
