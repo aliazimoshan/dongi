@@ -14,30 +14,30 @@ class LongPressMenuWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tapPosition = useState<Offset?>(null);
+    final tapPositionState = useState<Offset?>(null);
+    final boxState = useState<RenderBox?>(null);
 
     void onTapDown(TapDownDetails details) {
-      // creating instance of renderbox
+      // creating instance of renderBox
       final RenderBox box = context.findRenderObject() as RenderBox;
       // find the coordinate
       final Offset localOffset = box.globalToLocal(details.globalPosition);
 
-      tapPosition.value = localOffset;
+      tapPositionState.value = localOffset;
+      boxState.value = box;
     }
 
     void onLongPress() {
-      final RenderBox box = context.findRenderObject() as RenderBox;
-      final translation = box.getTransformTo(null).getTranslation();
+      if (tapPositionState.value != null) {
+        final translation =
+            boxState.value!.getTransformTo(null).getTranslation();
 
-      if (tapPosition.value != null) {
         final RelativeRect position = RelativeRect.fromLTRB(
-          tapPosition.value!.dx + translation.x,
-          tapPosition.value!.dy + translation.y,
-          box.size.width - tapPosition.value!.dx,
-          box.size.height - tapPosition.value!.dy,
+          tapPositionState.value!.dx + translation.x,
+          tapPositionState.value!.dy + translation.y,
+          boxState.value!.size.width,
+          boxState.value!.size.height,
         );
-
-        print(position);
 
         showMenu(
           context: context,
