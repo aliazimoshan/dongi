@@ -1,16 +1,18 @@
-import 'package:dongi/app/group/controller/group_controller.dart';
-import 'package:dongi/models/box_model.dart';
-import 'package:dongi/models/group_model.dart';
-import 'package:dongi/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
+import '../../../core/utils.dart';
+import '../../../models/group_model.dart';
+import '../../../models/user_model.dart';
 import '../../../widgets/card/box_card.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/error/error.dart';
 import '../../../widgets/friends/friend.dart';
 import '../../../widgets/loading/loading.dart';
+import '../../box/controller/box_controller.dart';
+import '../controller/group_controller.dart';
 
 class GroupDetailTitle extends StatelessWidget {
   final String groupName;
@@ -206,41 +208,57 @@ class GroupDetailFriendList extends ConsumerWidget {
   }
 }
 
-class GroupDetailBoxGrid extends StatelessWidget {
-  final List<BoxModel> boxList;
-  const GroupDetailBoxGrid({super.key, required this.boxList});
+class GroupDetailBoxGrid extends ConsumerWidget {
+  final String groupId;
+  const GroupDetailBoxGrid({super.key, required this.groupId});
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(26, 0, 0, 10),
-          child: Text(
-            'Boxes',
-            style: FontConfig.body1(),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-          child: GridView.builder(
-            padding: EdgeInsets.zero,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1.3,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final boxesInGroup = ref.watch(getBoxesInGroupProvider(groupId));
+
+    ref.listen<BoxState>(
+      boxNotifierProvider,
+      (previous, next) {
+        next.whenOrNull(
+          loaded: () => ref.refresh(getBoxesInGroupProvider(groupId)),
+          error: (message) => showSnackBar(context, message),
+        );
+      },
+    );
+
+    return boxesInGroup.when(
+      loading: () => const LoadingWidget(),
+      error: (error, stackTrace) => ErrorTextWidget(error),
+      data: (data) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(26, 0, 0, 10),
+            child: Text(
+              'Boxes',
+              style: FontConfig.body1(),
             ),
-            //scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: boxList.length,
-            itemBuilder: (context, i) => BoxCardWidget(boxList[i]),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            child: GridView.builder(
+              padding: EdgeInsets.zero,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1.3,
+              ),
+              //scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: data.length,
+              itemBuilder: (context, i) => BoxCardWidget(data[i]),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

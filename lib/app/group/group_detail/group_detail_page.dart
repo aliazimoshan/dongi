@@ -8,7 +8,6 @@ import '../../../widgets/appbar/sliver_appbar.dart';
 import '../../../widgets/error/error.dart';
 import '../../../widgets/floating_action_button/floating_action_button.dart';
 import '../../../widgets/loading/loading.dart';
-import '../../box/controller/box_controller.dart';
 import '../controller/group_controller.dart';
 import './group_detail_widget.dart';
 
@@ -19,7 +18,6 @@ class GroupDetailPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groupDetail = ref.watch(getGroupDetailProvider(groupId));
-    final boxesInGroup = ref.watch(getBoxesInGroupProvider(groupId));
 
     /// by using listen we are not gonna rebuild our app
     ref.listen<GroupState>(
@@ -27,16 +25,6 @@ class GroupDetailPage extends ConsumerWidget {
       (previous, next) {
         next.whenOrNull(
           loaded: () => ref.refresh(getGroupsProvider),
-          error: (message) => showSnackBar(context, message),
-        );
-      },
-    );
-
-    ref.listen<BoxState>(
-      boxNotifierProvider,
-      (previous, next) {
-        next.whenOrNull(
-          loaded: () => ref.refresh(getBoxesInGroupProvider(groupId)),
           error: (message) => showSnackBar(context, message),
         );
       },
@@ -62,11 +50,7 @@ class GroupDetailPage extends ConsumerWidget {
                 GroupDetailInfo(groupModel: data),
                 GroupDetailFriendList(userIds: data.groupUsers),
                 //* Get boxes
-                boxesInGroup.when(
-                  loading: () => const LoadingWidget(),
-                  error: (error, stackTrace) => ErrorTextWidget(error),
-                  data: (data) => GroupDetailBoxGrid(boxList: data),
-                ),
+                GroupDetailBoxGrid(groupId: groupId)
               ],
             ),
           ),
