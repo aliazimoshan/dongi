@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../extensions/widget_position.dart';
+
 class LongPressMenuWidget extends HookWidget {
   final Widget child;
   final List<PopupMenuEntry> items;
@@ -14,34 +16,17 @@ class LongPressMenuWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tapPositionState = useState<Offset?>(null);
-    final boxState = useState<RenderBox?>(null);
+    final position = useState<RelativeRect?>(null);
 
     void onTapDown(TapDownDetails details) {
-      // creating instance of renderBox
-      final RenderBox box = context.findRenderObject() as RenderBox;
-      // find the coordinate
-      final Offset localOffset = box.globalToLocal(details.globalPosition);
-
-      tapPositionState.value = localOffset;
-      boxState.value = box;
+      position.value = context.widgetPosition(details);
     }
 
     void onLongPress() {
-      if (tapPositionState.value != null) {
-        final translation =
-            boxState.value!.getTransformTo(null).getTranslation();
-
-        final RelativeRect position = RelativeRect.fromLTRB(
-          tapPositionState.value!.dx + translation.x,
-          tapPositionState.value!.dy + translation.y,
-          boxState.value!.size.width,
-          boxState.value!.size.height,
-        );
-
+      if (position.value != null) {
         showMenu(
           context: context,
-          position: position,
+          position: position.value!,
           items: items,
           elevation: 8,
         );

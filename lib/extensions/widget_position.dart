@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
 extension WidgetPositionExtension on BuildContext {
-  Offset? get widgetPosition {
-    final renderObject = findRenderObject();
-    final translation = renderObject?.getTransformTo(null).getTranslation();
-    if (translation != null && renderObject?.paintBounds != null) {
-      final offset = Offset(translation.x, translation.y);
-      return offset;
-    } else {
-      return null;
-    }
+  RelativeRect? widgetPosition(TapDownDetails details) {
+    // creating instance of renderBox
+    final RenderBox box = findRenderObject() as RenderBox;
+    // find the coordinate
+    final Offset localOffset = box.globalToLocal(details.globalPosition);
+
+    final translation = box.getTransformTo(null).getTranslation();
+
+    final RelativeRect position = RelativeRect.fromLTRB(
+      localOffset.dx + translation.x,
+      localOffset.dy + translation.y,
+      box.size.width,
+      box.size.height,
+    );
+    return position;
   }
 }
