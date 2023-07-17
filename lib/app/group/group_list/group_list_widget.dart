@@ -1,12 +1,13 @@
-import 'package:dongi/constants/color_config.dart';
-import 'package:dongi/models/group_model.dart';
-import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../constants/color_config.dart';
 import '../../../core/utils.dart';
+import '../../../models/group_model.dart';
 import '../../../router/router_notifier.dart';
+import '../../../widgets/list_tile/list_tile_card.dart';
+import '../../../widgets/long_press_menu/long_press_menu.dart';
 import '../controller/group_controller.dart';
 
 class GroupListView extends StatelessWidget {
@@ -46,54 +47,69 @@ class GroupListCard extends ConsumerWidget {
     );
   }
 
-  _dropdownButton({
-    required WidgetRef ref,
-    required BuildContext context,
-    required GroupModel groupModel,
-  }) {
-    List<String> items = ["Edit", "Delete"];
-
-    return DropdownButton<String>(
-      icon: const Icon(Icons.more_vert_outlined),
-      items: items.map((String item) {
-        return DropdownMenuItem(
-          value: item,
-          child: Text(item),
-        );
-      }).toList(),
-      onChanged: (val) {
-        if (val == items[0]) {
-          //Edit dropdown action
-          context.push(
-            RouteName.updateGroup,
-            extra: groupModel,
-          );
-        } else {
-          //Delete dropdown action
-          showSnackBar(context, "Successfully deleted");
-          ref
-              .read(groupNotifierProvider.notifier)
-              .deleteGroup(context: context, ref: ref, groupModel: groupModel);
-        }
-      },
-      underline: Container(),
-      isDense: true,
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    List<PopupMenuEntry> menuItems = [
+      PopupMenuItem(
+        value: 1,
+        child: const Text('Edit'),
+        onTap: () => context.push(
+          RouteName.updateGroup,
+          extra: groupModel,
+        ),
+      ),
+      PopupMenuItem(
+        value: 2,
+        child: const Text('Delete'),
+        onTap: () {
+          showSnackBar(context, "Successfully deleted");
+          ref.read(groupNotifierProvider.notifier).deleteGroup(
+                context: context,
+                ref: ref,
+                groupModel: groupModel,
+              );
+        },
+      ),
+    ];
+    //dropdownButton(GroupModel groupModel) {
+    //  List<String> items = ["Edit", "Delete"];
+
+    //  return DropdownButton<String>(
+    //    icon: const Icon(Icons.more_vert_outlined),
+    //    items: items.map((String item) {
+    //      return DropdownMenuItem(
+    //        value: item,
+    //        child: Text(item),
+    //      );
+    //    }).toList(),
+    //    onChanged: (val) {
+    //      if (val == items[0]) {
+    //        //Edit dropdown action
+    //        context.push(
+    //          RouteName.updateGroup,
+    //          extra: groupModel,
+    //        );
+    //      } else {
+    //        //Delete dropdown action
+    //        showSnackBar(context, "Successfully deleted");
+    //        ref.read(groupNotifierProvider.notifier).deleteGroup(
+    //            context: context, ref: ref, groupModel: groupModel);
+    //      }
+    //    },
+    //    underline: Container(),
+    //    isDense: true,
+    //  );
+    //}
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: ListTileCard(
+      child: LongPressMenuWidget(
+        items: menuItems,
         onTap: () => context.push(RouteName.groupDetail(groupModel.id)),
-        titleString: groupModel.title,
-        subtitleString: "Member: ${groupModel.groupUsers.length.toString()}",
-        leading: iconWidget(),
-        trailing: _dropdownButton(
-          ref: ref,
-          context: context,
-          groupModel: groupModel,
+        child: ListTileCard(
+          titleString: groupModel.title,
+          subtitleString: "Member: ${groupModel.groupUsers.length.toString()}",
+          leading: iconWidget(),
         ),
       ),
     );

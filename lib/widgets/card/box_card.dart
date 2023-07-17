@@ -1,60 +1,72 @@
-import 'package:dongi/models/box_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../app/box/controller/box_controller.dart';
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
 import '../../core/utils.dart';
+import '../../models/box_model.dart';
 import '../../router/router_notifier.dart';
+import '../long_press_menu/long_press_menu.dart';
 import 'card.dart';
 
-class BoxCardWidget extends StatelessWidget {
+class BoxCardWidget extends ConsumerWidget {
   final BoxModel box;
 
   const BoxCardWidget(this.box, {super.key});
 
   ///* Popup menu
-  _popupButton(BoxModel boxModel) {
-    List<String> items = ["Edit", "Delete"];
+  //_popupButton(BoxModel boxModel) {
+  //  List<String> items = ["Edit", "Delete"];
 
-    return Consumer(
-      builder: (context, ref, child) {
-        return PopupMenuButton<String>(
-          padding: EdgeInsets.zero,
-          child: const Icon(Icons.more_vert_outlined),
-          itemBuilder: (BuildContext context) {
-            return items
-                .map(
-                  (val) => PopupMenuItem<String>(
-                    child: Text(val),
-                    onTap: () {
-                      if (val == items[0]) {
-                        //  Edit dropdown action
-                        context.push(
-                          RouteName.updateBox,
-                          extra: boxModel,
-                        );
-                      } else {
-                        //  Delete dropdown action
-                        showSnackBar(context, "Successfully deleted");
-                        ref
-                            .read(boxNotifierProvider.notifier)
-                            .deleteBox(boxModel);
-                      }
-                    },
-                  ),
-                )
-                .toList();
-          },
-        );
-      },
-    );
-  }
+  //  return Consumer(
+  //    builder: (context, ref, child) {
+  //      return PopupMenuButton<String>(
+  //        padding: EdgeInsets.zero,
+  //        child: const Icon(Icons.more_vert_outlined),
+  //        itemBuilder: (BuildContext context) {
+  //          return items
+  //              .map(
+  //                (val) => PopupMenuItem<String>(
+  //                  child: Text(val),
+  //                  onTap: () {
+  //                    if (val == items[0]) {
+  //                      //  Edit dropdown action
+  //                    } else {
+  //                      //  Delete dropdown action
+  //                    }
+  //                  },
+  //                ),
+  //              )
+  //              .toList();
+  //        },
+  //      );
+  //    },
+  //  );
+  //}
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<PopupMenuEntry> menuItems = [
+      PopupMenuItem(
+        child: const Text('Edit'),
+        onTap: () => context.push(
+          RouteName.updateBox,
+          extra: box,
+        ),
+      ),
+      PopupMenuItem(
+        child: const Text('Delete'),
+        onTap: () {
+          showSnackBar(context, "Successfully deleted");
+          ref.read(boxNotifierProvider.notifier).deleteBox(box);
+        },
+      ),
+    ];
+
+    return LongPressMenuWidget(
+      items: menuItems,
       onTap: () => context.push(
         RouteName.boxDetail(box.id),
         extra: {"boxId": box.id, "groupId": box.groupId},
@@ -95,7 +107,7 @@ class BoxCardWidget extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    _popupButton(box)
+                    //_popupButton(box)
                   ],
                 ),
                 const Spacer(flex: 3),
@@ -126,7 +138,7 @@ class BoxCardWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Split to",
+                            "Members",
                             style: FontConfig.caption(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
