@@ -278,21 +278,29 @@ class ExpenseCardItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey key = GlobalKey();
+
+    deleteExpense() async {
+      await ref
+          .read(expenseNotifierProvider.notifier)
+          .deleteExpense(expenseModel);
+      if (context.mounted) {
+        showSnackBar(context, "Expense deleted successfully!!");
+      }
+    }
+
     List<PopupMenuEntry> menuItems = [
       PopupMenuItem(
         value: 1,
         child: const Text('Edit'),
         onTap: () => context.push(
           RouteName.updateExpense,
-          extra: {
-            "expenseModel": expenseModel,
-          },
+          extra: {"expenseModel": expenseModel},
         ),
       ),
       PopupMenuItem(
         value: 2,
+        onTap: deleteExpense,
         child: const Text('Delete'),
-        onTap: () {},
       ),
     ];
 
@@ -332,9 +340,7 @@ class ExpenseCardItem extends ConsumerWidget {
             extentRatio: 0.25,
             motion: const ScrollMotion(),
             dismissible: DismissiblePane(
-              onDismissed: () => ref
-                  .read(expenseNotifierProvider.notifier)
-                  .deleteExpense(expenseModel),
+              onDismissed: deleteExpense,
               //confirmDismiss: () async {
               //  return await showDialog(
               //    context: context,
@@ -353,7 +359,7 @@ class ExpenseCardItem extends ConsumerWidget {
                   topRight: Radius.circular(10),
                   bottomRight: Radius.circular(10),
                 ),
-                onPressed: (context) {},
+                onPressed: (context) => deleteExpense(),
                 backgroundColor: const Color(0xFFFE4A49),
                 foregroundColor: Colors.white,
                 icon: Icons.delete,

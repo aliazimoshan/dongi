@@ -1,3 +1,4 @@
+import 'package:dongi/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -5,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app/box/controller/box_controller.dart';
 import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
-import '../../core/utils.dart';
 import '../../models/box_model.dart';
 import '../../router/router_notifier.dart';
 import '../long_press_menu/long_press_menu.dart';
@@ -48,20 +48,21 @@ class BoxCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    deleteBox() async {
+      await ref.read(boxNotifierProvider.notifier).deleteBox(box);
+      if (context.mounted) {
+        showSnackBar(context, "box deleted successfully");
+      }
+    }
+
     List<PopupMenuEntry> menuItems = [
       PopupMenuItem(
         child: const Text('Edit'),
-        onTap: () => context.push(
-          RouteName.updateBox,
-          extra: box,
-        ),
+        onTap: () => context.push(RouteName.updateBox, extra: box),
       ),
       PopupMenuItem(
+        onTap: deleteBox,
         child: const Text('Delete'),
-        onTap: () {
-          showSnackBar(context, "Successfully deleted");
-          ref.read(boxNotifierProvider.notifier).deleteBox(box);
-        },
       ),
     ];
 
