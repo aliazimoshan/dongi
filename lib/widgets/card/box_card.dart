@@ -1,13 +1,13 @@
-import 'package:dongi/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../app/box/controller/box_controller.dart';
-import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
+import '../../core/utils.dart';
 import '../../models/box_model.dart';
 import '../../router/router_notifier.dart';
+import '../image/image_widget.dart';
 import '../long_press_menu/long_press_menu.dart';
 import 'card.dart';
 
@@ -85,20 +85,7 @@ class BoxCardWidget extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Container(
-                      width: 32,
-                      height: 32,
-                      decoration: BoxDecoration(
-                        color: ColorConfig.darkGrey,
-                        shape: BoxShape.circle,
-                        image: box.image != null
-                            ? DecorationImage(
-                                image: NetworkImage(box.image!),
-                                fit: BoxFit.cover,
-                              )
-                            : null,
-                      ),
-                    ),
+                    ImageWidget(imageUrl: box.image),
                     const SizedBox(width: 5),
                     Expanded(
                       child: Text(

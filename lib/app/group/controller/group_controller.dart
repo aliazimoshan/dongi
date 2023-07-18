@@ -112,9 +112,9 @@ class GroupNotifier extends StateNotifier<GroupState> {
       description: groupDescription.text,
       creatorId: groupModel.creatorId,
       image: imageLinks.isNotEmpty ? imageLinks[0] : groupModel.image,
-      groupUsers: [],
-      boxIds: [],
-      totalBalance: 0,
+      groupUsers: groupModel.groupUsers,
+      boxIds: groupModel.boxIds,
+      totalBalance: groupModel.totalBalance,
     );
 
     final res = await groupAPI.updateGroup(newGroupModel);
