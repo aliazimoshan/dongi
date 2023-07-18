@@ -125,6 +125,8 @@ class BoxNotifier extends StateNotifier<BoxState> {
       description: boxDescription.text,
       creatorId: boxModel.creatorId,
       groupId: boxModel.groupId,
+      boxUsers: boxModel.boxUsers,
+      total: boxModel.total,
       image: imageLinks.isNotEmpty ? imageLinks[0] : boxModel.image,
     );
 

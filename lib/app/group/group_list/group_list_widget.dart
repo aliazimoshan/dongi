@@ -3,10 +3,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../constants/color_config.dart';
 import '../../../core/utils.dart';
 import '../../../models/group_model.dart';
 import '../../../router/router_notifier.dart';
+import '../../../widgets/image/image_widget.dart';
 import '../../../widgets/list_tile/list_tile_card.dart';
 import '../../../widgets/long_press_menu/long_press_menu.dart';
 import '../controller/group_controller.dart';
@@ -32,22 +32,6 @@ class GroupListView extends StatelessWidget {
 class GroupListCard extends ConsumerWidget {
   final GroupModel groupModel;
   const GroupListCard(this.groupModel, {super.key});
-  iconWidget() {
-    return Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(
-        color: ColorConfig.primarySwatch,
-        borderRadius: BorderRadius.circular(10),
-        image: groupModel.image != null
-            ? DecorationImage(
-                image: NetworkImage(groupModel.image!),
-                fit: BoxFit.cover,
-              )
-            : null,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -183,7 +167,12 @@ class GroupListCard extends ConsumerWidget {
             titleString: groupModel.title,
             subtitleString:
                 "Member: ${groupModel.groupUsers.length.toString()}",
-            leading: iconWidget(),
+            leading: ImageWidget(
+              imageUrl: groupModel.image,
+              borderRadius: 10,
+              width: 50,
+              height: 50,
+            ),
           ),
         ),
       ),
