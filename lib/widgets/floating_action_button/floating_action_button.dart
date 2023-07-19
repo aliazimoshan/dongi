@@ -1,46 +1,30 @@
-import 'package:dongi/constants/font_config.dart';
 import 'package:flutter/material.dart';
 import '../../constants/color_config.dart';
 
-class FloatingActionButtonWidget extends Container {
+class FABWidget extends StatelessWidget {
   final String title;
+  final IconData? icon;
   final void Function()? onPressed;
-  FloatingActionButtonWidget({
-    super.height = 48,
-    super.width = 48,
+  const FABWidget({
     super.key,
     required this.title,
+    this.icon,
     this.onPressed,
   });
 
   @override
-  Decoration? get decoration => BoxDecoration(
-        color: ColorConfig.primarySwatch,
-        borderRadius: BorderRadius.circular(20),
-      );
-
-  @override
-  Widget? get child => ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 0,
-          padding: EdgeInsets.zero,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.add, color: ColorConfig.secondary, size: 20),
-            const SizedBox(height: 2),
-            Text(
-              title,
-              style:
-                  FontConfig.overline().copyWith(color: ColorConfig.secondary),
-            ),
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    return FloatingActionButton.extended(
+      extendedPadding: const EdgeInsets.fromLTRB(12, 0, 16, 0),
+      backgroundColor: ColorConfig.primarySwatch,
+      onPressed: onPressed,
+      label: Row(
+        children: [
+          Icon(Icons.add, size: 18, color: ColorConfig.secondary),
+          const SizedBox(width: 2),
+          Text(title, style: TextStyle(color: ColorConfig.secondary)),
+        ],
+      ),
+    );
+  }
 }

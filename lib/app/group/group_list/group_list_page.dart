@@ -49,7 +49,7 @@ class GroupListPage extends ConsumerWidget {
       //    ],
       //  ),
       //),
-      floatingActionButton: FloatingActionButtonWidget(
+      floatingActionButton: FABWidget(
         title: "Group",
         onPressed: () => context.push(RouteName.createGroup),
       ),

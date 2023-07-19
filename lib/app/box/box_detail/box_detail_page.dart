@@ -74,7 +74,7 @@ class BoxDetailPage extends ConsumerWidget {
         },
       ),
 
-      floatingActionButton: FloatingActionButtonWidget(
+      floatingActionButton: FABWidget(
         title: 'Expense',
         onPressed: () => context.push(
           RouteName.createExpense,

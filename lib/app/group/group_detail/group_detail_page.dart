@@ -54,7 +54,7 @@ class GroupDetailPage extends ConsumerWidget {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButtonWidget(
+          floatingActionButton: FABWidget(
             title: "Box",
             onPressed: () => context.push(
               RouteName.createBox,
