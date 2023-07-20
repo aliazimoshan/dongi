@@ -27,7 +27,10 @@ class GroupDetailTitle extends StatelessWidget {
         children: [
           Text(
             groupName,
-            style: FontConfig.h6().copyWith(color: Colors.white),
+            style: FontConfig.h6().copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           )
         ],
       ),
