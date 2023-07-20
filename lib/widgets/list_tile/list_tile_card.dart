@@ -32,6 +32,7 @@ class ListTileCard extends CardWidget {
           trailing: trailing,
           leading: leading,
           visualDensity: visualDensity,
+          onTap: onTap,
         )
       : ListTileWidget(
           titleString: titleString,
@@ -40,5 +41,6 @@ class ListTileCard extends CardWidget {
           leading: leading,
           visualDensity: visualDensity,
           contentPadding: const EdgeInsets.all(10),
+          onTap: onTap,
         );
 }
