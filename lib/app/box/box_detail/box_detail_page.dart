@@ -56,7 +56,7 @@ class BoxDetailPage extends ConsumerWidget {
           //print(data.boxUser);
           return SliverAppBarWidget(
             image: data.image,
-            collapsedHeight: 120,
+            //collapsedHeight: 120,
             height: 200,
             appbarTitle: TotalExpenseBoxDetail(data.total!),
             child: ListView(
