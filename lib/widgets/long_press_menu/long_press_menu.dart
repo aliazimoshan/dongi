@@ -41,3 +41,27 @@ class LongPressMenuWidget extends HookWidget {
     );
   }
 }
+
+//import 'package:flutter/cupertino.dart';
+
+//class LongPressMenuWidget extends StatelessWidget {
+//  final Widget child;
+//  final List<CupertinoContextMenuAction> items;
+//  //final void Function()? onTap;
+
+//  const LongPressMenuWidget({
+//    super.key,
+//    required this.child,
+//    required this.items,
+//    //required this.onTap,
+//  });
+
+//  @override
+//  Widget build(BuildContext context) {
+//    return CupertinoContextMenu(
+//      enableHapticFeedback: true,
+//      actions: items.map((val) => val).toList(),
+//      child: child,
+//    );
+//  }
+//}
