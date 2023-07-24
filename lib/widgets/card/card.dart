@@ -5,6 +5,7 @@ class CardWidget extends Card {
   final EdgeInsets? padding;
   final Color? borderColor;
   final Color? backColor;
+  final void Function()? onTap;
   const CardWidget({
     super.key,
     super.child,
@@ -13,6 +14,7 @@ class CardWidget extends Card {
     this.padding,
     this.borderColor,
     this.backColor,
+    this.onTap,
   });
 
   @override
@@ -28,8 +30,11 @@ class CardWidget extends Card {
       );
 
   @override
-  Widget? get child => Padding(
-        padding: padding ?? const EdgeInsets.all(10),
-        child: super.child,
+  Widget? get child => GestureDetector(
+        onTap: onTap,
+        child: Padding(
+          padding: padding ?? const EdgeInsets.all(10),
+          child: super.child,
+        ),
       );
 }

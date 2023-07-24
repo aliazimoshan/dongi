@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -55,6 +56,17 @@ class BoxCardWidget extends ConsumerWidget {
       }
     }
 
+    // List<CupertinoContextMenuAction> menuItems = [
+    //  CupertinoContextMenuAction(
+    //    child: const Text('Edit'),
+    //    onPressed: () => context.push(RouteName.updateBox, extra: box),
+    //  ),
+    //  CupertinoContextMenuAction(
+    //    onPressed: deleteBox,
+    //    child: const Text('Delete'),
+    //  ),
+    //];
+
     List<PopupMenuEntry> menuItems = [
       PopupMenuItem(
         child: const Text('Edit'),
@@ -67,89 +79,82 @@ class BoxCardWidget extends ConsumerWidget {
     ];
 
     return LongPressMenuWidget(
-      items: menuItems,
       onTap: () => context.push(
         RouteName.boxDetail(box.id),
         extra: {"boxId": box.id, "groupId": box.groupId},
       ),
+      items: menuItems,
       child: CardWidget(
-        padding: EdgeInsets.zero,
         margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: SizedBox(
-            width: 150,
-            height: 150,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    ImageWidget(imageUrl: box.image),
-                    const SizedBox(width: 5),
-                    Expanded(
-                      child: Text(
-                        box.title,
-                        style: FontConfig.body1(),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+        child: SizedBox(
+          width: 150,
+          height: 150,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  ImageWidget(imageUrl: box.image),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: Text(
+                      box.title,
+                      style: FontConfig.body1(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    //_popupButton(box)
+                  ),
+                  //_popupButton(box)
+                ],
+              ),
+              const Spacer(flex: 3),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          "Total bill",
+                          style: FontConfig.caption(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          '\$${box.total}',
+                          style: FontConfig.body2()
+                              .copyWith(fontWeight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Members",
+                          style: FontConfig.caption(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          box.boxUsers.length.toString(),
+                          style: FontConfig.body2()
+                              .copyWith(fontWeight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    )
                   ],
                 ),
-                const Spacer(flex: 3),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            "Total bill",
-                            style: FontConfig.caption(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            '\$${box.total}',
-                            style: FontConfig.body2()
-                                .copyWith(fontWeight: FontWeight.w600),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Members",
-                            style: FontConfig.caption(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            box.boxUsers.length.toString(),
-                            style: FontConfig.body2()
-                                .copyWith(fontWeight: FontWeight.w600),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                const Spacer(),
-
-                //const Spacer(),
-                // const Spacer(),
-              ],
-            ),
+              ),
+              const Spacer(),
+            ],
           ),
         ),
       ),
