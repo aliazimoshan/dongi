@@ -288,6 +288,20 @@ class ExpenseCardItem extends ConsumerWidget {
       }
     }
 
+    //    List<CupertinoContextMenuAction> menuItems = [
+    //  CupertinoContextMenuAction(
+    //    child: const Text('Edit'),
+    //    onPressed: () => context.push(
+    //      RouteName.updateExpense,
+    //      extra: {"expenseModel": expenseModel},
+    //    ),
+    //  ),
+    //  CupertinoContextMenuAction(
+    //    onPressed: deleteExpense,
+    //    child: const Text('Delete'),
+    //  ),
+    //];
+
     List<PopupMenuEntry> menuItems = [
       PopupMenuItem(
         value: 1,

@@ -43,6 +43,24 @@ class GroupListCard extends ConsumerWidget {
       }
     }
 
+    //  List<CupertinoContextMenuAction> menuItems = [
+    //  CupertinoContextMenuAction(
+    //    onPressed: () => context.push(
+    //      RouteName.updateGroup,
+    //      extra: groupModel,
+    //    ),
+    //    child: const Text('Edit'),
+    //  ),
+    //  CupertinoContextMenuAction(
+    //    onPressed: deleteGroup,
+    //    child: const Text('Delete'),
+    //  ),
+    //  CupertinoContextMenuAction(
+    //    onPressed: () => showSnackBar(context, "Coming soon!!"),
+    //    child: const Text('Invite'),
+    //  ),
+    //];
+
     List<PopupMenuEntry> menuItems = [
       PopupMenuItem(
         child: const Text('Edit'),
@@ -94,7 +112,6 @@ class GroupListCard extends ConsumerWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: LongPressMenuWidget(
         items: menuItems,
-        onTap: () => context.push(RouteName.groupDetail(groupModel.id)),
         child: Slidable(
           key: key,
           startActionPane: ActionPane(
@@ -164,6 +181,7 @@ class GroupListCard extends ConsumerWidget {
             ],
           ),
           child: ListTileCard(
+            onTap: () => context.push(RouteName.groupDetail(groupModel.id)),
             titleString: groupModel.title,
             subtitleString:
                 "Member: ${groupModel.groupUsers.length.toString()}",
