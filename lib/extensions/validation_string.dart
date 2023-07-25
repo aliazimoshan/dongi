@@ -13,7 +13,7 @@ extension ExtensionsString on String {
   bool get isValidPassword {
     final passwordRegExp = RegExp(
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\><*~]).{8,}/pre>');
-    return passwordRegExp.hasMatch(this);
+    return passwordRegExp.hasMatch(this) && length <= 32;
   }
 
   //bool get isNotNull {

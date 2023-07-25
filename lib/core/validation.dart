@@ -21,7 +21,7 @@ class FormValidatorNotifier extends StateNotifier<String?> {
   }
 
   String? validateUsername(String? value) {
-    if (value != null && value.length >= 4) {
+    if (value != null && value.length >= 4 && value.length < 32) {
       return null;
     } else {
       return 'Username must be more than 4 characters';
@@ -29,22 +29,29 @@ class FormValidatorNotifier extends StateNotifier<String?> {
   }
 
   String? validateTitle(String? value) {
-    if (value != null && value.isNotEmpty) {
+    if (value != null && value.isNotEmpty && value.length < 32) {
       return null;
     } else {
-      return 'Title must not be empty';
+      return 'Title must not be empty or longer than 32 char';
     }
   }
 
   String? validateCost(String? value) {
     if (value != null && value.isNotEmpty) {
-      if (num.parse(value.replaceAll(',', '')) > 0) {
-        return null;
-      } else {
-        return 'cost must be bigger than 0';
+      try {
+        final costBigInt = BigInt.parse(value.replaceAll(',', ''));
+        final maxInt64 =
+            BigInt.from(9223372036854775807); // Maximum value for 64-bit int
+        if (costBigInt <= maxInt64) {
+          return null;
+        } else {
+          return 'Cost is too large. Please enter a smaller number.';
+        }
+      } catch (e) {
+        return 'Invalid input. Please enter a valid number.';
       }
     } else {
-      return 'cost must not be empty';
+      return 'Cost must not be empty';
     }
   }
 }
