@@ -17,7 +17,7 @@ final boxAPIProvider = Provider((ref) {
 
 abstract class IBoxAPI {
   FutureEither<Document> addBox(BoxModel boxModel);
-  FutureEither<Document> updateBox(BoxModel boxModel);
+  FutureEither<Document> updateBox(Map<String, dynamic> updateBoxModel);
   Future<List<Document>> getBoxes(String uid);
   Future<List<Document>> getBoxesInGroup(String groupId);
   Future<Document> getBoxDetail(String boxId);
@@ -58,13 +58,13 @@ class BoxAPI implements IBoxAPI {
   }
 
   @override
-  FutureEither<Document> updateBox(BoxModel boxModel) async {
+  FutureEither<Document> updateBox(Map updateBoxModel) async {
     try {
       final document = await _db.updateDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.boxCollection,
-        documentId: boxModel.id!,
-        data: boxModel.toJson(),
+        documentId: updateBoxModel["\$id"],
+        data: updateBoxModel,
       );
       return right(document);
     } on AppwriteException catch (e, st) {
