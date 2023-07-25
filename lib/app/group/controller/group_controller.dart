@@ -90,34 +90,50 @@ class GroupNotifier extends StateNotifier<GroupState> {
   }
 
   Future<void> updateGroup({
-    required ValueNotifier<File?> image,
-    required TextEditingController groupTitle,
-    required TextEditingController groupDescription,
     required GroupModel groupModel,
+    ValueNotifier<File?>? image,
+    TextEditingController? groupTitle,
+    TextEditingController? groupDescription,
+    List<String>? boxIds,
   }) async {
     state = const GroupState.loading();
-    //final currentUser = await ref.watch(authAPIProvider).currentUserAccount();
-    List<String> imageLinks = [];
-    if (image.value != null) {
+    final Map<String, dynamic> updateData = {};
+
+    updateData['\$id'] = groupModel.id!;
+
+    if (image != null && image.value != null) {
       final imageUploadRes = await storageAPI.uploadImage([image.value!]);
       imageUploadRes.fold(
         (l) => state = GroupState.error(l.message),
-        (r) => imageLinks = r,
+        (r) => updateData["image"] = r.first,
       );
     }
 
-    GroupModel newGroupModel = GroupModel(
-      id: groupModel.id,
-      title: groupTitle.text,
-      description: groupDescription.text,
-      creatorId: groupModel.creatorId,
-      image: imageLinks.isNotEmpty ? imageLinks[0] : groupModel.image,
-      groupUsers: groupModel.groupUsers,
-      boxIds: groupModel.boxIds,
-      totalBalance: groupModel.totalBalance,
-    );
+    if (groupTitle != null && groupTitle.text.isNotEmpty == true) {
+      // Add groupTitle to the update data
+      updateData['title'] = groupTitle.text;
+    }
+    if (groupDescription != null && groupDescription.text.isNotEmpty == true) {
+      // Add groupDescription to the update data
+      updateData['description'] = groupDescription.text;
+    }
 
-    final res = await groupAPI.updateGroup(newGroupModel);
+    if (boxIds != null) {
+      updateData['boxIds'] = boxIds;
+    }
+
+    //GroupModel newGroupModel = GroupModel(
+    //  id: groupModel.id,
+    //  title: groupTitle.text,
+    //  description: groupDescription.text,
+    //  creatorId: groupModel.creatorId,
+    //  image: imageLinks.isNotEmpty ? imageLinks[0] : groupModel.image,
+    //  groupUsers: groupModel.groupUsers,
+    //  boxIds: groupModel.boxIds,
+    //  totalBalance: groupModel.totalBalance,
+    //);
+
+    final res = await groupAPI.updateGroup(updateData);
     state = res.fold(
       (l) => GroupState.error(l.message),
       (r) => const GroupState.loaded(),
