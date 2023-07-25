@@ -18,6 +18,7 @@ final userAPIProvider = Provider((ref) {
 abstract class IUserAPI {
   FutureEitherVoid saveUserData(UserModel userModel, String uid);
   Future<model.Document> getUserData(String uid);
+  Future<List<model.Document>> getUsersListData(List<String> userIds);
   Future<List<model.Document>> searchUserByName(String name);
   FutureEitherVoid updateUserData(UserModel userModel);
   Stream<RealtimeMessage> getLatestUserProfileData();
@@ -62,6 +63,18 @@ class UserAPI implements IUserAPI {
       collectionId: AppwriteConfig.usersCollection,
       documentId: uid,
     );
+  }
+
+  @override
+  Future<List<model.Document>> getUsersListData(List<String> userIds) async {
+    final documents = await _db.listDocuments(
+      databaseId: AppwriteConfig.databaseId,
+      collectionId: AppwriteConfig.usersCollection,
+      queries: [
+        Query.equal('\$id', userIds),
+      ],
+    );
+    return documents.documents;
   }
 
   @override
