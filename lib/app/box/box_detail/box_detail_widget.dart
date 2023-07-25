@@ -6,7 +6,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../../constants/color_config.dart';
 import '../../../constants/font_config.dart';
 import '../../../core/utils.dart';
+import '../../../models/box_model.dart';
 import '../../../models/expense_model.dart';
+import '../../../models/group_model.dart';
 import '../../../models/user_model.dart';
 import '../../../router/router_notifier.dart';
 import '../../../widgets/card/category_card.dart';
@@ -15,7 +17,7 @@ import '../../../widgets/friends/friend.dart';
 import '../../../widgets/list_tile/list_tile_card.dart';
 import '../../../widgets/loading/loading.dart';
 import '../../../widgets/long_press_menu/long_press_menu.dart';
-import '../../../extensions/date_from_now.dart';
+import '../../../extensions/date_extension.dart';
 import '../../expense/controller/expense_controller.dart';
 import '../controller/box_controller.dart';
 
@@ -218,19 +220,24 @@ class CategoryListBoxDetail extends ConsumerWidget {
 }
 
 class ExpenseListBoxDetail extends ConsumerWidget {
-  final String boxId;
-  const ExpenseListBoxDetail(this.boxId, {super.key});
+  final BoxModel boxModel;
+  final GroupModel groupModel;
+  const ExpenseListBoxDetail({
+    super.key,
+    required this.boxModel,
+    required this.groupModel,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final expenses = ref.watch(getExpensesInBoxProvider(boxId));
+    final expenses = ref.watch(getExpensesInBoxProvider(boxModel.id!));
 
     // by using listen we are not gonna rebuild our app
     ref.listen<ExpenseState>(
       expenseNotifierProvider,
       (previous, next) {
         next.whenOrNull(
-          loaded: () => ref.refresh(getExpensesInBoxProvider(boxId)),
+          loaded: () => ref.refresh(getExpensesInBoxProvider(boxModel.id!)),
           error: (message) => showSnackBar(context, message),
         );
       },
@@ -259,7 +266,11 @@ class ExpenseListBoxDetail extends ConsumerWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: data.length,
                   itemBuilder: (context, index) {
-                    return ExpenseCardItem(data[index]);
+                    return ExpenseCardItem(
+                      expenseModel: data[index],
+                      boxModel: boxModel,
+                      groupModel: groupModel,
+                    );
                   },
                 ),
               );
@@ -273,7 +284,14 @@ class ExpenseListBoxDetail extends ConsumerWidget {
 
 class ExpenseCardItem extends ConsumerWidget {
   final ExpenseModel expenseModel;
-  const ExpenseCardItem(this.expenseModel, {super.key});
+  final BoxModel boxModel;
+  final GroupModel groupModel;
+  const ExpenseCardItem({
+    super.key,
+    required this.expenseModel,
+    required this.boxModel,
+    required this.groupModel,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -282,10 +300,11 @@ class ExpenseCardItem extends ConsumerWidget {
     deleteExpense() async {
       await ref
           .read(expenseNotifierProvider.notifier)
-          .deleteExpense(expenseModel);
+          .deleteExpense(expenseModel: expenseModel, boxModel: boxModel);
       if (context.mounted) {
         showSnackBar(context, "Expense deleted successfully!!");
       }
+      return ref.refresh(getBoxDetailProvider(boxModel.id!));
     }
 
     //    List<CupertinoContextMenuAction> menuItems = [
@@ -308,7 +327,11 @@ class ExpenseCardItem extends ConsumerWidget {
         child: const Text('Edit'),
         onTap: () => context.push(
           RouteName.updateExpense,
-          extra: {"expenseModel": expenseModel},
+          extra: {
+            "expenseModel": expenseModel,
+            "boxModel": boxModel,
+            "groupModel": groupModel,
+          },
         ),
       ),
       PopupMenuItem(
@@ -383,7 +406,10 @@ class ExpenseCardItem extends ConsumerWidget {
           ),
           child: LongPressMenuWidget(
             items: menuItems,
-            onTap: () => context.push(RouteName.expenseDetail),
+            onTap: () => context.push(
+              RouteName.expenseDetail,
+              extra: {"expenseId": expenseModel.id},
+            ),
             child: ListTileCard(
               titleString: expenseModel.title,
               trailing: Text("\$${expenseModel.cost}"),

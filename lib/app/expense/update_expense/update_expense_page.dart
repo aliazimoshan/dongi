@@ -1,4 +1,3 @@
-import 'package:dongi/models/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../constants/color_config.dart';
 import '../../../core/utils.dart';
+import '../../../models/box_model.dart';
+import '../../../models/expense_model.dart';
+import '../../../models/group_model.dart';
 import '../../../widgets/appbar/appbar.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/text_field/text_field.dart';
@@ -14,8 +16,15 @@ import 'update_expense_widget.dart';
 
 class UpdateExpensePage extends StatefulHookConsumerWidget {
   final ExpenseModel expenseModel;
+  final GroupModel groupModel;
+  final BoxModel boxModel;
 
-  const UpdateExpensePage({super.key, required this.expenseModel});
+  const UpdateExpensePage({
+    super.key,
+    required this.expenseModel,
+    required this.boxModel,
+    required this.groupModel,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -101,8 +110,8 @@ class _UpdateExpensePageState extends ConsumerState<UpdateExpensePage> {
                 expenseDescription: expenseDescription,
                 expenseCost: expenseCost,
                 formKey: _formKey,
-                groupId: widget.expenseModel.groupId,
-                boxId: widget.expenseModel.boxId,
+                groupModel: widget.groupModel,
+                boxModel: widget.boxModel,
               )
             ],
           ),

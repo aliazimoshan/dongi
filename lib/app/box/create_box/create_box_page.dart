@@ -7,12 +7,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../constants/color_config.dart';
 import '../../../core/utils.dart';
+import '../../../models/group_model.dart';
 import '../../../widgets/appbar/appbar.dart';
 import 'create_box_widget.dart';
 
 class CreateBoxPage extends HookConsumerWidget {
-  final String groupId;
-  CreateBoxPage(this.groupId, {super.key});
+  final GroupModel groupModel;
+  CreateBoxPage({super.key, required this.groupModel});
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -52,7 +53,7 @@ class CreateBoxPage extends HookConsumerWidget {
             image: image,
             boxTitle: boxTitle,
             boxDescription: boxDescription,
-            groupId: groupId,
+            groupModel: groupModel,
           ),
         ],
       ),

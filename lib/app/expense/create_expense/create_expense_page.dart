@@ -4,18 +4,20 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils.dart';
+import '../../../models/box_model.dart';
+import '../../../models/group_model.dart';
 import '../../../widgets/appbar/appbar.dart';
 import '../../../widgets/card/card.dart';
 import '../controller/expense_controller.dart';
 import 'create_expense_widget.dart';
 
 class CreateExpensePage extends HookConsumerWidget {
-  final String boxId;
-  final String groupId;
+  final BoxModel boxModel;
+  final GroupModel groupModel;
   CreateExpensePage({
     super.key,
-    required this.boxId,
-    required this.groupId,
+    required this.boxModel,
+    required this.groupModel,
   });
 
   final _formKey = GlobalKey<FormState>();
@@ -33,6 +35,7 @@ class CreateExpensePage extends HookConsumerWidget {
         next.whenOrNull(
             loaded: () {
               showSnackBar(context, "Successfully Created!!");
+
               context.pop();
             },
             error: (message) => showSnackBar(context, message));
@@ -80,8 +83,8 @@ class CreateExpensePage extends HookConsumerWidget {
                 expenseDescription: expenseDescription,
                 expenseCost: expenseCost,
                 formKey: _formKey,
-                groupId: groupId,
-                boxId: boxId,
+                groupModel: groupModel,
+                boxModel: boxModel,
               )
             ],
           ),

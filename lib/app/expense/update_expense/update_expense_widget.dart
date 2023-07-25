@@ -1,17 +1,20 @@
 import 'dart:math';
 
 import 'package:dongi/extensions/format_with_comma.dart';
-import 'package:dongi/models/expense_model.dart';
-import 'package:dongi/router/router_notifier.dart';
-import 'package:dongi/widgets/list_tile/list_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../constants/color_config.dart';
+import '../../../models/box_model.dart';
+import '../../../models/expense_model.dart';
+import '../../../models/group_model.dart';
+import '../../../router/router_notifier.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/card/card.dart';
 import '../../../widgets/card/grey_card.dart';
+import '../../../widgets/list_tile/list_tile_card.dart';
 import '../../../widgets/text_field/text_field.dart';
 import '../controller/expense_controller.dart';
 
@@ -203,8 +206,8 @@ class UpdateExpenseCreateButton extends ConsumerWidget {
   final TextEditingController expenseDescription;
   final TextEditingController expenseCost;
   final GlobalKey<FormState> formKey;
-  final String groupId;
-  final String boxId;
+  final GroupModel groupModel;
+  final BoxModel boxModel;
 
   const UpdateExpenseCreateButton({
     required this.expenseModel,
@@ -212,8 +215,8 @@ class UpdateExpenseCreateButton extends ConsumerWidget {
     required this.expenseDescription,
     required this.expenseCost,
     required this.formKey,
-    required this.groupId,
-    required this.boxId,
+    required this.groupModel,
+    required this.boxModel,
     super.key,
   });
 
@@ -230,12 +233,12 @@ class UpdateExpenseCreateButton extends ConsumerWidget {
           onPressed: () {
             if (formKey.currentState!.validate()) {
               ref.read(expenseNotifierProvider.notifier).updateExpense(
-                    expenseId: expenseModel.id!,
+                    expenseModel: expenseModel,
                     expenseTitle: expenseTitle,
                     expenseDescription: expenseDescription,
                     expenseCost: expenseCost,
-                    groupId: groupId,
-                    boxId: boxId,
+                    groupModel: groupModel,
+                    boxModel: boxModel,
                   );
             }
           },

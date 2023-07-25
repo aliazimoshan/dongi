@@ -1,13 +1,15 @@
 import 'dart:io';
-import 'package:dongi/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/box_model.dart';
+import '../../../models/group_model.dart';
+import '../../../models/user_model.dart';
 import '../../../services/box_service.dart';
 import '../../../services/storage_api.dart';
 import '../../auth/controller/auth_controller.dart';
+import '../../group/controller/group_controller.dart';
 part 'box_controller.freezed.dart';
 
 final boxNotifierProvider = StateNotifierProvider<BoxNotifier, BoxState>(
@@ -72,7 +74,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
     required ValueNotifier<File?> image,
     required TextEditingController boxTitle,
     required TextEditingController boxDescription,
-    required String groupId,
+    required GroupModel groupModel,
   }) async {
     state = const BoxState.loading();
     final currentUser = ref.watch(currentUserProvider);
@@ -89,7 +91,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
       title: boxTitle.text,
       description: boxDescription.text,
       creatorId: currentUser!.$id,
-      groupId: groupId,
+      groupId: groupModel.id!,
       image: imageLinks.isNotEmpty ? imageLinks[0] : null,
       boxUsers: [currentUser.$id],
       total: 0,
@@ -99,38 +101,58 @@ class BoxNotifier extends StateNotifier<BoxState> {
 
     state = res.fold(
       (l) => BoxState.error(l.message),
-      (r) => const BoxState.loaded(),
+      (r) {
+        ref.read(groupNotifierProvider.notifier).updateGroup(
+          groupModel: groupModel,
+          boxIds: [...groupModel.boxIds, r.$id],
+        );
+        return const BoxState.loaded();
+      },
     );
   }
 
   Future<void> updateBox({
-    required ValueNotifier<File?> image,
-    required TextEditingController boxTitle,
-    required TextEditingController boxDescription,
-    required BoxModel boxModel,
+    required String boxId,
+    ValueNotifier<File?>? image,
+    TextEditingController? boxTitle,
+    TextEditingController? boxDescription,
+    List<String>? expenseIds,
+    num? total,
   }) async {
     state = const BoxState.loading();
-    //final currentUser = ref.read(currentUserProvider);
-    List<String> imageLinks = [];
-    if (image.value != null) {
+    Map<String, dynamic> updateData = {};
+
+    updateData["\$id"] = boxId;
+
+    if (image != null && image.value != null) {
       final imageUploadRes = await storageAPI.uploadImage([image.value!]);
       imageUploadRes.fold(
         (l) => BoxState.error(l.message),
-        (r) => imageLinks = r,
+        (r) => updateData['image'] = r.first,
       );
     }
-    BoxModel newBoxModel = BoxModel(
-      id: boxModel.id,
-      title: boxTitle.text,
-      description: boxDescription.text,
-      creatorId: boxModel.creatorId,
-      groupId: boxModel.groupId,
-      boxUsers: boxModel.boxUsers,
-      total: boxModel.total,
-      image: imageLinks.isNotEmpty ? imageLinks[0] : boxModel.image,
-    );
 
-    final res = await boxAPI.updateBox(newBoxModel);
+    if (boxTitle != null && boxTitle.text.isNotEmpty) {
+      // Add boxTitle to the update data
+      updateData['title'] = boxTitle.text;
+    }
+
+    if (boxDescription != null && boxDescription.text.isNotEmpty) {
+      // Add boxDescription to the update data
+      updateData['description'] = boxDescription.text;
+    }
+
+    if (total != null && total != 0) {
+      // Add total cost to the update data | add new expense cost + total
+      updateData['total'] = total;
+    }
+
+    if (expenseIds != null) {
+      // Add boxDescription to the update data
+      updateData['expenseIds'] = expenseIds;
+    }
+
+    final res = await boxAPI.updateBox(updateData);
 
     state = res.fold(
       (l) => BoxState.error(l.message),

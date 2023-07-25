@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/utils.dart';
+import '../../../models/group_model.dart';
 import '../../../router/router_notifier.dart';
 import '../../../widgets/appbar/sliver_appbar.dart';
 import '../../../widgets/error/error.dart';
@@ -13,11 +14,11 @@ import './box_detail_widget.dart';
 
 class BoxDetailPage extends ConsumerWidget {
   final String boxId;
-  final String groupId;
+  final GroupModel groupModel;
   const BoxDetailPage({
     super.key,
     required this.boxId,
-    required this.groupId,
+    required this.groupModel,
   });
 
   @override
@@ -29,7 +30,10 @@ class BoxDetailPage extends ConsumerWidget {
       boxNotifierProvider,
       (previous, next) {
         next.whenOrNull(
-          loaded: () => ref.refresh(getBoxesInGroupProvider(groupId)),
+          loaded: () {
+            ref.read(getBoxesInGroupProvider(groupModel.id!));
+            return ref.refresh(getBoxDetailProvider(boxId));
+          },
           error: (message) => showSnackBar(context, message),
         );
       },
@@ -46,19 +50,17 @@ class BoxDetailPage extends ConsumerWidget {
     //  },
     //);
 
-    return Scaffold(
-      //backgroundColor: ColorConfig.primarySwatch,
-      //appBar: AppBar(elevation: 0),
-      body: boxDetail.when(
-        loading: () => const LoadingWidget(),
-        error: (error, stackTrace) => ErrorTextWidget(error),
-        data: (data) {
-          //print(data.boxUser);
-          return SliverAppBarWidget(
+    return boxDetail.when(
+      loading: () => const LoadingWidget(),
+      error: (error, stackTrace) => ErrorTextWidget(error),
+      data: (data) {
+        //print(data.boxUser);
+        return Scaffold(
+          body: SliverAppBarWidget(
             image: data.image,
             //collapsedHeight: 120,
             height: 200,
-            appbarTitle: TotalExpenseBoxDetail(data.total!),
+            appbarTitle: TotalExpenseBoxDetail(data.total),
             child: ListView(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
@@ -67,20 +69,22 @@ class BoxDetailPage extends ConsumerWidget {
                 FriendListBoxDetail(userIds: data.boxUsers),
                 //TODO: Think about the structure
                 const CategoryListBoxDetail(),
-                ExpenseListBoxDetail(boxId),
+                ExpenseListBoxDetail(
+                  boxModel: data,
+                  groupModel: groupModel,
+                ),
               ],
             ),
-          );
-        },
-      ),
-
-      floatingActionButton: FABWidget(
-        title: 'Expense',
-        onPressed: () => context.push(
-          RouteName.createExpense,
-          extra: {"boxId": boxId, "groupId": groupId},
-        ),
-      ),
+          ),
+          floatingActionButton: FABWidget(
+            title: 'Expense',
+            onPressed: () => context.push(
+              RouteName.createExpense,
+              extra: {"boxModel": data, "groupModel": groupModel},
+            ),
+          ),
+        );
+      },
     );
   }
 }

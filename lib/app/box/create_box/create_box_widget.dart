@@ -9,6 +9,7 @@ import '../../../constants/font_config.dart';
 import '../../../constants/size_config.dart';
 import '../../../core/utils.dart';
 import '../../../core/validation.dart';
+import '../../../models/group_model.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/friends/friend.dart';
 import '../../../widgets/text_field/text_field.dart';
@@ -198,7 +199,7 @@ class CreateBoxButton extends ConsumerWidget {
   final TextEditingController boxTitle;
   final TextEditingController boxDescription;
   final GlobalKey<FormState> formKey;
-  final String groupId;
+  final GroupModel groupModel;
 
   const CreateBoxButton({
     super.key,
@@ -206,7 +207,7 @@ class CreateBoxButton extends ConsumerWidget {
     required this.boxTitle,
     required this.boxDescription,
     required this.formKey,
-    required this.groupId,
+    required this.groupModel,
   });
 
   @override
@@ -224,7 +225,7 @@ class CreateBoxButton extends ConsumerWidget {
                   image: image,
                   boxTitle: boxTitle,
                   boxDescription: boxDescription,
-                  groupId: groupId,
+                  groupModel: groupModel,
                 );
           }
         },

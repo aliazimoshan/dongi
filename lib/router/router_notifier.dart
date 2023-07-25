@@ -93,8 +93,10 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
       GoRoute(
         path: RouteName.createBox,
         builder: (context, state) {
-          String groupId = state.extra as String;
-          return CreateBoxPage(groupId);
+          Map extra = state.extra as Map<String, dynamic>;
+          return CreateBoxPage(
+            groupModel: extra["groupModel"],
+          );
         },
       ),
       GoRoute(
@@ -107,17 +109,18 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
       GoRoute(
         path: RouteName.updateBox,
         builder: (context, state) {
-          BoxModel boxModel = state.extra as BoxModel;
-          return UpdateBoxPage(boxModel: boxModel);
+          Map extra = state.extra as Map<String, dynamic>;
+          return UpdateBoxPage(boxModel: extra['boxModel']);
         },
       ),
       GoRoute(
         path: RouteName.boxDetail(null),
         builder: (context, state) {
+          String boxId = state.params['boxId']!;
           Map extra = state.extra as Map<String, dynamic>;
           return BoxDetailPage(
-            boxId: extra['boxId'],
-            groupId: extra['groupId'],
+            boxId: boxId,
+            groupModel: extra['groupModel'],
           );
         },
       ),
@@ -133,8 +136,8 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
         builder: (context, state) {
           Map extra = state.extra as Map<String, dynamic>;
           return CreateExpensePage(
-            boxId: extra['boxId'],
-            groupId: extra['groupId'],
+            boxModel: extra['boxModel'],
+            groupModel: extra['groupModel'],
           );
         },
       ),
@@ -144,6 +147,8 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
           Map extra = state.extra as Map<String, dynamic>;
           return UpdateExpensePage(
             expenseModel: extra['expenseModel'],
+            boxModel: extra['boxModel'],
+            groupModel: extra['groupModel'],
           );
         },
       ),
@@ -160,9 +165,13 @@ GoRouter _goRouterConfig(StateProviderRef ref) {
             );
           }),
       GoRoute(
-        path: RouteName.expenseDetail,
-        builder: (context, state) => const ExpenseDetailPage(),
-      ),
+          path: RouteName.expenseDetail,
+          builder: (context, state) {
+            Map extra = state.extra as Map<String, dynamic>;
+            return ExpenseDetailPage(
+              expenseId: extra["expenseId"],
+            );
+          }),
     ],
     redirect: (context, state) async {
       if (state.location == RouteName.signup ||

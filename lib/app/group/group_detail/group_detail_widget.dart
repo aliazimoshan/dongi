@@ -212,18 +212,18 @@ class GroupDetailFriendList extends ConsumerWidget {
 }
 
 class GroupDetailBoxGrid extends ConsumerWidget {
-  final String groupId;
-  const GroupDetailBoxGrid({super.key, required this.groupId});
+  final GroupModel groupModel;
+  const GroupDetailBoxGrid({super.key, required this.groupModel});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final boxesInGroup = ref.watch(getBoxesInGroupProvider(groupId));
+    final boxesInGroup = ref.watch(getBoxesInGroupProvider(groupModel.id!));
 
     ref.listen<BoxState>(
       boxNotifierProvider,
       (previous, next) {
         next.whenOrNull(
-          loaded: () => ref.refresh(getBoxesInGroupProvider(groupId)),
+          loaded: () => ref.refresh(getBoxesInGroupProvider(groupModel.id!)),
           error: (message) => showSnackBar(context, message),
         );
       },
@@ -257,7 +257,10 @@ class GroupDetailBoxGrid extends ConsumerWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: data.length,
-              itemBuilder: (context, i) => BoxCardWidget(data[i]),
+              itemBuilder: (context, i) => BoxCardWidget(
+                boxModel: data[i],
+                groupModel: groupModel,
+              ),
             ),
           ),
         ],

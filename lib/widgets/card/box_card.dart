@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,15 +6,21 @@ import '../../app/box/controller/box_controller.dart';
 import '../../constants/font_config.dart';
 import '../../core/utils.dart';
 import '../../models/box_model.dart';
+import '../../models/group_model.dart';
 import '../../router/router_notifier.dart';
 import '../image/image_widget.dart';
 import '../long_press_menu/long_press_menu.dart';
 import 'card.dart';
 
 class BoxCardWidget extends ConsumerWidget {
-  final BoxModel box;
+  final BoxModel boxModel;
+  final GroupModel groupModel;
 
-  const BoxCardWidget(this.box, {super.key});
+  const BoxCardWidget({
+    super.key,
+    required this.boxModel,
+    required this.groupModel,
+  });
 
   ///* Popup menu
   //_popupButton(BoxModel boxModel) {
@@ -50,7 +55,7 @@ class BoxCardWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     deleteBox() async {
-      await ref.read(boxNotifierProvider.notifier).deleteBox(box);
+      await ref.read(boxNotifierProvider.notifier).deleteBox(boxModel);
       if (context.mounted) {
         showSnackBar(context, "box deleted successfully");
       }
@@ -70,7 +75,10 @@ class BoxCardWidget extends ConsumerWidget {
     List<PopupMenuEntry> menuItems = [
       PopupMenuItem(
         child: const Text('Edit'),
-        onTap: () => context.push(RouteName.updateBox, extra: box),
+        onTap: () => context.push(
+          RouteName.updateBox,
+          extra: {"boxModel": boxModel},
+        ),
       ),
       PopupMenuItem(
         onTap: deleteBox,
@@ -80,8 +88,8 @@ class BoxCardWidget extends ConsumerWidget {
 
     return LongPressMenuWidget(
       onTap: () => context.push(
-        RouteName.boxDetail(box.id),
-        extra: {"boxId": box.id, "groupId": box.groupId},
+        RouteName.boxDetail(boxModel.id),
+        extra: {"boxModel": boxModel, "groupModel": groupModel},
       ),
       items: menuItems,
       child: CardWidget(
@@ -94,11 +102,11 @@ class BoxCardWidget extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  ImageWidget(imageUrl: box.image),
+                  ImageWidget(imageUrl: boxModel.image),
                   const SizedBox(width: 5),
                   Expanded(
                     child: Text(
-                      box.title,
+                      boxModel.title,
                       style: FontConfig.body1(),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -123,7 +131,7 @@ class BoxCardWidget extends ConsumerWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          '\$${box.total}',
+                          '\$${boxModel.total}',
                           style: FontConfig.body2()
                               .copyWith(fontWeight: FontWeight.w600),
                           maxLines: 1,
@@ -142,7 +150,7 @@ class BoxCardWidget extends ConsumerWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          box.boxUsers.length.toString(),
+                          boxModel.boxUsers.length.toString(),
                           style: FontConfig.body2()
                               .copyWith(fontWeight: FontWeight.w600),
                           maxLines: 1,

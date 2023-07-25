@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:dongi/models/box_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +8,7 @@ import '../../../constants/font_config.dart';
 import '../../../constants/size_config.dart';
 import '../../../core/utils.dart';
 import '../../../core/validation.dart';
+import '../../../models/box_model.dart';
 import '../../../widgets/button/button.dart';
 import '../../../widgets/friends/friend.dart';
 import '../../../widgets/text_field/text_field.dart';
@@ -241,7 +240,7 @@ class UpdateBoxButton extends ConsumerWidget {
                   image: newBoxImage,
                   boxTitle: boxTitle,
                   boxDescription: boxDescription,
-                  boxModel: boxModel,
+                  boxId: boxModel.id!,
                 );
           }
         },
