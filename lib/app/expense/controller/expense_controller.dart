@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../models/box_model.dart';
 import '../../../models/expense_model.dart';
+import '../../../models/group_model.dart';
 import '../../../services/expense_service.dart';
 import '../../../services/storage_api.dart';
 import '../../auth/controller/auth_controller.dart';
@@ -34,6 +36,12 @@ final getExpensesInBoxProvider =
   return expenseController.getExpensesInBox(boxId);
 });
 
+final getExpensesDetailProvider =
+    FutureProvider.family.autoDispose((ref, String expenseId) {
+  final expenseController = ref.watch(expenseNotifierProvider.notifier);
+  return expenseController.getExpenseDetail(expenseId);
+});
+
 final expenseCreatorProvider = StateProvider<String?>((ref) {
   final user = ref.read(currentUserProvider);
   return user?.$id;
@@ -60,8 +68,8 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     required TextEditingController expenseTitle,
     required TextEditingController expenseDescription,
     required TextEditingController expenseCost,
-    required String groupId,
-    required String boxId,
+    required BoxModel boxModel,
+    required GroupModel groupModel,
   }) async {
     state = const ExpenseState.loading();
     final currentUser = ref.read(currentUserProvider);
@@ -71,11 +79,11 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     ExpenseModel expenseModel = ExpenseModel(
       title: expenseTitle.text,
       description: expenseDescription.text,
-      boxId: boxId,
-      groupId: groupId,
+      boxId: boxModel.id!,
+      groupId: groupModel.id!,
       creatorId: creatorUserId ?? currentUser!.$id,
       //equal: equal,
-      cost: int.parse(expenseCost.text.replaceAll(',', '')),
+      cost: num.parse(expenseCost.text.replaceAll(',', '')),
       expenseUsers: splitUser.state,
     );
 
@@ -83,57 +91,118 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
-      (r) => const ExpenseState.loaded(),
+      (r) {
+        // Add new expense data to Box
+        ref.read(boxNotifierProvider.notifier).updateBox(
+          boxId: boxModel.id!,
+          total: boxModel.total + expenseModel.cost,
+          expenseIds: [...boxModel.expenseIds, r.$id],
+        );
+
+        return const ExpenseState.loaded();
+      },
     );
   }
 
   Future<void> updateExpense({
-    required String expenseId,
-    required TextEditingController expenseTitle,
-    required TextEditingController expenseDescription,
-    required TextEditingController expenseCost,
-    required String groupId,
-    required String boxId,
+    required ExpenseModel expenseModel,
+    required GroupModel groupModel,
+    required BoxModel boxModel,
+    TextEditingController? expenseTitle,
+    TextEditingController? expenseDescription,
+    TextEditingController? expenseCost,
   }) async {
     state = const ExpenseState.loading();
+    Map<String, dynamic> updateData = {};
+    num totalBoxCost = boxModel.total;
+
     final currentUser = ref.read(currentUserProvider);
-    final creatorUserId = ref.read(expenseCreatorProvider);
     final splitUser = ref.read(splitUserProvider.notifier);
+    final creatorUserId = ref.read(expenseCreatorProvider);
 
-    ExpenseModel expenseModel = ExpenseModel(
-      id: expenseId,
-      title: expenseTitle.text,
-      description: expenseDescription.text,
-      boxId: boxId,
-      groupId: groupId,
-      creatorId: creatorUserId ?? currentUser!.$id,
-      //equal: equal,
-      cost: int.parse(expenseCost.text),
-      expenseUsers: splitUser.state,
-    );
+    updateData["\$id"] = expenseModel.id;
+    updateData["creatorId"] = creatorUserId ?? currentUser!.$id;
+    updateData["expenseUsers"] = splitUser.state;
 
-    final res = await expenseAPI.updateExpense(expenseModel);
+    //ExpenseModel expenseModel = ExpenseModel(
+    //  id: expenseId,
+    //  title: expenseTitle.text,
+    //  description: expenseDescription.text,
+    //  boxId: boxId,
+    //  groupId: groupId,
+    //  creatorId: creatorUserId ?? currentUser!.$id,
+    //  //equal: equal,
+    //  cost: int.parse(expenseCost.text),
+    //  expenseUsers: splitUser.state,
+    //);
+
+    if (expenseTitle != null && expenseTitle.text.isNotEmpty) {
+      // Add expenseTitle to the update data
+      updateData['title'] = expenseTitle.text;
+    }
+
+    if (expenseDescription != null && expenseDescription.text.isNotEmpty) {
+      // Add expenseDescription to the update data
+      updateData['description'] = expenseDescription.text;
+    }
+
+    if (expenseCost != null && expenseCost.text.isNotEmpty) {
+      // Add expenseCost to the update data
+      // Convert the expenseCost to a num
+      num cost = num.parse(expenseCost.text.replaceAll(',', ''));
+      updateData['cost'] = cost;
+      totalBoxCost = totalBoxCost - expenseModel.cost + cost;
+    }
+
+    final res = await expenseAPI.updateExpense(updateData);
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
-      (r) => const ExpenseState.loaded(),
+      (r) {
+        // Add new expense data to Box
+        ref.read(boxNotifierProvider.notifier).updateBox(
+              boxId: boxModel.id!,
+              total: totalBoxCost,
+            );
+
+        return const ExpenseState.loaded();
+      },
     );
   }
 
-  Future<void> deleteExpense(ExpenseModel expenseModel) async {
+  Future<void> deleteExpense({
+    required ExpenseModel expenseModel,
+    required BoxModel boxModel,
+  }) async {
     state = const ExpenseState.loading();
     //remove box from server
     final res = await expenseAPI.deleteExpense(expenseModel.id!);
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
-      (r) => const ExpenseState.loaded(),
+      (r) {
+        // Add new expense data to Box
+        ref.read(boxNotifierProvider.notifier).updateBox(
+              boxId: boxModel.id!,
+              total: boxModel.total - expenseModel.cost,
+              expenseIds: boxModel.expenseIds
+                  .where((val) => val != expenseModel.id)
+                  .toList(),
+            );
+
+        return const ExpenseState.loaded();
+      },
     );
   }
 
   Future<List<ExpenseModel>> getExpensesInBox(String boxId) async {
     final expenseList = await expenseAPI.getExpensesInBox(boxId);
     return expenseList.map((box) => ExpenseModel.fromJson(box.data)).toList();
+  }
+
+  Future<ExpenseModel> getExpenseDetail(String expenseId) async {
+    final expense = await expenseAPI.getExpenseDetail(expenseId);
+    return ExpenseModel.fromJson(expense.data);
   }
 }
 
