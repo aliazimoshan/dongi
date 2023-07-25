@@ -9,6 +9,7 @@ import '../../../models/user_model.dart';
 import '../../../services/box_service.dart';
 import '../../../services/storage_api.dart';
 import '../../auth/controller/auth_controller.dart';
+import '../../expense/controller/expense_controller.dart';
 import '../../group/controller/group_controller.dart';
 part 'box_controller.freezed.dart';
 
@@ -175,7 +176,39 @@ class BoxNotifier extends StateNotifier<BoxState> {
 
     state = res.fold(
       (l) => BoxState.error(l.message),
-      (r) => const BoxState.loaded(),
+      (r) {
+        ref
+            .read(expenseNotifierProvider.notifier)
+            .deleteAllExpense(boxModel.expenseIds);
+        return const BoxState.loaded();
+      },
+    );
+  }
+
+  Future<void> deleteAllBox(List<String> boxIds) async {
+    state = const BoxState.loading();
+    //remove box from server
+
+    final res = await boxAPI.deleteAllBox(boxIds);
+
+    //remove box image from storage
+    //if (boxModel.image != null) {
+    //  final imageDeleteRes = await storageAPI.deleteImage(boxModel.image!);
+    //  imageDeleteRes.fold(
+    //    (l) => BoxState.error(l.message),
+    //    (r) => null,
+    //  );
+    //}
+
+    state = res.fold(
+      (l) => BoxState.error(l.message),
+      (r) {
+        // Deleting expense in every box
+        //ref
+        //    .read(expenseNotifierProvider.notifier)
+        //    .deleteAllExpense(ids: boxModel.expenseIds);
+        return const BoxState.loaded();
+      },
     );
   }
 

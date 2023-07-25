@@ -24,6 +24,7 @@ abstract class IExpenseAPI {
   Future<List<Document>> getUsersInExpense(List<String> userIds);
   Future<List<Document>> getCurrentUserExpenses(String uid);
   FutureEither<bool> deleteExpense(String id);
+  FutureEither<bool> deleteAllExpense(List<String> ids);
 }
 
 class ExpenseAPI implements IExpenseAPI {
@@ -87,6 +88,33 @@ class ExpenseAPI implements IExpenseAPI {
         collectionId: AppwriteConfig.expenseCollection,
         documentId: id,
       );
+      return right(true);
+    } on AppwriteException catch (e, st) {
+      return left(
+        Failure(
+          e.message ?? 'Some unexpected error occurred',
+          st,
+        ),
+      );
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  @override
+  FutureEither<bool> deleteAllExpense(List<String> ids) async {
+    try {
+      for (var id in ids) {
+        try {
+          await _db.deleteDocument(
+            databaseId: AppwriteConfig.databaseId,
+            collectionId: AppwriteConfig.expenseCollection,
+            documentId: id,
+          );
+        } catch (e) {
+          rethrow;
+        }
+      }
       return right(true);
     } on AppwriteException catch (e, st) {
       return left(

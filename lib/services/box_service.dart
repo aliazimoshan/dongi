@@ -24,6 +24,7 @@ abstract class IBoxAPI {
   Future<List<Document>> getUsersInBox(List<String> userIds);
   Future<List<Document>> getCurrentUserBoxes(String uid);
   FutureEither<bool> deleteBox(String id);
+  FutureEither<bool> deleteAllBox(List<String> ids);
 }
 
 class BoxAPI implements IBoxAPI {
@@ -87,6 +88,33 @@ class BoxAPI implements IBoxAPI {
         collectionId: AppwriteConfig.boxCollection,
         documentId: id,
       );
+      return right(true);
+    } on AppwriteException catch (e, st) {
+      return left(
+        Failure(
+          e.message ?? 'Some unexpected error occurred',
+          st,
+        ),
+      );
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  @override
+  FutureEither<bool> deleteAllBox(List<String> ids) async {
+    try {
+      for (var id in ids) {
+        try {
+          await _db.deleteDocument(
+            databaseId: AppwriteConfig.databaseId,
+            collectionId: AppwriteConfig.boxCollection,
+            documentId: id,
+          );
+        } catch (e) {
+          rethrow;
+        }
+      }
       return right(true);
     } on AppwriteException catch (e, st) {
       return left(

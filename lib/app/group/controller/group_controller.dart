@@ -8,6 +8,7 @@ import '../../../models/user_model.dart';
 import '../../../services/group_service.dart';
 import '../../../services/storage_api.dart';
 import '../../auth/controller/auth_controller.dart';
+import '../../box/controller/box_controller.dart';
 part 'group_controller.freezed.dart';
 
 final groupNotifierProvider = StateNotifierProvider<GroupNotifier, GroupState>(
@@ -151,7 +152,10 @@ class GroupNotifier extends StateNotifier<GroupState> {
 
     state = res.fold(
       (l) => GroupState.error(l.message),
-      (r) => const GroupState.loaded(),
+      (r) {
+        ref.read(boxNotifierProvider.notifier).deleteAllBox(groupModel.boxIds);
+        return const GroupState.loaded();
+      },
     );
   }
 
