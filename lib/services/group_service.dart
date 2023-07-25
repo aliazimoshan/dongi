@@ -17,7 +17,7 @@ final groupAPIProvider = Provider((ref) {
 
 abstract class IGroupAPI {
   FutureEither<Document> addGroup(GroupModel groupModel);
-  FutureEither<Document> updateGroup(GroupModel groupModel);
+  FutureEither<Document> updateGroup(Map updateGroupModel);
   Future<List<Document>> getGroups(String uid);
   Future<List<Document>> getUsersInGroup(List<String> userIds);
   Future<Document> getGroupDetail(String uid, String groupId);
@@ -63,13 +63,13 @@ class GroupAPI implements IGroupAPI {
   }
 
   @override
-  FutureEither<Document> updateGroup(GroupModel groupModel) async {
+  FutureEither<Document> updateGroup(Map updateGroupModel) async {
     try {
       final document = await _db.updateDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.groupCollection,
-        documentId: groupModel.id!,
-        data: groupModel.toJson(),
+        documentId: updateGroupModel['\$id'],
+        data: updateGroupModel,
       );
       return right(document);
     } on AppwriteException catch (e, st) {

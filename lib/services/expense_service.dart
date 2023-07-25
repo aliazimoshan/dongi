@@ -17,7 +17,7 @@ final expenseAPIProvider = Provider((ref) {
 
 abstract class IExpenseAPI {
   FutureEither<Document> addExpense(ExpenseModel expenseModel);
-  FutureEither<Document> updateExpense(ExpenseModel expenseModel);
+  FutureEither<Document> updateExpense(Map updateExpenseModel);
   Future<List<Document>> getExpenses(String uid);
   Future<List<Document>> getExpensesInBox(String groupId);
   Future<Document> getExpenseDetail(String expenseId);
@@ -58,13 +58,13 @@ class ExpenseAPI implements IExpenseAPI {
   }
 
   @override
-  FutureEither<Document> updateExpense(ExpenseModel expenseModel) async {
+  FutureEither<Document> updateExpense(Map updateExpenseModel) async {
     try {
       final document = await _db.updateDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.expenseCollection,
-        documentId: expenseModel.id!,
-        data: expenseModel.toJson(),
+        documentId: updateExpenseModel["\$id"],
+        data: updateExpenseModel,
       );
       return right(document);
     } on AppwriteException catch (e, st) {
@@ -133,7 +133,7 @@ class ExpenseAPI implements IExpenseAPI {
       collectionId: AppwriteConfig.expenseCollection,
       documentId: expenseId,
       //queries: [
-      //  Query.equal('groupId', groupId),
+      //  Query.equal('\$id', expenseId),
       //],
     );
     return document;
