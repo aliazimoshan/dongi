@@ -31,7 +31,8 @@ mixin _$BoxModel {
   String? get image => throw _privateConstructorUsedError;
   String get groupId => throw _privateConstructorUsedError;
   List<String> get boxUsers => throw _privateConstructorUsedError;
-  num? get total => throw _privateConstructorUsedError;
+  List<String> get expenseIds => throw _privateConstructorUsedError;
+  num get total => throw _privateConstructorUsedError;
   String get creatorId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,7 +55,8 @@ abstract class $BoxModelCopyWith<$Res> {
       String? image,
       String groupId,
       List<String> boxUsers,
-      num? total,
+      List<String> expenseIds,
+      num total,
       String creatorId});
 }
 
@@ -79,7 +81,8 @@ class _$BoxModelCopyWithImpl<$Res, $Val extends BoxModel>
     Object? image = freezed,
     Object? groupId = null,
     Object? boxUsers = null,
-    Object? total = freezed,
+    Object? expenseIds = null,
+    Object? total = null,
     Object? creatorId = null,
   }) {
     return _then(_value.copyWith(
@@ -115,10 +118,14 @@ class _$BoxModelCopyWithImpl<$Res, $Val extends BoxModel>
           ? _value.boxUsers
           : boxUsers // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      total: freezed == total
+      expenseIds: null == expenseIds
+          ? _value.expenseIds
+          : expenseIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as num,
       creatorId: null == creatorId
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
@@ -143,7 +150,8 @@ abstract class _$$_BoxModelCopyWith<$Res> implements $BoxModelCopyWith<$Res> {
       String? image,
       String groupId,
       List<String> boxUsers,
-      num? total,
+      List<String> expenseIds,
+      num total,
       String creatorId});
 }
 
@@ -166,7 +174,8 @@ class __$$_BoxModelCopyWithImpl<$Res>
     Object? image = freezed,
     Object? groupId = null,
     Object? boxUsers = null,
-    Object? total = freezed,
+    Object? expenseIds = null,
+    Object? total = null,
     Object? creatorId = null,
   }) {
     return _then(_$_BoxModel(
@@ -202,10 +211,14 @@ class __$$_BoxModelCopyWithImpl<$Res>
           ? _value._boxUsers
           : boxUsers // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      total: freezed == total
+      expenseIds: null == expenseIds
+          ? _value._expenseIds
+          : expenseIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as num,
       creatorId: null == creatorId
           ? _value.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
@@ -226,9 +239,11 @@ class _$_BoxModel implements _BoxModel {
       this.image,
       required this.groupId,
       final List<String> boxUsers = const [],
+      final List<String> expenseIds = const [],
       this.total = 0,
       required this.creatorId})
-      : _boxUsers = boxUsers;
+      : _boxUsers = boxUsers,
+        _expenseIds = expenseIds;
 
   factory _$_BoxModel.fromJson(Map<String, dynamic> json) =>
       _$$_BoxModelFromJson(json);
@@ -259,15 +274,24 @@ class _$_BoxModel implements _BoxModel {
     return EqualUnmodifiableListView(_boxUsers);
   }
 
+  final List<String> _expenseIds;
   @override
   @JsonKey()
-  final num? total;
+  List<String> get expenseIds {
+    if (_expenseIds is EqualUnmodifiableListView) return _expenseIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_expenseIds);
+  }
+
+  @override
+  @JsonKey()
+  final num total;
   @override
   final String creatorId;
 
   @override
   String toString() {
-    return 'BoxModel(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, title: $title, description: $description, image: $image, groupId: $groupId, boxUsers: $boxUsers, total: $total, creatorId: $creatorId)';
+    return 'BoxModel(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, title: $title, description: $description, image: $image, groupId: $groupId, boxUsers: $boxUsers, expenseIds: $expenseIds, total: $total, creatorId: $creatorId)';
   }
 
   @override
@@ -286,6 +310,8 @@ class _$_BoxModel implements _BoxModel {
             (identical(other.image, image) || other.image == image) &&
             (identical(other.groupId, groupId) || other.groupId == groupId) &&
             const DeepCollectionEquality().equals(other._boxUsers, _boxUsers) &&
+            const DeepCollectionEquality()
+                .equals(other._expenseIds, _expenseIds) &&
             (identical(other.total, total) || other.total == total) &&
             (identical(other.creatorId, creatorId) ||
                 other.creatorId == creatorId));
@@ -303,6 +329,7 @@ class _$_BoxModel implements _BoxModel {
       image,
       groupId,
       const DeepCollectionEquality().hash(_boxUsers),
+      const DeepCollectionEquality().hash(_expenseIds),
       total,
       creatorId);
 
@@ -330,7 +357,8 @@ abstract class _BoxModel implements BoxModel {
       final String? image,
       required final String groupId,
       final List<String> boxUsers,
-      final num? total,
+      final List<String> expenseIds,
+      final num total,
       required final String creatorId}) = _$_BoxModel;
 
   factory _BoxModel.fromJson(Map<String, dynamic> json) = _$_BoxModel.fromJson;
@@ -355,7 +383,9 @@ abstract class _BoxModel implements BoxModel {
   @override
   List<String> get boxUsers;
   @override
-  num? get total;
+  List<String> get expenseIds;
+  @override
+  num get total;
   @override
   String get creatorId;
   @override

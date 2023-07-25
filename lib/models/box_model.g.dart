@@ -18,6 +18,10 @@ _$_BoxModel _$$_BoxModelFromJson(Map<String, dynamic> json) => _$_BoxModel(
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      expenseIds: (json['expenseIds'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       total: json['total'] as num? ?? 0,
       creatorId: json['creatorId'] as String,
     );
@@ -32,6 +36,7 @@ Map<String, dynamic> _$$_BoxModelToJson(_$_BoxModel instance) =>
       'image': instance.image,
       'groupId': instance.groupId,
       'boxUsers': instance.boxUsers,
+      'expenseIds': instance.expenseIds,
       'total': instance.total,
       'creatorId': instance.creatorId,
     };
