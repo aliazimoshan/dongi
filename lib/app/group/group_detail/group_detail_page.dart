@@ -24,17 +24,20 @@ class GroupDetailPage extends ConsumerWidget {
       groupNotifierProvider,
       (previous, next) {
         next.whenOrNull(
-          loaded: () => ref.refresh(getGroupsProvider),
+          loaded: () {
+            ref.read(getGroupsProvider);
+            return ref.refresh(getGroupDetailProvider(groupId));
+          },
           error: (message) => showSnackBar(context, message),
         );
       },
     );
 
-    return Scaffold(
-      body: groupDetail.when(
-        loading: () => const LoadingWidget(),
-        error: (error, stackTrace) => ErrorTextWidget(error),
-        data: (data) => Scaffold(
+    return groupDetail.when(
+      loading: () => const LoadingWidget(),
+      error: (error, stackTrace) => ErrorTextWidget(error),
+      data: (data) {
+        return Scaffold(
           //backgroundColor: ColorConfig.primarySwatch,
           //appBar: AppBar(elevation: 0),
           body: SliverAppBarWidget(
@@ -50,7 +53,7 @@ class GroupDetailPage extends ConsumerWidget {
                 GroupDetailInfo(groupModel: data),
                 GroupDetailFriendList(userIds: data.groupUsers),
                 //* Get boxes
-                GroupDetailBoxGrid(groupId: groupId)
+                GroupDetailBoxGrid(groupModel: data)
               ],
             ),
           ),
@@ -58,11 +61,11 @@ class GroupDetailPage extends ConsumerWidget {
             title: "Box",
             onPressed: () => context.push(
               RouteName.createBox,
-              extra: groupId,
+              extra: {"groupModel": data},
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
