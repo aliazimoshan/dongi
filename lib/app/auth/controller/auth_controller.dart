@@ -18,6 +18,16 @@ final authControllerProvider =
   );
 });
 
+final getUserData = FutureProvider.family((ref, String uid) {
+  final userDetails = ref.watch(authControllerProvider.notifier);
+  return userDetails.getUserData(uid);
+});
+
+final getUsersListData = FutureProvider.family((ref, List<String> uid) {
+  final userDetails = ref.watch(authControllerProvider.notifier);
+  return userDetails.getUsersListData(uid);
+});
+
 //final currentUserDetailsProvider = FutureProvider((ref) {
 //  final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
 //  final userDetails = ref.watch(userDetailsProvider(currentUserId));
@@ -118,6 +128,11 @@ class AuthController extends StateNotifier<bool> {
     final document = await userAPI.getUserData(uid);
     final updatedUser = UserModel.fromJson(document.data);
     return updatedUser;
+  }
+
+  Future<List<UserModel>> getUsersListData(List<String> userIds) async {
+    final document = await userAPI.getUsersListData(userIds);
+    return document.map((user) => UserModel.fromJson(user.data)).toList();
   }
 
   void logout(BuildContext context) async {
