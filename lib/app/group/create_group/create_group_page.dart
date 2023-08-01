@@ -38,18 +38,24 @@ class CreateGroupPage extends HookConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: ColorConfig.white,
       appBar: AppBarWidget(title: "Create Group"),
       body: Column(
         children: [
-          CreateGroupInfoCard(
-            image: image,
-            groupTitle: groupTitle,
-            groupDescription: groupDescription,
-            formKey: _formKey,
+          Expanded(
+            child: ListView(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              children: [
+                CreateGroupInfoCard(
+                  image: image,
+                  groupTitle: groupTitle,
+                  groupDescription: groupDescription,
+                  formKey: _formKey,
+                ),
+                const CreateGroupAddFriend(),
+              ],
+            ),
           ),
-          const CreateGroupAddFriend(),
-          const Spacer(),
           CreateGroupButton(
             formKey: _formKey,
             image: image,

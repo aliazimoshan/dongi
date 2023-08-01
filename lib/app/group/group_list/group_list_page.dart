@@ -13,6 +13,7 @@ class GroupListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //final controller = useState<PanelController>(PanelController());
     final groupList = ref.watch(getGroupsProvider);
 
     /// by using listen we are not gonna rebuild our app
@@ -30,28 +31,10 @@ class GroupListPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBarWidget(title: "Groups"),
-      //floatingActionButton: FloatingActionButton.extended(
-      //  extendedPadding: EdgeInsets.fromLTRB(12, 0, 16, 0),
-      //  backgroundColor: ColorConfig.midnight,
-      //  onPressed: () {},
-      //  label: Row(
-      //    children: [
-      //      Icon(
-      //        Icons.add,
-      //        size: 18,
-      //        color: ColorConfig.secondary,
-      //      ),
-      //      SizedBox(width: 2),
-      //      Text(
-      //        "Group",
-      //        style: TextStyle(color: ColorConfig.secondary),
-      //      ),
-      //    ],
-      //  ),
-      //),
       floatingActionButton: FABWidget(
         title: "Group",
         onPressed: () => context.push(RouteName.createGroup),
+        //onPressed: () => controller.value.open(),
       ),
       body: groupList.when(
         skipLoadingOnRefresh: false,
@@ -64,5 +47,38 @@ class GroupListPage extends ConsumerWidget {
         ),
       ),
     );
+    //return Stack(
+    //  children: [
+    //    Scaffold(
+    //      appBar: AppBarWidget(title: "Groups"),
+    //      floatingActionButton: FABWidget(
+    //        title: "Group",
+    //        onPressed: () => controller.value.open(),
+    //      ),
+    //      body: groupList.when(
+    //        skipLoadingOnRefresh: false,
+    //        //skipLoadingOnReload: true,
+    //        loading: () => const Center(child: CircularProgressIndicator()),
+    //        error: (error, stackTrace) => Center(child: Text(error.toString())),
+    //        data: (data) => RefreshIndicator(
+    //          onRefresh: () async => ref.refresh(getGroupsProvider),
+    //          child: GroupListView(data),
+    //        ),
+    //      ),
+    //    ),
+    //    SlidingUpPanel(
+    //      backdropEnabled: true,
+    //      controller: controller.value,
+    //      panelSnapping: false,
+    //      minHeight: 0,
+    //      maxHeight: 700,
+    //      borderRadius: const BorderRadius.only(
+    //        topLeft: Radius.circular(16),
+    //        topRight: Radius.circular(16),
+    //      ),
+    //      panel: CreateGroupPage(),
+    //    ),
+    //  ],
+    //);
   }
 }
