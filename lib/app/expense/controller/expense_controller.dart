@@ -198,6 +198,7 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
   Future<void> deleteAllExpense(List<String> ids) async {
     state = const ExpenseState.loading();
     //remove box from server
+    //TODO: I should remove expenses too
     final res = await expenseAPI.deleteAllExpense(ids);
 
     state = res.fold(
