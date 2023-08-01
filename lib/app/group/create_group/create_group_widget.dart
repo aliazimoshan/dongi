@@ -153,7 +153,7 @@ class CreateGroupButton extends ConsumerWidget {
                 );
           }
         },
-        title: 'create',
+        title: 'Create',
         textColor: ColorConfig.secondary,
       ),
     );
