@@ -323,7 +323,6 @@ class ExpenseCardItem extends ConsumerWidget {
 
     List<PopupMenuEntry> menuItems = [
       PopupMenuItem(
-        value: 1,
         child: const Text('Edit'),
         onTap: () => context.push(
           RouteName.updateExpense,
@@ -335,7 +334,6 @@ class ExpenseCardItem extends ConsumerWidget {
         ),
       ),
       PopupMenuItem(
-        value: 2,
         onTap: deleteExpense,
         child: const Text('Delete'),
       ),
@@ -364,7 +362,11 @@ class ExpenseCardItem extends ConsumerWidget {
                 ),
                 onPressed: (context) => context.push(
                   RouteName.updateExpense,
-                  extra: {"expenseModel": expenseModel},
+                  extra: {
+                    "expenseModel": expenseModel,
+                    "boxModel": boxModel,
+                    "groupModel": groupModel,
+                  },
                 ),
                 backgroundColor: const Color(0xFF0392CF),
                 foregroundColor: Colors.white,
