@@ -65,7 +65,7 @@ class _UpdateExpensePageState extends ConsumerState<UpdateExpensePage> {
     );
 
     return Scaffold(
-      appBar: AppBarWidget(title: "Create Expense"),
+      appBar: AppBarWidget(title: "Update Expense"),
       body: Form(
         key: _formKey,
         child: Padding(
