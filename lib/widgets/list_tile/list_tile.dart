@@ -11,7 +11,6 @@ class ListTileWidget extends ListTile {
     super.key,
     super.trailing,
     super.leading,
-    super.onTap,
     super.contentPadding,
     super.visualDensity,
     required this.titleString,
