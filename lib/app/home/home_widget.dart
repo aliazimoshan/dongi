@@ -1,12 +1,17 @@
-import 'package:dongi/constants/color_config.dart';
-import 'package:dongi/router/router_notifier.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/color_config.dart';
 import '../../constants/font_config.dart';
 import '../../constants/size_config.dart';
+import '../../models/group_model.dart';
+import '../../router/router_notifier.dart';
 import '../../widgets/card/card.dart';
+import '../../widgets/error/error.dart';
+import '../../widgets/image/image_widget.dart';
+import '../auth/controller/auth_controller.dart';
 
 class HomeExpenseSummery extends ConsumerWidget {
   const HomeExpenseSummery({super.key});
@@ -122,122 +127,112 @@ class HomeExpenseSummery extends ConsumerWidget {
 }
 
 class HomeRecentGroup extends StatelessWidget {
-  const HomeRecentGroup({super.key});
+  final List<GroupModel> groups;
+  const HomeRecentGroup(this.groups, {super.key});
 
-  _groupTitle() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 0, 10),
-      child: Row(
-        children: [
-          Text(
-            "Groups",
-            style: FontConfig.h6(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _groupCardLists(BuildContext context) {
-    return SizedBox(
-      height: 172,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          const SizedBox(width: 16),
-          _groupCard(),
-          _groupCard(),
-          _groupCard(),
-          _moreCircle(context),
-        ],
-      ),
-    );
-  }
-
-  _groupCard() {
-    boxCount() {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Boxes",
-            style: FontConfig.overline().copyWith(
-              color: ColorConfig.midnight.withOpacity(0.5),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            "5",
-            style: FontConfig.body2(),
-          ),
-        ],
-      );
-    }
-
-    memberRow() {
-      circleBox(Color color, {IconData? icon}) {
-        return Container(
-          width: 32,
-          height: 32,
+  @override
+  Widget build(BuildContext context) {
+    moreCircle() {
+      return InkWell(
+        onTap: () => context.push(RouteName.groupList),
+        child: Container(
+          width: 48,
+          height: 48,
+          margin: const EdgeInsets.fromLTRB(10, 0, 16, 0),
           decoration: BoxDecoration(
+            color: ColorConfig.primarySwatch,
             shape: BoxShape.circle,
-            color: color,
           ),
           child: Icon(
-            icon,
-            color: ColorConfig.primarySwatch,
-            size: 12,
+            Icons.arrow_forward_rounded,
+            color: ColorConfig.secondary,
           ),
-        );
-      }
-
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Members",
-            style: FontConfig.overline().copyWith(
-              color: ColorConfig.midnight.withOpacity(0.5),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Row(
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 100,
-                      child: circleBox(Colors.grey.shade900),
-                    ),
-                    Positioned(
-                      left: 80,
-                      child: circleBox(Colors.grey.shade800),
-                    ),
-                    Positioned(
-                      left: 60,
-                      child: circleBox(Colors.grey.shade700),
-                    ),
-                    Positioned(
-                      left: 40,
-                      child: circleBox(Colors.grey.shade600),
-                    ),
-                    Positioned(
-                      left: 20,
-                      child: circleBox(Colors.grey.shade400),
-                    ),
-                    circleBox(Colors.grey.shade300),
-                  ],
-                ),
-              ),
-              circleBox(ColorConfig.white, icon: Icons.share)
-            ],
-          )
-        ],
+        ),
       );
     }
 
+    return Column(
+      children: [
+        //* Group title
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 0, 10),
+          child: Row(
+            children: [
+              Text(
+                "Groups",
+                style: FontConfig.h6(),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 172,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              const SizedBox(width: 16),
+              Row(
+                children:
+                    groups.map((group) => GroupCardWidget(group)).toList(),
+              ),
+              moreCircle(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class GroupCardWidget extends ConsumerWidget {
+  final GroupModel group;
+  const GroupCardWidget(this.group, {super.key});
+
+  boxCount() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Boxes",
+          style: FontConfig.overline().copyWith(
+            color: ColorConfig.midnight.withOpacity(0.5),
+          ),
+        ),
+        const SizedBox(height: 5),
+        Text(
+          group.boxIds.length.toString(),
+          style: FontConfig.body2(),
+        ),
+      ],
+    );
+  }
+
+  Positioned positionedCircleBox({Color? color, double? left, String? url}) {
+    return Positioned(
+      left: left,
+      child: ColorFiltered(
+        colorFilter: ColorFilter.mode(
+          color != null
+              ? color.withOpacity(0.3)
+              : Colors.black54.withOpacity(0.3),
+          BlendMode.colorBurn,
+        ),
+        child: ImageWidget(
+          width: 32,
+          height: 32,
+          //color: color,
+          imageUrl: url,
+          borderEnable: url == null ? false : true,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final groupMember = ref.watch(getUsersListData(group.groupUsers));
     return CardWidget(
+      onTap: () => context.push(RouteName.groupDetail(group.id)),
       margin: const EdgeInsets.only(right: 10),
       child: SizedBox(
         width: 250,
@@ -248,21 +243,14 @@ class HomeRecentGroup extends StatelessWidget {
             ///* group name widget
             Row(
               children: [
-                Container(
+                ImageWidget(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
-                    color: ColorConfig.primarySwatch,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5),
-                    ),
-                  ),
+                  imageUrl: group.image,
+                  borderRadius: 5,
                 ),
                 const SizedBox(width: 5),
-                Text(
-                  "Group Name",
-                  style: FontConfig.body2(),
-                )
+                Text(group.title, style: FontConfig.body2())
               ],
             ),
             const SizedBox(height: 15),
@@ -270,39 +258,103 @@ class HomeRecentGroup extends StatelessWidget {
             boxCount(),
             const SizedBox(height: 15),
             //member row
-            memberRow(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Members",
+                  style: FontConfig.overline().copyWith(
+                    color: ColorConfig.midnight.withOpacity(0.5),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  children: [
+                    Expanded(
+                      child: groupMember.when(
+                        loading: () {
+                          return Stack(
+                            children: group.groupUsers
+                                .asMap()
+                                .entries
+                                .map(
+                                  (val) => positionedCircleBox(
+                                    color: Colors.grey[(900 - (val.key * 100))],
+                                    left: val.key == group.groupUsers.length - 1
+                                        ? null
+                                        : val.key + 1 * 10,
+                                  ),
+                                )
+                                .toList(),
+                          );
+                          //return Stack(
+                          //  children: [
+                          //    positionedCircleBox(
+                          //      color: Colors.grey.shade900,
+                          //      left: 100,
+                          //    ),
+                          //    positionedCircleBox(
+                          //      color: Colors.grey.shade800,
+                          //      left: 80,
+                          //    ),
+                          //    positionedCircleBox(
+                          //      color: Colors.grey.shade700,
+                          //      left: 60,
+                          //    ),
+                          //    positionedCircleBox(
+                          //      color: Colors.grey.shade600,
+                          //      left: 40,
+                          //    ),
+                          //    positionedCircleBox(
+                          //      color: Colors.grey.shade400,
+                          //      left: 20,
+                          //    ),
+                          //    positionedCircleBox(
+                          //      color: Colors.grey.shade300,
+                          //    ),
+                          //  ],
+                          //);
+                        },
+                        error: (error, stackTrace) => ErrorTextWidget(error),
+                        data: (data) {
+                          return Stack(
+                            children: data
+                                .asMap()
+                                .entries
+                                .map(
+                                  (val) => positionedCircleBox(
+                                    url: val.value.profileImage,
+                                    color: Colors.grey[(900 - (val.key * 100))],
+                                    left: val.key == group.groupUsers.length - 1
+                                        ? null
+                                        : val.key + 1 * 10,
+                                  ),
+                                )
+                                .toList(),
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ColorConfig.white,
+                      ),
+                      child: Icon(
+                        Icons.share,
+                        color: ColorConfig.primarySwatch,
+                        size: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ),
-    );
-  }
-
-  _moreCircle(BuildContext context) {
-    return InkWell(
-      onTap: () => context.push(RouteName.groupList),
-      child: Container(
-        width: 48,
-        height: 48,
-        margin: const EdgeInsets.fromLTRB(10, 0, 16, 0),
-        decoration: BoxDecoration(
-          color: ColorConfig.primarySwatch,
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          Icons.arrow_forward_rounded,
-          color: ColorConfig.secondary,
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _groupTitle(),
-        _groupCardLists(context),
-      ],
     );
   }
 }

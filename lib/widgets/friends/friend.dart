@@ -20,9 +20,7 @@ class FriendWidget extends Container {
         color: backgroundColor ?? ColorConfig.midnight,
         border: Border.all(color: borderColor ?? ColorConfig.midnight),
         image: image != null
-            ? DecorationImage(
-                image: NetworkImage(image!),
-              )
+            ? DecorationImage(image: NetworkImage(image!), fit: BoxFit.cover)
             : null,
       );
 
