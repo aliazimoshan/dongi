@@ -32,11 +32,11 @@ class UserInfoExpenseDetail extends ConsumerWidget {
               contentPadding: const EdgeInsets.fromLTRB(0, 2, 10, 2),
               headerString: "Created By",
               titleString: data.userName,
-              titleStringStyle: FontConfig.body2().copyWith(
+              titleStringStyle: FontConfig.body1().copyWith(
                 color: ColorConfig.pureWhite,
               ),
               headerStringStyle: FontConfig.overline().copyWith(
-                color: ColorConfig.pureWhite.withOpacity(0.25),
+                color: ColorConfig.pureWhite.withOpacity(0.5),
               ),
               leading: FriendWidget(
                 backgroundColor: ColorConfig.grey,
@@ -167,7 +167,7 @@ class MemberListExpenseDetail extends ConsumerWidget {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: ListTileCard(
-                  visualDensity: const VisualDensity(vertical: 3),
+                  //visualDensity: const VisualDensity(vertical: 3),
                   titleString: data[index].userName,
                   trailing: const Text("\$53"),
                   leading: Container(
