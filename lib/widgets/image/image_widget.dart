@@ -9,6 +9,7 @@ class ImageWidget extends StatelessWidget {
   final String? imageUrl;
   final Color? color;
   final double? borderRadius;
+  final bool borderEnable;
   const ImageWidget({
     super.key,
     this.width = 32,
@@ -16,6 +17,7 @@ class ImageWidget extends StatelessWidget {
     this.imageUrl,
     this.color,
     this.borderRadius,
+    this.borderEnable = false,
   });
 
   @override
@@ -24,9 +26,12 @@ class ImageWidget extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
+        border: borderEnable
+            ? Border.all(color: ColorConfig.primarySwatch, width: 0.5)
+            : null,
         borderRadius:
             borderRadius != null ? BorderRadius.circular(borderRadius!) : null,
-        color: ColorConfig.darkGrey,
+        color: color ?? ColorConfig.darkGrey,
         shape: borderRadius == null ? BoxShape.circle : BoxShape.rectangle,
         image: imageUrl != null
             ? DecorationImage(
