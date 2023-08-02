@@ -5,7 +5,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../constants/color_config.dart';
 import '../../../core/utils.dart';
 import '../../../widgets/appbar/appbar.dart';
 import '../controller/group_controller.dart';
