@@ -6,6 +6,8 @@ class CheckboxWidget extends Checkbox {
     super.key,
     required super.value,
     required super.onChanged,
+    super.activeColor,
+    super.checkColor,
     this.borderColor,
   });
 
