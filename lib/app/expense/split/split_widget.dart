@@ -87,12 +87,12 @@ class SplitActionButtonWidget extends ConsumerWidget {
                 .fixedDouble();
 
         if (amountPerPerson > 0) {
-          return "\$$amountPerPerson / person($selectedUserLength)";
+          return "\$$amountPerPerson / Person($selectedUserLength)";
         } else {
-          return "no one selected";
+          return "No one selected";
         }
       } else {
-        return "no one selected";
+        return "No one selected";
       }
     }
 
@@ -111,6 +111,8 @@ class SplitActionButtonWidget extends ConsumerWidget {
                     child: Row(
                       children: [
                         CheckboxWidget(
+                          activeColor: ColorConfig.primarySwatch,
+                          checkColor: ColorConfig.pureWhite,
                           value: selectedUsers.length == users.length,
                           onChanged: (value) => ref
                               .read(splitUserProvider.notifier)

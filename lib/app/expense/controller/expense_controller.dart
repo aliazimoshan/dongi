@@ -1,6 +1,9 @@
+import 'package:appwrite/appwrite.dart';
+import 'package:dongi/models/expense_user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../models/box_model.dart';
 import '../../../models/expense_model.dart';
@@ -75,6 +78,24 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     final currentUser = ref.read(currentUserProvider);
     final creatorUserId = ref.read(expenseCreatorProvider);
     final splitUser = ref.read(splitUserProvider.notifier);
+    num convertedCost = num.parse(expenseCost.text.replaceAll(',', ''));
+    //Because it must be added in the expenseUser,
+    //we create it ourselves in here(the client side)
+    String expenseId = ID.custom(const Uuid().v4().substring(0, 32));
+    List<String> expenseUserIds = [];
+
+    for (var uid in splitUser.state) {
+      String expenseUserId = ID.custom(const Uuid().v4().substring(0, 32));
+      expenseUserIds.add(expenseUserId);
+      ExpenseUserModel expenseUser = ExpenseUserModel(
+        userId: uid,
+        groupId: groupModel.id!,
+        boxId: boxModel.id!,
+        expenseId: expenseId,
+        cost: convertedCost / splitUser.state.length,
+      );
+      await addExpenseUser(expenseUser, customId: expenseUserId);
+    }
 
     ExpenseModel expenseModel = ExpenseModel(
       title: expenseTitle.text,
@@ -83,16 +104,17 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
       groupId: groupModel.id!,
       creatorId: creatorUserId ?? currentUser!.$id,
       //equal: equal,
-      cost: num.parse(expenseCost.text.replaceAll(',', '')),
-      expenseUsers: splitUser.state,
+      cost: convertedCost,
+      expenseUsers: expenseUserIds,
     );
 
-    final res = await expenseAPI.addExpense(expenseModel);
+    final res = await expenseAPI.addExpense(expenseModel, customId: expenseId);
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
       (r) {
         // Add new expense data to Box
+        //TODO: If error occured in this step app should remember to call this later
         ref.read(boxNotifierProvider.notifier).updateBox(
           boxId: boxModel.id!,
           total: boxModel.total + expenseModel.cost,
@@ -200,6 +222,22 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     //remove box from server
     //TODO: I should remove expenses too
     final res = await expenseAPI.deleteAllExpense(ids);
+
+    state = res.fold(
+      (l) => ExpenseState.error(l.message),
+      (r) => const ExpenseState.loaded(),
+    );
+  }
+
+  Future<void> addExpenseUser(
+    ExpenseUserModel expenseUser, {
+    required String customId,
+  }) async {
+    state = const ExpenseState.loading();
+    final res = await expenseAPI.addExpenseUser(
+      expenseUser,
+      customId: customId,
+    );
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
