@@ -1,6 +1,7 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:dongi/constants/appwrite_config.dart';
+import 'package:dongi/models/expense_user_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../core/failure.dart';
@@ -16,7 +17,10 @@ final expenseAPIProvider = Provider((ref) {
 });
 
 abstract class IExpenseAPI {
-  FutureEither<Document> addExpense(ExpenseModel expenseModel);
+  FutureEither<Document> addExpense(
+    ExpenseModel expenseModel, {
+    required String customId,
+  });
   FutureEither<Document> updateExpense(Map updateExpenseModel);
   Future<List<Document>> getExpenses(String uid);
   Future<List<Document>> getExpensesInBox(String groupId);
@@ -25,6 +29,10 @@ abstract class IExpenseAPI {
   Future<List<Document>> getCurrentUserExpenses(String uid);
   FutureEither<bool> deleteExpense(String id);
   FutureEither<bool> deleteAllExpense(List<String> ids);
+  FutureEither<bool> addExpenseUser(
+    ExpenseUserModel expenseUser, {
+    required String customId,
+  });
 }
 
 class ExpenseAPI implements IExpenseAPI {
@@ -37,12 +45,15 @@ class ExpenseAPI implements IExpenseAPI {
   //_functions = functions
 
   @override
-  FutureEither<Document> addExpense(ExpenseModel expenseModel) async {
+  FutureEither<Document> addExpense(
+    ExpenseModel expenseModel, {
+    required String customId,
+  }) async {
     try {
       final document = await _db.createDocument(
         databaseId: AppwriteConfig.databaseId,
         collectionId: AppwriteConfig.expenseCollection,
-        documentId: ID.unique(),
+        documentId: customId,
         data: expenseModel.toJson(),
       );
       return right(document);
@@ -115,6 +126,31 @@ class ExpenseAPI implements IExpenseAPI {
           rethrow;
         }
       }
+      return right(true);
+    } on AppwriteException catch (e, st) {
+      return left(
+        Failure(
+          e.message ?? 'Some unexpected error occurred',
+          st,
+        ),
+      );
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  @override
+  FutureEither<bool> addExpenseUser(
+    ExpenseUserModel expenseUser, {
+    required String customId,
+  }) async {
+    try {
+      await _db.createDocument(
+        databaseId: AppwriteConfig.databaseId,
+        collectionId: AppwriteConfig.expenseUserCollection,
+        documentId: customId,
+        data: expenseUser.toJson(),
+      );
       return right(true);
     } on AppwriteException catch (e, st) {
       return left(
