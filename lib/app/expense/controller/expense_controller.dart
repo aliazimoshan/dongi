@@ -233,7 +233,7 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     ExpenseUserModel expenseUser, {
     required String customId,
   }) async {
-    state = const ExpenseState.loading();
+    //state = const ExpenseState.loading();
     final res = await expenseAPI.addExpenseUser(
       expenseUser,
       customId: customId,
@@ -241,7 +241,7 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
-      (r) => const ExpenseState.loaded(),
+      (r) => state,
     );
   }
 
