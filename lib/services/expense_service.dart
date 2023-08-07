@@ -33,6 +33,7 @@ abstract class IExpenseAPI {
     ExpenseUserModel expenseUser, {
     required String customId,
   });
+  FutureEither<bool> deleteExpenseUser(String id);
 }
 
 class ExpenseAPI implements IExpenseAPI {
@@ -150,6 +151,27 @@ class ExpenseAPI implements IExpenseAPI {
         collectionId: AppwriteConfig.expenseUserCollection,
         documentId: customId,
         data: expenseUser.toJson(),
+      );
+      return right(true);
+    } on AppwriteException catch (e, st) {
+      return left(
+        Failure(
+          e.message ?? 'Some unexpected error occurred',
+          st,
+        ),
+      );
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  @override
+  FutureEither<bool> deleteExpenseUser(String id) async {
+    try {
+      await _db.deleteDocument(
+        databaseId: AppwriteConfig.databaseId,
+        collectionId: AppwriteConfig.expenseUserCollection,
+        documentId: id,
       );
       return right(true);
     } on AppwriteException catch (e, st) {

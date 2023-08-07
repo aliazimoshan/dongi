@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:collection/collection.dart';
 import 'package:dongi/models/expense_user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -144,7 +145,6 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
 
     updateData["\$id"] = expenseModel.id;
     updateData["creatorId"] = creatorUserId ?? currentUser!.$id;
-    updateData["expenseUsers"] = splitUser.state;
 
     //ExpenseModel expenseModel = ExpenseModel(
     //  id: expenseId,
@@ -176,6 +176,33 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
       totalBoxCost = totalBoxCost - expenseModel.cost + cost;
     }
 
+    //Update All ExpenseUsers
+    num cost = (updateData['cost'] ?? expenseModel.cost);
+    if (!splitUser.state.equals(expenseModel.expenseUsers) ||
+        cost != expenseModel.cost) {
+      List<String> expenseUserIds = [];
+
+      // Delete all the expenseUserModels and create them again with new data
+      for (var eUid in expenseModel.expenseUsers) {
+        await deleteExpenseUser(eUid);
+      }
+
+      for (var uid in splitUser.state) {
+        String expenseUserId = ID.custom(const Uuid().v4().substring(0, 32));
+        expenseUserIds.add(expenseUserId);
+        ExpenseUserModel expenseUser = ExpenseUserModel(
+          userId: uid,
+          groupId: groupModel.id!,
+          boxId: boxModel.id!,
+          expenseId: expenseModel.id!,
+          cost: cost / splitUser.state.length,
+        );
+        await addExpenseUser(expenseUser, customId: expenseUserId);
+      }
+
+      updateData["expenseUsers"] = expenseUserIds;
+    }
+
     final res = await expenseAPI.updateExpense(updateData);
 
     state = res.fold(
@@ -199,6 +226,11 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
     state = const ExpenseState.loading();
     //remove box from server
     final res = await expenseAPI.deleteExpense(expenseModel.id!);
+
+    // Delete all the expenseUserModels
+    for (var eUid in expenseModel.expenseUsers) {
+      await deleteExpenseUser(eUid);
+    }
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
@@ -238,6 +270,16 @@ class ExpenseNotifier extends StateNotifier<ExpenseState> {
       expenseUser,
       customId: customId,
     );
+
+    state = res.fold(
+      (l) => ExpenseState.error(l.message),
+      (r) => state,
+    );
+  }
+
+  Future<void> deleteExpenseUser(String id) async {
+    //state = const ExpenseState.loading();
+    final res = await expenseAPI.deleteExpenseUser(id);
 
     state = res.fold(
       (l) => ExpenseState.error(l.message),
