@@ -143,7 +143,7 @@ class BoxNotifier extends StateNotifier<BoxState> {
       updateData['description'] = boxDescription.text;
     }
 
-    if (total != null && total != 0) {
+    if (total != null) {
       // Add total cost to the update data | add new expense cost + total
       updateData['total'] = total;
     }
