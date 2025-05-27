@@ -1,6 +1,6 @@
-# Dongi Expense Tracker
+# Hirro Expense Tracker
 
-Dongi is a comprehensive financial management app built with Flutter. Keep track of your spending, split expenses with others, and set reminders to never miss a payment. Available on Android, iOS, and the web.
+Hirro is a comprehensive financial management app built with Flutter. Keep track of your spending, split expenses with others, and set reminders to never miss a payment. Available on Android, iOS, and the web.
 
 ## Technologies Used
 
@@ -32,12 +32,12 @@ Dongi is a comprehensive financial management app built with Flutter. Keep track
 
 ## Contributing
 
-We welcome contributions to Dongi! If you would like to contribute, please create a pull request with your changes.
+We welcome contributions to Hirro! If you would like to contribute, please create a pull request with your changes.
 
 ## License
 
-Dongi Expense Tracker is released under the MIT license. See the `LICENSE` file for more information.
+Hirro Expense Tracker is released under the MIT license. See the `LICENSE` file for more information.
 
 ## Contact Information
 
-If you have any questions or feedback about Dongi, please visit [aliazimoshan.info](https://aliazimoshan.info) for more information.
+If you have any questions or feedback about Hirro, please visit [aliazimoshan.info](https://aliazimoshan.info) for more information.
